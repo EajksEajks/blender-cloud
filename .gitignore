@@ -1,0 +1,14 @@
+.DS_Store
+.project
+.coverage
+*.pyc
+__pycache__
+
+config_local.py
+
+/build
+/.cache
+/*.egg-info/
+/.eggs/
+/dump/
+/google_app*.json
