@@ -12,3 +12,6 @@ config_local.py
 /.eggs/
 /dump/
 /google_app*.json
+
+docker/3_run/wheelhouse/
+static/assets/img/
