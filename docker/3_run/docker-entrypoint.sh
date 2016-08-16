@@ -11,7 +11,7 @@ fi
 
 if [ "$DEV" = "true" ]; then
     echo "Running in development mode"
-    bash manage.sh runserver
+    bash manage.sh runserver --host='0.0.0.0'
 else
     # Run Apache
     a2enmod rewrite
