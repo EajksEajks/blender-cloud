@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ ! -f /installed ]; then
-    echo "Installing pillar and pillarskd"
+    echo "Installing pillar and pillar-sdk"
     # . /data/venv/bin/activate && pip install -e /data/git/pillar
     ln -s /data/git/pillar/pillar /data/venv/lib/python2.7/site-packages/pillar
     # . /data/venv/bin/activate && pip install -e /data/git/pillar-python-sdk
