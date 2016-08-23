@@ -1,9 +1,21 @@
 #!/usr/bin/env bash
 
-: ${PILLAR_DIR?"Need to set PILLAR_DIR"}
+PILLAR_DIR=$(python <<EOT
+from __future__ import print_function
+import os.path
+import pillar
+
+print(os.path.dirname(os.path.dirname(pillar.__file__)))
+EOT
+)
 
 ASSETS="$PILLAR_DIR/pillar/web/static/assets/"
 TEMPLATES="$PILLAR_DIR/pillar/web/templates/"
+
+if [ ! -d "$ASSETS" ]; then
+    echo "Unable to find assets dir $ASSETS"
+    exit 1
+fi
 
 cd $PILLAR_DIR
 if [ $(git rev-parse --abbrev-ref HEAD) != "production" ]; then
