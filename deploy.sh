@@ -44,6 +44,7 @@ ${SSH} -t docker exec ${DOCKER_NAME} /data/venv/bin/pip install -U -r ${REMOTE_R
 
 # RSync the world
 ./rsync_ui.sh
+${SSH} docker exec redis redis-cli DEL pwview//
 
 # Notify Bugsnag of this new deploy.
 echo
