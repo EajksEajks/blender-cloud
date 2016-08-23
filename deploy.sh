@@ -1,16 +1,5 @@
 #!/bin/bash -e
 
-cat <<EOT
-===================================================================
-WARNING WARNING WARNING
-===================================================================
-This script does NOT run rsync_ui.sh yet. Once we've decided where
-to put the images, this behaviour can be changed.
-
-Press [ENTER] to continue deploy, or [CTRL]+[C] to abort.
-EOT
-read dummy
-
 # Deploys the current production branch to the production machine.
 PROJECT_NAME="blender-cloud"
 DOCKER_NAME="blender_cloud"
@@ -52,6 +41,9 @@ git_pull blender-cloud production
 
 # Update the virtualenv
 ${SSH} -t docker exec ${DOCKER_NAME} /data/venv/bin/pip install -U -r ${REMOTE_ROOT}/requirements.txt --exists-action w
+
+# RSync the world
+./rsync_ui.sh
 
 # Notify Bugsnag of this new deploy.
 echo
