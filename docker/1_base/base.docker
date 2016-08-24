@@ -3,7 +3,7 @@ MAINTAINER Francesco Siddi <francesco@blender.org>
 
 RUN apt-get update && apt-get install -qyy \
     -o APT::Install-Recommends=false -o APT::Install-Suggests=false \
-    python-pip libffi6 openssl ffmpeg
+    python-pip libffi6 openssl ffmpeg rsyslog logrotate
 
 RUN mkdir -p /data/git/pillar \
 && mkdir -p /data/storage \
