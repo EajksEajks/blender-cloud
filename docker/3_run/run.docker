@@ -37,9 +37,9 @@ ENV USE_X_SENDFILE True
 EXPOSE 80
 EXPOSE 5000
 
+ADD apache2.conf /etc/apache2/apache2.conf
 ADD 000-default.conf /etc/apache2/sites-available/000-default.conf
 ADD docker-entrypoint.sh /docker-entrypoint.sh
 ADD manage.sh /manage.sh
 
 ENTRYPOINT ["bash", "/docker-entrypoint.sh"]
-
