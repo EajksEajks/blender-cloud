@@ -22,6 +22,24 @@ if [ -n "$(git log origin/production..production --oneline)" ]; then
     read dummy
 fi
 
+# Find Pillar
+PILLAR_DIR=$(python <<EOT
+from __future__ import print_function
+import os.path
+try:
+    import pillar
+except ImportError:
+    raise SystemExit('Pillar not found on Python path. Are you in the correct venv?')
+
+print(os.path.dirname(os.path.dirname(pillar.__file__)))
+EOT
+)
+if [ $(git -C $PILLAR_DIR rev-parse --abbrev-ref HEAD) != "production" ]; then
+    echo "Pillar ($PILLAR_DIR) NOT on the production branch, refusing to deploy." >&2
+    exit 1
+fi
+
+
 # SSH to cloud to pull all files in
 function git_pull() {
     PROJECT_NAME="$1"
