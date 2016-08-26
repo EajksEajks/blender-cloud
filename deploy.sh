@@ -62,7 +62,6 @@ ${SSH} -t docker exec ${DOCKER_NAME} /data/venv/bin/pip install -U -r ${REMOTE_R
 
 # RSync the world
 ./rsync_ui.sh
-${SSH} docker exec redis redis-cli DEL pwview//
 
 # Notify Bugsnag of this new deploy.
 echo
@@ -81,6 +80,11 @@ echo "NOTE: Press [ENTER] to continue and restart the server process."
 read dummy
 ${SSH} docker exec ${DOCKER_NAME} apache2ctl graceful
 echo "Server process restarted"
+
+echo
+echo "==================================================================="
+echo "Clearing front page from Redis cache."
+${SSH} docker exec redis redis-cli DEL pwview//
 
 echo
 echo "==================================================================="
