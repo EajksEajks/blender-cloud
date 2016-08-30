@@ -58,7 +58,7 @@ git_pull pillar production
 git_pull blender-cloud production
 
 # Update the virtualenv
-${SSH} -t docker exec ${DOCKER_NAME} /data/venv/bin/pip install -U -r ${REMOTE_ROOT}/requirements.txt --exists-action w
+#${SSH} -t docker exec ${DOCKER_NAME} /data/venv/bin/pip install -U -r ${REMOTE_ROOT}/requirements.txt --exists-action w
 
 # RSync the world
 ./rsync_ui.sh
