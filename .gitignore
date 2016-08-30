@@ -4,7 +4,7 @@
 *.pyc
 __pycache__
 
-config_local.py
+/config_local.py
 
 /build
 /.cache
@@ -12,6 +12,4 @@ config_local.py
 /.eggs/
 /dump/
 /google_app*.json
-
-docker/3_run/wheelhouse/
-static/assets/img/
+/docker/3_run/wheelhouse/
