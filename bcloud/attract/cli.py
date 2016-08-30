@@ -43,13 +43,16 @@ def _update_project(project):
     """
 
     from pillar.api.utils import remove_private_keys
+    from pillar.api.utils import authentication
+
+    authentication.force_cli_user()
 
     project_id = ObjectId(project['_id'])
     project = remove_private_keys(project)
     result, _, _, status_code = put_internal('projects', project, _id=project_id)
 
     if status_code != 200:
-        log.error("Can't update project %s, issues: %s", project_id, result['_issues'])
+        log.error("Can't update project %s, issues: %s", project_id, result)
         raise SystemExit()
 
 
