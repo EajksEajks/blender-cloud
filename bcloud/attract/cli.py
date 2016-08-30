@@ -65,10 +65,7 @@ def setup_for_attract(project_url, replace=False):
     (by default already existing Attract node types are skipped).
     """
 
-    # TODO: move those node types into this extension.
-    from pillar.api.node_types.act import node_type_act
-    from pillar.api.node_types.scene import node_type_scene
-    from pillar.api.node_types.shot import node_type_shot
+    from .node_types import NODE_TYPES
 
     # Copy permissions from the project, then give everyone with PUT
     # access also DELETE access.
@@ -85,12 +82,10 @@ def setup_for_attract(project_url, replace=False):
 
     # Make a copy of the node types when setting the permissions, as
     # we don't want to mutate the global node type objects.
-    node_type_act = dict(permissions=permissions, **node_type_act)
-    node_type_scene = dict(permissions=permissions, **node_type_scene)
-    node_type_shot = dict(permissions=permissions, **node_type_shot)
+    node_types = (dict(permissions=permissions, **nt) for nt in NODE_TYPES)
 
     # Add the missing node types.
-    for node_type in (node_type_act, node_type_scene, node_type_shot):
+    for node_type in node_types:
         found = [nt for nt in project['node_types']
                  if nt['name'] == node_type['name']]
         if found:
