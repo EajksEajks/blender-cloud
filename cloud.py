@@ -1,12 +1,8 @@
 #!/usr/bin/env python
 
 from pillar import PillarServer
-from attract_server import AttractExtension
-
-attract = AttractExtension()
 
 app = PillarServer('.')
-app.load_extension(attract, '/attract')
 app.process_extensions()
 
 if __name__ == '__main__':

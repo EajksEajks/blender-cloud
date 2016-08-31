@@ -1,6 +1,5 @@
 # Primary requirements
 pillar
-attract_server
 pillarsdk
 
 # Secondary requirements (i.e. pulled in from primary requirements)
