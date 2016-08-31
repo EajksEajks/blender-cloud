@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from pillar import PillarServer
-from bcloud.attract.extension import AttractExtension
+from attract_server import AttractExtension
 
 attract = AttractExtension()
 

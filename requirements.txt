@@ -1,5 +1,7 @@
 # Primary requirements
 pillar
+attract_server
+pillarsdk
 
 # Secondary requirements (i.e. pulled in from primary requirements)
 algoliasearch==1.8.0
@@ -47,6 +49,7 @@ requests-oauthlib==0.6.2
 rsa==3.3
 simplejson==3.8.2
 six==1.10.0
+svn==0.3.42
 WebOb==1.5.0
 Werkzeug==0.11.3
 WTForms==2.1
