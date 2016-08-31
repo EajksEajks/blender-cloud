@@ -49,8 +49,11 @@ requests-oauthlib==0.6.2
 rsa==3.3
 simplejson==3.8.2
 six==1.10.0
-svn==0.3.42
 WebOb==1.5.0
 Werkzeug==0.11.3
 WTForms==2.1
 zencoder==0.6.5
+
+# Use Sybren's branch, until this pull request is merged:
+# https://github.com/dsoprea/PySvn/pull/43
+-e git+https://github.com/sybrenstuvel/PySvn.git@sybren-svncommanderror#egg=svn
