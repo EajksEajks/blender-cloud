@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from pillar import PillarServer
-from attract_server import AttractExtension
+from attract import AttractExtension
 
 attract = AttractExtension()
 
