@@ -39,6 +39,22 @@ if [ $(git -C $PILLAR_DIR rev-parse --abbrev-ref HEAD) != "production" ]; then
     exit 1
 fi
 
+# Find Attract
+ATTRACT_DIR=$(python <<EOT
+from __future__ import print_function
+import os.path
+try:
+    import attract
+except ImportError:
+    raise SystemExit('Attract not found on Python path. Are you in the correct venv?')
+
+print(os.path.dirname(os.path.dirname(attract.__file__)))
+EOT
+)
+if [ $(git -C $ATTRACT_DIR rev-parse --abbrev-ref HEAD) != "production" ]; then
+    echo "Attract ($ATTRACT_DIR) NOT on the production branch, refusing to deploy." >&2
+    exit 1
+fi
 
 # SSH to cloud to pull all files in
 function git_pull() {
@@ -55,12 +71,14 @@ function git_pull() {
 
 git_pull pillar-python-sdk master
 git_pull pillar production
+git_pull attract production
 git_pull blender-cloud production
 
 # Update the virtualenv
 #${SSH} -t docker exec ${DOCKER_NAME} /data/venv/bin/pip install -U -r ${REMOTE_ROOT}/requirements.txt --exists-action w
 
 # RSync the world
+$ATTRACT_DIR/rsync_ui.sh
 ./rsync_ui.sh
 
 # Notify Bugsnag of this new deploy.
