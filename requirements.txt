@@ -1,10 +1,11 @@
 # Primary requirements
-pillar
-attract
-pillarsdk
+# pillarsdk
+# pillar
+# attract
 
 # Secondary requirements (i.e. pulled in from primary requirements)
 algoliasearch==1.8.0
+attrs==16.2.0
 bcrypt==2.0.0
 blinker==1.4
 bugsnag==2.3.1
@@ -16,10 +17,10 @@ Eve==0.6.3
 Events==0.2.1
 Flask==0.10.1
 Flask-Cache==0.13.1
+Flask-Script==2.0.5
 Flask-Login==0.3.2
 Flask-OAuthlib==0.9.3
 Flask-PyMongo==0.4.1
-Flask-Script==2.0.5
 Flask-WTF==0.12
 flup==1.0.2
 gcloud==0.12.0
@@ -46,14 +47,11 @@ pyOpenSSL==0.15.1
 redis==2.10.5
 requests==2.9.1
 requests-oauthlib==0.6.2
-rsa==3.3
+rsa==3.4.2
 simplejson==3.8.2
 six==1.10.0
+svn==0.3.43
 WebOb==1.5.0
-Werkzeug==0.11.3
+Werkzeug==0.11.10
 WTForms==2.1
 zencoder==0.6.5
-
-# Use Sybren's branch, until this pull request is merged:
-# https://github.com/dsoprea/PySvn/pull/43
--e git+https://github.com/sybrenstuvel/PySvn.git@sybren-svncommanderror#egg=svn
