@@ -75,3 +75,19 @@ were still waiting for it.
 
 After everything is done, your (sub)projects should all be back on
 the master branch.
+
+
+## Updating dependencies via Docker images
+
+To update dependencies that need compiling, you need the `2_build` docker
+container. To rebuild the lot, run `docker/build.sh`.
+
+Follow these steps to deploy the new container on production:
+
+1. run `docker/build.sh`
+2. `docker push armadillica/blender_cloud`
+
+On the production machine:
+
+1. `docker pull armadillica/blender_cloud`
+2. `docker-compose up -d` (from the `/data/git/blender-cloud/docker` directory)
