@@ -8,6 +8,7 @@ libapache2-mod-wsgi \
 libapache2-mod-xsendfile \
 libjpeg8 \
 libtiff5 \
+nano vim curl \
 && rm -rf /var/lib/apt/lists/*
 
 ENV APACHE_RUN_USER www-data
