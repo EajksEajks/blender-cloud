@@ -1,0 +1,43 @@
+mongo:
+  image: mongo
+  container_name: mongo
+  restart: always
+  volumes:
+   - /data/storage/db:/data/db
+  ports:
+   - "127.0.0.1:27017:27017"
+redis:
+  image: redis
+  container_name: redis
+  restart: always
+blender_cloud:
+  image: armadillica/blender_cloud
+  container_name: blender_cloud
+  restart: always
+  environment:
+   VIRTUAL_HOST: http://cloudapi.blender.org,https://cloudapi.blender.org,http://cloud.blender.org,https://cloud.blender.org
+   FORCE_SSL: "true"
+  volumes:
+   - /data/git/blender-cloud:/data/git/blender-cloud:ro
+   - /data/git/attract:/data/git/attract:ro
+   - /data/git/pillar:/data/git/pillar:ro
+   - /data/git/pillar-python-sdk:/data/git/pillar-python-sdk:ro
+   - /data/config:/data/config:ro
+   - /data/storage/pillar:/data/storage/pillar
+  links:
+   - mongo
+   - redis
+haproxy:
+  image: dockercloud/haproxy
+  container_name: haproxy
+  restart: always
+  ports:
+   - "443:443"
+   - "80:80"
+  environment:
+   - CERT_FOLDER=/certs/
+   - TIMEOUT=connect 5s, client 5m, server 10m
+  links:
+   - blender_cloud
+  volumes:
+   - '/data/certs:/certs'
