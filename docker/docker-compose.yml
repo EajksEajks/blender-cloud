@@ -15,7 +15,8 @@ blender_cloud:
   container_name: blender_cloud
   restart: always
   environment:
-   VIRTUAL_HOST: http://cloudapi.blender.org,https://cloudapi.blender.org,http://cloud.blender.org,https://cloud.blender.org
+   VIRTUAL_HOST: http://cloudapi.blender.org/*,https://cloudapi.blender.org/*,http://cloud.blender.org/*,https://cloud.blender.org/*,http://pillar-web/*
+   VIRTUAL_HOST_WEIGHT: 10
    FORCE_SSL: "true"
   volumes:
    - /data/git/blender-cloud:/data/git/blender-cloud:ro
@@ -27,6 +28,16 @@ blender_cloud:
   links:
    - mongo
    - redis
+# notifserv:
+#   container_name: notifserv
+#   image: armadillica/pillar-notifserv:cd8fa678436563ac3b800b2721e36830c32e4656
+#   restart: always
+#   links:
+#    - mongo
+#   environment:
+#    VIRTUAL_HOST: https://cloud.blender.org/notifications*,http://pillar-web/notifications*
+#    VIRTUAL_HOST_WEIGHT: 20
+#    FORCE_SSL: true
 haproxy:
   image: dockercloud/haproxy
   container_name: haproxy
@@ -39,5 +50,6 @@ haproxy:
    - TIMEOUT=connect 5s, client 5m, server 10m
   links:
    - blender_cloud
+   # - notifserv
   volumes:
    - '/data/certs:/certs'
