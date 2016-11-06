@@ -21,6 +21,7 @@ blender_cloud:
   volumes:
    - /data/git/blender-cloud:/data/git/blender-cloud:ro
    - /data/git/attract:/data/git/attract:ro
+   - /data/git/flamenco:/data/git/flamenco:ro
    - /data/git/pillar:/data/git/pillar:ro
    - /data/git/pillar-python-sdk:/data/git/pillar-python-sdk:ro
    - /data/config:/data/config:ro

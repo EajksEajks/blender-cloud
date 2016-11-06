@@ -22,39 +22,35 @@ if [ -n "$(git log origin/production..production --oneline)" ]; then
     read dummy
 fi
 
-# Find Pillar
-PILLAR_DIR=$(python <<EOT
+# Find Module
+function find_module()
+{
+    MODULE_DIR=$(python <<EOT
 from __future__ import print_function
 import os.path
 try:
-    import pillar
+    import $1
 except ImportError:
-    raise SystemExit('Pillar not found on Python path. Are you in the correct venv?')
+    raise SystemExit('${1^} not found on Python path. Are you in the correct venv?')
 
-print(os.path.dirname(os.path.dirname(pillar.__file__)))
+print(os.path.dirname(os.path.dirname($1)))
 EOT
 )
-if [ $(git -C $PILLAR_DIR rev-parse --abbrev-ref HEAD) != "production" ]; then
-    echo "Pillar ($PILLAR_DIR) NOT on the production branch, refusing to deploy." >&2
+
+if [ $(git -C $MODULE_DIR rev-parse --abbrev-ref HEAD) != "production" ]; then
+    echo "${1^} ($MODULE_DIR) NOT on the production branch, refusing to deploy." >&2
     exit 1
 fi
+}
+
+# Find Pillar
+find_module pillar
 
 # Find Attract
-ATTRACT_DIR=$(python <<EOT
-from __future__ import print_function
-import os.path
-try:
-    import attract
-except ImportError:
-    raise SystemExit('Attract not found on Python path. Are you in the correct venv?')
+find_module attract
 
-print(os.path.dirname(os.path.dirname(attract.__file__)))
-EOT
-)
-if [ $(git -C $ATTRACT_DIR rev-parse --abbrev-ref HEAD) != "production" ]; then
-    echo "Attract ($ATTRACT_DIR) NOT on the production branch, refusing to deploy." >&2
-    exit 1
-fi
+# Find Flamenco
+find_module flamenco
 
 # SSH to cloud to pull all files in
 function git_pull() {

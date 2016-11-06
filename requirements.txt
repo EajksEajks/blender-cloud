@@ -2,6 +2,7 @@
 # pillarsdk
 # pillar
 # attract
+# flamenco
 
 # Secondary requirements (i.e. pulled in from primary requirements)
 algoliasearch==1.8.0
