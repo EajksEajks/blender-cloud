@@ -18,17 +18,16 @@ def reconcile_subscribers():
 
     users_coll = current_app.data.driver.db['users']
     unsubscribed_users = []
-    for user in users_coll.find():
+    for user in users_coll.find({'roles': 'subscriber'}):
         print('Processing %s' % user['email'])
-        if 'roles' in user and 'subscriber' in user['roles']:
-            print('Checking subscription')
-            user_store = fetch_user(user['email'])
-            if user_store['cloud_access'] == 0:
-                print('Removing subscriber role')
-                users_coll.update(
-                    {'_id': user['_id']},
-                    {'$pull': {'roles': 'subscriber'}})
-                unsubscribed_users.append(user['email'])
+        print('  Checking subscription')
+        user_store = fetch_user(user['email'])
+        if user_store['cloud_access'] == 0:
+            print('    Removing subscriber role')
+            users_coll.update(
+                {'_id': user['_id']},
+                {'$pull': {'roles': 'subscriber'}})
+            unsubscribed_users.append(user['email'])
 
     if not unsubscribed_users:
         return
