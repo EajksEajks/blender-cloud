@@ -6,7 +6,16 @@ DOCKER_NAME="blender_cloud"
 REMOTE_ROOT="/data/git/${PROJECT_NAME}"
 
 SSH="ssh -o ClearAllForwardings=yes cloud.blender.org"
-ROOT="$(dirname "$(readlink -f "$0")")"
+
+# macOS does not support readlink -f, so we use greadlink instead
+if [[ `uname` == 'Darwin' ]]; then
+    ash greadlink 2>/dev/null || { echo >&2 "Install greadlink using brew."; exit 1; }
+    readlink='grealink'
+else
+    readlink='readlink'
+fi
+
+ROOT="$(dirname "$($readlink -f "$0")")"
 cd ${ROOT}
 
 # Check that we're on production branch.
