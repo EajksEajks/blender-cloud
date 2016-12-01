@@ -5,13 +5,13 @@ from __future__ import print_function
 import logging
 from flask import current_app
 from pillar import cli
-from pillar.cli import manager
+from pillar.cli import manager_maintenance
 from cloud import app
 
 log = logging.getLogger(__name__)
 
 
-@manager.command
+@manager_maintenance.command
 def reconcile_subscribers():
     """For every user, check their subscription status with the store."""
     from pillar.auth.subscriptions import fetch_user
