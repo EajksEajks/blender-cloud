@@ -9,7 +9,7 @@ SSH="ssh -o ClearAllForwardings=yes cloud.blender.org"
 
 # macOS does not support readlink -f, so we use greadlink instead
 if [[ `uname` == 'Darwin' ]]; then
-    ash greadlink 2>/dev/null || { echo >&2 "Install greadlink using brew."; exit 1; }
+    command -v greadlink 2>/dev/null 2>&1 || { echo >&2 "Install greadlink using brew."; exit 1; }
     readlink='greadlink'
 else
     readlink='readlink'
