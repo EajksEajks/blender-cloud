@@ -22,29 +22,29 @@ if [ -n "$(git log origin/production..production --oneline)" ]; then
     read dummy
 fi
 
-# Find Module
 function find_module()
 {
+    MODULE_NAME=$1
     MODULE_DIR=$(python <<EOT
 from __future__ import print_function
 import os.path
 try:
-    import $1
+    import ${MODULE_NAME}
 except ImportError:
-    raise SystemExit('${1^} not found on Python path. Are you in the correct venv?')
+    raise SystemExit('${MODULE_NAME} not found on Python path. Are you in the correct venv?')
 
-print(os.path.dirname(os.path.dirname($1)))
+print(os.path.dirname(os.path.dirname(${MODULE_NAME}.__file__)))
 EOT
 )
 
-if [ $(git -C $MODULE_DIR rev-parse --abbrev-ref HEAD) != "production" ]; then
-    echo "${1^} ($MODULE_DIR) NOT on the production branch, refusing to deploy." >&2
-    exit 1
-fi
-}
+    if [ $(git -C $MODULE_DIR rev-parse --abbrev-ref HEAD) != "production" ]; then
+        echo "${MODULE_NAME}: ($MODULE_DIR) NOT on the production branch, refusing to deploy." >&2
+        exit 1
+    fi
 
 # Find Pillar
 find_module pillar
+}
 
 # Find Attract
 find_module attract
