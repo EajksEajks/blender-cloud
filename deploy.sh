@@ -70,6 +70,7 @@ function git_pull() {
 git_pull pillar-python-sdk master
 git_pull pillar production
 git_pull attract production
+git_pull flamenco production
 git_pull blender-cloud production
 
 # Update the virtualenv
@@ -77,6 +78,7 @@ git_pull blender-cloud production
 
 # RSync the world
 $ATTRACT_DIR/rsync_ui.sh
+$FLAMENCO_DIR/rsync_ui.sh
 ./rsync_ui.sh
 
 # Notify Bugsnag of this new deploy.
