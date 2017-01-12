@@ -42,15 +42,17 @@ EOT
         exit 1
     fi
 
-# Find Pillar
-find_module pillar
+    echo $MODULE_DIR
 }
 
-# Find Attract
-find_module attract
+# Find our modules
+PILLAR_DIR=$(find_module pillar)
+ATTRACT_DIR=$(find_module attract)
+FLAMENCO_DIR=$(find_module flamenco)
 
-# Find Flamenco
-find_module flamenco
+echo "Pillar  : $PILLAR_DIR"
+echo "Attract : $ATTRACT_DIR"
+echo "Flamenco: $FLAMENCO_DIR"
 
 # SSH to cloud to pull all files in
 function git_pull() {
