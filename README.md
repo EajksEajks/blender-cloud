@@ -22,6 +22,7 @@ cd /data/git
 git clone git://git.blender.org/pillar-python-sdk.git
 git clone git://git.blender.org/pillar-server.git pillar
 git clone git://git.blender.org/attract.git
+git clone git://git.blender.org/flamenco.git
 git clone git://git.blender.org/blender-cloud.git
 ```
 

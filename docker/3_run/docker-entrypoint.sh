@@ -7,6 +7,8 @@ if [ ! -f /installed ]; then
     ln -s /data/git/pillar/pillar /data/venv/lib/python2.7/site-packages/pillar
     # . /data/venv/bin/activate && pip install -e /data/git/attract
     ln -s /data/git/attract/attract /data/venv/lib/python2.7/site-packages/attract
+    # . /data/venv/bin/activate && pip install -e /data/git/flamenco
+    ln -s /data/git/flamenco/flamenco /data/venv/lib/python2.7/site-packages/flamenco
     # . /data/venv/bin/activate && pip install -e /data/git/pillar-python-sdk
     ln -s /data/git/pillar-python-sdk/pillarsdk /data/venv/lib/python2.7/site-packages/pillarsdk
     touch installed

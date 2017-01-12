@@ -31,39 +31,37 @@ if [ -n "$(git log origin/production..production --oneline)" ]; then
     read dummy
 fi
 
-# Find Pillar
-PILLAR_DIR=$(python <<EOT
+function find_module()
+{
+    MODULE_NAME=$1
+    MODULE_DIR=$(python <<EOT
 from __future__ import print_function
 import os.path
 try:
-    import pillar
+    import ${MODULE_NAME}
 except ImportError:
-    raise SystemExit('Pillar not found on Python path. Are you in the correct venv?')
+    raise SystemExit('${MODULE_NAME} not found on Python path. Are you in the correct venv?')
 
-print(os.path.dirname(os.path.dirname(pillar.__file__)))
+print(os.path.dirname(os.path.dirname(${MODULE_NAME}.__file__)))
 EOT
 )
-if [ $(git -C $PILLAR_DIR rev-parse --abbrev-ref HEAD) != "production" ]; then
-    echo "Pillar ($PILLAR_DIR) NOT on the production branch, refusing to deploy." >&2
-    exit 1
-fi
 
-# Find Attract
-ATTRACT_DIR=$(python <<EOT
-from __future__ import print_function
-import os.path
-try:
-    import attract
-except ImportError:
-    raise SystemExit('Attract not found on Python path. Are you in the correct venv?')
+    if [ $(git -C $MODULE_DIR rev-parse --abbrev-ref HEAD) != "production" ]; then
+        echo "${MODULE_NAME}: ($MODULE_DIR) NOT on the production branch, refusing to deploy." >&2
+        exit 1
+    fi
 
-print(os.path.dirname(os.path.dirname(attract.__file__)))
-EOT
-)
-if [ $(git -C $ATTRACT_DIR rev-parse --abbrev-ref HEAD) != "production" ]; then
-    echo "Attract ($ATTRACT_DIR) NOT on the production branch, refusing to deploy." >&2
-    exit 1
-fi
+    echo $MODULE_DIR
+}
+
+# Find our modules
+PILLAR_DIR=$(find_module pillar)
+ATTRACT_DIR=$(find_module attract)
+FLAMENCO_DIR=$(find_module flamenco)
+
+echo "Pillar  : $PILLAR_DIR"
+echo "Attract : $ATTRACT_DIR"
+echo "Flamenco: $FLAMENCO_DIR"
 
 # SSH to cloud to pull all files in
 function git_pull() {
@@ -81,6 +79,7 @@ function git_pull() {
 git_pull pillar-python-sdk master
 git_pull pillar production
 git_pull attract production
+git_pull flamenco production
 git_pull blender-cloud production
 
 # Update the virtualenv
@@ -88,6 +87,7 @@ git_pull blender-cloud production
 
 # RSync the world
 $ATTRACT_DIR/rsync_ui.sh
+$FLAMENCO_DIR/rsync_ui.sh
 ./rsync_ui.sh
 
 # Notify Bugsnag of this new deploy.
