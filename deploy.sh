@@ -63,6 +63,11 @@ echo "Pillar  : $PILLAR_DIR"
 echo "Attract : $ATTRACT_DIR"
 echo "Flamenco: $FLAMENCO_DIR"
 
+if [ -z "$PILLAR_DIR" -o -z "$ATTRACT_DIR" -o -z "$FLAMENCO_DIR" ];
+then
+    exit 1
+fi
+
 # SSH to cloud to pull all files in
 function git_pull() {
     PROJECT_NAME="$1"
