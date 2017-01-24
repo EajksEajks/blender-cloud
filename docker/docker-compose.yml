@@ -39,6 +39,16 @@ blender_cloud:
 #    VIRTUAL_HOST: https://cloud.blender.org/notifications*,http://pillar-web/notifications*
 #    VIRTUAL_HOST_WEIGHT: 20
 #    FORCE_SSL: true
+grafista:
+  image: armadillica/grafista
+  container_name: grafista
+  restart: always
+  environment:
+    VIRTUAL_HOST: http://cloud.blender.org/stats/*,https://cloud.blender.org/stats/*,http://blender-cloud/stats/*
+    FORCE_SSL: "true"
+  volumes:
+    - /data/git/grafista:/data/git/grafista:ro
+    - /data/storage/grafista:/data/storage
 haproxy:
   image: dockercloud/haproxy
   container_name: haproxy
@@ -51,6 +61,7 @@ haproxy:
    - TIMEOUT=connect 5s, client 5m, server 10m
   links:
    - blender_cloud
+   - grafista
    # - notifserv
   volumes:
    - '/data/certs:/certs'
