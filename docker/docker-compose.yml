@@ -45,6 +45,7 @@ grafista:
   restart: always
   environment:
     VIRTUAL_HOST: http://cloud.blender.org/stats/*,https://cloud.blender.org/stats/*,http://blender-cloud/stats/*
+    VIRTUAL_HOST_WEIGHT: 20
     FORCE_SSL: "true"
   volumes:
     - /data/git/grafista:/data/git/grafista:ro
