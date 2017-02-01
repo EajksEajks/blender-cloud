@@ -41,6 +41,7 @@ markdown==2.6.7
 ndg-httpsclient==0.4.0
 oauth2client==3.0.0
 oauthlib==1.1.2
+pathlib2==2.2.1
 Pillow==2.8.1
 protobuf==3.0.0
 protorpc==0.11.1
@@ -56,6 +57,7 @@ redis==2.10.5
 requests==2.9.1
 requests-oauthlib==0.6.2
 rsa==3.4.2
+scandir==1.4
 simplejson==3.8.2
 six==1.10.0
 svn==0.3.43
