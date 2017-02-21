@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e  # error out when one of the commands in the script errors.
+
 PILLAR_DIR=$(python <<EOT
 from __future__ import print_function
 import os.path
