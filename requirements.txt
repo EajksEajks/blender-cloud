@@ -1,8 +1,9 @@
 # Primary requirements
-# flamenco
-
 -r ../pillar/requirements.txt
 -r ../attract/requirements.txt
+-r ../flamenco/requirements.txt
+
 -e ../pillar-python-sdk
 -e ../pillar
 -e ../attract
+-e ../flamenco
