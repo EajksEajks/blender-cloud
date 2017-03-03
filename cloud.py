@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 
 from pillar import PillarServer
-from attract import AttractExtension
-from flamenco import FlamencoExtension
+# from attract import AttractExtension
+# from flamenco import FlamencoExtension
 
-attract = AttractExtension()
-flamenco = FlamencoExtension()
+# attract = AttractExtension()
+# flamenco = FlamencoExtension()
 
 app = PillarServer('.')
-app.load_extension(attract, '/attract')
-app.load_extension(flamenco, '/flamenco')
+# app.load_extension(attract, '/attract')
+# app.load_extension(flamenco, '/flamenco')
 app.process_extensions()
 
 if __name__ == '__main__':
