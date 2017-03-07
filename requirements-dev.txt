@@ -1,0 +1,4 @@
+-r ../pillar-python-sdk/requirements-dev.txt
+-r ../pillar/requirements-dev.txt
+-r ../attract/requirements-dev.txt
+-r ../flamenco/requirements-dev.txt
