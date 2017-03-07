@@ -8,6 +8,8 @@ libapache2-mod-wsgi \
 libapache2-mod-xsendfile \
 libjpeg8 \
 libtiff5 \
+ffmpeg \
+rsyslog logrotate \
 nano vim curl \
 && rm -rf /var/lib/apt/lists/*
 

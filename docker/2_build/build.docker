@@ -1,26 +1,48 @@
 FROM pillar_base
 MAINTAINER Francesco Siddi <francesco@blender.org>
 
-RUN apt-get update && apt-get install -qy \
-git \
-gcc \
-libffi-dev \
-libssl-dev \
-pypy-dev \
-python-dev \
-python-imaging \
-zlib1g-dev \
-libjpeg-dev \
-libtiff-dev \
-python-crypto \
-python-openssl
+RUN sed -i 's/^# deb-src/deb-src/' /etc/apt/sources.list && \
+    apt-get update && \
+    apt-get install -qy \
+        git \
+        build-essential \
+        checkinstall \
+        curl
 
+#  \
+# libffi-dev \
+# libssl-dev \
+# python3.6-dev \
+# python3.6-imaging \
+# zlib1g-dev \
+# libjpeg-dev \
+# libtiff-dev \
+# python3.6-crypto \
+# python3.6-openssl
+
+RUN apt-get build-dep -y python3.5
+
+ADD Python-3.6.0.tar.xz.sha256 /Python-3.6.0.tar.xz.sha256
+
+RUN curl -O https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz
+RUN sha256sum -c Python-3.6.0.tar.xz.sha256
+RUN tar xvf Python-3.6.0.tar.xz
+
+ADD myconfigure /Python-3.6.0/myconfigure
+# RUN cd Python-3.6.0/ && ./myconfigure
+# RUN cd Python-3.6.0/ && make -j8 install
+
+ENV PYTHONTARGET=/data/python
 ENV WHEELHOUSE=/data/wheelhouse
 ENV PIP_WHEEL_DIR=/data/wheelhouse
 ENV PIP_FIND_LINKS=/data/wheelhouse
 
 VOLUME /data/wheelhouse
+VOLUME /data/python
 
-ADD requirements.txt /requirements.txt
+# RUN /data/python/bin/python3.6 -m venv /data/venv
+# RUN . /data/venv/bin/activate && pip install -U pip
+# RUN . /data/venv/bin/activate && pip install wheel
+
 ADD build-wheels.sh /build-wheels.sh
 ENTRYPOINT ["bash", "build-wheels.sh"]

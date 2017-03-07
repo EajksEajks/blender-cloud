@@ -1,0 +1,8 @@
+#!/bin/bash
+
+./configure \
+    --prefix=$PYTHONTARGET \
+    --enable-ipv6 \
+    --enable-optimizations \
+    --enable-shared \
+    --with-ensurepip=upgrade
