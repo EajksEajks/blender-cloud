@@ -33,6 +33,15 @@ make -j8 install
 chown -R $UID:$GID /opt/python/*
 EOT
 
+# Strip some stuff we don't need from the Python install.
+rm -rf $PYTHONTARGET/lib/python3.*/test
+rm -rf $PYTHONTARGET/lib/python3.*/config-3.*/libpython3.*.a
+find $PYTHONTARGET/lib -name '*.so.*' -o -name '*.so' | while read libname; do
+    chmod u+w "$libname"
+    strip "$libname"
+done
+
+
 # Create another docker image which contains the actual Python.
 # This one will serve as base for the Wheel builder and the
 # production image.
