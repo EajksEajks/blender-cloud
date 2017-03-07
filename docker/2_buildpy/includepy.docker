@@ -1,0 +1,9 @@
+FROM pillar_base
+MAINTAINER Sybren A. Stüvel <sybren@blender.studio>
+
+ADD python /opt/python
+RUN echo /opt/python/lib > /etc/ld.so.conf.d/python.conf
+RUN ldconfig
+
+RUN echo Python is installed in /opt/python/ > README.python
+ENV PATH=/opt/python/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin

@@ -2,9 +2,8 @@ FROM ubuntu:16.10
 MAINTAINER Francesco Siddi <francesco@blender.org>
 
 RUN apt-get update
-RUN apt-get -y dist-upgrade
 RUN apt-get install -qyy \
     -o APT::Install-Recommends=false -o APT::Install-Suggests=false \
-    openssl
+    openssl ca-certificates
 
-RUN mkdir -p /data/git/{pillar,config,venv,wheelhouse,python}
+RUN mkdir -p /data/git/pillar /data/config /data/venv /data/wheelhouse

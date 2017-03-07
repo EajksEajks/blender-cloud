@@ -1,0 +1,23 @@
+FROM pillar_base
+MAINTAINER Sybren A. Stüvel <sybren@blender.studio>
+
+RUN sed -i 's/^# deb-src/deb-src/' /etc/apt/sources.list && \
+    apt-get update && \
+    apt-get install -qy \
+        build-essential \
+        checkinstall \
+        curl
+
+RUN apt-get build-dep -y python3.5
+
+ADD Python-3.6.0.tar.xz.sha256 /Python-3.6.0.tar.xz.sha256
+
+RUN curl -O https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz
+RUN sha256sum -c Python-3.6.0.tar.xz.sha256
+RUN tar xf Python-3.6.0.tar.xz
+RUN rm Python-3.6.0.tar.xz
+
+# To be able to install Python outside the docker.
+VOLUME /opt/python
+
+ENV PYTHONSOURCE=/Python-3.6.0

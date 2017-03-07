@@ -1,4 +1,4 @@
-FROM pillar_base
+FROM pillar_py:3.6
 
 RUN apt-get update && apt-get install -qyy \
 -o APT::Install-Recommends=true -o APT::Install-Suggests=false \
@@ -22,16 +22,14 @@ ENV APACHE_LOCK_DIR /var/lock/apache2
 
 RUN mkdir -p $APACHE_RUN_DIR $APACHE_LOCK_DIR $APACHE_LOG_DIR
 
-ADD requirements.txt /requirements.txt
 ADD wheelhouse /data/wheelhouse
-
-RUN . /data/venv/bin/activate \
-&& pip install --no-index --find-links=/data/wheelhouse -r requirements.txt \
-&& rm /requirements.txt
+RUN pip3 install --no-index --find-links=/data/wheelhouse -r /data/wheelhouse/requirements.txt
 
 VOLUME /data/git/blender-cloud
 VOLUME /data/git/pillar
 VOLUME /data/git/pillar-python-sdk
+VOLUME /data/git/attract
+VOLUME /data/git/flamenco
 VOLUME /data/config
 VOLUME /data/storage
 

@@ -12,4 +12,5 @@ __pycache__
 /.eggs/
 /dump/
 /google_app*.json
-/docker/3_run/wheelhouse/
+/docker/2_buildpy/python/
+/docker/4_run/wheelhouse/
