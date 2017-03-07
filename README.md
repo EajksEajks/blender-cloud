@@ -1,7 +1,7 @@
 # Blender Cloud
 
-Welcome to the [Blender Cloud](https://cloud.blender.org) code repo!
-Blender Cloud runs on the [Pillar](https://pillarframework.org) framework.
+Welcome to the [Blender Cloud](https://cloud.blender.org/) code repo!
+Blender Cloud runs on the [Pillar](https://pillarframework.org/) framework.
 
 ## Quick setup
 Set up a node with these commands. Note that that script is already outdated...
