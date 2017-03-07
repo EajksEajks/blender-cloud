@@ -4,27 +4,28 @@ Welcome to the [Blender Cloud](https://cloud.blender.org/) code repo!
 Blender Cloud runs on the [Pillar](https://pillarframework.org/) framework.
 
 ## Quick setup
-Set up a node with these commands. Note that that script is already outdated...
+Set up a node with these commands.
 
 ```
 #!/usr/bin/env bash
 
-mkdir -p /data/git
-mkdir -p /data/storage
-mkdir -p /data/config
-mkdir -p /data/certs
-
+sudo mkdir -p /data/{git,storage,config,certs}
 sudo apt-get update
-sudo apt-get -y install python-pip
-pip install docker-compose
+sudo apt-get -y install python3-pip
+pip3 install docker-compose
 
 cd /data/git
 git clone git://git.blender.org/pillar-python-sdk.git
-git clone git://git.blender.org/pillar-server.git pillar
-git clone git://git.blender.org/attract.git
-git clone git://git.blender.org/flamenco.git
-git clone git://git.blender.org/blender-cloud.git
+git clone git://git.blender.org/pillar.git -b py36
+git clone git://git.blender.org/attract.git -b py36
+git clone git://git.blender.org/flamenco.git -b py36
+git clone git://git.blender.org/blender-cloud.git -b py36
+
 ```
+
+After these commands, run `deploy.sh` to build the static files and deploy
+those too (see below).
+
 
 ## Deploying to production server
 
@@ -71,8 +72,8 @@ Now follow the above receipe on the Blender Cloud project as well.
 Contrary to the subprojects, `git pp` will actually perform the deploy
 for real.
 
-Now you can press `[ENTER]` in the Pillar and Attract terminals that
-were still waiting for it.
+Now you can press `[ENTER]` in the Pillar, Attract, and Flamenco terminals
+that were still waiting for it.
 
 After everything is done, your (sub)projects should all be back on
 the master branch.
