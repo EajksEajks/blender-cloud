@@ -20,7 +20,7 @@ fi
 echo "Wheelhouse is $WHEELHOUSE"
 mkdir -p "$WHEELHOUSE"
 
-#docker build -t pillar_wheelbuilder -f build.docker .
+docker build -t pillar_wheelbuilder -f build.docker .
 
 GID=$(id --group)
 docker run --rm -i \
@@ -30,9 +30,9 @@ docker run --rm -i \
 set -e
 # Build wheels for all dependencies.
 cd /data/topdev/blender-cloud
-# pip3 install wheel
-# pip3 wheel --wheel-dir=/data/wheelhouse -r requirements.txt
-# chown -R $UID:$GID /data/wheelhouse
+pip3 install wheel
+pip3 wheel --wheel-dir=/data/wheelhouse -r requirements.txt
+chown -R $UID:$GID /data/wheelhouse
 
 # Install the dependencies so that we can get a full freeze.
 pip3 install --no-index --find-links=/data/wheelhouse -r requirements.txt
