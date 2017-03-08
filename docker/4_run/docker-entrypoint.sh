@@ -1,25 +1,28 @@
 #!/usr/bin/env bash
 
 if [ ! -f /installed ]; then
-    echo "Installing pillar and pillar-sdk"
-    # TODO: curretly doing pip install -e takes a long time, so we symlink
-    # . /data/venv/bin/activate && pip install -e /data/git/pillar
-    ln -s /data/git/pillar/pillar /data/venv/lib/python2.7/site-packages/pillar
-    # . /data/venv/bin/activate && pip install -e /data/git/attract
-    ln -s /data/git/attract/attract /data/venv/lib/python2.7/site-packages/attract
-    # . /data/venv/bin/activate && pip install -e /data/git/flamenco/packages/flamenco
-    ln -s /data/git/flamenco/packages/flamenco/flamenco/ /data/venv/lib/python2.7/site-packages/flamenco
-    # . /data/venv/bin/activate && pip install -e /data/git/pillar-python-sdk
-    ln -s /data/git/pillar-python-sdk/pillarsdk /data/venv/lib/python2.7/site-packages/pillarsdk
-    touch installed
+    SITEPKG=$(echo /opt/python/lib/python3.*/site-packages)
+    echo "Installing Blender Cloud packages into $SITEPKG"
+
+    # TODO: 'pip3 install -e' runs 'setup.py develop', which runs 'setup.py egg_info',
+    # which can't write the egg info to the read-only /data/git volume. This is why
+    # we manually install the links.
+    for SUBPROJ in /data/git/{pillar,pillar-python-sdk,attract,flamenco}; do
+        NAME=$(python3 $SUBPROJ/setup.py --name)
+        echo "... $NAME"
+        echo $SUBPROJ >> $SITEPKG/easy-install.pth
+        echo $SUBPROJ > $SITEPKG/$NAME.egg-link
+    done
+    echo "All packages installed."
+
+    touch /installed
 fi
+
 
 if [ "$DEV" = "true" ]; then
     echo "Running in development mode"
     cd /data/git/blender-cloud
-    bash /manage.sh runserver --host='0.0.0.0'
+    exec bash /manage.sh runserver --host='0.0.0.0'
 else
-    # Run Apache
-    a2enmod rewrite
-    /usr/sbin/apache2ctl -D FOREGROUND
+    exec /usr/sbin/apache2ctl -D FOREGROUND
 fi
