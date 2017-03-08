@@ -55,4 +55,4 @@ done
 # Create another docker image which contains the actual Python.
 # This one will serve as base for the Wheel builder and the
 # production image.
-docker build -t pillar_py:3.6 -f includepy.docker .
+docker build -t armadillica/pillar_py:3.6 -f includepy.docker .
