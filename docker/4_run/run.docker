@@ -1,7 +1,7 @@
 FROM pillar_py:3.6
 
 RUN apt-get update && apt-get install -qyy \
--o APT::Install-Recommends=true -o APT::Install-Suggests=false \
+-o APT::Install-Recommends=false -o APT::Install-Suggests=false \
 git \
 apache2 \
 libapache2-mod-wsgi \
@@ -10,8 +10,10 @@ libjpeg8 \
 libtiff5 \
 ffmpeg \
 rsyslog logrotate \
-nano vim curl \
+nano vim-tiny curl \
 && rm -rf /var/lib/apt/lists/*
+
+RUN ln -s /usr/bin/vim.tiny /usr/bin/vim
 
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
