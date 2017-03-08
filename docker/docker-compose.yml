@@ -19,11 +19,7 @@ blender_cloud:
    VIRTUAL_HOST_WEIGHT: 10
    FORCE_SSL: "true"
   volumes:
-   - /data/git/blender-cloud:/data/git/blender-cloud:ro
-   - /data/git/attract:/data/git/attract:ro
-   - /data/git/flamenco:/data/git/flamenco:ro
-   - /data/git/pillar:/data/git/pillar:ro
-   - /data/git/pillar-python-sdk:/data/git/pillar-python-sdk:ro
+   - /data/git:/data/git:ro
    - /data/config:/data/config:ro
    - /data/storage/pillar:/data/storage/pillar
   links:
