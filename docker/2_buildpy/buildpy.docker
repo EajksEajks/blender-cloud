@@ -1,10 +1,11 @@
 FROM pillar_base
-MAINTAINER Sybren A. Stüvel <sybren@blender.studio>
+LABEL maintainer Sybren A. Stüvel <sybren@blender.studio>
 
 RUN sed -i 's/^# deb-src/deb-src/' /etc/apt/sources.list && \
     apt-get update && \
     apt-get install -qy \
         build-essential \
+        apache2-dev \
         checkinstall \
         curl
 
@@ -12,12 +13,23 @@ RUN apt-get build-dep -y python3.5
 
 ADD Python-3.6.0.tar.xz.sha256 /Python-3.6.0.tar.xz.sha256
 
-RUN curl -O https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz
-RUN sha256sum -c Python-3.6.0.tar.xz.sha256
-RUN tar xf Python-3.6.0.tar.xz
-RUN rm Python-3.6.0.tar.xz
+# Install Python sources
+RUN curl -O https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz && \
+    sha256sum -c Python-3.6.0.tar.xz.sha256 && \
+    tar xf Python-3.6.0.tar.xz && \
+    rm -v Python-3.6.0.tar.xz
+
+# Install mod-wsgi sources
+RUN mkdir -p /dpkg && cd /dpkg && apt-get source libapache2-mod-wsgi-py3
 
 # To be able to install Python outside the docker.
 VOLUME /opt/python
+
+# To be able to run Python; after building, ldconfig has to be re-run to do this.
+# This makes it easier to use Python right after building (for example to build
+# mod-wsgi for Python 3.6).
+RUN echo /opt/python/lib > /etc/ld.so.conf.d/python.conf
+RUN ldconfig
+ENV PATH=/opt/python/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 ENV PYTHONSOURCE=/Python-3.6.0

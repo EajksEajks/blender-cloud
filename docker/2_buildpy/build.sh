@@ -17,7 +17,7 @@ echo "Python will be built to $PYTHONTARGET"
 
 docker build -t pillar_build -f buildpy.docker .
 
-# Use the docker image to build Python 3.6.
+# Use the docker image to build Python 3.6 and mod-wsgi
 GID=$(id --group)
 docker run --rm -i \
     -v "$PYTHONTARGET:/opt/python" \
@@ -30,6 +30,17 @@ cd \$PYTHONSOURCE
     --enable-shared \
     --with-ensurepip=upgrade
 make -j8 install
+
+# Make sure we can run Python
+ldconfig
+
+# Build mod-wsgi-py3 for Python 3.6
+cd /dpkg/mod-wsgi-*
+./configure --with-python=/opt/python/bin/python3
+make -j8 install
+mkdir -p /opt/python/mod-wsgi
+cp /usr/lib/apache2/modules/mod_wsgi.so /opt/python/mod-wsgi
+
 chown -R $UID:$GID /opt/python/*
 EOT
 
@@ -40,7 +51,6 @@ find $PYTHONTARGET/lib -name '*.so.*' -o -name '*.so' | while read libname; do
     chmod u+w "$libname"
     strip "$libname"
 done
-
 
 # Create another docker image which contains the actual Python.
 # This one will serve as base for the Wheel builder and the
