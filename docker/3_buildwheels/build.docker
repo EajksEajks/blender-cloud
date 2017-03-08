@@ -1,5 +1,5 @@
 FROM pillar_py:3.6
-MAINTAINER Sybren A. Stüvel <sybren@blender.studio>
+LABEL maintainer Sybren A. Stüvel <sybren@blender.studio>
 
 RUN apt-get install -qy \
     git \
@@ -11,5 +11,6 @@ RUN apt-get install -qy \
 ENV WHEELHOUSE=/data/wheelhouse
 ENV PIP_WHEEL_DIR=/data/wheelhouse
 ENV PIP_FIND_LINKS=/data/wheelhouse
+RUN mkdir -p $WHEELHOUSE
 
 VOLUME /data/wheelhouse
