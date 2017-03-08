@@ -1,5 +1,5 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash
 
-. /data/venv/bin/activate
+set -e
 cd /data/git/blender-cloud
-python manage.py "$@"
+exec python manage.py "$@"
