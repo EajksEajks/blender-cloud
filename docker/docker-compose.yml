@@ -11,7 +11,7 @@ redis:
   container_name: redis
   restart: always
 blender_cloud:
-  image: armadillica/blender_cloud
+  image: armadillica/blender_cloud:latest-py36
   container_name: blender_cloud
   restart: always
   environment:
