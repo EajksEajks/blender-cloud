@@ -2,3 +2,8 @@
 -r ../pillar/requirements-dev.txt
 -r ../attract/requirements-dev.txt
 -r ../flamenco/requirements-dev.txt
+
+-e ../pillar-python-sdk
+-e ../pillar
+-e ../attract
+-e ../flamenco
