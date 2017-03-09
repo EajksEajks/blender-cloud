@@ -2,6 +2,11 @@
 
 To get the docker stack up and running, we use the following, on an Ubuntu 16.10 machine.
 
+## 0. Basic stuff
+
+Install the machine, use `locale-gen nl_NL.UTF-8` or similar commands to generate locale
+definitions. Set up automatic security updates and backups, the usual.
+
 ## 1. Install Docker
 
 Install Docker itself, as described in the
@@ -37,6 +42,14 @@ See the [Quick setup](../README.md) on how to get those. Then run:
     cd /data/git/blender-cloud/docker
     docker-compose up -d
 
+
+Set up permissions for Docker volumes; the following should be writable by
+
+- `/data/storage/pillar`: writable by `www-data` and `root` (do a `chown root:www-data`
+  and `chmod 2770`).
+- `/data/storage/db`: writable by uid 999.
+
+
 ## 5. Set up TLS
 
 Place TLS certificates in `/data/certs/{cloud,cloudapi}.blender.org.pem`.
@@ -45,5 +58,7 @@ CA certificate.
 
 ## 6. Create a local config
 
-Blender Cloud expects a file `/data/git/blender_cloud/config_local.py` to exist,
-with machine-local configuration overrides.
+Blender Cloud expects the following files to exist:
+
+- `/data/git/blender_cloud/config_local.py` with machine-local configuration overrides
+- `/data/config/google_app.json` with Google Cloud Storage credentials.
