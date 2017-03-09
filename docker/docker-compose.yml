@@ -1,5 +1,5 @@
 mongo:
-  image: mongo
+  image: mongo:3.4.2
   container_name: mongo
   restart: always
   volumes:
@@ -7,7 +7,7 @@ mongo:
   ports:
    - "127.0.0.1:27017:27017"
 redis:
-  image: redis
+  image: redis:3.2.8
   container_name: redis
   restart: always
 blender_cloud:
@@ -36,7 +36,7 @@ blender_cloud:
 #    VIRTUAL_HOST_WEIGHT: 20
 #    FORCE_SSL: true
 grafista:
-  image: armadillica/grafista
+  image: armadillica/grafista:latest
   container_name: grafista
   restart: always
   environment:
@@ -47,7 +47,7 @@ grafista:
     - /data/git/grafista:/data/git/grafista:ro
     - /data/storage/grafista:/data/storage
 haproxy:
-  image: dockercloud/haproxy
+  image: dockercloud/haproxy:1.2.1
   container_name: haproxy
   restart: always
   ports:
