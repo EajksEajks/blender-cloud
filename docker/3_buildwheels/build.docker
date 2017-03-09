@@ -6,7 +6,9 @@ RUN apt-get update && apt-get install -qy \
     build-essential \
     checkinstall \
     libffi-dev \
-    libssl-dev
+    libssl-dev \
+    libjpeg-dev \
+    zlib1g-dev
 
 ENV WHEELHOUSE=/data/wheelhouse
 ENV PIP_WHEEL_DIR=/data/wheelhouse
