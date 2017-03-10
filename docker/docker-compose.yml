@@ -4,6 +4,7 @@ mongo:
   restart: always
   volumes:
    - /data/storage/db:/data/db
+   - /data/storage/db-bak:/data/db-bak # for backing up stuff etc.
   ports:
    - "127.0.0.1:27017:27017"
 redis:
@@ -47,7 +48,7 @@ grafista:
     - /data/git/grafista:/data/git/grafista:ro
     - /data/storage/grafista:/data/storage
 haproxy:
-  image: dockercloud/haproxy:1.2.1
+  image: dockercloud/haproxy:1.5.3
   container_name: haproxy
   restart: always
   ports:
