@@ -2,6 +2,13 @@
 
 set -e  # error out when one of the commands in the script errors.
 
+if [ -z "$1" ]; then
+    echo "Usage: $0 {host-to-deploy-to}" >&2
+    exit 1
+fi
+
+DEPLOYHOST="$1"
+
 PILLAR_DIR=$(python <<EOT
 from __future__ import print_function
 import os.path
@@ -35,8 +42,8 @@ fi
 
 echo
 echo "*** SYNCING ASSETS ***"
-rsync -avh $ASSETS root@cloud.blender.org:/data/git/pillar/pillar/web/static/assets/
+rsync -avh $ASSETS root@${DEPLOYHOST}:/data/git/pillar/pillar/web/static/assets/
 
 echo
 echo "*** SYNCING TEMPLATES ***"
-rsync -avh $TEMPLATES root@cloud.blender.org:/data/git/pillar/pillar/web/templates/
+rsync -avh $TEMPLATES root@${DEPLOYHOST}:/data/git/pillar/pillar/web/templates/

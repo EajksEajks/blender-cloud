@@ -1,11 +1,23 @@
 #!/bin/bash -e
 
+case $1 in
+    production)
+        DEPLOYHOST="cloud.blender.org"
+        ;;
+    staging)
+        DEPLOYHOST="cloud2"
+        ;;
+    *)
+        echo "Use $0 cloud|staging" >&2
+        exit 1
+esac
+
 # Deploys the current production branch to the production machine.
 PROJECT_NAME="blender-cloud"
 DOCKER_NAME="blender_cloud"
 REMOTE_ROOT="/data/git/${PROJECT_NAME}"
 
-SSH="ssh -o ClearAllForwardings=yes cloud.blender.org"
+SSH="ssh -o ClearAllForwardings=yes ${DEPLOYHOST}"
 
 # macOS does not support readlink -f, so we use greadlink instead
 if [[ `uname` == 'Darwin' ]]; then
@@ -91,9 +103,9 @@ git_pull blender-cloud production
 #${SSH} -t docker exec ${DOCKER_NAME} /data/venv/bin/pip install -U -r ${REMOTE_ROOT}/requirements.txt --exists-action w
 
 # RSync the world
-$ATTRACT_DIR/rsync_ui.sh
-$FLAMENCO_DIR/rsync_ui.sh
-./rsync_ui.sh
+$ATTRACT_DIR/rsync_ui.sh ${DEPLOYHOST}
+$FLAMENCO_DIR/rsync_ui.sh ${DEPLOYHOST}
+./rsync_ui.sh ${DEPLOYHOST}
 
 # Notify Bugsnag of this new deploy.
 echo
