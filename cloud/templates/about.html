@@ -1,5 +1,14 @@
 {% extends 'layout.html' %}
 {% block page_title %}Welcome{% endblock %}
+
+{% block css %}
+	{{ super() }}
+	<style>
+		.page-card-side {
+			padding: 60px 10px !important;
+		}
+	</style>
+{% endblock css %}
 {% block body %}
 <div id="page-container">
 	<div id="page-header">
@@ -8,7 +17,11 @@
 			<i class="pi-blender-cloud-logo"></i>
 		</div>
 		<div class="page-title-summary">
-			Blender Cloud means inspiration, knowledge, and tools in one place.<br>Started in 2015, it has been pushing the meaning of recurring crowdfunding ever since.<br> By subscribing to Blender Cloud you support the creation of open content, the development of high-end production tools like Blender and access a unique set of learning and creative resources.
+			Blender Cloud means inspiration, knowledge, and tools in one place.
+			<br>Started in 2015, it has been pushing the meaning of recurring crowdfunding ever since.<br>
+			By subscribing to Blender Cloud you support the creation of open content,<br>
+			the development of high-end production tools like Blender and access a <br>
+			unique set of learning and creative resources.
 		</div>
 	</div>
 	<div id="page-content">
@@ -22,12 +35,16 @@
 				</div>
 			</div>
 			<div class="page-card-side">
-			<a href="https://gooseberry.blender.org/gooseberry-campaign-launched-we-need-10k-people-to-help/"><img src="https://placehold.it/400x200"></a>
+			<a href="https://gooseberry.blender.org/gooseberry-campaign-launched-we-need-10k-people-to-help/">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2014_03_09_sxsw.jpg') }}">
+			</a>
 			</div>
 		</section>
 		<section class="page-card">
 			<div class="page-card-side">
-				<a href="https://gooseberry.blender.org/gooseberry-campaign-launched-we-need-10k-people-to-help/"><img src="https://placehold.it/400x200"></a>
+				<a href="https://gooseberry.blender.org/gooseberry-campaign-launched-we-need-10k-people-to-help/">
+					<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2014_03_10_cosmos.jpg') }}">
+				</a>
 			</div>
 			<div class="page-card-side">
 				<h2 class="page-card-title">
@@ -48,12 +65,14 @@
 				</div>
 			</div>
 			<div class="page-card-side">
-				<a href="https://cloud.blender.org/p/glass-half/blog/glass-half-premiere"><img src="https://placehold.it/400x200"></a>
+				<a href="https://cloud.blender.org/p/glass-half/blog/glass-half-premiere">
+					<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2015_10_30_glass.jpg') }}" /></a>
 			</div>
 		</section>
 		<section class="page-card">
 			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/new-art-gallery-with-gleb-alexandrov"><img src="https://placehold.it/400x200"></a>
+			<a href="https://cloud.blender.org/blog/new-art-gallery-with-gleb-alexandrov">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2015_11_19_art.jpg') }}" /></a>
 			</div>
 			<div class="page-card-side">
 				<h2 class="page-card-title">
@@ -74,12 +93,14 @@
 				</div>
 			</div>
 			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/introducing-blender-institute-podcast"><img src="https://placehold.it/400x200"></a>
+			<a href="https://cloud.blender.org/blog/introducing-blender-institute-podcast">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2015_11_24_bip.jpg') }}" /></a>
 			</div>
 		</section>
 		<section class="page-card">
 			<div class="page-card-side">
-			<a href="https://cloud.blender.org/p/blenrig/blog/welcome-to-the-blenrig-project"><img src="https://placehold.it/400x200"></a>
+			<a href="https://cloud.blender.org/p/blenrig/blog/welcome-to-the-blenrig-project">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2015_12_01_blenrig.jpg') }}" /></a>
 			</div>
 			<div class="page-card-side">
 				<h2 class="page-card-title">
@@ -100,12 +121,14 @@
 				</div>
 			</div>
 			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/new-texture-library"><img src="https://placehold.it/400x200"></a>
+			<a href="https://cloud.blender.org/blog/new-texture-library">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2015_12_23_textures.jpg') }}" /></a>
 			</div>
 		</section>
 		<section class="page-card">
 			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/nraryew-the-character-lib"><img src="https://placehold.it/400x200"></a>
+			<a href="https://cloud.blender.org/blog/nraryew-the-character-lib">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_01_05_charlib.jpg') }}" /></a>
 			</div>
 			<div class="page-card-side">
 				<h2 class="page-card-title">
@@ -126,12 +149,14 @@
 				</div>
 			</div>
 			<div class="page-card-side">
-			<a href="https://cloud.blender.org/p/caminandes-3/blog/caminandes-llamigos"><img src="https://placehold.it/400x200"></a>
+			<a href="https://cloud.blender.org/p/caminandes-3/blog/caminandes-llamigos">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_01_30_llamigos.jpg') }}" /></a>
 			</div>
 		</section>
 		<section class="page-card">
 			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/welcome-sybren"><img src="https://placehold.it/400x200"></a>
+			<a href="https://cloud.blender.org/blog/welcome-sybren">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_03_01_sybren.jpg') }}" /></a>
 			</div>
 			<div class="page-card-side">
 				<h2 class="page-card-title">
@@ -152,12 +177,14 @@
 				</div>
 			</div>
 			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/welcome-sybren"><img src="https://placehold.it/400x200"></a>
+			<a href="https://cloud.blender.org/blog/welcome-sybren">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_05_03_projects.jpg') }}" /></a>
 			</div>
 		</section>
 		<section class="page-card">
 			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/introducing-project-sharing"><img src="https://placehold.it/400x200"></a>
+			<a href="https://cloud.blender.org/blog/introducing-project-sharing">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_05_09_projectsharing.jpg') }}" /></a>
 			</div>
 			<div class="page-card-side">
 				<h2 class="page-card-title">
@@ -178,12 +205,14 @@
 				</div>
 			</div>
 			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/introducing-project-sharing"><img src="https://placehold.it/400x200"></a>
+			<a href="https://cloud.blender.org/blog/introducing-project-sharing">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_05_11_addon.jpg') }}" /></a>
 			</div>
 		</section>
 		<section class="page-card">
 			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/introducing-private-texture-libraries"><img src="https://placehold.it/400x200"></a>
+			<a href="https://cloud.blender.org/blog/introducing-private-texture-libraries">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_05_23_privtextures.jpg') }}" /></a>
 			</div>
 			<div class="page-card-side">
 				<h2 class="page-card-title">
@@ -204,12 +233,14 @@
 				</div>
 			</div>
 			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/introducing-blender-sync"><img src="https://placehold.it/400x200"></a>
+			<a href="https://cloud.blender.org/blog/introducing-blender-sync">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_06_30_sync.jpg') }}" /></a>
 			</div>
 		</section>
 		<section class="page-card">
 			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/introducing-image-sharing"><img src="https://placehold.it/400x200"></a>
+			<a href="https://cloud.blender.org/blog/introducing-image-sharing">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_07_14_image.jpg') }}" /></a>
 			</div>
 			<div class="page-card-side">
 				<h2 class="page-card-title">
@@ -230,12 +261,14 @@
 				</div>
 			</div>
 			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/introducing-the-hdri-library"><img src="https://placehold.it/400x200"></a>
+			<a href="https://cloud.blender.org/blog/introducing-the-hdri-library">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_07_27_hdri.jpg') }}" /></a>
 			</div>
 		</section>
 		<section class="page-card">
 			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/introducing-the-hdri-library"><img src="https://placehold.it/400x200"></a>
+			<a href="https://cloud.blender.org/blog/introducing-the-hdri-library">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_12_06_toon.jpg') }}" /></a>
 			</div>
 			<div class="page-card-side">
 				<h2 class="page-card-title">
@@ -244,6 +277,22 @@
 				<div class="page-card-summary">
 				YouTube star Dillon Gu joins Blender Cloud for a new tutorial series that will guide you from the basics to a finished toon-shaded character.
 				</div>
+			</div>
+		</section>
+		<section class="page-card">
+			<div class="page-card-side">
+				<h2 class="page-card-title">
+				Agent 327 - Barbershop
+				</h2>
+				<div class="page-card-summary">
+					<p>Follow the ongoing progress of the Barbershop fight scene, an animation test for the Agent 327 project. By subscribing to Blender Cloud, you get access
+					to all resources and training produced so far!</p>
+				<a href="https://store.blender.org/product/membership/" class="page-card-cta">Subscribe</a>
+				</div>
+			</div>
+			<div class="page-card-side">
+			<a href="https://cloud.blender.org/p/agent-327">
+				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2017_03_10_agent.jpg') }}" /></a>
 			</div>
 		</section>
 	</div>
