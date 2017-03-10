@@ -1,16 +1,24 @@
 #!/bin/bash -e
 
 case $1 in
-    production)
-        DEPLOYHOST="cloud.blender.org"
-        ;;
-    staging)
-        DEPLOYHOST="cloud2"
+    cloud*)
+        DEPLOYHOST="$1"
         ;;
     *)
-        echo "Use $0 cloud|staging" >&2
+        echo "Use $0 cloud{nr}|cloud.blender.org" >&2
         exit 1
 esac
+
+echo -n "Deploying to ${DEPLOYHOST}... "
+
+if ! ping ${DEPLOYHOST} -q -c 1 -w 2 >/dev/null; then
+    echo "host ${DEPLOYHOST} cannot be pinged, refusing to deploy." >&2
+    exit 2
+fi
+
+echo "press [ENTER] to continue, Ctrl+C to abort."
+read dummy
+
 
 # Deploys the current production branch to the production machine.
 PROJECT_NAME="blender-cloud"
