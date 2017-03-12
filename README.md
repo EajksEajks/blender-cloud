@@ -16,10 +16,11 @@ pip3 install docker-compose
 
 cd /data/git
 git clone git://git.blender.org/pillar-python-sdk.git
-git clone git://git.blender.org/pillar.git -b py36
-git clone git://git.blender.org/attract.git -b py36
-git clone git://git.blender.org/flamenco.git -b py36
-git clone git://git.blender.org/blender-cloud.git -b py36
+git clone git://git.blender.org/pillar.git -b production
+git clone git://git.blender.org/attract.git -b production
+git clone git://git.blender.org/flamenco.git -b production
+git clone git://git.blender.org/blender-cloud.git -b production
+git clone https://github.com/armadillica/grafista.git -b production
 
 ```
 
