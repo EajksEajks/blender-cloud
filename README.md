@@ -22,6 +22,8 @@ git clone git://git.blender.org/flamenco.git -b production
 git clone git://git.blender.org/blender-cloud.git -b production
 git clone https://github.com/armadillica/grafista.git -b production
 
+echo '0 8 * * * root docker exec -d grafista bash manage.sh collect' > /etc/cron.d/grafista
+
 ```
 
 After these commands, run `deploy.sh` to build the static files and deploy
