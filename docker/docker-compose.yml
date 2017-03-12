@@ -46,7 +46,7 @@ grafista:
     FORCE_SSL: "true"
   volumes:
     - /data/git/grafista:/data/git/grafista:ro
-    - /data/storage/grafista:/data/storage
+    - /data/storage/grafista:/data/storage/grafista
 haproxy:
   image: dockercloud/haproxy:1.5.3
   container_name: haproxy
