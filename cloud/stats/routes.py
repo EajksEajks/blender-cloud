@@ -47,7 +47,7 @@ def index(before: int=0):
 
     # TODO: Implement project-level metrics (and update ad every child update)
     if before:
-        before = datetime.datetime.strptime(before, '%Y%m%d')
+        before = datetime.datetime.strptime(str(before), '%Y%m%d')
     else:
         today = datetime.date.today()
         before = datetime.datetime(today.year, today.month, today.day)
