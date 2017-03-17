@@ -15,16 +15,18 @@ def get_stats(before: datetime.datetime):
     query_comments = {'node_type': 'comment'}
     query_assets = {'node_type': 'asset'}
 
+    date_query = {}
+
     if before:
-        d = {'_created': {'$lt': before}}
-        query_comments.update(d)
-        query_assets.update(d)
+        date_query = {'_created': {'$lt': before}}
+        query_comments.update(date_query)
+        query_assets.update(date_query)
 
     stats = {
         'comments': count_nodes(query_comments),
         'assets': count_nodes(query_assets),
-        'users_total': count_users(),
-        'users_blender_sync': count_blender_sync(),
+        'users_total': count_users(date_query),
+        'users_blender_sync': count_blender_sync(date_query),
     }
     return stats
 

@@ -41,12 +41,12 @@ def count_nodes(query=None) -> int:
     return count
 
 
-def count_users() -> int:
+def count_users(query=None) -> int:
     u = current_app.db()['users']
-    return u.count()
+    return u.count(query)
 
 
-def count_blender_sync() -> int:
+def count_blender_sync(query=None) -> int:
     pipeline = [
         # 0 Find all startups.blend that are not deleted
         {
@@ -79,6 +79,10 @@ def count_blender_sync() -> int:
         {'$count': 'tot'}
     ]
     c = current_app.db()['nodes']
+    # If we provide a query, we extend the first $match step in the aggregation pipeline with
+    # with the extra parameters (for example _created)
+    if query:
+        pipeline[0]['$match'].update(query)
     # Return either a list with one item or an empty list
     r = list(c.aggregate(pipeline=pipeline))
     count = 0 if not r else r[0]['tot']
