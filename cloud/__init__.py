@@ -49,7 +49,11 @@ class CloudExtension(PillarExtension):
         :rtype: list of flask.Blueprint objects.
         """
         from . import routes
-        return [routes.blueprint]
+        import cloud.stats.routes
+        return [
+            routes.blueprint,
+            cloud.stats.routes.blueprint,
+        ]
 
     @property
     def template_path(self):
