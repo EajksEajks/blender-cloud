@@ -11,7 +11,7 @@ esac
 
 echo -n "Deploying to ${DEPLOYHOST}... "
 
-if ! ping ${DEPLOYHOST} -q -c 1 -w 2 >/dev/null; then
+if ! ping ${DEPLOYHOST} -q -c 1 -W 2 >/dev/null; then
     echo "host ${DEPLOYHOST} cannot be pinged, refusing to deploy." >&2
     exit 2
 fi
