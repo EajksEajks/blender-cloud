@@ -130,6 +130,7 @@ echo "==================================================================="
 echo "NOTE: If you want to edit config_local.py on the server, do so now."
 echo "NOTE: Press [ENTER] to continue and restart the server process."
 read dummy
+echo "Gracefully restarting server process"
 ${SSH} docker exec ${DOCKER_NAME} apache2ctl graceful
 echo "Server process restarted"
 
