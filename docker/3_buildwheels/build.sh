@@ -24,7 +24,7 @@ mkdir -p "$WHEELHOUSE"
 
 docker build -t pillar_wheelbuilder -f build.docker .
 
-GID=$(id --group)
+GID=$(id -g)
 docker run --rm -i \
     -v "$WHEELHOUSE:/data/wheelhouse" \
     -v "$TOPDEVDIR:/data/topdev" \

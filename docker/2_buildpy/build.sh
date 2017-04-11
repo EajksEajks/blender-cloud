@@ -18,7 +18,7 @@ echo "Python will be built to $PYTHONTARGET"
 docker build -t pillar_build -f buildpy.docker .
 
 # Use the docker image to build Python 3.6 and mod-wsgi
-GID=$(id --group)
+GID=$(id -g)
 docker run --rm -i \
     -v "$PYTHONTARGET:/opt/python" \
     pillar_build <<EOT
