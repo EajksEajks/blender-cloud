@@ -15,14 +15,14 @@ manager_cloud = Manager(
 @manager_cloud.command
 def reconcile_subscribers():
     """For every user, check their subscription status with the store."""
-    from pillar.auth.subscriptions import fetch_user
+    from pillar.api.blender_cloud.subscription import fetch_subscription_info
 
     users_coll = current_app.data.driver.db['users']
     unsubscribed_users = []
     for user in users_coll.find({'roles': 'subscriber'}):
         print('Processing %s' % user['email'])
         print('  Checking subscription')
-        user_store = fetch_user(user['email'])
+        user_store = fetch_subscription_info(user['email'])
         if user_store['cloud_access'] == 0:
             print('    Removing subscriber role')
             users_coll.update(
