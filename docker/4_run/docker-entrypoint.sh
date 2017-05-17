@@ -18,6 +18,9 @@ if [ ! -f /installed ]; then
     touch /installed
 fi
 
+# Make sure that log rotation works.
+service cron start
+
 
 if [ "$DEV" = "true" ]; then
     echo "Running in development mode"
