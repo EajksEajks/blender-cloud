@@ -24,7 +24,9 @@ Configure Docker to use "overlay" instead of "aufs" for the images. This prevent
 [segfaults in auplink](https://bugs.launchpad.net/ubuntu/+source/aufs-tools/+bug/1442568).
 
 1. Set `DOCKER_OPTS="-s overlay"` in `/etc/defaults/docker`
-2. Edit the `[Service]` section of `/lib/systemd/system/docker.service`:
+2. Copy `/lib/systemd/system/docker.service` to `/etc/systemd/system/docker.service`.
+   This allows later upgrading of docker without overwriting the changes we're about to do.
+2. Edit the `[Service]` section of `/etc/systemd/system/docker.service`:
     1. Add `EnvironmentFile=/etc/default/docker`
     2. Append ` $DOCKER_OPTS` to the `ExecStart` line
 3. Run `systemctl daemon-reload`
