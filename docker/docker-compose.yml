@@ -20,9 +20,11 @@ blender_cloud:
    VIRTUAL_HOST_WEIGHT: 10
    FORCE_SSL: "true"
   volumes:
+   # format: HOST:CONTAINER
    - /data/git:/data/git:ro
    - /data/config:/data/config:ro
    - /data/storage/pillar:/data/storage/pillar
+   - /data/log:/var/log
   links:
    - mongo
    - redis

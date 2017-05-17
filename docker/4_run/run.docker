@@ -30,6 +30,7 @@ RUN pip3 install --no-index --find-links=/data/wheelhouse -r /data/wheelhouse/re
 VOLUME /data/git
 VOLUME /data/config
 VOLUME /data/storage
+VOLUME /var/log
 
 ENV USE_X_SENDFILE True
 
