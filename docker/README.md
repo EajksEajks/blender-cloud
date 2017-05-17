@@ -33,7 +33,7 @@ Configure Docker to use "overlay" instead of "aufs" for the images. This prevent
 
 ## 3. Pull the Blender Cloud docker image
 
-`docker pull armadillica/blender_cloud:latest-py36`
+`docker pull armadillica/blender_cloud:latest`
 
 ## 4. Get docker-compose + our repositories
 
