@@ -19,8 +19,8 @@ if [ ! -f /installed ]; then
 fi
 
 # Make sure that log rotation works.
+mkdir -p ${APACHE_LOG_DIR}
 service cron start
-
 
 if [ "$DEV" = "true" ]; then
     echo "Running in development mode"
