@@ -14,7 +14,7 @@ redis:
   ports:
    - "127.0.0.1:6379:6379"
 rabbit:
-    image: rabbitmq:3.6.7
+    image: rabbitmq:3.6.10
     container_name: rabbit
     restart: always
     ports:
@@ -36,6 +36,22 @@ blender_cloud:
   links:
    - mongo
    - redis
+   - rabbit
+celery_worker:
+  image: armadillica/blender_cloud:latest
+  entrypoint: /celery-worker.sh
+  container_name: celery_worker
+  restart: always
+  volumes:
+   # format: HOST:CONTAINER
+   - /data/git:/data/git:ro
+   - /data/config:/data/config:ro
+   - /data/storage/pillar:/data/storage/pillar
+   - /data/log:/var/log
+  links:
+   - mongo
+   - redis
+   - rabbit
 # notifserv:
 #   container_name: notifserv
 #   image: armadillica/pillar-notifserv:cd8fa678436563ac3b800b2721e36830c32e4656
