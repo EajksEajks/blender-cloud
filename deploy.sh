@@ -23,6 +23,7 @@ read dummy
 # Deploys the current production branch to the production machine.
 PROJECT_NAME="blender-cloud"
 DOCKER_NAME="blender_cloud"
+CELERY_WORKER_DOCKER_NAME="celery_worker"
 REMOTE_ROOT="/data/git/${PROJECT_NAME}"
 
 SSH="ssh -o ClearAllForwardings=yes ${DEPLOYHOST}"
@@ -133,6 +134,13 @@ read dummy
 echo "Gracefully restarting server process"
 ${SSH} docker exec ${DOCKER_NAME} apache2ctl graceful
 echo "Server process restarted"
+
+echo
+echo "==================================================================="
+echo "Restarting Celery worker."
+${SSH} docker restart ${CELERY_WORKER_DOCKER_NAME}
+echo "Celery worker docker restarted"
+
 
 echo
 echo "==================================================================="
