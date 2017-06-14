@@ -2,12 +2,17 @@ import logging
 
 import flask
 from werkzeug.local import LocalProxy
+
+from pillar.api.utils import authorization
 from pillar.extension import PillarExtension
 
 EXTENSION_NAME = 'cloud'
+ROLES_TO_BE_SUBSCRIBER = {'demo', 'subscriber', 'admin'}
 
 
 class CloudExtension(PillarExtension):
+    has_context_processor = True
+
     def __init__(self):
         self._log = logging.getLogger('%s.CloudExtension' % __name__)
 
@@ -64,6 +69,11 @@ class CloudExtension(PillarExtension):
     def static_path(self):
         import os.path
         return os.path.join(os.path.dirname(__file__), 'static')
+
+    def context_processor(self):
+        return {
+            'current_user_is_subscriber': authorization.user_matches_roles(ROLES_TO_BE_SUBSCRIBER)
+        }
 
 
 def _get_current_cloud():
