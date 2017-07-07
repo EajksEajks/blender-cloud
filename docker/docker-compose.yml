@@ -24,7 +24,7 @@ blender_cloud:
   container_name: blender_cloud
   restart: always
   environment:
-   VIRTUAL_HOST: http://cloudapi.blender.org/*,https://cloudapi.blender.org/*,http://cloud.blender.org/*,https://cloud.blender.org/*,http://pillar-web/*
+   VIRTUAL_HOST: http://cloud.blender.org/*,https://cloud.blender.org/*,http://pillar-web/*
    VIRTUAL_HOST_WEIGHT: 10
    FORCE_SSL: "true"
   volumes:
