@@ -73,6 +73,17 @@ grafista:
   volumes:
     - /data/git/grafista:/data/git/grafista:ro
     - /data/storage/grafista:/data/storage/grafista
+letsencrypt:
+    image: armadillica/picohttp:latest
+    container_name: letsencrypt
+    restart: always
+    environment:
+        WEBROOT: /data/letsencrypt
+        LISTEN: '[::]:80'
+        VIRTUAL_HOST: http://localhost/.well-known/*,http://cloud.blender.org/.well-known/*,http://blender-cloud/.well-known/*
+        VIRTUAL_HOST_WEIGHT: 20
+    volumes:
+        - /data/letsencrypt:/data/letsencrypt
 haproxy:
   image: dockercloud/haproxy:1.5.3
   container_name: haproxy
@@ -87,5 +98,6 @@ haproxy:
    - blender_cloud
    - grafista
    # - notifserv
+   - letsencrypt
   volumes:
    - '/data/certs:/certs'
