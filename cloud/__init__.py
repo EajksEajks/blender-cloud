@@ -75,6 +75,46 @@ class CloudExtension(PillarExtension):
             'current_user_is_subscriber': authorization.user_matches_roles(ROLES_TO_BE_SUBSCRIBER)
         }
 
+    def setup_app(self, app):
+        """Links certain roles to the subscriber role.
+
+        This means that users who get the subscriber role also get this linked
+        role, and when the subscriber role is revoked, the linked role is also
+        revoked.
+        """
+
+        from pillar.api.service import signal_user_changed_role
+
+        signal_user_changed_role.connect(self._user_changed_role)
+
+    def _user_changed_role(self, sender, user: dict):
+        from pillar.api import service
+
+        linked_roles = {'flamenco-user', 'attract-user'}
+        link_to = 'subscriber'
+        user_roles = set(user.get('roles', []))
+
+        # Determine what to do
+        has_linked_roles = not (linked_roles - user_roles)
+        action = ''
+        if link_to in user_roles and not has_linked_roles:
+            self._log.info('Granting roles %s to user %s', linked_roles, user['_id'])
+            action = 'grant'
+        elif link_to not in user_roles and has_linked_roles:
+            self._log.info('Revoking roles %s from user %s', linked_roles, user['_id'])
+            action = 'revoke'
+
+        if not action:
+            return
+
+        # Avoid infinite loops while we're changing the user's roles.
+        service.signal_user_changed_role.disconnect(self._user_changed_role)
+        try:
+            for role in linked_roles:
+                service.do_badger(action, role, user_id=user['_id'])
+        finally:
+            service.signal_user_changed_role.connect(self._user_changed_role)
+
 
 def _get_current_cloud():
     """Returns the Cloud extension of the current application."""
