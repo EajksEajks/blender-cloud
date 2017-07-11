@@ -36,26 +36,36 @@ def create_groups():
 @manager_cloud.command
 def reconcile_subscribers():
     """For every user, check their subscription status with the store."""
+
     from pillar.api.blender_cloud.subscription import fetch_subscription_info
+
+    service.fetch_role_to_group_id_map()
 
     users_coll = current_app.data.driver.db['users']
     unsubscribed_users = []
     for user in users_coll.find({'roles': 'subscriber'}):
-        print('Processing %s' % user['email'])
-        print('  Checking subscription')
+        log.info('Processing %s' % user['email'])
+
         user_store = fetch_subscription_info(user['email'])
-        if user_store['cloud_access'] == 0:
-            print('    Removing subscriber role')
-            users_coll.update(
-                {'_id': user['_id']},
-                {'$pull': {'roles': 'subscriber'}})
+        if not user_store:
+            log.error('Unable to reach store, aborting')
+            break
+
+        if not user_store or user_store['cloud_access'] == 0:
+            action = 'revoke'
             unsubscribed_users.append(user['email'])
+        else:
+            action = 'grant'
+
+        service.do_badger(action, 'subscriber', user_id=user['_id'])
 
     if not unsubscribed_users:
+        log.info('No unsubscribed users')
         return
 
     print('The following users have been unsubscribed')
     for user in unsubscribed_users:
         print(user)
+
 
 manager.add_command("cloud", manager_cloud)
