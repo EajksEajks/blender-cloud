@@ -5,11 +5,32 @@ from flask import current_app
 from flask_script import Manager
 
 from pillar.cli import manager
+from pillar.api import service
 
 log = logging.getLogger(__name__)
 
 manager_cloud = Manager(
     current_app, usage="Blender Cloud scripts")
+
+
+@manager_cloud.command
+def create_groups():
+    """Creates the admin/demo/subscriber groups."""
+
+    import pprint
+
+    group_ids = {}
+    groups_coll = current_app.db('groups')
+
+    for group_name in ['admin', 'demo', 'subscriber']:
+        if groups_coll.find({'name': group_name}).count():
+            log.info('Group %s already exists, skipping', group_name)
+            continue
+        result = groups_coll.insert_one({'name': group_name})
+        group_ids[group_name] = result.inserted_id
+
+    service.fetch_role_to_group_id_map()
+    log.info('Created groups:\n%s', pprint.pformat(group_ids))
 
 
 @manager_cloud.command
