@@ -44,10 +44,11 @@ def reconcile_subscribers():
     users_coll = current_app.data.driver.db['users']
     unsubscribed_users = []
     found = users_coll.find({'roles': 'subscriber'})
-    log.info('Processing %i users', found.count())
+    user_count = found.count()
+    log.info('Processing %i users', user_count)
 
-    for user in found:
-        log.info('Processing %s' % user['email'])
+    for idx, user in enumerate(found):
+        log.info('Processing %i/%i %s', idx+1, user_count, user['email'])
 
         user_store = fetch_subscription_info(user['email'])
         if not user_store:
