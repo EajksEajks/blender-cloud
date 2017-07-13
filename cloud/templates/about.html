@@ -1,301 +1,157 @@
+
 {% extends 'layout.html' %}
 {% block page_title %}Welcome{% endblock %}
-
 {% block css %}
-	{{ super() }}
-	<style>
-		.page-card-side {
-			padding: 60px 10px !important;
-		}
-	</style>
-{% endblock css %}
+{{ super() }}
+<style>
+  .page-card-side {
+  padding: 60px 10px !important;
+  }
+</style>{% endblock css %}
 {% block body %}
 <div id="page-container">
-	<div id="page-header">
-		<div style="text-align: left" class="page-title">
-			<em>ABOUT</em>
-			<i class="pi-blender-cloud-logo"></i>
-		</div>
-		<div class="page-title-summary">
-			Blender Cloud means inspiration, knowledge, and tools in one place.
-			<br>Started in 2014, it has been pushing the meaning of recurring crowdfunding ever since.<br>
-			By subscribing to Blender Cloud you support the creation of open content,<br>
-			the development of high-end production tools like Blender and access a <br>
-			unique set of learning and creative resources.
-		</div>
-	</div>
-	<div id="page-content">
-		<section class="page-card">
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Launch at SXSW <small>March 9th, 2014</small>
-				</h2>
-				<div class="page-card-summary">
-				First happy cloud video and crowdfunding for Cosmos Laundromat Pilot.
-				</div>
-			</div>
-			<div class="page-card-side">
-			<a href="https://gooseberry.blender.org/gooseberry-campaign-launched-we-need-10k-people-to-help/">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2014_03_09_sxsw.jpg') }}">
-			</a>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-				<a href="https://gooseberry.blender.org/gooseberry-campaign-launched-we-need-10k-people-to-help/">
-					<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2014_03_10_cosmos.jpg') }}">
-				</a>
-			</div>
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Gooseberry | Cosmos Laundromat <small>March 10th, 2015</small>
-				</h2>
-				<div class="page-card-summary">
-				Weekly folders with updates for subscribers. Initial development of Attract, which will become the new cloud some months later on.
-				</div>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Glass Half <small>October 30th, 2015</small>
-				</h2>
-				<div class="page-card-summary">
-				Introducing integrated blogs in Blender Cloud projects. Glass Half is the first project fully developed on the new Blender Cloud. It&#39;s also the first and only project to have share its <a href="https://cloud.blender.org/p/glass-half/5627bb22f0e7220061109c9f">animation dailies</a>! But the biggest outcome from Glass Half was definitely <a href="https://cloud.blender.org/p/glass-half/569d6044c379cf445461293e">Flexirig</a>.
-				</div>
-			</div>
-			<div class="page-card-side">
-				<a href="https://cloud.blender.org/p/glass-half/blog/glass-half-premiere">
-					<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2015_10_30_glass.jpg') }}" /></a>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/new-art-gallery-with-gleb-alexandrov">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2015_11_19_art.jpg') }}" /></a>
-			</div>
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Art Gallery <small>November 19th, 2015</small>
-				</h2>
-				<div class="page-card-summary">
-				Learn by example. Introducing a place for amazing artwork to be shared, along with its blendfiles and breakdowns.
-				</div>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Blender Institute Podcast <small>November 24th, 2015</small>
-				</h2>
-				<div class="page-card-summary">
-				With so much going on in the Cloud at at the studio. The Blender Institute Podcast was born! Sharing our daily studio work, Blender community news, and interacting with the awesome Blender Cloud subscribers.
-				</div>
-			</div>
-			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/introducing-blender-institute-podcast">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2015_11_24_bip.jpg') }}" /></a>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-			<a href="https://cloud.blender.org/p/blenrig/blog/welcome-to-the-blenrig-project">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2015_12_01_blenrig.jpg') }}" /></a>
-			</div>
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Blenrig <small>December 1st, 2015</small>
-				</h2>
-				<div class="page-card-summary">
-				The most powerful and versatile rigging framework for Blender, used and tested through Cosmos Laundromat and the Caminandes series, is now part of Blender Cloud!
-				</div>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Texture Library <small>December 23rd, 2015</small>
-				</h2>
-				<div class="page-card-summary">
-				The biggest source for CC0/Public Domain textures on the interwebs goes live. First as beta, as a quick gift right before Xmas 2015!
-				</div>
-			</div>
-			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/new-texture-library">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2015_12_23_textures.jpg') }}" /></a>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/nraryew-the-character-lib">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_01_05_charlib.jpg') }}" /></a>
-			</div>
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Character Library <small>January 5th, 2016</small>
-				</h2>
-				<div class="page-card-summary">
-				High-quality, animation-ready characters collection from all the Blender Institute open projects, plus a brand new one: Vincent!
-				</div>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Caminandes: Llamigos <small>January 30th, 2016</small>
-				</h2>
-				<div class="page-card-summary">
-				The <a href="https://www.youtube.com/watch?v=SkVqJ1SGeL0">third episode</a> of the Caminandes series was completely done -and sponsored! through Blender Cloud. It&#39;s also the only project til date to have <a href="https://www.youtube.com/watch?v=kQH897V9bDg&amp;list=PLI2TkLMzCSr_H6ppmzDtU0ut0RwxGvXjv">nicely edited Weekly video reports</a>.
-				</div>
-			</div>
-			<div class="page-card-side">
-			<a href="https://cloud.blender.org/p/caminandes-3/blog/caminandes-llamigos">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_01_30_llamigos.jpg') }}" /></a>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/welcome-sybren">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_03_01_sybren.jpg') }}" /></a>
-			</div>
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Sybren <small>March 1st, 2016</small>
-				</h2>
-				<div class="page-card-summary">
-				Dr. Sybren Stüvel starts working at the Blender Institute!
-				</div>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Private Projects <small>May 3rd, 2016</small>
-				</h2>
-				<div class="page-card-summary">
-				Create your own private projects on Blender Cloud.
-				</div>
-			</div>
-			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/welcome-sybren">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_05_03_projects.jpg') }}" /></a>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/introducing-project-sharing">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_05_09_projectsharing.jpg') }}" /></a>
-			</div>
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Project Sharing <small>May 9th, 2016</small>
-				</h2>
-				<div class="page-card-summary">
-				Team work! Share your projects with other Blender Cloud subscribers.
-				</div>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Blender Cloud add-on with Texture Library <small>May 11th, 2016</small>
-				</h2>
-				<div class="page-card-summary">
-				Browse the textures from within Blender!
-				</div>
-			</div>
-			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/introducing-project-sharing">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_05_11_addon.jpg') }}" /></a>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/introducing-private-texture-libraries">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_05_23_privtextures.jpg') }}" /></a>
-			</div>
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Private Texture Libraries <small>May 23rd, 2016</small>
-				</h2>
-				<div class="page-card-summary">
-				Create your own private textures library and browse it in Blender with our add-on.
-				</div>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Blender Sync <small>June 30th, 2016</small>
-				</h2>
-				<div class="page-card-summary">
-				Sync your Blender preferences across multiple devices.
-				</div>
-			</div>
-			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/introducing-blender-sync">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_06_30_sync.jpg') }}" /></a>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/introducing-image-sharing">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_07_14_image.jpg') }}" /></a>
-			</div>
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Image Sharing <small>July 14th, 2016</small>
-				</h2>
-				<div class="page-card-summary">
-				Quickly share renders and Blender screenshots within Blender with our add-on.
-				</div>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				<a href="https://cloud.blender.org/blog/introducing-the-hdri-library">HDRI Library <small>July 27th, 2016</small></a>
-				</h2>
-				<div class="page-card-summary">
-				High-dynamic range images are now available on Blender Cloud! With their own special viewer. Also available via the Blender Cloud add-on.
-				</div>
-			</div>
-			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/introducing-the-hdri-library">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_07_27_hdri.jpg') }}" /></a>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-			<a href="https://cloud.blender.org/blog/introducing-the-hdri-library">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_12_06_toon.jpg') }}" /></a>
-			</div>
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				<a href="https://cloud.blender.org/blog/new-training-toon-character-workflow">Toon Character Workflow <small>December 6th, 2016</small></a>
-				</h2>
-				<div class="page-card-summary">
-				YouTube star Dillon Gu joins Blender Cloud for a new tutorial series that will guide you from the basics to a finished toon-shaded character.
-				</div>
-			</div>
-		</section>
-		<section class="page-card">
-			<div class="page-card-side">
-				<h2 class="page-card-title">
-				Agent 327 - Barbershop
-				</h2>
-				<div class="page-card-summary">
-					<p>Follow the ongoing progress of the Barbershop fight scene, an animation test for the Agent 327 project. By subscribing to Blender Cloud, you get access
-					to all resources and training produced so far!</p>
-				<a href="https://store.blender.org/product/membership/" class="page-card-cta">Subscribe</a>
-				</div>
-			</div>
-			<div class="page-card-side">
-			<a href="https://cloud.blender.org/p/agent-327">
-				<img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2017_03_10_agent.jpg') }}" /></a>
-			</div>
-		</section>
-	</div>
-</div>
-
-{% endblock body%}
+  <div id="page-header">
+    <div class="page-title" style="text-align: left;"><em>ABOUT</em><i class="pi-blender-cloud-logo"></i></div>
+    <div class="page-title-summary">Blender Cloud means inspiration, knowledge, and tools in one place.<br/>Started in 2014, it has been pushing the meaning of recurring crowdfunding ever since.<br/>By subscribing to Blender Cloud you support the creation of open content,<br/>the development of high-end production tools like Blender and access a<br/>unique set of learning and creative resources.</div>
+  </div>
+  <div id="page-content">
+    <section class="page-card">
+      <div class="page-card-side">
+        <h2 class="page-card-title">Launch at SXSW<small>March 9th, 2014</small></h2>
+        <div class="page-card-summary">First happy cloud video and crowdfunding for Cosmos Laundromat Pilot.</div>
+      </div>
+      <div class="page-card-side"><a href="https://gooseberry.blender.org/gooseberry-campaign-launched-we-need-10k-people-to-help/"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2014_03_09_sxsw.jpg') }}"/></a></div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side"><a href="https://gooseberry.blender.org/gooseberry-campaign-launched-we-need-10k-people-to-help/"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2014_03_10_cosmos.jpg') }}"/></a></div>
+      <div class="page-card-side">
+        <h2 class="page-card-title">Gooseberry | Cosmos Laundromat<small>March 10th, 2015</small></h2>
+        <div class="page-card-summary">Weekly folders with updates for subscribers. Initial development of Attract, which will become the new cloud some months later on.</div>
+      </div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side">
+        <h2 class="page-card-title">Glass Half<small>October 30th, 2015</small></h2>
+        <div class="page-card-summary">Introducing integrated blogs in Blender Cloud projects. Glass Half is the first project fully developed on the new Blender Cloud. It's also the first and only project to have share its<a href="https://cloud.blender.org/p/glass-half/5627bb22f0e7220061109c9f">animation dailies</a>! But the biggest outcome from Glass Half was definitely<a href="https://cloud.blender.org/p/glass-half/569d6044c379cf445461293e">Flexirig</a>.</div>
+      </div>
+      <div class="page-card-side"><a href="https://cloud.blender.org/p/glass-half/blog/glass-half-premiere"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2015_10_30_glass.jpg') }}"/></a></div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side"><a href="https://cloud.blender.org/blog/new-art-gallery-with-gleb-alexandrov"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2015_11_19_art.jpg') }}"/></a></div>
+      <div class="page-card-side">
+        <h2 class="page-card-title">Art Gallery<small>November 19th, 2015</small></h2>
+        <div class="page-card-summary">Learn by example. Introducing a place for amazing artwork to be shared, along with its blendfiles and breakdowns.</div>
+      </div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side">
+        <h2 class="page-card-title">Blender Institute Podcast<small>November 24th, 2015</small></h2>
+        <div class="page-card-summary">With so much going on in the Cloud at at the studio. The Blender Institute Podcast was born! Sharing our daily studio work, Blender community news, and interacting with the awesome Blender Cloud subscribers.</div>
+      </div>
+      <div class="page-card-side"><a href="https://cloud.blender.org/blog/introducing-blender-institute-podcast"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2015_11_24_bip.jpg') }}"/></a></div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side"><a href="https://cloud.blender.org/p/blenrig/blog/welcome-to-the-blenrig-project"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2015_12_01_blenrig.jpg') }}"/></a></div>
+      <div class="page-card-side">
+        <h2 class="page-card-title">Blenrig<small>December 1st, 2015</small></h2>
+        <div class="page-card-summary">The most powerful and versatile rigging framework for Blender, used and tested through Cosmos Laundromat and the Caminandes series, is now part of Blender Cloud!</div>
+      </div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side">
+        <h2 class="page-card-title">Texture Library<small>December 23rd, 2015</small></h2>
+        <div class="page-card-summary">The biggest source for CC0/Public Domain textures on the interwebs goes live. First as beta, as a quick gift right before Xmas 2015!</div>
+      </div>
+      <div class="page-card-side"><a href="https://cloud.blender.org/blog/new-texture-library"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2015_12_23_textures.jpg') }}"/></a></div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side"><a href="https://cloud.blender.org/blog/nraryew-the-character-lib"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_01_05_charlib.jpg') }}"/></a></div>
+      <div class="page-card-side">
+        <h2 class="page-card-title">Character Library<small>January 5th, 2016</small></h2>
+        <div class="page-card-summary">High-quality, animation-ready characters collection from all the Blender Institute open projects, plus a brand new one: Vincent!</div>
+      </div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side">
+        <h2 class="page-card-title">Caminandes: Llamigos<small>January 30th, 2016</small></h2>
+        <div class="page-card-summary">The<a href="https://www.youtube.com/watch?v=SkVqJ1SGeL0">third episode</a> of the Caminandes series was completely done -and sponsored! through Blender Cloud. It's also the only project til date to have<a href="https://www.youtube.com/watch?v=kQH897V9bDg&amp;list=PLI2TkLMzCSr_H6ppmzDtU0ut0RwxGvXjv">nicely edited Weekly video reports</a>.</div>
+      </div>
+      <div class="page-card-side"><a href="https://cloud.blender.org/p/caminandes-3/blog/caminandes-llamigos"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_01_30_llamigos.jpg') }}"/></a></div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side"><a href="https://cloud.blender.org/blog/welcome-sybren"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_03_01_sybren.jpg') }}"/></a></div>
+      <div class="page-card-side">
+        <h2 class="page-card-title">Sybren<small>March 1st, 2016</small></h2>
+        <div class="page-card-summary">Dr. Sybren Stüvel starts working at the Blender Institute!</div>
+      </div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side">
+        <h2 class="page-card-title">Private Projects<small>May 3rd, 2016</small></h2>
+        <div class="page-card-summary">Create your own private projects on Blender Cloud.</div>
+      </div>
+      <div class="page-card-side"><a href="https://cloud.blender.org/blog/welcome-sybren"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_05_03_projects.jpg') }}"/></a></div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side"><a href="https://cloud.blender.org/blog/introducing-project-sharing"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_05_09_projectsharing.jpg') }}"/></a></div>
+      <div class="page-card-side">
+        <h2 class="page-card-title">Project Sharing<small>May 9th, 2016</small></h2>
+        <div class="page-card-summary">Team work! Share your projects with other Blender Cloud subscribers.</div>
+      </div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side">
+        <h2 class="page-card-title">Blender Cloud add-on with Texture Library<small>May 11th, 2016</small></h2>
+        <div class="page-card-summary">Browse the textures from within Blender!</div>
+      </div>
+      <div class="page-card-side"><a href="https://cloud.blender.org/blog/introducing-project-sharing"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_05_11_addon.jpg') }}"/></a></div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side"><a href="https://cloud.blender.org/blog/introducing-private-texture-libraries"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_05_23_privtextures.jpg') }}"/></a></div>
+      <div class="page-card-side">
+        <h2 class="page-card-title">Private Texture Libraries<small>May 23rd, 2016</small></h2>
+        <div class="page-card-summary">Create your own private textures library and browse it in Blender with our add-on.</div>
+      </div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side">
+        <h2 class="page-card-title">Blender Sync<small>June 30th, 2016</small></h2>
+        <div class="page-card-summary">Sync your Blender preferences across multiple devices.</div>
+      </div>
+      <div class="page-card-side"><a href="https://cloud.blender.org/blog/introducing-blender-sync"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_06_30_sync.jpg') }}"/></a></div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side"><a href="https://cloud.blender.org/blog/introducing-image-sharing"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_07_14_image.jpg') }}"/></a></div>
+      <div class="page-card-side">
+        <h2 class="page-card-title">Image Sharing<small>July 14th, 2016</small></h2>
+        <div class="page-card-summary">Quickly share renders and Blender screenshots within Blender with our add-on.</div>
+      </div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side">
+        <h2 class="page-card-title"><a href="https://cloud.blender.org/blog/introducing-the-hdri-library">HDRI Library<small>July 27th, 2016</small></a></h2>
+        <div class="page-card-summary">High-dynamic range images are now available on Blender Cloud! With their own special viewer. Also available via the Blender Cloud add-on.</div>
+      </div>
+      <div class="page-card-side"><a href="https://cloud.blender.org/blog/introducing-the-hdri-library"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_07_27_hdri.jpg') }}"/></a></div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side"><a href="https://cloud.blender.org/blog/introducing-the-hdri-library"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2016_12_06_toon.jpg') }}"/></a></div>
+      <div class="page-card-side">
+        <h2 class="page-card-title"><a href="https://cloud.blender.org/blog/new-training-toon-character-workflow">Toon Character Workflow<small>December 6th, 2016</small></a></h2>
+        <div class="page-card-summary">YouTube star Dillon Gu joins Blender Cloud for a new tutorial series that will guide you from the basics to a finished toon-shaded character.</div>
+      </div>
+    </section>
+    <section class="page-card">
+      <div class="page-card-side">
+        <h2 class="page-card-title">Agent 327 - Barbershop</h2>
+        <div class="page-card-summary">
+          <p>
+            Follow the ongoing progress of the Barbershop fight scene, an animation test for the Agent 327 project. By subscribing to Blender Cloud, you get access
+            to all resources and training produced so far!
+          </p><a class="page-card-cta" href="https://store.blender.org/product/membership/">Subscribe</a>
+        </div>
+      </div>
+      <div class="page-card-side"><a href="https://cloud.blender.org/p/agent-327"><img class="img-responsive" src="{{ url_for('static_cloud', filename='img/2017_03_10_agent.jpg') }}"/></a></div>
+    </section>
+  </div>
+</div>{% endblock body%}

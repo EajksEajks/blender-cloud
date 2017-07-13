@@ -47,3 +47,44 @@ rsync -avh $ASSETS root@${DEPLOYHOST}:/data/git/pillar/pillar/web/static/assets/
 echo
 echo "*** SYNCING TEMPLATES ***"
 rsync -avh $TEMPLATES root@${DEPLOYHOST}:/data/git/pillar/pillar/web/templates/
+
+# macOS does not support readlink -f, so we use greadlink instead
+if [[ `uname` == 'Darwin' ]]; then
+    command -v greadlink 2>/dev/null 2>&1 || { echo >&2 "Install greadlink using brew."; exit 1; }
+    readlink='greadlink'
+else
+    readlink='readlink'
+fi
+
+BLENDER_CLOUD_DIR="$(dirname "$($readlink -f "$0")")"
+if [ ! -d "$BLENDER_CLOUD_DIR" ]; then
+    echo "Unable to find Blender Cloud dir '$BLENDER_CLOUD_DIR'"
+    exit 1
+fi
+
+ASSETS="$BLENDER_CLOUD_DIR/cloud/static/assets/"
+TEMPLATES="$BLENDER_CLOUD_DIR/cloud/templates/flamenco"
+
+if [ ! -d "$ASSETS" ]; then
+    echo "Unable to find assets dir $ASSETS"
+    exit 1
+fi
+
+cd $BLENDER_CLOUD_DIR
+if [ $(git rev-parse --abbrev-ref HEAD) != "production" ]; then
+    echo "You are NOT on the production branch, refusing to rsync_ui." >&2
+    exit 1
+fi
+
+echo
+echo "*** GULPA GULPA ***"
+./gulp --production
+
+echo
+echo "*** SYNCING ASSETS ***"
+# Exclude files managed by Git.
+rsync -avh $ASSETS --exclude js/vendor/ root@${DEPLOYHOST}:/data/git/blender-cloud/cloud/static/assets/
+
+echo
+echo "*** SYNCING TEMPLATES ***"
+rsync -avh $TEMPLATES root@${DEPLOYHOST}:/data/git/blender-cloud/cloud/templates/

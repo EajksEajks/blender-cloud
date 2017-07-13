@@ -4,6 +4,8 @@
 *.pyc
 __pycache__
 
+cloud/templates/
+
 /config_local.py
 
 /build
