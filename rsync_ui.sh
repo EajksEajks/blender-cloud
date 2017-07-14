@@ -23,7 +23,7 @@ if [ ! -d "$BLENDER_CLOUD_DIR" ]; then
     exit 1
 fi
 
-BLENDER_CLOUD_ASSETS="$BLENDER_CLOUD_DIR/cloud/static/assets/"
+BLENDER_CLOUD_ASSETS="$BLENDER_CLOUD_DIR/cloud/static/"
 BLENDER_CLOUD_TEMPLATES="$BLENDER_CLOUD_DIR/cloud/templates/"
 
 if [ ! -d "$BLENDER_CLOUD_ASSETS" ]; then
@@ -86,7 +86,7 @@ echo "*** GULPA GULPA BLENDER_CLOUD ***"
 echo
 echo "*** SYNCING BLENDER_CLOUD_ASSETS ***"
 # Exclude files managed by Git.
-rsync -avh $BLENDER_CLOUD_ASSETS --exclude js/vendor/ root@${DEPLOYHOST}:/data/git/blender-cloud/cloud/static/assets/
+rsync -avh $BLENDER_CLOUD_ASSETS --exclude js/vendor/ root@${DEPLOYHOST}:/data/git/blender-cloud/cloud/static/
 
 echo
 echo "*** SYNCING BLENDER_CLOUD_TEMPLATES ***"
