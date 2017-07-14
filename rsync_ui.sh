@@ -9,45 +9,6 @@ fi
 
 DEPLOYHOST="$1"
 
-PILLAR_DIR=$(python <<EOT
-from __future__ import print_function
-import os.path
-import pillar
-
-print(os.path.dirname(os.path.dirname(pillar.__file__)))
-EOT
-)
-
-ASSETS="$PILLAR_DIR/pillar/web/static/assets/"
-TEMPLATES="$PILLAR_DIR/pillar/web/templates/"
-
-if [ ! -d "$ASSETS" ]; then
-    echo "Unable to find assets dir $ASSETS"
-    exit 1
-fi
-
-cd $PILLAR_DIR
-if [ $(git rev-parse --abbrev-ref HEAD) != "production" ]; then
-    echo "You are NOT on the production branch, refusing to rsync_ui." >&2
-    exit 1
-fi
-
-echo
-echo "*** GULPA GULPA ***"
-if [ -x ./node_modules/.bin/gulp ]; then
-    ./node_modules/.bin/gulp --production
-else
-    gulp --production
-fi
-
-echo
-echo "*** SYNCING ASSETS ***"
-rsync -avh $ASSETS root@${DEPLOYHOST}:/data/git/pillar/pillar/web/static/assets/
-
-echo
-echo "*** SYNCING TEMPLATES ***"
-rsync -avh $TEMPLATES root@${DEPLOYHOST}:/data/git/pillar/pillar/web/templates/
-
 # macOS does not support readlink -f, so we use greadlink instead
 if [[ `uname` == 'Darwin' ]]; then
     command -v greadlink 2>/dev/null 2>&1 || { echo >&2 "Install greadlink using brew."; exit 1; }
@@ -62,11 +23,11 @@ if [ ! -d "$BLENDER_CLOUD_DIR" ]; then
     exit 1
 fi
 
-ASSETS="$BLENDER_CLOUD_DIR/cloud/static/assets/"
-TEMPLATES="$BLENDER_CLOUD_DIR/cloud/templates/flamenco"
+BLENDER_CLOUD_ASSETS="$BLENDER_CLOUD_DIR/cloud/static/assets/"
+BLENDER_CLOUD_TEMPLATES="$BLENDER_CLOUD_DIR/cloud/templates/"
 
-if [ ! -d "$ASSETS" ]; then
-    echo "Unable to find assets dir $ASSETS"
+if [ ! -d "$BLENDER_CLOUD_ASSETS" ]; then
+    echo "Unable to find assets dir $BLENDER_CLOUD_ASSETS"
     exit 1
 fi
 
@@ -76,15 +37,57 @@ if [ $(git rev-parse --abbrev-ref HEAD) != "production" ]; then
     exit 1
 fi
 
+PILLAR_DIR=$(python <<EOT
+from __future__ import print_function
+import os.path
+import pillar
+
+print(os.path.dirname(os.path.dirname(pillar.__file__)))
+EOT
+)
+
+PILLAR_ASSETS="$PILLAR_DIR/pillar/web/static/assets/"
+PILLAR_TEMPLATES="$PILLAR_DIR/pillar/web/templates/"
+
+if [ ! -d "$PILLAR_ASSETS" ]; then
+    echo "Unable to find assets dir $PILLAR_ASSETS"
+    exit 1
+fi
+
+cd $PILLAR_DIR
+if [ $(git rev-parse --abbrev-ref HEAD) != "production" ]; then
+    echo "You are NOT on the production branch, refusing to rsync_ui." >&2
+    exit 1
+fi
+
 echo
-echo "*** GULPA GULPA ***"
+echo "*** GULPA GULPA PILLAR ***"
+if [ -x ./node_modules/.bin/gulp ]; then
+    ./node_modules/.bin/gulp --production
+else
+    gulp --production
+fi
+
+echo
+echo "*** SYNCING PILLAR_ASSETS ***"
+rsync -avh $PILLAR_ASSETS root@${DEPLOYHOST}:/data/git/pillar/pillar/web/static/assets/
+
+echo
+echo "*** SYNCING PILLAR_TEMPLATES ***"
+rsync -avh $PILLAR_TEMPLATES root@${DEPLOYHOST}:/data/git/pillar/pillar/web/templates/
+
+
+cd $BLENDER_CLOUD_DIR
+
+echo
+echo "*** GULPA GULPA BLENDER_CLOUD ***"
 ./gulp --production
 
 echo
-echo "*** SYNCING ASSETS ***"
+echo "*** SYNCING BLENDER_CLOUD_ASSETS ***"
 # Exclude files managed by Git.
-rsync -avh $ASSETS --exclude js/vendor/ root@${DEPLOYHOST}:/data/git/blender-cloud/cloud/static/assets/
+rsync -avh $BLENDER_CLOUD_ASSETS --exclude js/vendor/ root@${DEPLOYHOST}:/data/git/blender-cloud/cloud/static/assets/
 
 echo
-echo "*** SYNCING TEMPLATES ***"
-rsync -avh $TEMPLATES root@${DEPLOYHOST}:/data/git/blender-cloud/cloud/templates/
+echo "*** SYNCING BLENDER_CLOUD_TEMPLATES ***"
+rsync -avh $BLENDER_CLOUD_TEMPLATES root@${DEPLOYHOST}:/data/git/blender-cloud/cloud/templates/
