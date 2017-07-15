@@ -5,7 +5,7 @@ from pillarsdk import Node, Project
 from pillarsdk.exceptions import ResourceNotFound
 from flask_login import current_user
 from flask import Blueprint, current_app, render_template, redirect, url_for
-from pillar.web.utils import system_util, get_file
+from pillar.web.utils import system_util, get_file, current_user_is_authenticated
 
 blueprint = Blueprint('cloud', __name__)
 log = logging.getLogger(__name__)
@@ -88,7 +88,7 @@ def homepage():
 @blueprint.route('/welcome')
 def welcome():
     # Workaround to cache rendering of a page if user not logged in
-    @current_app.cache.cached(timeout=3600)
+    @current_app.cache.cached(timeout=3600, unless=current_user_is_authenticated)
     def render_page():
         return render_template('welcome.html')
     return render_page()
