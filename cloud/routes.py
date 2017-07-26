@@ -6,6 +6,7 @@ from pillarsdk.exceptions import ResourceNotFound
 from flask_login import current_user
 from flask import Blueprint, current_app, render_template, redirect, url_for
 from pillar.web.utils import system_util, get_file, current_user_is_authenticated
+from pillar.web.utils import attach_project_pictures
 
 blueprint = Blueprint('cloud', __name__)
 log = logging.getLogger(__name__)
@@ -108,6 +109,64 @@ def services():
 def join():
     """Join page"""
     return redirect('https://store.blender.org/product/membership/')
+
+
+def get_projects(category):
+    """Utility to get projects based on category. Should be moved on the API
+    and improved with more extensive filtering capabilities.
+    """
+    api = system_util.pillar_api()
+    projects = Project.all({
+        'where': {
+            'category': category,
+            'is_private': False},
+        'sort': '-_created',
+        }, api=api)
+    for project in projects._items:
+        attach_project_pictures(project, api)
+    return projects
+
+
+@blueprint.route('/courses')
+def courses():
+    @current_app.cache.cached(timeout=3600, unless=current_user_is_authenticated)
+    def render_page():
+        projects = get_projects('course')
+        return render_template(
+            'projects_index_collection.html',
+            title='courses',
+            projects=projects._items,
+            api=system_util.pillar_api())
+
+    return render_page()
+
+
+@blueprint.route('/open-projects')
+def open_projects():
+    @current_app.cache.cached(timeout=3600, unless=current_user_is_authenticated)
+    def render_page():
+        projects = get_projects('film')
+        return render_template(
+            'projects_index_collection.html',
+            title='open-projects',
+            projects=projects._items,
+            api=system_util.pillar_api())
+
+    return render_page()
+
+
+@blueprint.route('/workshops')
+def workshops():
+    @current_app.cache.cached(timeout=3600, unless=current_user_is_authenticated)
+    def render_page():
+        projects = get_projects('workshop')
+        return render_template(
+            'projects_index_collection.html',
+            title='workshops',
+            projects=projects._items,
+            api=system_util.pillar_api())
+
+    return render_page()
 
 
 def get_random_featured_nodes():

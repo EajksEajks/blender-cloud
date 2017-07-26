@@ -159,26 +159,45 @@ html(lang="en")
 											data-placement="left")
 											i.pi-character
 											| Characters
+
+
+							li(class="dropdown libraries")
+								a.navbar-item.dropdown-toggle(
+								href="",
+								data-toggle="dropdown",
+								title="Training")
+									span Training
+									i.pi-angle-down
+
+								ul.dropdown-menu
 									li
 										a.navbar-item(
-											href="{{ url_for('projects.view', project_url='gallery') }}",
-											title="Curated artwork collection",
-											data-toggle="tooltip",
-											data-placement="left")
+										href="{{ url_for('cloud.courses') }}",
+										title="Courses",
+										data-toggle="tooltip",
+										data-placement="left")
+											i.pi-graduation-cap
+											| Courses
+									li
+										a.navbar-item(
+										href="{{ url_for('cloud.workshops') }}",
+										title="Workshops",
+										data-toggle="tooltip",
+										data-placement="left")
+											i.pi-lightbulb
+											| Workshops
+									li
+										a.navbar-item(
+										href="{{ url_for('projects.view', project_url='gallery') }}",
+										title="Curated artwork collection",
+										data-toggle="tooltip",
+										data-placement="left")
 											i.pi-image
 											| Art Gallery
 
 							li
 								a.navbar-item(
-									href="{{ url_for('main.training') }}",
-									title="Training & Tutorials",
-									data-toggle="tooltip",
-									data-placement="bottom",
-									class="{% if category == 'training' %}active{% endif %}")
-									span Training
-							li
-								a.navbar-item(
-									href="{{ url_for('main.open_projects') }}",
+									href="{{ url_for('cloud.open_projects') }}",
 									title="Browse all the Open Projects",
 									data-toggle="tooltip",
 									data-placement="bottom",

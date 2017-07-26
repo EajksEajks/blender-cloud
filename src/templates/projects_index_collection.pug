@@ -1,21 +1,41 @@
 | {% extends 'layout.html' %}
 
+| {# Default case is Open Projects #}
+| {% set page_title = 'Open Projects' %}
+| {% set page_description = 'Full production data and tutorials from all open movies, for you to use freely' %}
+| {% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_agent327_01.jpg') %}
+| {% set page_header_text = 'The iconic Blender Institute Open Movies. Featuring all the production files, assets, artwork, and never-seen-before content.' %}
+
+| {% if title == 'courses' %}
+| 	{% set page_title = 'Courses' %}
+| 	{% set page_description = 'Production quality training by 3D professionals' %}
+| 	{% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_caminandes_3_03.jpg') %}
+| 	{% set page_header_text = 'Character modeling, 3D printing, VFX, rigging and more.' %}
+
+| {% elif title == 'workshops' %}
+| 	{% set page_title = 'Workshops' %}
+| 	{% set page_description = 'Production quality training by 3D professionals' %}
+| 	{% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_caminandes_3_03.jpg') %}
+| 	{% set page_header_text = 'Enter the artist workshop and learn by example.' %}
+
+| {% endif %}
+
 | {% block og %}
 meta(property="og:type", content="website")
 meta(property="og:url", content="https://cloud.blender.org")
 
-meta(property="og:title", content="{% if title == 'open-projects' %}Open Projects{% elif title == 'training' %}Training{% endif %}")
-meta(name="twitter:title", content="{% if title == 'open-projects' %}Open Projects{% elif title == 'training' %}Training{% endif %} on Blender Cloud")
+meta(property="og:title", content="{{ page_title }} on Blender Cloud")
+meta(name="twitter:title", content="{{ page_title }} on Blender Cloud")
 
-meta(property="og:description", content="{% if title == 'open-projects' %}Full production data and tutorials from all open movies, for you to use freely{% elif title == 'training' %}Production quality training by 3D professionals{% endif %}")
-meta(name="twitter:description", content="{% if title == 'open-projects' %}Full production data and tutorials from all open movies, for you to use freely{% elif title == 'training' %}Production quality training by 3D professionals{% endif %}")
+meta(property="og:description", content="{{ page_description }}")
+meta(name="twitter:description", content="{{ page_description }}")
 
-meta(property="og:image", content="{% if title == 'training' %}{{ url_for('static', filename='assets/img/backgrounds/background_caminandes_3_03.jpg')}}{% else %}{{ url_for('static', filename='assets/img/backgrounds/background_agent327_01.jpg')}}{% endif %}")
-meta(name="twitter:image", content="{% if title == 'training' %}{{ url_for('static', filename='assets/img/backgrounds/background_caminandes_3_03.jpg')}}{% else %}{{ url_for('static', filename='assets/img/backgrounds/background_agent327_01.jpg')}}{% endif %}")
+meta(property="og:image", content="{{ page_header_image }}")
+meta(name="twitter:image", content="{{ page_header_image }}")
 | {% endblock %}
 
 | {% block page_title %}
-| {% if title == 'open-projects' %}Open Projects{% elif title == 'training' %}Training{% else %}Projects{% endif %}
+| {{ page_title }}
 | {% endblock %}
 
 | {% block body %}
@@ -24,22 +44,13 @@ meta(name="twitter:image", content="{% if title == 'training' %}{{ url_for('stat
 
 	#node_index-container
 		#node_index-header.collection
-			img.background-header(src="{% if title == 'training' %}{{ url_for('static', filename='assets/img/backgrounds/background_caminandes_3_03.jpg')}}{% else %}{{ url_for('static', filename='assets/img/backgrounds/background_agent327_01.jpg')}}{% endif %}")
+			img.background-header(src="{{ page_header_image }}")
 			#node_index-collection-info
-				| {% if title == 'open-projects' %}
 				.node_index-collection-name
-					span Open Projects
+					span {{ page_title }}
 				.node_index-collection-description
 					span.
-						The iconic Blender Institute Open Movies.
-						Featuring all the production files, assets, artwork, and never-seen-before content.
-				| {% elif title == 'training' %}
-				.node_index-collection-name
-					span Training
-				.node_index-collection-description
-					span.
-						Character modeling, 3D printing, VFX, rigging and more.
-				| {% endif %}
+						{{ page_header_text }}
 
 		.node_index-collection
 

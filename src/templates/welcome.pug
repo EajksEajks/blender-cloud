@@ -51,7 +51,7 @@ meta(property="og:image", content="{{ url_for('static', filename='assets/img/bac
 	#page-content
 		section.page-card-header
 			h2
-				a(href="{{ url_for('main.training') }}") Training & Tutorials
+				a(href="{{ url_for('main.courses') }}") Training & Tutorials
 
 		.page-triplet-container.homepage
 			.row
@@ -112,14 +112,14 @@ meta(property="og:image", content="{{ url_for('static', filename='assets/img/bac
 							<a href="https://cloud.blender.org/p/chaos-evolution/">Advanced</a>
 							<a href="https://cloud.blender.org/p/blend-and-paint/">Digital Painting</a>
 							and
-							<a href="{{ url_for('main.training') }}">much more</a>!
+							<a href="{{ url_for('main.courses') }}">much more</a>!
 
 
 		.page-triplet-container-fluid.dark(
 			style="background-image: url({{ url_for('static', filename='assets/img/backgrounds/pattern_01.jpg')}})")
 			section.page-card-header
 				h2
-					a(href="{{ url_for('main.open_projects') }}") Browse all the Open Movies
+					a(href="{{ url_for('cloud.open_projects') }}") Browse all the Open Movies
 
 			.page-triplet-container.homepage
 				.row
@@ -166,7 +166,7 @@ meta(property="og:image", content="{{ url_for('static', filename='assets/img/bac
 							<a href="https://cloud.blender.org/p/tears-of-steel/">Tears of Steel</a>,
 							<a href="https://cloud.blender.org/p/glass-half/">Glass Half</a>,
 							and
-							<a href="{{ url_for('main.open_projects') }}">more</a>.
+							<a href="{{ url_for('cloud.open_projects') }}">more</a>.
 
 
 		section.page-card-header
