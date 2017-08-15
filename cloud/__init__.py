@@ -91,16 +91,17 @@ class CloudExtension(PillarExtension):
         from pillar.api import service
 
         linked_roles = {'flamenco-user', 'attract-user'}
-        link_to = 'subscriber'
+        link_to = {'subscriber', 'demo'}
         user_roles = set(user.get('roles', []))
 
         # Determine what to do
         has_linked_roles = not (linked_roles - user_roles)
+        has_link_to = bool(link_to.intersection(user_roles))
         action = ''
-        if link_to in user_roles and not has_linked_roles:
+        if has_link_to and not has_linked_roles:
             self._log.info('Granting roles %s to user %s', linked_roles, user['_id'])
             action = 'grant'
-        elif link_to not in user_roles and has_linked_roles:
+        elif not has_link_to and has_linked_roles:
             self._log.info('Revoking roles %s from user %s', linked_roles, user['_id'])
             action = 'revoke'
 
