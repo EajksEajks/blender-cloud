@@ -7,7 +7,7 @@ from pillar.api.utils import authorization
 from pillar.extension import PillarExtension
 
 EXTENSION_NAME = 'cloud'
-ROLES_TO_BE_SUBSCRIBER = {'demo', 'subscriber', 'admin'}
+ROLES_TO_BE_SUBSCRIBER = {'demo', 'subscriber', 'admin'}  # TODO: get rid of this, use 'subscriber' cap
 
 
 class CloudExtension(PillarExtension):
@@ -72,7 +72,7 @@ class CloudExtension(PillarExtension):
 
     def context_processor(self):
         return {
-            'current_user_is_subscriber': authorization.user_matches_roles(ROLES_TO_BE_SUBSCRIBER)
+            'current_user_is_subscriber': authorization.user_has_cap('subscriber')
         }
 
     def setup_app(self, app):
