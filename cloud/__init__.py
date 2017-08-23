@@ -111,8 +111,8 @@ class CloudExtension(PillarExtension):
         # Avoid infinite loops while we're changing the user's roles.
         service.signal_user_changed_role.disconnect(self._user_changed_role)
         try:
-            for role in linked_roles:
-                service.do_badger(action, role, user_id=user['_id'])
+            if linked_roles:
+                service.do_badger(action, roles=linked_roles, user_id=user['_id'])
         finally:
             service.signal_user_changed_role.connect(self._user_changed_role)
 

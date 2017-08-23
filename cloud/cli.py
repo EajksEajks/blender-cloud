@@ -71,7 +71,7 @@ def reconcile_subscribers():
                 action = 'grant'
 
             with lock:
-                service.do_badger(action, 'subscriber', user_id=user['_id'])
+                service.do_badger(action, role='subscriber', user_id=user['_id'])
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
         future_to_user = {executor.submit(do_user, idx, user): user
