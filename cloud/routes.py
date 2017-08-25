@@ -4,7 +4,7 @@ import logging
 from pillarsdk import Node, Project
 from pillarsdk.exceptions import ResourceNotFound
 from flask_login import current_user
-from flask import Blueprint, current_app, render_template, redirect, url_for
+from flask import Blueprint, current_app, render_template, redirect, session, url_for
 from pillar.web.utils import system_util, get_file, current_user_is_authenticated
 from pillar.web.utils import attach_project_pictures
 
@@ -84,6 +84,12 @@ def homepage():
         activity_stream=activity_stream,
         random_featured=random_featured,
         api=api)
+
+
+@blueprint.route('/login')
+def login():
+    session['next_after_login'] = '/'
+    return redirect(url_for('users.oauth_authorize', provider='blender-id'))
 
 
 @blueprint.route('/welcome')
