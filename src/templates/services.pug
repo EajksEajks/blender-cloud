@@ -1,6 +1,5 @@
 | {% extends 'layout.html' %}
 | {% block page_title %}Services{% endblock %}
-
 | {% set title = 'services' %}
 
 | {% block og %}
@@ -15,12 +14,6 @@ meta(property="og:image", content="{{ url_for('static', filename='assets/img/bac
 meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/backgrounds/background_services.jpg')}}")
 | {% endblock %}
 
-| {% block header_backdrop %}
-.navbar-backdrop(
-	style="background-image: url({{ url_for('static', filename='assets/img/backgrounds/services_projects.jpg')}})")
-.navbar-backdrop-overlay
-| {% endblock %}
-
 | {% block page_overlay %}
 #page-overlay.video
 	.video-embed
@@ -28,8 +21,8 @@ meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/ba
 
 | {% block body %}
 #page-container
-	.container
-		#page-header
+	#page-header(style="background-image: url({{ url_for('static', filename='assets/img/backgrounds/services_projects.jpg')}})")
+		.container
 			.page-title
 				| Blender Cloud Services
 			.page-title-summary
@@ -41,6 +34,7 @@ meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/ba
 						On Blender Cloud you can create and share personal projects, access our texture and HDRI
 						library (or create your own), keep track of your production, manage your renders and much more!
 
+		.navbar-backdrop-overlay
 
 	- var addon_text = 'Available through the <a href="{{ url_for(\'cloud.services\') }}#blender-cloud-add-on">Blender Cloud add-on</a>'
 

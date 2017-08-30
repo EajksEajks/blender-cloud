@@ -67,11 +67,6 @@ html(lang="en")
 
 	body(class="{{ title }}")
 		.container-page
-			header.navbar-backdrop-container
-				| {% block header_backdrop %}
-				img(src="{{ url_for('static', filename='assets/img/backgrounds/pattern_02_blur.jpg')}}")
-				| {% endblock %}
-
 			| {% with messages = get_flashed_messages(with_categories=True) %}
 			|		{% if messages %}
 
@@ -87,8 +82,6 @@ html(lang="en")
 			| {% endwith %}
 
 			nav.navbar.navbar-transparent.navbar-fixed-top
-				.navbar-overlay
-
 				.navbar-container
 					header.navbar-header
 						button.navbar-toggle(data-target=".navbar-collapse", data-toggle="collapse", type="button")

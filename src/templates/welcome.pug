@@ -9,11 +9,6 @@ meta(property="og:url", content="https://cloud.blender.org/")
 meta(property="og:image", content="{{ url_for('static', filename='assets/img/backgrounds/background_andy_hdribot_01.jpg')}}")
 | {% endblock %}
 
-| {% block header_backdrop %}
-.navbar-backdrop.join(
-	style="background-image: url({{ url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg')}})")
-| {% endblock %}
-
 | {% block page_overlay %}
 #page-overlay.video
 	.video-embed
@@ -21,7 +16,7 @@ meta(property="og:image", content="{{ url_for('static', filename='assets/img/bac
 
 | {% block body %}
 #page-container.join
-	#page-header
+	#page-header(style="background-image: url({{ url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg')}})")
 		.container
 			.page-title
 				span.text-background Welcome to the Blender Cloud.
