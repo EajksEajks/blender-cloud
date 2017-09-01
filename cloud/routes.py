@@ -93,7 +93,19 @@ def homepage():
 
 @blueprint.route('/login')
 def login():
-    session['next_after_login'] = '/'
+    from flask import request
+
+    next_after_login = request.args.get('next')
+
+    # Redirect to /welcome if explicitly given, but not when falling back to the referrer.
+    if not next_after_login:
+        url_for_welcome = url_for('cloud.welcome', _external=True)
+        if request.referrer == url_for_welcome:
+            next_after_login = '/'
+        else:
+            next_after_login = request.referrer
+
+    session['next_after_login'] = next_after_login
     return redirect(url_for('users.oauth_authorize', provider='blender-id'))
 
 
