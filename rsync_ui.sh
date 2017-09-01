@@ -62,11 +62,7 @@ fi
 
 echo
 echo "*** GULPA GULPA PILLAR ***"
-if [ -x ./node_modules/.bin/gulp ]; then
-    ./node_modules/.bin/gulp --production
-else
-    gulp --production
-fi
+./gulp --production
 
 echo
 echo "*** SYNCING PILLAR_ASSETS ***"
