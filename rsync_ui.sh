@@ -66,11 +66,11 @@ echo "*** GULPA GULPA PILLAR ***"
 
 echo
 echo "*** SYNCING PILLAR_ASSETS ***"
-rsync -avh $PILLAR_ASSETS root@${DEPLOYHOST}:/data/git/pillar/pillar/web/static/assets/
+rsync -avh $PILLAR_ASSETS root@${DEPLOYHOST}:/data/git/pillar/pillar/web/static/assets/ --delete-after
 
 echo
 echo "*** SYNCING PILLAR_TEMPLATES ***"
-rsync -avh $PILLAR_TEMPLATES root@${DEPLOYHOST}:/data/git/pillar/pillar/web/templates/
+rsync -avh $PILLAR_TEMPLATES root@${DEPLOYHOST}:/data/git/pillar/pillar/web/templates/ --delete-after
 
 
 cd $BLENDER_CLOUD_DIR
@@ -82,8 +82,8 @@ echo "*** GULPA GULPA BLENDER_CLOUD ***"
 echo
 echo "*** SYNCING BLENDER_CLOUD_ASSETS ***"
 # Exclude files managed by Git.
-rsync -avh $BLENDER_CLOUD_ASSETS --exclude js/vendor/ root@${DEPLOYHOST}:/data/git/blender-cloud/cloud/static/
+rsync -avh $BLENDER_CLOUD_ASSETS --exclude js/vendor/ root@${DEPLOYHOST}:/data/git/blender-cloud/cloud/static/ --delete-after
 
 echo
 echo "*** SYNCING BLENDER_CLOUD_TEMPLATES ***"
-rsync -avh $BLENDER_CLOUD_TEMPLATES root@${DEPLOYHOST}:/data/git/blender-cloud/cloud/templates/
+rsync -avh $BLENDER_CLOUD_TEMPLATES root@${DEPLOYHOST}:/data/git/blender-cloud/cloud/templates/ --delete-after
