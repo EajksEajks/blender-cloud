@@ -56,7 +56,7 @@ fi
 
 cd $PILLAR_DIR
 if [ $(git rev-parse --abbrev-ref HEAD) != "production" ]; then
-    echo "You are NOT on the production branch, refusing to rsync_ui." >&2
+    echo "Pillar is NOT on the production branch, refusing to rsync_ui." >&2
     exit 1
 fi
 
