@@ -24,10 +24,10 @@ def count_nodes(query=None) -> int:
         {
             '$project':
                 {
-                    'p.is_private': 1,
+                    'project.is_private': 1,
                 }
         },
-        {'$match': {'p.is_private': {'$ne': True}}},
+        {'$match': {'project.is_private': False}},
         {'$count': 'tot'}
     ]
     c = current_app.db()['nodes']
