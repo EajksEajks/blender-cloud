@@ -1,3 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/bash -e
 
-exec docker build -t armadillica/blender_cloud:latest -f run.docker .
+docker build -t armadillica/blender_cloud:latest -f run.docker .
+
+echo "Done, built armadillica/blender_cloud:latest"
