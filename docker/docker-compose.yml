@@ -52,6 +52,20 @@ celery_worker:
    - mongo
    - redis
    - rabbit
+celery_beat:
+  image: armadillica/blender_cloud:latest
+  entrypoint: /celery-beat.sh
+  container_name: celery_beat
+  restart: always
+  volumes:
+   # format: HOST:CONTAINER
+   - /data/git:/data/git:ro
+   - /data/storage/pillar:/data/storage/pillar
+   - /data/log:/var/log
+  links:
+   - mongo
+   - redis
+   - rabbit
 # notifserv:
 #   container_name: notifserv
 #   image: armadillica/pillar-notifserv:cd8fa678436563ac3b800b2721e36830c32e4656
