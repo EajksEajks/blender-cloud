@@ -24,6 +24,7 @@ read dummy
 PROJECT_NAME="blender-cloud"
 DOCKER_NAME="blender_cloud"
 CELERY_WORKER_DOCKER_NAME="celery_worker"
+CELERY_BEAT_DOCKER_NAME="celery_beat"
 REMOTE_ROOT="/data/git/${PROJECT_NAME}"
 
 SSH="ssh -o ClearAllForwardings=yes ${DEPLOYHOST}"
@@ -140,6 +141,9 @@ echo "==================================================================="
 echo "Restarting Celery worker."
 ${SSH} docker restart ${CELERY_WORKER_DOCKER_NAME}
 echo "Celery worker docker restarted"
+echo "Restarting Celery beat."
+${SSH} docker restart ${CELERY_BEAT_DOCKER_NAME}
+echo "Celery beat docker restarted"
 
 
 echo
