@@ -1,17 +1,22 @@
+import functools
 import itertools
 import json
 import logging
+import typing
 
-import pillar.api
-from pillar.web.users import forms
-
+from flask_login import current_user, login_required
+from flask import Blueprint, render_template, redirect, session, url_for, abort, flash
 from pillarsdk import Node, Project, User, exceptions as sdk_exceptions, Group
 from pillarsdk.exceptions import ResourceNotFound
-from flask_login import current_user, login_required
-from flask import Blueprint, current_app, render_template, redirect, session, url_for, abort, flash
+
+from pillar import current_app
+import pillar.api
+from pillar.web.users import forms
 from pillar.web.utils import system_util, get_file, current_user_is_authenticated
 from pillar.web.utils import attach_project_pictures
 from pillar.web.settings import blueprint as blueprint_settings
+from pillar.web.nodes.routes import url_for_node
+
 
 blueprint = Blueprint('cloud', __name__)
 log = logging.getLogger(__name__)
@@ -37,6 +42,7 @@ def homepage():
     # Append picture Files to last_posts
     for post in latest_posts._items:
         post.picture = get_file(post.picture, api=api)
+        post.url = url_for_node(node=post)
 
     # Get latest assets added to any project
     latest_assets = Node.latest('assets', api=api)
@@ -44,6 +50,7 @@ def homepage():
     # Append picture Files to latest_assets
     for asset in latest_assets._items:
         asset.picture = get_file(asset.picture, api=api)
+        asset.url = url_for_node(node=asset)
 
     # Get latest comments to any node
     latest_comments = Node.latest('comments', api=api)
@@ -53,18 +60,27 @@ def homepage():
 
     # Parse results for replies
     to_remove = []
+
+    @functools.lru_cache()
+    def _find_parent(parent_node_id) -> Node:
+        return Node.find(parent_node_id,
+                         {'projection': {
+                             '_id': 1,
+                             'name': 1,
+                             'node_type': 1,
+                             'project': 1,
+                         }},
+                         api=api)
+
     for idx, comment in enumerate(latest_comments._items):
         if comment.properties.is_reply:
             try:
-                comment.attached_to = Node.find(comment.parent.parent,
-                                                {'projection': {
-                                                    '_id': 1,
-                                                    'name': 1,
-                                                }},
-                                                api=api)
+                comment.attached_to = _find_parent(comment.parent.parent)
             except ResourceNotFound:
                 # Remove this comment
                 to_remove.append(idx)
+            else:
+                comment.attached_to.url = url_for_node(node=comment.attached_to)
         else:
             comment.attached_to = comment.parent
 
@@ -81,6 +97,9 @@ def homepage():
     activities = itertools.chain(latest_assets._items,
                                  latest_comments._items)
     activity_stream = sorted(activities, key=sort_key, reverse=True)
+
+    for node in activity_stream:
+        node.url = url_for_node(node=node)
 
     return render_template(
         'homepage.html',
@@ -192,33 +211,49 @@ def workshops():
     return render_page()
 
 
-def get_random_featured_nodes():
+def get_random_featured_nodes() -> typing.List[dict]:
+    """Returns a list of project/node combinations for featured nodes.
 
-    import random
+    A random subset of 3 featured nodes from all public projects is returned.
+    Assumes that the user actually has access to the public projects' nodes.
 
-    api = system_util.pillar_api()
-    projects = Project.all({
-        'projection': {'nodes_featured': 1},
-        'where': {'is_private': False},
-        'max_results': '15'
-        }, api=api)
+    The dict is a node, with a 'project' key that contains a projected project.
+    """
 
-    featured_nodes = (p.nodes_featured for p in projects._items if p.nodes_featured)
-    featured_nodes = [item for sublist in featured_nodes for item in sublist]
-    if len(featured_nodes) > 3:
-        featured_nodes = random.sample(featured_nodes, 3)
+    proj_coll = current_app.db('projects')
+    featured_nodes = proj_coll.aggregate([
+        {'$match': {'is_private': False}},
+        {'$project': {'nodes_featured': True,
+                      'url': True,
+                      'name': True}},
+        {'$unwind': {'path': '$nodes_featured'}},
+        {'$sample': {'size': 3}},
+        {'$lookup': {'from': 'nodes',
+                     'localField': 'nodes_featured',
+                     'foreignField': '_id',
+                     'as': 'node'}},
+        {'$unwind': {'path': '$node'}},
+        {'$project': {'url': True,
+                      'name': True,
+                      'node._id': True,
+                      'node.name': True,
+                      'node.permissions': True,
+                      'node.picture': True,
+                      'node.properties.content_type': True,
+                      'node.properties.url': True}},
+    ])
 
     featured_node_documents = []
+    api = system_util.pillar_api()
+    for node_info in featured_nodes:
+        # Turn the project-with-node doc into a node-with-project doc.
+        node_document = node_info.pop('node')
+        node_document['project'] = node_info
 
-    for node in featured_nodes:
-        node_document = Node.find(node, {
-                'projection': {'name': 1, 'project': 1, 'picture': 1,
-                                'properties.content_type': 1, 'properties.url': 1},
-                'embedded': {'project': 1}
-            }, api=api)
-
-        node_document.picture = get_file(node_document.picture, api=api)
-        featured_node_documents.append(node_document)
+        node = Node(node_document)
+        node.picture = get_file(node.picture, api=api)
+        node.url = url_for_node(node=node)
+        featured_node_documents.append(node)
 
     return featured_node_documents
 

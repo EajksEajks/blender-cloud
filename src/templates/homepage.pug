@@ -50,10 +50,10 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 				| {% for n in activity_stream %}
 				li.activity-stream__list-item(
 					class="{{ n.node_type }} {{ n.properties.content_type }} {% if n.picture %}with-picture{% endif %}",
-					data-url="{{ url_for_node(node=n) }}")
+					data-url="{{ n.url }}")
 					a.activity-stream__list-thumbnail(
 						class="{{ n.properties.content_type }}",
-						href="{{ url_for_node(node=n) }}")
+						href="{{ n.url }}")
 						| {% if n.picture %}
 						img(src="{{ n.picture.thumbnail('m', api=api) }}")
 						| {% endif %}
@@ -75,7 +75,7 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 
 
 					.activity-stream__list-details
-						a.title(href="{{ url_for_node(node=n) }}")
+						a.title(href="{{ n.url }}")
 							| {% if n.node_type == 'comment' %}
 							| {{ n.properties.content | striptags | truncate(200) }}
 							| {% else %}
@@ -88,13 +88,13 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 						ul.meta
 							| {% if n.node_type == 'comment' or not n.picture %}
 							li.when
-								a(href="{{ url_for_node(node=n) }}", title="{{ n._created }}") {{ n._created | pretty_date_time }}
+								a(href="{{ n.url }}", title="{{ n._created }}") {{ n._created | pretty_date_time }}
 							li.who {{ n.user.full_name }}
 							| {% endif %}
 
 							| {% if n.attached_to %}
 							li.where-parent
-								a(href="{{ url_for_node(node_id=n.attached_to._id) }}") {{ n.attached_to.name }}
+								a(href="{{ n.attached_to.url }}") {{ n.attached_to.name }}
 							| {% endif %}
 							li.where-project
 								a.project(href="{{ url_for('projects.view', project_url=n.project.url) }}") {{ n.project.name }}
@@ -108,7 +108,7 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 						| {% if n.picture %}
 						ul.meta.extra
 							li.when
-								a(href="{{ url_for_node(node=n) }}", title="{{ n._created }}") {{ n._created | pretty_date_time }}
+								a(href="{{ n.url }}", title="{{ n._created }}") {{ n._created | pretty_date_time }}
 							li.who {{ n.user.full_name }}
 						| {% endif %}
 				| {% endfor %}
@@ -159,31 +159,31 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 				| {% if n.picture and loop.first %}
 				li.blog-stream__list-item.featured
 					a.blog-stream__thumbnail(
-						href="{{ url_for_node(node=n) }}")
+						href="{{ n.url }}")
 						img(src="{{ n.picture.thumbnail('l', api=api) }}")
-					a.title(href="{{ url_for_node(node=n) }}")
+					a.title(href="{{ n.url }}")
 						| {{ n.name }}
 
 					ul.meta
 						li.when
-							a(href="{{ url_for_node(node=n) }}",
+							a(href="{{ n.url }}",
 								title="Updated {{ n._updated | pretty_date }}")
 								| {{ n._created | pretty_date }}
 						li.where-project
 							a.project(href="{{ url_for('projects.view', project_url=n.project.url) }}") {{ n.project.name }}
 				| {% else %}
 				li.blog-stream__list-item
-					a.blog-stream__list-thumbnail(href="{{ url_for_node(node=n) }}")
+					a.blog-stream__list-thumbnail(href="{{ n.url }}")
 						| {% if n.picture %}
 						img.image(src="{{ n.picture.thumbnail('s', api=api) }}")
 						| {% else %}
 						i.pi-newspaper
 						| {% endif %}
 					.blog-stream__list-details
-						a.title(href="{{ url_for_node(node=n) }}") {{ n.name }}
+						a.title(href="{{ n.url }}") {{ n.name }}
 						ul.meta
 							li.when
-								a(href="{{ url_for_node(node=n) }}",
+								a(href="{{ n.url }}",
 									title="Updated {{ n._updated | pretty_date }}")
 									| {{ n._created | pretty_date }}
 							li.where-project
@@ -214,7 +214,7 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 						span free
 					| {% endif %}
 					a.random-asset__thumbnail(
-						href="{{ url_for_node(node=n) }}",
+						href="{{ n.url }}",
 						class="{{ n.properties.content_type }}")
 						| {% if n.picture %}
 						img(src="{{ n.picture.thumbnail('l', api=api) }}")
@@ -225,11 +225,11 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 
 						| {% endif %}
 
-					a.title(href="{{ url_for_node(node=n) }}")
+					a.title(href="{{ n.url }}")
 						| {{ n.name }}
 					ul.meta
 						li.what
-							a(href="{{ url_for_node(node=n) }}")
+							a(href="{{ n.url }}")
 								| {% if n.properties.content_type %}{{ n.properties.content_type }}{% else %}Folder{% endif %}
 						li.where
 							a(href="{{ url_for('projects.view', project_url=n.project.url) }}")
@@ -242,7 +242,7 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 						span free
 					| {% endif %}
 					a.random-asset__list-thumbnail(
-						href="{{ url_for_node(node=n) }}",
+						href="{{ n.url }}",
 						class="{{ n.properties.content_type }}")
 						| {% if n.picture %}
 						img.image(src="{{ n.picture.thumbnail('s', api=api) }}")
@@ -258,10 +258,10 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 						| {% endif %}
 						| {% endif %}
 					.random-asset__list-details
-						a.title(href="{{ url_for_node(node=n) }}") {{ n.name }}
+						a.title(href="{{ n.url }}") {{ n.name }}
 						ul.meta
 							li.what
-								a(href="{{ url_for_node(node=n) }}")
+								a(href="{{ n.url }}")
 									| {% if n.properties.content_type %}{{ n.properties.content_type }}{% else %}Folder{% endif %}
 							li.where
 								a(href="{{ url_for('projects.view', project_url=n.project.url) }}") {{ n.project.name }}
