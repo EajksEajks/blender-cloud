@@ -27,6 +27,7 @@ blender_cloud:
    VIRTUAL_HOST: http://cloud.blender.org/*,https://cloud.blender.org/*,http://pillar-web/*
    VIRTUAL_HOST_WEIGHT: 10
    FORCE_SSL: "true"
+   GZIP_COMPRESSION_TYPE: "text/html text/plain text/css application/javascript"
   volumes:
    # format: HOST:CONTAINER
    - /data/git:/data/git:ro
