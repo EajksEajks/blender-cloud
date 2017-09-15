@@ -80,13 +80,16 @@ def homepage():
             except ResourceNotFound:
                 # Remove this comment
                 to_remove.append(idx)
-            else:
-                comment.attached_to.url = url_for_node(node=comment.attached_to)
         else:
             comment.attached_to = comment.parent
 
     for idx in reversed(to_remove):
         del latest_comments._items[idx]
+
+    for comment in latest_comments._items:
+        if not comment.attached_to:
+            continue
+        comment.attached_to.url = url_for_node(node=comment.attached_to)
 
     main_project = Project.find(current_app.config['MAIN_PROJECT_ID'], api=api)
     main_project.picture_header = get_file(main_project.picture_header, api=api)
