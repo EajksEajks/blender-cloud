@@ -69,6 +69,7 @@ def homepage():
                              'name': 1,
                              'node_type': 1,
                              'project': 1,
+                             'properties.url': 1,
                          }},
                          api=api)
 
