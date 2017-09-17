@@ -233,7 +233,9 @@ def get_random_featured_nodes() -> typing.List[dict]:
         {'$match': {'is_private': False}},
         {'$project': {'nodes_featured': True,
                       'url': True,
-                      'name': True}},
+                      'name': True,
+                      'summary': True,
+                      'picture_square': True}},
         {'$unwind': {'path': '$nodes_featured'}},
         {'$sample': {'size': 3}},
         {'$lookup': {'from': 'nodes',
@@ -243,6 +245,8 @@ def get_random_featured_nodes() -> typing.List[dict]:
         {'$unwind': {'path': '$node'}},
         {'$project': {'url': True,
                       'name': True,
+                      'summary': True,
+                      'picture_square': True,
                       'node._id': True,
                       'node.name': True,
                       'node.permissions': True,
@@ -261,6 +265,8 @@ def get_random_featured_nodes() -> typing.List[dict]:
         node = Node(node_document)
         node.picture = get_file(node.picture, api=api)
         node.url = url_for_node(node=node)
+        node.project.url = url_for('projects.view', project_url=node.project.url)
+        node.project.picture_square = get_file(node.project.picture_square, api=api)
         featured_node_documents.append(node)
 
     return featured_node_documents

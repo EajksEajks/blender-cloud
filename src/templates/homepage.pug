@@ -208,6 +208,19 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 			ul.random-asset__list
 				| {% for n in random_featured %}
 				| {% if n.picture and loop.first %}
+				li.random-asset__list-item.project
+					| {% if n.project.picture_square %}
+					a.random-asset__list-thumbnail(
+						href="{{ n.project.url }}")
+						img.image(src="{{ n.project.picture_square.thumbnail('s', api=api) }}")
+					| {% endif %}
+					.random-asset__list-details
+						a.title(href="{{ n.project.url }}") {{ n.project.name }}
+						| {% if n.project.summary %}
+						ul.meta
+							li.what {{ n.project.summary }}
+						| {% endif %}
+
 				li.random-asset__list-item.featured
 					| {% if n.permissions.world %}
 					.ribbon
@@ -232,7 +245,7 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 							a(href="{{ n.url }}")
 								| {% if n.properties.content_type %}{{ n.properties.content_type }}{% else %}Folder{% endif %}
 						li.where
-							a(href="{{ url_for('projects.view', project_url=n.project.url) }}")
+							a(href="{{ n.project.url }}")
 								| {{ n.project.name }}
 				| {% else %}
 
@@ -264,7 +277,7 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 								a(href="{{ n.url }}")
 									| {% if n.properties.content_type %}{{ n.properties.content_type }}{% else %}Folder{% endif %}
 							li.where
-								a(href="{{ url_for('projects.view', project_url=n.project.url) }}") {{ n.project.name }}
+								a(href="{{ n.project.url }}") {{ n.project.name }}
 
 				| {% endif %}
 				| {% endfor %}
