@@ -19,6 +19,17 @@ rabbit:
     restart: always
     ports:
         - "127.0.0.1:5672:5672"
+elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.0
+    container_name: elastic
+    restart: always
+    volumes:
+        # NOTE: this path must be writable by UID=1000 GID=1000.
+        - /data/storage/elastic:/usr/share/elasticsearch/data
+    ports:
+        - "127.0.0.1:9200:9200"
+    environment:
+        xpack.security.enabled: 'false'
 blender_cloud:
   image: armadillica/blender_cloud:latest
   container_name: blender_cloud
