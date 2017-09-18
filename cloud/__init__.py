@@ -87,9 +87,6 @@ class CloudExtension(PillarExtension):
 
         signal_user_changed_role.connect(self._user_changed_role)
 
-        from . import routes
-        routes.setup_app(app)
-
     def _user_changed_role(self, sender, user: dict):
         from pillar.api import service
 

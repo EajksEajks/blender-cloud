@@ -28,10 +28,6 @@ def homepage():
     if current_user.is_anonymous:
         return redirect(url_for('cloud.welcome'))
 
-    return _render_homepage()
-
-
-def _render_homepage():
     # Get latest blog posts
     api = system_util.pillar_api()
     latest_posts = Node.all({
@@ -329,10 +325,3 @@ def billing():
     return render_template(
         'users/settings/billing.html',
         store_user=store_user, groups=groups, title='billing')
-
-
-def setup_app(app):
-    global _render_homepage
-
-    cache = app.cache.cached(300)
-    _render_homepage = cache(_render_homepage)
