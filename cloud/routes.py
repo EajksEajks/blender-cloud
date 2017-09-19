@@ -117,6 +117,12 @@ def homepage():
 @blueprint.route('/login')
 def login():
     from flask import request
+    from flask_login import logout_user
+
+    if request.args.get('force'):
+        log.debug('Forcing logout of user before rendering login page.')
+        logout_user()
+        session.clear()
 
     next_after_login = request.args.get('next')
 
