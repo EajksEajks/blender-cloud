@@ -28,6 +28,16 @@ def homepage():
     if current_user.is_anonymous:
         return redirect(url_for('cloud.welcome'))
 
+    return render_template(
+        'homepage.html',
+        api=system_util.pillar_api(),
+        **_homepage_context(),
+    )
+
+
+def _homepage_context() -> dict:
+    """Returns homepage template context variables."""
+
     # Get latest blog posts
     api = system_util.pillar_api()
     latest_posts = Node.all({
@@ -105,13 +115,11 @@ def homepage():
     for node in activity_stream:
         node.url = url_for_node(node=node)
 
-    return render_template(
-        'homepage.html',
+    return dict(
         main_project=main_project,
         latest_posts=latest_posts._items,
         activity_stream=activity_stream,
-        random_featured=random_featured,
-        api=api)
+        random_featured=random_featured)
 
 
 @blueprint.route('/login')
@@ -331,3 +339,9 @@ def billing():
     return render_template(
         'users/settings/billing.html',
         store_user=store_user, groups=groups, title='billing')
+
+
+def setup_app(app):
+    global _homepage_context
+    cached = app.cache.cached(timeout=300)
+    _homepage_context = cached(_homepage_context)
