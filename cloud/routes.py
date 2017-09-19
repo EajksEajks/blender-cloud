@@ -17,14 +17,12 @@ from pillar.web.utils import attach_project_pictures
 from pillar.web.settings import blueprint as blueprint_settings
 from pillar.web.nodes.routes import url_for_node
 
-
 blueprint = Blueprint('cloud', __name__)
 log = logging.getLogger(__name__)
 
 
 @blueprint.route('/')
 def homepage():
-
     if current_user.is_anonymous:
         return redirect(url_for('cloud.welcome'))
 
@@ -47,7 +45,7 @@ def _homepage_context() -> dict:
         'embedded': {'project': 1},
         'sort': '-_created',
         'max_results': '5'
-        }, api=api)
+    }, api=api)
 
     # Append picture Files to last_posts
     for post in latest_posts._items:
@@ -152,6 +150,7 @@ def welcome():
     @current_app.cache.cached(timeout=3600, unless=current_user_is_authenticated)
     def render_page():
         return render_template('welcome.html')
+
     return render_page()
 
 
@@ -181,7 +180,7 @@ def get_projects(category):
             'category': category,
             'is_private': False},
         'sort': '-_created',
-        }, api=api)
+    }, api=api)
     for project in projects._items:
         attach_project_pictures(project, api)
     return projects
