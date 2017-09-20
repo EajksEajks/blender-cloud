@@ -30,6 +30,20 @@ elastic:
         - "127.0.0.1:9200:9200"
     environment:
         xpack.security.enabled: 'false'
+kibana:
+    image: docker.elastic.co/kibana/kibana:5.6.1
+    container_name: kibana
+    restart: always
+    environment:
+        SERVER_NAME: "stats.cloud.blender.org"
+        ELASTICSEARCH_URL: http://elastic:9200
+        XPACK_SECURITY_ENABLED: 'false'
+        XPACK_MONITORING_UI_CONTAINER_ELASTICSEARCH_ENABLED: 'false'
+        VIRTUAL_HOST: http://stats.cloud.blender.org/*,https://stats.cloud.blender.org/*,http://stats.blender-cloud/*,https://stats.blender-cloud/*
+        VIRTUAL_HOST_WEIGHT: 20
+        FORCE_SSL: "true"
+    links:
+        - elastic
 blender_cloud:
   image: armadillica/blender_cloud:latest
   container_name: blender_cloud
@@ -125,5 +139,6 @@ haproxy:
    - grafista
    # - notifserv
    - letsencrypt
+   - kibana
   volumes:
    - '/data/certs:/certs'

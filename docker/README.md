@@ -64,3 +64,14 @@ Blender Cloud expects the following files to exist:
 
 - `/data/git/blender_cloud/config_local.py` with machine-local configuration overrides
 - `/data/config/google_app.json` with Google Cloud Storage credentials.
+
+
+## 7. ElasticSearch & kibana
+
+Kibana should be placed in read-only mode:
+
+`curl -XPUT 'localhost:9200/.kibana/_settings' -d '{ "index.blocks.read_only" : true }'`
+
+If editing is desired, temporarily turn off read-only mode:
+
+`curl -XPUT 'localhost:9200/.kibana/_settings' -d '{ "index.blocks.read_only" : false }'`
