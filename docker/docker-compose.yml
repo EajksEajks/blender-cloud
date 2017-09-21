@@ -135,8 +135,8 @@ haproxy:
    - CERT_FOLDER=/certs/
    - TIMEOUT=connect 5s, client 5m, server 10m
   links:
-   # - blender_cloud
-   # - grafista
+   - blender_cloud
+   - grafista
    # - notifserv
    - letsencrypt
    - kibana
