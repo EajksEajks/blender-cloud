@@ -28,6 +28,8 @@ elastic:
         - /data/storage/elastic:/usr/share/elasticsearch/data
     ports:
         - "127.0.0.1:9200:9200"
+    environment:
+        ES_JAVA_OPTS: "-Xms256m -Xmx256m"
 kibana:
     image: armadillica/kibana:latest
     container_name: kibana
@@ -133,8 +135,8 @@ haproxy:
    - CERT_FOLDER=/certs/
    - TIMEOUT=connect 5s, client 5m, server 10m
   links:
-   - blender_cloud
-   - grafista
+   # - blender_cloud
+   # - grafista
    # - notifserv
    - letsencrypt
    - kibana

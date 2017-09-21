@@ -19,9 +19,9 @@
 # Xms represents the initial size of total heap space
 # Xmx represents the maximum size of total heap space
 
-# Sybren: changed from 2g to 512m
--Xms512m
--Xmx512m
+# Sybren: uncommented so that we can set those options using the ES_JAVA_OPTS environment variable.
+#-Xms512m
+#-Xmx512m
 
 ################################################################
 ## Expert settings
