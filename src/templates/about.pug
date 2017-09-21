@@ -3,227 +3,227 @@
 | {% block css %}
 | {{ super() }}
 style.
-  .page-card-side {
-  padding: 60px 10px !important;
-  }
+	.page-card-side {
+	padding: 60px 10px !important;
+	}
 | {% endblock css %}
 | {% block body %}
 #page-container
-  #page-header
-    .page-title(style='text-align: left')
-      em ABOUT
-      i.pi-blender-cloud-logo
-    .page-title-summary
-      | Blender Cloud means inspiration, knowledge, and tools in one place.
-      br
-      | Started in 2014, it has been pushing the meaning of recurring crowdfunding ever since.
-      br
-      | By subscribing to Blender Cloud you support the creation of open content,
-      br
-      | the development of high-end production tools like Blender and access a
-      br
-      | unique set of learning and creative resources.
-  #page-content
-    section.page-card
-      .page-card-side
-        h2.page-card-title
-          | Launch at SXSW
-          small March 9th, 2014
-        .page-card-summary
-          | First happy cloud video and crowdfunding for Cosmos Laundromat Pilot.
-      .page-card-side
-        a(href='https://gooseberry.blender.org/gooseberry-campaign-launched-we-need-10k-people-to-help/')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2014_03_09_sxsw.jpg') }}")
-    section.page-card
-      .page-card-side
-        a(href='https://gooseberry.blender.org/gooseberry-campaign-launched-we-need-10k-people-to-help/')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2014_03_10_cosmos.jpg') }}")
-      .page-card-side
-        h2.page-card-title
-          | Gooseberry | Cosmos Laundromat
-          small March 10th, 2015
-        .page-card-summary
-          | Weekly folders with updates for subscribers. Initial development of Attract, which will become the new cloud some months later on.
-    section.page-card
-      .page-card-side
-        h2.page-card-title
-          | Glass Half
-          small October 30th, 2015
-        .page-card-summary
-          | Introducing integrated blogs in Blender Cloud projects. Glass Half is the first project fully developed on the new Blender Cloud. It's also the first and only project to have share its
-          a(href='https://cloud.blender.org/p/glass-half/5627bb22f0e7220061109c9f') animation dailies
-          | ! But the biggest outcome from Glass Half was definitely
-          a(href='https://cloud.blender.org/p/glass-half/569d6044c379cf445461293e') Flexirig
-          | .
-      .page-card-side
-        a(href='https://cloud.blender.org/p/glass-half/blog/glass-half-premiere')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2015_10_30_glass.jpg') }}")
-    section.page-card
-      .page-card-side
-        a(href='https://cloud.blender.org/blog/new-art-gallery-with-gleb-alexandrov')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2015_11_19_art.jpg') }}")
-      .page-card-side
-        h2.page-card-title
-          | Art Gallery
-          small November 19th, 2015
-        .page-card-summary
-          | Learn by example. Introducing a place for amazing artwork to be shared, along with its blendfiles and breakdowns.
-    section.page-card
-      .page-card-side
-        h2.page-card-title
-          | Blender Institute Podcast
-          small November 24th, 2015
-        .page-card-summary
-          | With so much going on in the Cloud at at the studio. The Blender Institute Podcast was born! Sharing our daily studio work, Blender community news, and interacting with the awesome Blender Cloud subscribers.
-      .page-card-side
-        a(href='https://cloud.blender.org/blog/introducing-blender-institute-podcast')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2015_11_24_bip.jpg') }}")
-    section.page-card
-      .page-card-side
-        a(href='https://cloud.blender.org/p/blenrig/blog/welcome-to-the-blenrig-project')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2015_12_01_blenrig.jpg') }}")
-      .page-card-side
-        h2.page-card-title
-          | Blenrig
-          small December 1st, 2015
-        .page-card-summary
-          | The most powerful and versatile rigging framework for Blender, used and tested through Cosmos Laundromat and the Caminandes series, is now part of Blender Cloud!
-    section.page-card
-      .page-card-side
-        h2.page-card-title
-          | Texture Library
-          small December 23rd, 2015
-        .page-card-summary
-          | The biggest source for CC0/Public Domain textures on the interwebs goes live. First as beta, as a quick gift right before Xmas 2015!
-      .page-card-side
-        a(href='https://cloud.blender.org/blog/new-texture-library')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2015_12_23_textures.jpg') }}")
-    section.page-card
-      .page-card-side
-        a(href='https://cloud.blender.org/blog/nraryew-the-character-lib')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_01_05_charlib.jpg') }}")
-      .page-card-side
-        h2.page-card-title
-          | Character Library
-          small January 5th, 2016
-        .page-card-summary
-          | High-quality, animation-ready characters collection from all the Blender Institute open projects, plus a brand new one: Vincent!
-    section.page-card
-      .page-card-side
-        h2.page-card-title
-          | Caminandes: Llamigos
-          small January 30th, 2016
-        .page-card-summary
-          | The
-          a(href='https://www.youtube.com/watch?v=SkVqJ1SGeL0') third episode
-          |  of the Caminandes series was completely done -and sponsored! through Blender Cloud. It's also the only project til date to have
-          a(href='https://www.youtube.com/watch?v=kQH897V9bDg&list=PLI2TkLMzCSr_H6ppmzDtU0ut0RwxGvXjv') nicely edited Weekly video reports
-          | .
-      .page-card-side
-        a(href='https://cloud.blender.org/p/caminandes-3/blog/caminandes-llamigos')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_01_30_llamigos.jpg') }}")
-    section.page-card
-      .page-card-side
-        a(href='https://cloud.blender.org/blog/welcome-sybren')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_03_01_sybren.jpg') }}")
-      .page-card-side
-        h2.page-card-title
-          | Sybren
-          small March 1st, 2016
-        .page-card-summary
-          | Dr. Sybren Stüvel starts working at the Blender Institute!
-    section.page-card
-      .page-card-side
-        h2.page-card-title
-          | Private Projects
-          small May 3rd, 2016
-        .page-card-summary
-          | Create your own private projects on Blender Cloud.
-      .page-card-side
-        a(href='https://cloud.blender.org/blog/welcome-sybren')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_05_03_projects.jpg') }}")
-    section.page-card
-      .page-card-side
-        a(href='https://cloud.blender.org/blog/introducing-project-sharing')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_05_09_projectsharing.jpg') }}")
-      .page-card-side
-        h2.page-card-title
-          | Project Sharing
-          small May 9th, 2016
-        .page-card-summary
-          | Team work! Share your projects with other Blender Cloud subscribers.
-    section.page-card
-      .page-card-side
-        h2.page-card-title
-          | Blender Cloud add-on with Texture Library
-          small May 11th, 2016
-        .page-card-summary
-          | Browse the textures from within Blender!
-      .page-card-side
-        a(href='https://cloud.blender.org/blog/introducing-project-sharing')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_05_11_addon.jpg') }}")
-    section.page-card
-      .page-card-side
-        a(href='https://cloud.blender.org/blog/introducing-private-texture-libraries')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_05_23_privtextures.jpg') }}")
-      .page-card-side
-        h2.page-card-title
-          | Private Texture Libraries
-          small May 23rd, 2016
-        .page-card-summary
-          | Create your own private textures library and browse it in Blender with our add-on.
-    section.page-card
-      .page-card-side
-        h2.page-card-title
-          | Blender Sync
-          small June 30th, 2016
-        .page-card-summary
-          | Sync your Blender preferences across multiple devices.
-      .page-card-side
-        a(href='https://cloud.blender.org/blog/introducing-blender-sync')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_06_30_sync.jpg') }}")
-    section.page-card
-      .page-card-side
-        a(href='https://cloud.blender.org/blog/introducing-image-sharing')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_07_14_image.jpg') }}")
-      .page-card-side
-        h2.page-card-title
-          | Image Sharing
-          small July 14th, 2016
-        .page-card-summary
-          | Quickly share renders and Blender screenshots within Blender with our add-on.
-    section.page-card
-      .page-card-side
-        h2.page-card-title
-          a(href='https://cloud.blender.org/blog/introducing-the-hdri-library')
-            | HDRI Library
-            small July 27th, 2016
-        .page-card-summary
-          | High-dynamic range images are now available on Blender Cloud! With their own special viewer. Also available via the Blender Cloud add-on.
-      .page-card-side
-        a(href='https://cloud.blender.org/blog/introducing-the-hdri-library')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_07_27_hdri.jpg') }}")
-    section.page-card
-      .page-card-side
-        a(href='https://cloud.blender.org/blog/introducing-the-hdri-library')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_12_06_toon.jpg') }}")
-      .page-card-side
-        h2.page-card-title
-          a(href='https://cloud.blender.org/blog/new-training-toon-character-workflow')
-            | Toon Character Workflow
-            small December 6th, 2016
-        .page-card-summary
-          | YouTube star Dillon Gu joins Blender Cloud for a new tutorial series that will guide you from the basics to a finished toon-shaded character.
-    section.page-card
-      .page-card-side
-        h2.page-card-title
-          | Agent 327 - Barbershop
-        .page-card-summary
-          p
-            | Follow the ongoing progress of the Barbershop fight scene, an animation test for the Agent 327 project. By subscribing to Blender Cloud, you get access
-            | to all resources and training produced so far!
-          a.page-card-cta(href='https://store.blender.org/product/membership/') Subscribe
-      .page-card-side
-        a(href='https://cloud.blender.org/p/agent-327')
-          img.img-responsive(src="{{ url_for('static_cloud', filename='img/2017_03_10_agent.jpg') }}")
+	#page-header
+		.page-title(style='text-align: left')
+			em ABOUT
+			i.pi-blender-cloud-logo
+		.page-title-summary
+			| Blender Cloud means inspiration, knowledge, and tools in one place.
+			br
+			| Started in 2014, it has been pushing the meaning of recurring crowdfunding ever since.
+			br
+			| By subscribing to Blender Cloud you support the creation of open content,
+			br
+			| the development of high-end production tools like Blender and access a
+			br
+			| unique set of learning and creative resources.
+	#page-content
+		section.page-card
+			.page-card-side
+				h2.page-card-title
+					| Launch at SXSW
+					small March 9th, 2014
+				.page-card-summary
+					| First happy cloud video and crowdfunding for Cosmos Laundromat Pilot.
+			.page-card-side
+				a(href='https://gooseberry.blender.org/gooseberry-campaign-launched-we-need-10k-people-to-help/')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2014_03_09_sxsw.jpg') }}")
+		section.page-card
+			.page-card-side
+				a(href='https://gooseberry.blender.org/gooseberry-campaign-launched-we-need-10k-people-to-help/')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2014_03_10_cosmos.jpg') }}")
+			.page-card-side
+				h2.page-card-title
+					| Gooseberry | Cosmos Laundromat
+					small March 10th, 2015
+				.page-card-summary
+					| Weekly folders with updates for subscribers. Initial development of Attract, which will become the new cloud some months later on.
+		section.page-card
+			.page-card-side
+				h2.page-card-title
+					| Glass Half
+					small October 30th, 2015
+				.page-card-summary
+					| Introducing integrated blogs in Blender Cloud projects. Glass Half is the first project fully developed on the new Blender Cloud. It's also the first and only project to have share its
+					a(href='https://cloud.blender.org/p/glass-half/5627bb22f0e7220061109c9f') animation dailies
+					| ! But the biggest outcome from Glass Half was definitely
+					a(href='https://cloud.blender.org/p/glass-half/569d6044c379cf445461293e') Flexirig
+					| .
+			.page-card-side
+				a(href='https://cloud.blender.org/p/glass-half/blog/glass-half-premiere')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2015_10_30_glass.jpg') }}")
+		section.page-card
+			.page-card-side
+				a(href='https://cloud.blender.org/blog/new-art-gallery-with-gleb-alexandrov')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2015_11_19_art.jpg') }}")
+			.page-card-side
+				h2.page-card-title
+					| Art Gallery
+					small November 19th, 2015
+				.page-card-summary
+					| Learn by example. Introducing a place for amazing artwork to be shared, along with its blendfiles and breakdowns.
+		section.page-card
+			.page-card-side
+				h2.page-card-title
+					| Blender Institute Podcast
+					small November 24th, 2015
+				.page-card-summary
+					| With so much going on in the Cloud at at the studio. The Blender Institute Podcast was born! Sharing our daily studio work, Blender community news, and interacting with the awesome Blender Cloud subscribers.
+			.page-card-side
+				a(href='https://cloud.blender.org/blog/introducing-blender-institute-podcast')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2015_11_24_bip.jpg') }}")
+		section.page-card
+			.page-card-side
+				a(href='https://cloud.blender.org/p/blenrig/blog/welcome-to-the-blenrig-project')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2015_12_01_blenrig.jpg') }}")
+			.page-card-side
+				h2.page-card-title
+					| Blenrig
+					small December 1st, 2015
+				.page-card-summary
+					| The most powerful and versatile rigging framework for Blender, used and tested through Cosmos Laundromat and the Caminandes series, is now part of Blender Cloud!
+		section.page-card
+			.page-card-side
+				h2.page-card-title
+					| Texture Library
+					small December 23rd, 2015
+				.page-card-summary
+					| The biggest source for CC0/Public Domain textures on the interwebs goes live. First as beta, as a quick gift right before Xmas 2015!
+			.page-card-side
+				a(href='https://cloud.blender.org/blog/new-texture-library')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2015_12_23_textures.jpg') }}")
+		section.page-card
+			.page-card-side
+				a(href='https://cloud.blender.org/blog/nraryew-the-character-lib')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_01_05_charlib.jpg') }}")
+			.page-card-side
+				h2.page-card-title
+					| Character Library
+					small January 5th, 2016
+				.page-card-summary
+					| High-quality, animation-ready characters collection from all the Blender Institute open projects, plus a brand new one: Vincent!
+		section.page-card
+			.page-card-side
+				h2.page-card-title
+					| Caminandes: Llamigos
+					small January 30th, 2016
+				.page-card-summary
+					| The
+					a(href='https://www.youtube.com/watch?v=SkVqJ1SGeL0') third episode
+					|  of the Caminandes series was completely done -and sponsored! through Blender Cloud. It's also the only project til date to have
+					a(href='https://www.youtube.com/watch?v=kQH897V9bDg&list=PLI2TkLMzCSr_H6ppmzDtU0ut0RwxGvXjv') nicely edited Weekly video reports
+					| .
+			.page-card-side
+				a(href='https://cloud.blender.org/p/caminandes-3/blog/caminandes-llamigos')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_01_30_llamigos.jpg') }}")
+		section.page-card
+			.page-card-side
+				a(href='https://cloud.blender.org/blog/welcome-sybren')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_03_01_sybren.jpg') }}")
+			.page-card-side
+				h2.page-card-title
+					| Sybren
+					small March 1st, 2016
+				.page-card-summary
+					| Dr. Sybren Stüvel starts working at the Blender Institute!
+		section.page-card
+			.page-card-side
+				h2.page-card-title
+					| Private Projects
+					small May 3rd, 2016
+				.page-card-summary
+					| Create your own private projects on Blender Cloud.
+			.page-card-side
+				a(href='https://cloud.blender.org/blog/welcome-sybren')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_05_03_projects.jpg') }}")
+		section.page-card
+			.page-card-side
+				a(href='https://cloud.blender.org/blog/introducing-project-sharing')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_05_09_projectsharing.jpg') }}")
+			.page-card-side
+				h2.page-card-title
+					| Project Sharing
+					small May 9th, 2016
+				.page-card-summary
+					| Team work! Share your projects with other Blender Cloud subscribers.
+		section.page-card
+			.page-card-side
+				h2.page-card-title
+					| Blender Cloud add-on with Texture Library
+					small May 11th, 2016
+				.page-card-summary
+					| Browse the textures from within Blender!
+			.page-card-side
+				a(href='https://cloud.blender.org/blog/introducing-project-sharing')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_05_11_addon.jpg') }}")
+		section.page-card
+			.page-card-side
+				a(href='https://cloud.blender.org/blog/introducing-private-texture-libraries')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_05_23_privtextures.jpg') }}")
+			.page-card-side
+				h2.page-card-title
+					| Private Texture Libraries
+					small May 23rd, 2016
+				.page-card-summary
+					| Create your own private textures library and browse it in Blender with our add-on.
+		section.page-card
+			.page-card-side
+				h2.page-card-title
+					| Blender Sync
+					small June 30th, 2016
+				.page-card-summary
+					| Sync your Blender preferences across multiple devices.
+			.page-card-side
+				a(href='https://cloud.blender.org/blog/introducing-blender-sync')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_06_30_sync.jpg') }}")
+		section.page-card
+			.page-card-side
+				a(href='https://cloud.blender.org/blog/introducing-image-sharing')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_07_14_image.jpg') }}")
+			.page-card-side
+				h2.page-card-title
+					| Image Sharing
+					small July 14th, 2016
+				.page-card-summary
+					| Quickly share renders and Blender screenshots within Blender with our add-on.
+		section.page-card
+			.page-card-side
+				h2.page-card-title
+					a(href='https://cloud.blender.org/blog/introducing-the-hdri-library')
+						| HDRI Library
+						small July 27th, 2016
+				.page-card-summary
+					| High-dynamic range images are now available on Blender Cloud! With their own special viewer. Also available via the Blender Cloud add-on.
+			.page-card-side
+				a(href='https://cloud.blender.org/blog/introducing-the-hdri-library')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_07_27_hdri.jpg') }}")
+		section.page-card
+			.page-card-side
+				a(href='https://cloud.blender.org/blog/introducing-the-hdri-library')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2016_12_06_toon.jpg') }}")
+			.page-card-side
+				h2.page-card-title
+					a(href='https://cloud.blender.org/blog/new-training-toon-character-workflow')
+						| Toon Character Workflow
+						small December 6th, 2016
+				.page-card-summary
+					| YouTube star Dillon Gu joins Blender Cloud for a new tutorial series that will guide you from the basics to a finished toon-shaded character.
+		section.page-card
+			.page-card-side
+				h2.page-card-title
+					| Agent 327 - Barbershop
+				.page-card-summary
+					p
+						| Follow the ongoing progress of the Barbershop fight scene, an animation test for the Agent 327 project. By subscribing to Blender Cloud, you get access
+						| to all resources and training produced so far!
+					a.page-card-cta(href='https://store.blender.org/product/membership/') Subscribe
+			.page-card-side
+				a(href='https://cloud.blender.org/p/agent-327')
+					img.img-responsive(src="{{ url_for('static_cloud', filename='img/2017_03_10_agent.jpg') }}")
 | {% endblock body%}
