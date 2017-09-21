@@ -68,7 +68,15 @@ Blender Cloud expects the following files to exist:
 
 ## 7. ElasticSearch & kibana
 
-Kibana should be placed in read-only mode:
+ElasticSearch and Kibana run in our self-rolled images. This is needed because by default
+
+- ElasticSearch uses up to 2 GB of RAM, which is too much for our droplet, and
+- the Docker images contain the proprietary X-Pack plugin, which we don't want.
+
+This also gives us the opportunity to let Kibana do its optimization when we build the image, rather
+than every time the container is recreated.
+
+Production Kibana should be placed in read-only mode:
 
 `curl -XPUT 'localhost:9200/.kibana/_settings' -d '{ "index.blocks.read_only" : true }'`
 
