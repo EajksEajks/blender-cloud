@@ -42,6 +42,9 @@ kibana:
         VIRTUAL_HOST: http://stats.cloud.blender.org/*,https://stats.cloud.blender.org/*,http://stats.blender-cloud/*,https://stats.blender-cloud/*
         VIRTUAL_HOST_WEIGHT: 20
         FORCE_SSL: "true"
+
+        # See https://github.com/elastic/kibana/issues/5170#issuecomment-163042525
+        NODE_OPTIONS: "--max-old-space-size=200"
     links:
         - elastic
 blender_cloud:
