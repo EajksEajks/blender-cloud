@@ -76,6 +76,8 @@ ElasticSearch and Kibana run in our self-rolled images. This is needed because b
 This also gives us the opportunity to let Kibana do its optimization when we build the image, rather
 than every time the container is recreated.
 
+`/data/storage/elasticsearch` needs to be writable by UID 1000, GID 1000.
+
 Production Kibana should be placed in read-only mode:
 
 `curl -XPUT 'localhost:9200/.kibana/_settings' -d '{ "index.blocks.read_only" : true }'`
