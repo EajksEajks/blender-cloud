@@ -256,16 +256,22 @@ html(lang="en")
 									a(href="{{ url_for('main.main_blog') }}",
 										title="Blender Cloud Blog")
 										| Blog
-
 								li
 									a(href="{{ url_for('cloud.services') }}",
 										title="Blender Cloud Services")
 										| Services
-
 								li
-									a(href="https://cloud.blender.org/blog/blender-cloud-v3",
+									a(href="{{ url_for('cloud.about') }}",
 										title="About Blender Cloud")
 										| About
+								li
+									a(href="{{ url_for('cloud.terms_and_conditions') }}",
+										title="Terms and Conditions")
+										| Terms and Conditions
+								li
+									a(href="{{ url_for('cloud.privacy') }}",
+									title="Privacy")
+										| Privacy
 
 						.col-md-2.col-xs-6
 							h4

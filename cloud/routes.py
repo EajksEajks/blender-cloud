@@ -345,6 +345,16 @@ def billing():
         store_user=store_user, groups=groups, title='billing')
 
 
+@blueprint.route('/terms-and-conditions')
+def terms_and_conditions():
+    return render_template('terms_and_conditions.html')
+
+
+@blueprint.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
+
+
 def setup_app(app):
     global _homepage_context
     cached = app.cache.cached(timeout=300)
