@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+# First time creating a certificate for a domain, use:
+# certbot certonly --webroot -w /data/letsencrypt -d $DOMAINNAME
+
 cd /data/letsencrypt
 
 certbot renew
