@@ -164,6 +164,11 @@ def services():
     return render_template('services.html')
 
 
+@blueprint.route('/stats')
+def stats():
+    return render_template('stats.html')
+
+
 @blueprint.route('/join')
 def join():
     """Join page"""

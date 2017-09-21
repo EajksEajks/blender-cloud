@@ -1,0 +1,30 @@
+| {% extends 'layout.html' %}
+| {% block page_title %}Statistics{% endblock %}
+
+| {% set title = 'statistics' %}
+
+| {% block og %}
+meta(property="og:title", content="Blender Cloud Statistics")
+meta(property="og:url", content="https://cloud.blender.org/stats")
+meta(property="og:image", content="{{ url_for('static', filename='assets/img/backgrounds/background_andy_hdribot_01.jpg')}}")
+| {% endblock %}
+
+| {% block head %}
+style.
+	iframe {
+		width: 100%;
+		min-height: 1000px;
+		margin: 0;
+		padding: 0;
+		border: none;
+	}
+| {% endblock %}
+
+| {% block body %}
+#page-container
+	#page-content
+
+		iframe(src="https://stats.cloud.blender.org/app/kibana#/dashboard/AV6Vsii-yS6gf1Jm5XuV?embed=true&_g=(time:(from:now-90d,mode:quick,to:now),refreshInterval:(display:Off,pause:!f,section:0,value:0))")
+
+
+| {% endblock %}
