@@ -218,7 +218,8 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 						a.title(href="{{ n.project.url }}") {{ n.project.name }}
 						| {% if n.project.summary %}
 						ul.meta
-							li.what {{ n.project.summary }}
+							li.what
+								a(href="{{ n.project.url }}") {{ n.project.summary }}
 						| {% endif %}
 
 				li.random-asset__list-item.featured
