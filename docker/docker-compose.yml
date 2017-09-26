@@ -115,10 +115,6 @@ grafista:
   image: armadillica/grafista:latest
   container_name: grafista
   restart: always
-  environment:
-    VIRTUAL_HOST: http://cloud.blender.org/stats/*,https://cloud.blender.org/stats/*,http://blender-cloud/stats/*
-    VIRTUAL_HOST_WEIGHT: 20
-    FORCE_SSL: "true"
   volumes:
     - /data/git/grafista:/data/git/grafista:ro
     - /data/storage/grafista:/data/storage/grafista
@@ -145,7 +141,6 @@ haproxy:
    - TIMEOUT=connect 5s, client 5m, server 10m
   links:
    - blender_cloud
-   - grafista
    # - notifserv
    - letsencrypt
    - kibana
