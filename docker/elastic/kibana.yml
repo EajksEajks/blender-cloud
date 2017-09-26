@@ -1,0 +1,8 @@
+---
+
+server.name: kibana
+server.host: "0"
+elasticsearch.url: http://elasticsearch:9200
+
+# Hide dev tools
+console.enabled: false
