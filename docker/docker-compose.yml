@@ -44,6 +44,7 @@ kibana:
     environment:
         SERVER_NAME: "stats.cloud.blender.org"
         ELASTICSEARCH_URL: http://elasticproxy:9200
+        CONSOLE_ENABLED: 'false'
         VIRTUAL_HOST: http://stats.cloud.blender.org/*,https://stats.cloud.blender.org/*,http://stats.blender-cloud/*,https://stats.blender-cloud/*
         VIRTUAL_HOST_WEIGHT: 20
         FORCE_SSL: "true"
