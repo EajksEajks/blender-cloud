@@ -78,7 +78,12 @@ than every time the container is recreated.
 
 `/data/storage/elasticsearch` needs to be writable by UID 1000, GID 1000.
 
-Production Kibana should be placed in read-only mode:
+Kibana connects to [ElasticProxy](https://github.com/armadillica/elasticproxy), which only allows
+GET, HEAD, and some specific POST requests. This ensures that the public-facing Kibana cannot be
+used to change the ElasticSearch database.
+
+Production Kibana can be placed in read-only mode, but this is not necessary now that we use
+ElasticProxy. However, I've left this in here as reference.
 
 `curl -XPUT 'localhost:9200/.kibana/_settings' -d '{ "index.blocks.read_only" : true }'`
 
