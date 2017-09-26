@@ -34,7 +34,7 @@ elasticproxy:
     image: armadillica/elasticproxy:latest
     container_name: elasticproxy
     restart: always
-    command: /elasticproxy -elastic http://elastic:9200/ -verbose
+    command: /elasticproxy -elastic http://elastic:9200/
     links:
         - elastic
 kibana:
