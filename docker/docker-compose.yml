@@ -30,13 +30,20 @@ elastic:
         - "127.0.0.1:9200:9200"
     environment:
         ES_JAVA_OPTS: "-Xms256m -Xmx256m"
+elasticproxy:
+    image: armadillica/elasticproxy:latest
+    container_name: elasticproxy
+    restart: always
+    command: /elasticproxy -elastic http://elastic:9200/ -verbose
+    links:
+        - elastic
 kibana:
     image: armadillica/kibana:latest
     container_name: kibana
     restart: always
     environment:
         SERVER_NAME: "stats.cloud.blender.org"
-        ELASTICSEARCH_URL: http://elastic:9200
+        ELASTICSEARCH_URL: http://elasticproxy:9200
         XPACK_SECURITY_ENABLED: 'false'
         XPACK_MONITORING_UI_CONTAINER_ELASTICSEARCH_ENABLED: 'false'
         VIRTUAL_HOST: http://stats.cloud.blender.org/*,https://stats.cloud.blender.org/*,http://stats.blender-cloud/*,https://stats.blender-cloud/*
@@ -46,7 +53,7 @@ kibana:
         # See https://github.com/elastic/kibana/issues/5170#issuecomment-163042525
         NODE_OPTIONS: "--max-old-space-size=200"
     links:
-        - elastic
+        - elasticproxy
 blender_cloud:
   image: armadillica/blender_cloud:latest
   container_name: blender_cloud
