@@ -1,11 +1,11 @@
 {
   "name": "blender-cloud",
+  "license": "GPL-2.0+",
+  "author": "Blender Institute",
   "repository": {
     "type": "git",
     "url": "git://git.blender.org/blender-cloud.git"
   },
-  "author": "Blender Institute",
-  "license": "GPL-2.0",
   "devDependencies": {
     "gulp": "~3.9.1",
     "gulp-autoprefixer": "~2.3.1",
