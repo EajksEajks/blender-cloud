@@ -2,6 +2,7 @@ var argv         = require('minimist')(process.argv.slice(2));
 var autoprefixer = require('gulp-autoprefixer');
 var chmod        = require('gulp-chmod');
 var concat       = require('gulp-concat');
+var git          = require('gulp-git');
 var gulp         = require('gulp');
 var gulpif       = require('gulp-if');
 var pug          = require('gulp-pug');
@@ -18,7 +19,8 @@ var enabled = {
     maps: argv.production,
     failCheck: !argv.production,
     prettyPug: !argv.production,
-    cachify: !argv.production
+    cachify: !argv.production,
+    cleanup: argv.production,
 };
 
 var destination = {
@@ -100,6 +102,21 @@ gulp.task('watch',function() {
     gulp.watch('src/scripts/tutti/**/*.js',['scripts_concat_tutti']);
 });
 
+// Erases all generated files in output directories.
+gulp.task('cleanup', function() {
+    var paths = [];
+    for (attr in destination) {
+        paths.push(destination[attr]);
+    }
+
+    git.clean({ args: '-f -X ' + paths.join(' ') }, function (err) {
+        if(err) throw err;
+    });
+
+});
+
 
 // Run 'gulp' to build everything at once
-gulp.task('default', ['styles', 'templates', 'scripts', 'scripts_concat_tutti',]);
+var tasks = [];
+if (enabled.cleanup) tasks.push('cleanup');
+gulp.task('default', tasks.concat(['styles', 'templates', 'scripts', 'scripts_concat_tutti']));
