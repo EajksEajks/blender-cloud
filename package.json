@@ -1,8 +1,8 @@
 {
-  "name": "pillar",
+  "name": "blender-cloud",
   "repository": {
     "type": "git",
-    "url": "https://github.com/armadillica/pillar.git"
+    "url": "git://git.blender.org/blender-cloud.git"
   },
   "author": "Blender Institute",
   "license": "GPL-2.0",
