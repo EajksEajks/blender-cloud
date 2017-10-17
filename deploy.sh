@@ -120,10 +120,10 @@ $FLAMENCO_DIR/rsync_ui.sh ${DEPLOYHOST}
 # Notify Bugsnag of this new deploy.
 echo
 echo "==================================================================="
-GIT_REVISION=$(${SSH} git -C ${REMOTE_ROOT} describe --always)
-echo "Notifying Bugsnag of this new deploy of revision ${GIT_REVISION}."
+REVISION=$(date +'%Y%m%d.%H%M%S.%Z')
+echo "Notifying Bugsnag of this new deploy of revision ${REVISION}."
 BUGSNAG_API_KEY=$(${SSH} python -c "\"import sys; sys.path.append('${REMOTE_ROOT}'); import config_local; print(config_local.BUGSNAG_API_KEY)\"")
-curl --data "apiKey=${BUGSNAG_API_KEY}&revision=${GIT_REVISION}" https://notify.bugsnag.com/deploy
+curl --data "apiKey=${BUGSNAG_API_KEY}&revision=${REVISION}" https://notify.bugsnag.com/deploy
 echo
 
 # Wait for [ENTER] to restart the server
