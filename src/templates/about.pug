@@ -9,7 +9,7 @@ style.
 | {% endblock css %}
 | {% block body %}
 #page-container
-	#page-header
+	#page-header(style="background-image: url({{ url_for('static', filename='assets/img/backgrounds/pattern_01.jpg')}})")
 		.page-title(style='text-align: left')
 			em ABOUT
 			i.pi-blender-cloud-logo
