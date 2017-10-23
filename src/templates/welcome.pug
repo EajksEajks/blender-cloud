@@ -379,7 +379,7 @@ li
 			style="background-image: url({{ url_for('static', filename='assets/img/backgrounds/pattern_bw_01.jpg')}})")
 			.page-card-side
 				h2.page-card-title
-					span Join #[strong(class="awesome-people") 3460] awesome people.
+					span Join #[strong(class="awesome-people") 3492] awesome people.
 					br
 					| Support Blender, get inspiration, knowledge and tools in one place.
 
@@ -402,7 +402,7 @@ script.
 		$.get('https://store.blender.org/product-counter/?prod=cloud', function(data) {
 		}).done(function(data){
 			if (data.total_sold > 0) {
-				$('awesome-people').html(data.total_sold);
+				$('.awesome-people').html(data.total_sold);
 			}
 		});
 	}
