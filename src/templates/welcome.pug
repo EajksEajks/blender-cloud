@@ -68,7 +68,8 @@ li
 			style="background-image: url({{ url_for('static', filename='assets/img/backgrounds/background_orange_01.jpg')}})")
 
 			.page-card-side.text
-				h2.page-card-title Blender Training
+				a(href="{{ url_for('cloud.courses') }}")
+					h2.page-card-title Blender Training
 				.page-card-summary
 					p.
 						Learn from the pros, learn like a pro.
@@ -83,13 +84,15 @@ li
 						Learn by example. Watch animation reviews, narrated timelapses,
 						shot walk-throughs and more.
 
-					p
+					p.summary-action
 						a.page-card-cta(
 						href="https://cloud.blender.org/blog/introducing-blender-sync")
 							| Subscribe for {{ price }}
 
+						| See #[a.learn(href="{{ url_for('cloud.courses') }}") Courses] & #[a.learn(href="{{ url_for('cloud.courses') }}") Workshops]
+
 			.page-card-side
-				.page-card-image
+				a.page-card-image(href="https://cloud.blender.org/p/scripting-for-artists/")
 					img(src="{{ url_for('static', filename='assets/img/backgrounds/background_sybren_01.jpg')}}")
 
 
@@ -170,10 +173,12 @@ li
 					p.
 						Help us to make more!
 
-					p
+					p.summary-action
 						a.page-card-cta(
 						href="https://cloud.blender.org/blog/introducing-blender-sync")
 							| Subscribe for {{ price }}
+
+						a.learn(href="{{ url_for('cloud.open_projects') }}") Browse the Open Movies
 
 			.page-card-side
 				a.page-card-image(href="{{ url_for('cloud.open_projects') }}")
@@ -247,7 +252,7 @@ li
 					p.
 						Organizations support is also available!
 
-					p
+					p.summary-action
 						a.page-card-cta(
 						href="https://cloud.blender.org/blog/introducing-blender-sync")
 							| Subscribe for {{ price }}
