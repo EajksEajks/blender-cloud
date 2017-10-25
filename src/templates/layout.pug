@@ -27,7 +27,7 @@ html(lang="en")
 		meta(name="twitter:title", content="Blender Cloud")
 		meta(name="twitter:description", content="Blender Cloud is a web based service developed by Blender Institute that allows people to access the training videos and all the data from the open projects.")
 		meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/backgrounds/background_gleb_locomotive.jpg')}}")
-		| {% endblock %}
+		| {% endblock og %}
 
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery-3.1.0.min.js')}}")
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.typeahead-0.11.1.min.js')}}")
@@ -57,7 +57,7 @@ html(lang="en")
 		| {% else %}
 		link(href="{{ url_for('static_pillar', filename='assets/css/main.css', v=17320171) }}", rel="stylesheet")
 		| {% endif %}
-		| {% endblock %}
+		| {% endblock css %}
 
 
 		| {% if not title %}{% set title="default" %}{% endif %}
@@ -96,7 +96,7 @@ html(lang="en")
 							type="text",
 							placeholder="Search assets, tutorials...")
 						i.search-icon.pi-search
-					| {% endblock %}
+					| {% endblock navigation_search %}
 
 					nav.collapse.navbar-collapse
 						ul.nav.navbar-nav.navbar-right
@@ -201,7 +201,8 @@ html(lang="en")
 									data-placement="bottom",
 									class="{% if category == 'services' %}active{% endif %}")
 									span Services
-							| {% endblock %}
+							| {% endblock navigation_sections %}
+
 
 							| {% if current_user.is_anonymous %}
 							li
@@ -210,16 +211,21 @@ html(lang="en")
 									title="Sign up") Sign up
 							| {% endif %}
 
+
+							| {% block navigation_user %}
+
 							| {% from '_macros/_menu.html' import navigation_menu_notifications, navigation_menu_user %}
 							| {{ navigation_menu_notifications(current_user) }}
 							| {{ navigation_menu_user(current_user) }}
+
+							| {% endblock navigation_user %}
 
 
 			.page-content
 				#search-overlay
 				| {% block page_overlay %}
 				#page-overlay
-				| {% endblock %}
+				| {% endblock page_overlay %}
 				.page-body
 					| {% block body %}{% endblock %}
 
@@ -292,14 +298,14 @@ html(lang="en")
 							| With the support of the <br/> MEDIA Programme of the European Union<br/><br/>
 							img(alt="MEDIA Programme of the European Union",
 									src="https://gooseberry.blender.org/wp-content/uploads/2014/01/media_programme.png")
-			| {% endblock %}
+			| {% endblock footer_navigation %}
 
 			| {% block footer %}
 			footer.container
 				#hop(title="Be awesome in space")
 					i.pi-angle-up
-			| {% endblock %}
-		| {% endblock %}
+			| {% endblock footer %}
+		| {% endblock footer_container %}
 
 		#notification-pop(data-url="", data-read-toggle="")
 			.nc-progress

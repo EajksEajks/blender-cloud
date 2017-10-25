@@ -9,20 +9,26 @@
 meta(property="og:title", content="Blender Cloud - Open Content Production Platform")
 meta(property="og:url", content="https://cloud.blender.org/")
 meta(property="og:image", content="{{ url_for('static', filename='assets/img/backgrounds/background_dweebs_01.jpg')}}")
-| {% endblock %}
+| {% endblock og %}
 
 | {% block page_overlay %}
 #page-overlay.video
 	.video-embed
-| {% endblock %}
+| {% endblock page_overlay %}
 
 | {% block navigation_search %}{% endblock %}
 | {% block navigation_sections %}
 li
 	a.navbar-item(href="#pricing")
 		span Pricing
+| {% endblock navigation_sections %}
 
-| {% endblock %}
+| {% block navigation_user %}
+li.nav-item-sign-in
+	a.navbar-item(href="{{ url_for('users.login') }}")
+		| Log in and Explore
+| {% endblock navigation_user %}
+
 
 | {% block body %}
 #page-container.join
@@ -389,7 +395,7 @@ li
 					| Subscribe for {{ price }}
 
 
-| {% endblock %}
+| {% endblock body %}
 
 | {% block footer_scripts %}
 script.
@@ -446,4 +452,4 @@ script.
 		$('#page-overlay .video-embed').html('<iframe src="https://www.youtube.com/embed/' + videoId +'?rel=0&amp;showinfo=0;autoplay=1" frameborder="0" allowfullscreen></iframe>')
 	});
 
-| {% endblock %}
+| {% endblock footer_scripts %}
