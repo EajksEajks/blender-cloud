@@ -99,7 +99,9 @@ li.nav-item-sign-in
 
 			.page-card-side
 				a.page-card-image(href="https://cloud.blender.org/p/scripting-for-artists/")
-					img(src="{{ url_for('static', filename='assets/img/backgrounds/background_sybren_01.jpg')}}")
+					img(
+						alt="Sybren teaches Python Scripting with Blender",
+						src="{{ url_for('static', filename='assets/img/backgrounds/background_sybren_01.jpg')}}")
 
 
 		section.page-card-header
@@ -188,7 +190,9 @@ li.nav-item-sign-in
 
 			.page-card-side
 				a.page-card-image(href="{{ url_for('cloud.open_projects') }}")
-					img(src="{{ url_for('static', filename='assets/img/backgrounds/background_open_movies_01.png')}}")
+					img(
+						alt="Open Movie Posters",
+						src="{{ url_for('static', filename='assets/img/backgrounds/background_open_movies_01.png')}}")
 
 
 		section.page-card-header
@@ -267,7 +271,9 @@ li.nav-item-sign-in
 
 			.page-card-side
 				a.page-card-image(href="{{ url_for('cloud.services') }}")
-					img(src="{{ url_for('static', filename='assets/img/backgrounds/background_services_01.png')}}")
+					img(
+						alt="Blender Cloud services screenshots",
+						src="{{ url_for('static', filename='assets/img/backgrounds/background_services_01.png')}}")
 
 
 		section.page-card-header
