@@ -55,7 +55,7 @@ html(lang="en")
 		| {% if title == 'blog' %}
 		link(href="{{ url_for('static_pillar', filename='assets/css/blog.css', v=17320171) }}", rel="stylesheet")
 		| {% else %}
-		link(href="{{ url_for('static_pillar', filename='assets/css/main.css', v=17320171) }}", rel="stylesheet")
+		link(href="{{ url_for('static', filename='cloud/assets/css/main.css', v=17320171) }}", rel="stylesheet")
 		| {% endif %}
 		| {% endblock css %}
 
