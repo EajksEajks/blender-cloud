@@ -25,7 +25,7 @@ li
 
 | {% block navigation_user %}
 li.nav-item-sign-in
-	a.navbar-item(href="{{ url_for('users.login') }}")
+	a.navbar-item(href="{{ url_for('users.login', next='/') }}")
 		| {% if current_user.is_anonymous %}
 		| Log in and Explore
 		| {% else %}
