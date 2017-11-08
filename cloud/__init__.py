@@ -12,6 +12,8 @@ ROLES_TO_BE_SUBSCRIBER = {'demo', 'subscriber', 'admin'}  # TODO: get rid of thi
 
 class CloudExtension(PillarExtension):
     has_context_processor = True
+    user_roles = {'subscriber-pro'}
+    user_roles_indexable = {'subscriber-pro'}
 
     def __init__(self):
         self._log = logging.getLogger('%s.CloudExtension' % __name__)
