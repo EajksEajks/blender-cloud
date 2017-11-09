@@ -105,6 +105,7 @@ def _homepage_context() -> dict:
         if not comment.attached_to:
             continue
         comment.attached_to.url = url_for_node(node=comment.attached_to)
+        comment.url = url_for_node(node=comment)
 
     main_project = Project.find(current_app.config['MAIN_PROJECT_ID'], api=api)
     main_project.picture_header = get_file(main_project.picture_header, api=api)
