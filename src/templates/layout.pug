@@ -29,33 +29,33 @@ html(lang="en")
 		meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/backgrounds/background_gleb_locomotive.jpg')}}")
 		| {% endblock og %}
 
-		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery-3.1.0.min.js')}}")
-		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.typeahead-0.11.1.min.js')}}")
-		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/algoliasearch-3.19.0.min.js')}}")
-		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/js.cookie-2.0.3.min.js')}}")
+		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery-3.1.0.min.js', v=9112017)}}")
+		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.typeahead-0.11.1.min.js', v=9112017)}}")
+		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/algoliasearch-3.19.0.min.js', v=9112017)}}")
+		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/js.cookie-2.0.3.min.js', v=9112017)}}")
 
 		script.
 			var algolia = algoliasearch("{{config['ALGOLIA_USER']}}", "{{config['ALGOLIA_PUBLIC_KEY']}}");
 			var algoliaIndex = algolia.initIndex("{{config['ALGOLIA_INDEX_NODES']}}");
 
-		script(src="{{ url_for('static_pillar', filename='assets/js/markdown.min.js', v=17320171) }}")
-		script(src="{{ url_for('static_pillar', filename='assets/js/tutti.min.js', v=17320171) }}")
+		script(src="{{ url_for('static_pillar', filename='assets/js/markdown.min.js', v=9112017) }}")
+		script(src="{{ url_for('static_pillar', filename='assets/js/tutti.min.js', v=9112017) }}")
 
 		link(href="{{ url_for('static', filename='assets/img/favicon.png') }}", rel="shortcut icon")
 		link(href="{{ url_for('static', filename='assets/img/apple-touch-icon-precomposed.png') }}", rel="icon apple-touch-icon-precomposed", sizes="192x192")
 
-		link(href="{{ url_for('static_pillar', filename='assets/css/vendor/bootstrap.min.css') }}", rel="stylesheet")
-		link(href="{{ url_for('static', filename='assets/google-font-roboto/roboto.css') }}", rel="stylesheet")
+		link(href="{{ url_for('static_pillar', filename='assets/css/vendor/bootstrap.min.css', v=9112017) }}", rel="stylesheet")
+		link(href="{{ url_for('static', filename='assets/google-font-roboto/roboto.css', v=9112017) }}", rel="stylesheet")
 
 		| {% block head %}{% endblock %}
 
 		| {% block css %}
-		link(href="{{ url_for('static_pillar', filename='assets/css/font-pillar.css', v=17320171) }}", rel="stylesheet")
-		link(href="{{ url_for('static_pillar', filename='assets/css/base.css', v=17320171) }}", rel="stylesheet")
+		link(href="{{ url_for('static_pillar', filename='assets/css/font-pillar.css', v=9112017) }}", rel="stylesheet")
+		link(href="{{ url_for('static_pillar', filename='assets/css/base.css', v=9112017) }}", rel="stylesheet")
 		| {% if title == 'blog' %}
-		link(href="{{ url_for('static_pillar', filename='assets/css/blog.css', v=17320171) }}", rel="stylesheet")
+		link(href="{{ url_for('static_pillar', filename='assets/css/blog.css', v=9112017) }}", rel="stylesheet")
 		| {% else %}
-		link(href="{{ url_for('static', filename='cloud/assets/css/main.css', v=17320171) }}", rel="stylesheet")
+		link(href="{{ url_for('static', filename='cloud/assets/css/main.css', v=9112017) }}", rel="stylesheet")
 		| {% endif %}
 		| {% endblock css %}
 
@@ -320,7 +320,7 @@ html(lang="en")
 		noscript
 			link(href='//fonts.googleapis.com/css?family=Roboto:300,400', rel='stylesheet', type='text/css')
 
-		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.bootstrap-3.3.7.min.js', v=17320171) }}")
+		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.bootstrap-3.3.7.min.js', v=9112017) }}")
 
 		script.
 			$(document).ready(function() {
