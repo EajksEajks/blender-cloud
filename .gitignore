@@ -5,6 +5,7 @@
 __pycache__
 
 /cloud/templates/
+/cloud/static/assets/css/
 node_modules/
 
 /config_local.py
