@@ -39,12 +39,19 @@ def _homepage_context() -> dict:
     # Get latest blog posts
     api = system_util.pillar_api()
     latest_posts = Node.all({
-        'projection': {'name': 1, 'project': 1, 'node_type': 1,
-                       'picture': 1, 'properties.status': 1, 'properties.url': 1},
+        'projection': {
+                        'name': 1,
+                        'project': 1,
+                        'node_type': 1,
+                        'picture': 1,
+                        'properties.url': 1,
+                        'properties.content': 1
+                    },
+
         'where': {'node_type': 'post', 'properties.status': 'published'},
         'embedded': {'project': 1},
         'sort': '-_created',
-        'max_results': '5'
+        'max_results': '3'
     }, api=api)
 
     # Append picture Files to last_posts
@@ -106,9 +113,7 @@ def _homepage_context() -> dict:
     def sort_key(item):
         return item._created
 
-    activities = itertools.chain(latest_assets._items,
-                                 latest_comments._items)
-    activity_stream = sorted(activities, key=sort_key, reverse=True)
+    activity_stream = sorted(latest_assets._items, key=sort_key, reverse=True)
 
     for node in activity_stream:
         node.url = url_for_node(node=node)
@@ -116,6 +121,7 @@ def _homepage_context() -> dict:
     return dict(
         main_project=main_project,
         latest_posts=latest_posts._items,
+        latest_comments=latest_comments._items,
         activity_stream=activity_stream,
         random_featured=random_featured)
 

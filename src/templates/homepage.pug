@@ -19,36 +19,66 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 
 | {% block body %}
 .dashboard-container
+	section#side
+
+		section.blog-stream
+			ul.blog-stream__list
+				| {% if latest_posts %}
+				| {% for n in latest_posts %}
+				li.blog-stream__list-item.featured
+					| {% if n.picture %}
+					a.blog-stream__thumbnail(
+						href="{{ n.url }}")
+						img(src="{{ n.picture.thumbnail('l', api=api) }}")
+					| {% endif %}
+					a.title(href="{{ n.url }}")
+						| {{ n.name }}
+
+					ul.meta
+						li.when
+							a(href="{{ n.url }}",
+								title="Updated {{ n._updated | pretty_date }}")
+								| {{ n._created | pretty_date }}
+						li.where-project
+							a.project(href="{{ url_for('projects.view', project_url=n.project.url) }}") {{ n.project.name }}
+
+					.description
+						| {{ n.properties.content | markdown }}
+
+				| {% endfor %}
+				| {% else %}
+				li.blog-stream__list-item
+					.blog-stream__list-details
+						ul.meta
+							li.when No blog entries... yet!
+				| {% endif %}
+
+				li.blog-stream__list-item.more
+					a(
+						href="{{ url_for('main.feeds_blogs') }}",
+						title="Blender Cloud & Projects Blog Feed")
+						| RSS Feed
+					a(href="{{ url_for('main.main_blog') }}")
+						| See All Blog Posts
+
+			a.feed(
+				href="{{ url_for('main.feeds_blogs') }}",
+				title="Blender Cloud & Projects Blog Feed",
+				data-toggle="tooltip",
+				data-placement="left")
+				i.pi-rss
+
+
 	section#main
 		| {{ navigation_tabs(title) }}
 
-		section#stream
+		section.stream
 
-			h3#activity-stream__title
-				| Activity Stream
+			h4 Latest Assets
 
-			ul#activity-stream__filters
-				li Filter
-				li.filter.active(
-					data-filter='image',
-					title="List images")
-					i.pi-picture
-				li.filter.active(
-					data-filter='video',
-					title="List videos")
-					i.pi-film-thick
-				li.filter.active(
-					data-filter='file',
-					title="List files")
-					i.pi-file-archive
-				li.filter(
-					data-filter='comment',
-					title="List comments")
-					i.pi-comment
-
-			ul#activity-stream__list
+			ul.activity-stream__list
 				| {% for n in activity_stream %}
-				li.activity-stream__list-item(
+				li(
 					class="{{ n.node_type }} {{ n.properties.content_type }} {% if n.picture %}with-picture{% endif %}",
 					data-url="{{ n.url }}")
 					a.activity-stream__list-thumbnail(
@@ -69,24 +99,19 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 							| {% else %}
 							i.pi-folder
 							| {% endif %}
-							| {% elif n.node_type == 'comment' %}
-							i.pi-comment
 							| {% endif %}
 
 
 					.activity-stream__list-details
 						a.title(href="{{ n.url }}")
-							| {% if n.node_type == 'comment' %}
-							| {{ n.properties.content | striptags | truncate(200) }}
-							| {% else %}
 							| {{ n.name }}
-							| {% endif %}
+
 						| {% if n.permissions.world %}
 						.ribbon
 							span free
 						| {% endif %}
 						ul.meta
-							| {% if n.node_type == 'comment' or not n.picture %}
+							| {% if not n.picture %}
 							li.when
 								a(href="{{ n.url }}", title="{{ n._created }}") {{ n._created | pretty_date_time }}
 							li.who {{ n.user.full_name }}
@@ -101,8 +126,6 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 							li.what
 								| {% if n.node_type == 'asset' %}
 								| {{ n.properties.content_type | undertitle  }}
-								| {% elif n.node_type != 'comment' %}
-								| {{ n.node_type | undertitle }}
 								| {% endif %}
 
 						| {% if n.picture %}
@@ -117,91 +140,8 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 					| No items to list.
 
 
-	section#side
-		section.announcement.hidden
-			| {% if main_project.picture_header %}
-			a(href="https://cloud.blender.org/p/agent-327/")
-				img.header(
-					src="{{ main_project.picture_header.thumbnail('l', api=api) }}")
-			| {% endif %}
-			.text
-				.title
-					a(href="https://cloud.blender.org/p/agent-327/")
-						span In production:
-						strong  Agent 327
-
-				.lead
-					span.
-						Follow the ongoing progress of the Barbershop fight scene, a character study for the Agent 327 project.
-
-				.buttons
-					a.btn.btn-default.btn-outline.orange(
-						href="https://cloud.blender.org/p/agent-327/blog/")
-						| Blog
-					a.btn.btn-default.btn-outline.blue(
-						href="https://cloud.blender.org/p/agent-327/")
-						| Learn More
-
-		section#blog-stream
-			a.feed(
-				href="{{ url_for('main.feeds_blogs') }}",
-				title="Blender Cloud & Projects Blog Feed",
-				data-toggle="tooltip",
-				data-placement="left")
-				i.pi-rss
-
-			h3
-				a(href="{{ url_for('main.main_blog') }}") Blog
-
-			ul#blog-stream__list
-				| {% if latest_posts %}
-				| {% for n in latest_posts %}
-				| {% if n.picture and loop.first %}
-				li.blog-stream__list-item.featured
-					a.blog-stream__thumbnail(
-						href="{{ n.url }}")
-						img(src="{{ n.picture.thumbnail('l', api=api) }}")
-					a.title(href="{{ n.url }}")
-						| {{ n.name }}
-
-					ul.meta
-						li.when
-							a(href="{{ n.url }}",
-								title="Updated {{ n._updated | pretty_date }}")
-								| {{ n._created | pretty_date }}
-						li.where-project
-							a.project(href="{{ url_for('projects.view', project_url=n.project.url) }}") {{ n.project.name }}
-				| {% else %}
-				li.blog-stream__list-item
-					a.blog-stream__list-thumbnail(href="{{ n.url }}")
-						| {% if n.picture %}
-						img.image(src="{{ n.picture.thumbnail('s', api=api) }}")
-						| {% else %}
-						i.pi-newspaper
-						| {% endif %}
-					.blog-stream__list-details
-						a.title(href="{{ n.url }}") {{ n.name }}
-						ul.meta
-							li.when
-								a(href="{{ n.url }}",
-									title="Updated {{ n._updated | pretty_date }}")
-									| {{ n._created | pretty_date }}
-							li.where-project
-								a.project(href="{{ url_for('projects.view', project_url=n.project.url) }}") {{ n.project.name }}
-				| {% endif %}
-				| {% endfor %}
-				| {% else %}
-				li.blog-stream__list-item
-					.blog-stream__list-details
-						ul.meta
-							li.when No updates yet
-				| {% endif %}
-				li.blog-stream__list-item.more
-					a(href="{{ url_for('main.main_blog') }}") See All Blog Posts
-
-
-		section#random-asset
-			h3
+		section.random-asset
+			h4
 				a(href="/search") Explore the Cloud
 			span.section-lead Random selection of the best assets &amp; tutorials
 
@@ -244,13 +184,13 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 					ul.meta
 						li.what
 							a(href="{{ n.url }}")
-								| {% if n.properties.content_type %}{{ n.properties.content_type }}{% else %}Folder{% endif %}
+								| {% if n.properties.content_type %}{{ n.properties.content_type | undertitle }}{% else %}Folder{% endif %}
 						li.where
 							a(href="{{ n.project.url }}")
 								| {{ n.project.name }}
 				| {% else %}
 
-				li.random-asset__list-item
+				li
 					| {% if n.permissions.world %}
 					.ribbon
 						span free
@@ -284,7 +224,41 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 				| {% endfor %}
 
 
+		section.comments
+
+			h4 Latest Comments
+
+			ul
+				| {% if latest_comments %}
+				| {% for n in latest_comments %}
+				li(
+					class="{{ n.node_type }}",
+					data-url="{{ n.url }}")
+
+					a.comment-content(href="{{ n.url }}")
+						| {{ n.properties.content | striptags | truncate(200) }}
+
+					ul.meta
+						li.who {{ n.user.full_name }}
+						| {% if n.attached_to %}
+
+						li.where-parent
+							a(href="{{ n.attached_to.url }}") {{ n.attached_to.name }}
+						| {% endif %}
+
+						li.when
+							a(href="{{ n.url }}", title="{{ n._created }}")
+								| {{ n._created | pretty_date_time }}
+				| {% endfor %}
+
+				| {% else %}
+				li.activity-stream__list-item.empty#activity-stream__empty
+					| No comments... yet!
+
+				| {% endif %}
+
 | {% endblock %}
+
 
 | {% block footer_scripts %}
 script.
@@ -294,75 +268,6 @@ script.
 	$('.activity-stream__list-details a.title').each(function(){
 		$(this).text($(this).text().replace(/\*|\@|\<(.*?)\>/g, ''));
 	});
-
-	function saveFilters(){
-		var filtersEnabled = [];
-
-		$('ul#activity-stream__filters li.filter.active').each(function(){
-			filtersEnabled.push($(this).attr('data-filter'));
-		});
-
-		setJSONCookie('bcloud_ui', 'homepage_activity_filters', filtersEnabled);
-	}
-
-	function loadFilters(){
-
-		var filters = Cookies.getJSON('bcloud_ui');
-
-		if (filters) {
-			if (filters.homepage_activity_filters && filters.homepage_activity_filters.length){
-				/* Clear style on filters/items */
-				$('ul#activity-stream__filters li.filter').removeClass('active');
-				$('ul#activity-stream__list li.activity-stream__list-item').addClass('hidden');
-
-				for (var f in filters.homepage_activity_filters){
-
-					var savedFilter = filters.homepage_activity_filters[f];
-
-					/* Style each filter type */
-					$('ul#activity-stream__filters li.filter').each(function(){
-						if ($(this).attr('data-filter') == savedFilter){
-							$(this).addClass('active');
-						}
-					});
-
-					/* Show items that are on the cookie */
-					$('ul#activity-stream__list li.activity-stream__list-item').each(function(){
-						if ($(this).hasClass(savedFilter)) {
-							$(this).removeClass('hidden');
-						}
-					});
-				}
-			}
-		}
-	}
-
-	/* Toggle filters */
-	$('ul#activity-stream__filters li.filter').click(function(){
-
-		// Style the filter button
-		$(this).toggleClass('active');
-
-		var filterType = $(this).attr('data-filter');
-
-		saveFilters();
-
-		// Toggle hidden class on list item if it has class matching the filter
-		$('ul#activity-stream__list li.activity-stream__list-item').each(function(){
-			if ($(this).hasClass(filterType)) {
-				$(this).toggleClass('hidden');
-			}
-		});
-
-		var hiddenItems = $('ul#activity-stream__list li.activity-stream__list-item.hidden').length;
-
-		if (hiddenItems == '{{ activity_stream|length }}'){
-			$('#activity-stream__empty').show();
-		}
-
-	});
-
-	loadFilters();
 
 	/* Click on the whole asset/comment row to go */
 	$('li.activity-stream__list-item.asset, li.activity-stream__list-item.comment').click(function(e){
