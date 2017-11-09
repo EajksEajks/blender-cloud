@@ -4,7 +4,7 @@
 *.pyc
 __pycache__
 
-cloud/templates/
+/cloud/templates/
 node_modules/
 
 /config_local.py
