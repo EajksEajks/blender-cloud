@@ -80,12 +80,14 @@ EOT
 PILLAR_DIR=$(find_module pillar)
 ATTRACT_DIR=$(find_module attract)
 FLAMENCO_DIR=$(find_module flamenco)
+SVNMAN_DIR=$(find_module svnman)
 
 echo "Pillar  : $PILLAR_DIR"
 echo "Attract : $ATTRACT_DIR"
 echo "Flamenco: $FLAMENCO_DIR"
+echo "SVNMan: $SVNMAN_DIR"
 
-if [ -z "$PILLAR_DIR" -o -z "$ATTRACT_DIR" -o -z "$FLAMENCO_DIR" ];
+if [ -z "$PILLAR_DIR" -o -z "$ATTRACT_DIR" -o -z "$FLAMENCO_DIR" -r -z "$SVNMAN_DIR" ];
 then
     exit 1
 fi
@@ -107,6 +109,7 @@ git_pull pillar-python-sdk master
 git_pull pillar production
 git_pull attract production
 git_pull flamenco production
+git_pull pillar-svnman production
 git_pull blender-cloud production
 
 # Update the virtualenv
@@ -115,6 +118,7 @@ git_pull blender-cloud production
 # RSync the world
 $ATTRACT_DIR/rsync_ui.sh ${DEPLOYHOST}
 $FLAMENCO_DIR/rsync_ui.sh ${DEPLOYHOST}
+$SVNMAN_DIR/rsync_ui.sh ${DEPLOYHOST}
 ./rsync_ui.sh ${DEPLOYHOST}
 
 # Notify Bugsnag of this new deploy.
