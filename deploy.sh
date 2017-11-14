@@ -85,9 +85,9 @@ SVNMAN_DIR=$(find_module svnman)
 echo "Pillar  : $PILLAR_DIR"
 echo "Attract : $ATTRACT_DIR"
 echo "Flamenco: $FLAMENCO_DIR"
-echo "SVNMan: $SVNMAN_DIR"
+echo "SVNMan  : $SVNMAN_DIR"
 
-if [ -z "$PILLAR_DIR" -o -z "$ATTRACT_DIR" -o -z "$FLAMENCO_DIR" -r -z "$SVNMAN_DIR" ];
+if [ -z "$PILLAR_DIR" -o -z "$ATTRACT_DIR" -o -z "$FLAMENCO_DIR" -o -z "$SVNMAN_DIR" ];
 then
     exit 1
 fi
