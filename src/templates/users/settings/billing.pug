@@ -59,7 +59,13 @@ script.
 		.done(function() {
 			window.location.reload();
 		})
-		.fail(function() {
+		.fail(function(err) {
+			if (err.status == 403) {
+				/* This happens when we are no longer logged in properly, so just refresh the
+				 * page to get a proper status. */
+				window.location.reload();
+				return;
+			}
 			alert('Unable to update subscription, please check your internet connection.');
 		})
 		;
