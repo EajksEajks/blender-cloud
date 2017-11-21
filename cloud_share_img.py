@@ -82,12 +82,14 @@ def find_home_project_id() -> dict:
 
 
 def find_image_sharing_group_id(home_project_id, user_id) -> str:
-    # Find the top-level image sharing group node.
+    """Find the top-level image sharing group node."""
 
-    node_doc = {'project': home_project_id,
-                'node_type': 'group',
-                'parent': None,
-                'name': IMAGE_SHARING_GROUP_NODE_NAME}
+    node_doc = {
+        'project': home_project_id,
+        'node_type': 'group',
+        'name': IMAGE_SHARING_GROUP_NODE_NAME,
+        'user': user_id,
+    }
 
     resp = get('/api/nodes', params={'where': json.dumps(node_doc)})
     resp.raise_for_status()
@@ -96,7 +98,6 @@ def find_image_sharing_group_id(home_project_id, user_id) -> str:
     if not items:
         print('Share group not found, creating one.')
         node_doc.update({
-            'user': user_id,
             'properties': {},
         })
         resp = post('/api/nodes', json=node_doc)
