@@ -71,13 +71,14 @@ def find_user_id() -> str:
     return user_info['_id']
 
 
-def find_home_project() -> dict:
+def find_home_project_id() -> dict:
     resp = get('/api/bcloud/home-project')
     resp.raise_for_status()
 
     proj = resp.json()
-    print('Your home project ID is %s' % proj['_id'])
-    return proj
+    proj_id = proj['_id']
+    print('Your home project ID is %s' % proj_id)
+    return proj_id
 
 
 def find_image_sharing_group_id(home_project_id, user_id) -> str:
@@ -110,8 +111,7 @@ def find_image_sharing_group_id(home_project_id, user_id) -> str:
 
 def upload_image():
     user_id = find_user_id()
-    home_proj = find_home_project()
-    home_project_id = home_proj['_id']
+    home_project_id = find_home_project_id()
     group_id = find_image_sharing_group_id(home_project_id, user_id)
     basename = os.path.basename(cli.imgfile)
     print('Sharing group ID is %s' % group_id)
