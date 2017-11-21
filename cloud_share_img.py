@@ -109,14 +109,10 @@ def find_image_sharing_group_id(home_project_id, user_id) -> str:
 
 
 def upload_image():
-    # user_id = find_user_id()
-    # home_proj = find_home_project()
-    # home_project_id = home_proj['_id']
-    # group_id = find_image_sharing_group_id(home_project_id, user_id)
-
-    user_id = '564cf2b1c379cf10c4aaceaf'
-    home_project_id = '577278e5c379cf03400ffb1e'
-    group_id = '5785f33bc379cf31436a5c20'
+    user_id = find_user_id()
+    home_proj = find_home_project()
+    home_project_id = home_proj['_id']
+    group_id = find_image_sharing_group_id(home_project_id, user_id)
     basename = os.path.basename(cli.imgfile)
     print('Sharing group ID is %s' % group_id)
 
