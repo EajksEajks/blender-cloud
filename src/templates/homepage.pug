@@ -1,5 +1,6 @@
 | {% extends 'layout.html' %}
 | {% from '_macros/_navigation.html' import navigation_tabs %}
+| {% from 'nodes/custom/blog/_macros.html' import render_blog_post %}
 
 | {% set title = 'homepage' %}
 
@@ -24,27 +25,8 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 		section.blog-stream
 			ul.blog-stream__list
 				| {% if latest_posts %}
-				| {% for n in latest_posts %}
-				li
-					| {% if n.picture %}
-					a.blog-stream__thumbnail(
-						href="{{ n.url }}")
-						img(src="{{ n.picture.thumbnail('l', api=api) }}")
-					| {% endif %}
-					ul.meta
-						li.where-project
-							a.project(href="{{ url_for('projects.view', project_url=n.project.url) }}") {{ n.project.name }}
-						li.when
-							a(href="{{ n.url }}",
-								title="Updated {{ n._updated | pretty_date }}")
-								| {{ n._created | pretty_date }}
-
-					a.title(href="{{ n.url }}")
-						| {{ n.name }}
-
-					.description
-						| {{ n.properties.content | markdown }}
-
+				| {% for node in latest_posts %}
+				| {{ render_blog_post(node) }}
 				| {% endfor %}
 				| {% else %}
 				li
@@ -59,7 +41,7 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 
 			a.feed(
 				href="{{ url_for('main.feeds_blogs') }}",
-				title="Blender Cloud & Projects Blog Feed",
+				title="Blogs Feed",
 				data-toggle="tooltip",
 				data-placement="left")
 				i.pi-rss

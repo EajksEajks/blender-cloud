@@ -404,7 +404,7 @@
 			list-style: none
 			border-top: thin solid $color-background
 
-			> li
+			.blog_index-item
 				+container-box
 				display: flex
 				flex-direction: column
@@ -425,7 +425,7 @@
 					&:before
 						display: none
 
-				a.title
+				a.item-title
 					font-size: 1.6em
 					padding: 5px 15px
 					display: block
@@ -433,15 +433,6 @@
 
 					&:hover
 						color: $color-primary
-
-				a.blog-stream__thumbnail
-					display: block
-					position: relative
-
-					img
-						border-top-left-radius: 3px
-						border-top-right-radius: 3px
-						width: 100%
 
 				ul.meta
 					+list-meta
@@ -453,8 +444,7 @@
 					border-radius: 0
 					margin: 0
 
-
-				.description
+				.item-content
 					+node-details-description
 					padding: 10px 15px
 
@@ -477,6 +467,15 @@
 							padding-left: 10px
 							&:before
 								left: -5px
+
+			.blog_index-header
+				display: block
+				position: relative
+
+				img
+					border-top-left-radius: 3px
+					border-top-right-radius: 3px
+					width: 100%
 
 		.more
 			text-align: center
