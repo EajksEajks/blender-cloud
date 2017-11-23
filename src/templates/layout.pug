@@ -38,7 +38,11 @@ html(lang="en")
 			var algolia = algoliasearch("{{config['ALGOLIA_USER']}}", "{{config['ALGOLIA_PUBLIC_KEY']}}");
 			var algoliaIndex = algolia.initIndex("{{config['ALGOLIA_INDEX_NODES']}}");
 
+		| {% if current_user.has_cap('subscriber') %}
+		| {# Only load if we can comment (for converting markdown as-we-type) #}
 		script(src="{{ url_for('static_pillar', filename='assets/js/markdown.min.js', v=9112017) }}")
+		| {% endif %}
+
 		script(src="{{ url_for('static_pillar', filename='assets/js/tutti.min.js', v=9112017) }}")
 
 		link(href="{{ url_for('static', filename='assets/img/favicon.png') }}", rel="shortcut icon")
