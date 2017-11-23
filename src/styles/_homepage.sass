@@ -758,7 +758,6 @@ section.pricing
 		padding: 20px 20px 60px 20px
 		border: 1px solid $color-text-dark-hint
 		background-color: white
-		min-height: 340px
 		position: relative
 		text-align: center
 		border-top: 3px solid rgba($color-text-dark-secondary, .5)
@@ -778,29 +777,12 @@ section.pricing
 			a.sign-up-now
 				+button($color-primary, 3px, true)
 
-				&:hover
-					+button($color-success, 3px, true)
-
-		&.education
-			.pricing-caption
-				padding: 25px
-				font-size: 1.1em
-				transition: color 100ms ease-in-out
-
-			&:hover
-				.pricing-caption
-					color: $color-text-dark-primary
-
-			a.sign-up-now
-				width: 70%
-
 		h3
 			font:
 				size: 1.8em
 				family: $font-body
 			padding-bottom: 0
 			margin: 25px 0 0 10px
-
 
 		.pricing-display
 			position: relative
@@ -819,9 +801,9 @@ section.pricing
 				font-weight: 100
 
 		.pricing-caption
-			color: $color-text-dark
+			color: $color-text-dark-hint
 			text-align: center
-			padding-bottom: 0
+			padding-bottom: 25px
 
 			ul
 				text-align: left
@@ -849,10 +831,18 @@ section.pricing
 			white-space: nowrap
 			text-align: center
 
-		&:hover
-			.sign-up-now
-				+button($color-success, 3px, true)
+	.education
+		color: $color-text-dark-primary
+		font-size: 1.1em
+		padding: 25px 15px 0
+		text-align: center
 
+		h3
+			color: $color-primary-dark
+
+		.btn
+			margin-top: 15px
+			min-width: 200px
 
 body.homepage
 	.dashboard-container

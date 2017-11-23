@@ -3,7 +3,7 @@
 
 | {% set title = 'join' %}
 
-| {% set price = 'US$ 9.90/mo' %}
+| {% set price = '€ 9.90/mo' %}
 
 | {% block og %}
 meta(property="og:title", content="Blender Cloud - Open Content Production Platform")
@@ -334,20 +334,12 @@ li.nav-item-sign-in
 					.box.monthly
 						h3 Monthly
 						.pricing-display
-							span.currency-sign $
+							span.currency-sign €
 							span.digit-int 9
-							span.digit-dec .90 / month*
+							span.digit-dec ,90 / month
 
 						.pricing-caption
-							p * with a 3-months minimum period
-
-							ul
-								li 100+ hours of high-quality training
-								li All the open movies files and tutorials
-								li Exclusive production insight &amp; walk-throughs
-								li #[strong Sync] your Blender settings across devices
-								li #[strong Share] images &amp; screenshots from within Blender
-								li #[strong Download]&nbsp;1500+ textures &amp; HDRIs from Blender
+							p $11.50 USD
 
 						a.sign-up-now(href="https://store.blender.org/product/membership/")
 							| Subscribe Now
@@ -355,36 +347,43 @@ li.nav-item-sign-in
 					.box.yearly
 						h3 Yearly
 						.pricing-display
-							span.currency-sign $
+							span.currency-sign €
 							span.digit-int 109
-							span.digit-dec .00 / year
+							span.digit-dec ,00 / year
+
 						.pricing-caption
-							ul
-								li 100+ hours of high-quality training
-								li All the open movies files and tutorials
-								li Exclusive production insight &amp; walk-throughs
-								li #[strong Sync] your Blender settings across devices
-								li #[strong Share] images &amp; screenshots from within Blender
-								li #[strong Download]&nbsp;1500+ textures &amp; HDRIs from Blender
-								li.special 1 month free!
+							p $119 USD
 
 						a.sign-up-now(href="https://store.blender.org/product/membership/")
 							| Subscribe Now
 
-					.box.education
-						h3 Education
+					.box.monthly
+						h3 Quaterly
+						.pricing-display
+							span.currency-sign €
+							span.digit-int 28
+							span.digit-dec ,50 / year
 
 						.pricing-caption
-							p.
-								We also provide flexible options for group subscription
-								ideal for schools or teams.
-							p.
-								Get in touch to discuss direct support, custom solutions,
-								team management tools and Single Sign-on.
+							p $32 USD
 
-						a.sign-up-now(href="mailto:cloudsupport@blender.org")
-							i.pi-email
-							| Get in Touch
+						a.sign-up-now(href="https://store.blender.org/product/membership/")
+							| Subscribe Now
+
+				.education
+					h3 Special Group Subscription
+
+					.pricing-caption
+						p.
+							We also provide flexible options for group subscription
+							ideal for schools or teams.
+						p.
+							Get in touch to discuss direct support, custom solutions,
+							team management tools, Single Sign-on and more.
+
+					a.btn.btn-info(href="mailto:cloudsupport@blender.org")
+						i.pi-email
+						| Get in Touch
 
 
 		section.supported-by
