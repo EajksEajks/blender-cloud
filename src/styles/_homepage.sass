@@ -1,45 +1,38 @@
 .dashboard-container
+	+container-behavior
 	+media-xs
 		flex-direction: column
+	align-content: center
+	align-items: flex-start
 	display: flex
 	justify-content: space-around
-	align-items: flex-start
-	align-content: center
 	word-break: break-word
 
-	+container-behavior
-
-	section#main
-		+container-box
-		margin: 20px auto
-		width: 52%
-
+	section.dashboard-main,
+	section.dashboard-secondary
 		+media-xs
 			width: 100%
-			border-radius: 0
+		margin: 20px auto
 
-	section#side
+		img
+			max-width: 100%
+
+	section.dashboard-main
+		+container-box
+		width: 52%
+
+	section.dashboard-secondary
 		width: 46%
 		flex-direction: column
 		margin-right: auto
 
-		+media-xs
-			width: 100%
+	span.section-lead
+		display: block
+		padding: 10px 0
+		color: $color-text-dark-secondary
 
-	section.blog-stream,
-	section.random-asset
-		margin: 20px auto
-
-		+media-xs
-			border-radius: 0
-
-		span.section-lead
-			display: block
-			padding: 10px 0 10px 15px
-			color: $color-text-dark-secondary
-
-	section#main,
-	section#side
+	section.dashboard-main,
+	section.dashboard-secondary
 		h4
 			padding-bottom: 5px
 			margin-bottom: 20px
@@ -61,8 +54,8 @@
 					color: $color-primary
 					cursor: pointer
 
-	section#nav-tabs,
-	section#sub-nav-tabs
+	nav#nav-tabs,
+	nav#sub-nav-tabs
 		ul#nav-tabs__list,
 		ul#sub-nav-tabs__list
 			margin: 0
@@ -73,7 +66,6 @@
 
 			li.nav-tabs__list-tab
 				float: left
-				// font-size: 1.1em
 				border: none
 				border-bottom: 3px solid transparent
 				color: $color-text-dark-primary
@@ -145,8 +137,6 @@
 	section.stream
 		background-color: white
 		border-bottom: thin solid $color-background-dark
-		padding: 15px 15px 0
-		position: relative
 
 		ul.activity-stream__list
 			list-style: none
@@ -492,14 +482,10 @@
 
 	section.random-asset
 		border-bottom: thin solid $color-background-dark
-		margin: 40px 0
-
-		h4
-			padding-left: 15px
 
 		ul.random-asset__list
 			list-style: none
-			padding: 0 15px
+			padding: 0
 
 			> li
 				align-items: center
@@ -623,7 +609,8 @@
 
 section.announcement
 	+container-box
-	margin: 20px 15px
+	margin-left: 15px
+	margin-right: 15px
 
 	.header-icons
 		display: flex
@@ -732,126 +719,31 @@ section.announcement
 					+button(hsl(hue($color-success), 60%, 40%), 3px, true)
 
 
-/* Sections for the non-logged in */
-section.pricing
-	padding: 50px 0
-	margin-bottom: 25px
-	background-color: $color-background-light
-	+clearfix
-	+media-xs
-		padding: 0
-
-	h2
-		text-align: center
-		font-size: 2.3em
-		text-shadow: 1px 1px 0 white
-		margin:
-			top: 10px
-			bottom: 50px
-		padding: 0
-
-		+media-xs
-			font-size: 1.6em
-
-	.box
-		margin-top: 40px
-		padding: 20px 20px 60px 20px
-		border: 1px solid $color-text-dark-hint
-		background-color: white
-		position: relative
-		text-align: center
-		border-top: 3px solid rgba($color-text-dark-secondary, .5)
-		border-bottom-left-radius: 3px
-		border-bottom-right-radius: 3px
-
-		+media-xs
-			margin-bottom: 15px
-
-		&.yearly
-			border-top: 3px solid $color-info
-			transform: scale(1.1)
-
-			+media-xs
-				transform: scale(1)
-
-			a.sign-up-now
-				+button($color-primary, 3px, true)
-
-		h3
-			font:
-				size: 1.8em
-				family: $font-body
-			padding-bottom: 0
-			margin: 25px 0 0 10px
-
-		.pricing-display
-			position: relative
-			color: $color-info
-			padding: 10px 0
-
-			.currency-sign,
-			.digit-dec
-				font-size: 1.7em
-				position: relative
-				top: -25px
-				font-weight: 100
-
-			.digit-int
-				font-size: 4.5em
-				font-weight: 100
-
-		.pricing-caption
-			color: $color-text-dark-hint
-			text-align: center
-			padding-bottom: 25px
-
-			ul
-				text-align: left
-
-		+list-bullets
-
-		ul
-			color: $color-text-dark-primary
-			padding-left: 10px
-			margin-top: 15px
-
-			li
-				padding-bottom: 8px
-
-		.sign-up-now
-			position: absolute
-			bottom: 25px
-			width: 65%
-			left: 50%
-			transform: translateX(-50%)
-			font-size: 1.2em
-
-			+button($color-primary, 3px)
-			padding: 5px 25px
-			white-space: nowrap
-			text-align: center
-
-	.education
+section.dashboard-in-production
+	.in-production-project
+		border-bottom: thin solid $color-background-dark
 		color: $color-text-dark-primary
+		display: block
 		font-size: 1.1em
-		padding: 25px 15px 0
-		text-align: center
+		margin-bottom: 15px
 
-		h3
-			color: $color-primary-dark
-
-		.btn
-			margin-top: 15px
-			min-width: 200px
+		> img
+			margin-bottom: 15px
 
 body.homepage
 	.dashboard-container
-		#main
+		.dashboard-main
+			+media-xs
+				width: 100%
+			background-color: transparent
+			box-shadow: none
+			width: 60%
+
+		.dashboard-secondary
+			+container-box
 			+media-xs
 				width: 100%
 			width: 38%
 
-		#side
-			+media-xs
-				width: 100%
-			width: 60%
+			> section
+				padding: 15px

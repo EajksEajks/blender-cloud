@@ -279,3 +279,115 @@
 .container.wide-on-sm
 	+media-sm
 		width: 100%
+
+
+section.pricing
+	padding: 50px 0
+	margin-bottom: 25px
+	background-color: $color-background-light
+	+clearfix
+	+media-xs
+		padding: 0
+
+	h2
+		text-align: center
+		font-size: 2.3em
+		text-shadow: 1px 1px 0 white
+		margin:
+			top: 10px
+			bottom: 50px
+		padding: 0
+
+		+media-xs
+			font-size: 1.6em
+
+	.box
+		margin-top: 40px
+		padding: 20px 20px 60px 20px
+		border: 1px solid $color-text-dark-hint
+		background-color: white
+		position: relative
+		text-align: center
+		border-top: 3px solid rgba($color-text-dark-secondary, .5)
+		border-bottom-left-radius: 3px
+		border-bottom-right-radius: 3px
+
+		+media-xs
+			margin-bottom: 15px
+
+		&.yearly
+			border-top: 3px solid $color-info
+			transform: scale(1.1)
+
+			+media-xs
+				transform: scale(1)
+
+			a.sign-up-now
+				+button($color-primary, 3px, true)
+
+		h3
+			font:
+				size: 1.8em
+				family: $font-body
+			padding-bottom: 0
+			margin: 25px 0 0 10px
+
+		.pricing-display
+			position: relative
+			color: $color-info
+			padding: 10px 0
+
+			.currency-sign,
+			.digit-dec
+				font-size: 1.7em
+				position: relative
+				top: -25px
+				font-weight: 100
+
+			.digit-int
+				font-size: 4.5em
+				font-weight: 100
+
+		.pricing-caption
+			color: $color-text-dark-hint
+			text-align: center
+			padding-bottom: 25px
+
+			ul
+				text-align: left
+
+		+list-bullets
+
+		ul
+			color: $color-text-dark-primary
+			padding-left: 10px
+			margin-top: 15px
+
+			li
+				padding-bottom: 8px
+
+		.sign-up-now
+			position: absolute
+			bottom: 25px
+			width: 65%
+			left: 50%
+			transform: translateX(-50%)
+			font-size: 1.2em
+
+			+button($color-primary, 3px)
+			padding: 5px 25px
+			white-space: nowrap
+			text-align: center
+
+	.education
+		color: $color-text-dark-primary
+		font-size: 1.1em
+		padding: 25px 15px 0
+		text-align: center
+
+		h3
+			color: $color-primary-dark
+
+		.btn
+			margin-top: 15px
+			min-width: 200px

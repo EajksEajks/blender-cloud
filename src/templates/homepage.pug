@@ -14,13 +14,13 @@ meta(name="twitter:title", content="Blender Cloud")
 meta(property="og:description", content="Blender Cloud is a web based service developed by Blender Institute that allows people to access the training videos and all the data from the open projects.")
 meta(name="twitter:description", content="Blender Cloud is a web based service developed by Blender Institute that allows people to access the training videos and all the data from the open projects.")
 
-meta(property="og:image", content="{% if main_project.picture_header %}{{ main_project.picture_header.thumbnail('l', api=api) }}{% else %}{{ url_for('static', filename='assets/img/backgrounds/background_caminandes_3_02.jpg')}}{% endif %}")
-meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_project.picture_header.thumbnail('l', api=api) }}{% else %}{{ url_for('static', filename='assets/img/backgrounds/background_caminandes_3_02.jpg')}}{% endif %}")
+meta(property="og:image", content="{% if main_project.picture_header %}{{ main_project.picture_header.thumbnail('l', api=api) }}{% else %}{{ url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg')}}{% endif %}")
+meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_project.picture_header.thumbnail('l', api=api) }}{% else %}{{ url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg')}}{% endif %}")
 | {% endblock %}
 
 | {% block body %}
 .dashboard-container
-	section#side
+	section.dashboard-main
 
 		section.blog-stream
 			ul.blog-stream__list
@@ -47,8 +47,24 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 				i.pi-rss
 
 
-	section#main
+	section.dashboard-secondary
 		| {{ navigation_tabs(title) }}
+
+		section.dashboard-in-production
+			h4 In Production
+			span.section-lead.
+				Check out the projects currently under production!
+
+			a.in-production-project(href="https://cloud.blender.org/p/spring/")
+				img(src="{{ url_for('static', filename='assets/img/projects/spring_450x150.jpg')}}")
+				p.
+					#[strong Spring] - A poetic short film about a mountain spirit and her wise little dog.
+
+			a.in-production-project(href="https://cloud.blender.org/p/hero/")
+				img(src="{{ url_for('static', filename='assets/img/projects/hero_450x150.jpg')}}")
+				p.
+					#[strong Hero] - A '2D' trailer-style movie focused on getting grease pencil
+					production ready for Blender 2.8.
 
 		section.stream
 
