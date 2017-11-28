@@ -72,7 +72,8 @@ li.nav-item-sign-in
 
 
 		section.page-card-header
-			h2 Subscribe to Get
+			a(href="https://store.blender.org/product/membership/")
+				h2 Subscribe to Get
 
 
 		section.page-card.training.right.light(
@@ -97,7 +98,7 @@ li.nav-item-sign-in
 
 					p.summary-action
 						a.page-card-cta(
-						href="https://cloud.blender.org/blog/introducing-blender-sync")
+						href="https://store.blender.org/product/membership/")
 							| Subscribe for {{ price }}
 
 						| See #[a.learn(href="{{ url_for('cloud.courses') }}") Courses] & #[a.learn(href="{{ url_for('cloud.courses') }}") Workshops]
@@ -110,7 +111,8 @@ li.nav-item-sign-in
 
 
 		section.page-card-header
-			h2 Featured Training
+			a(href="{{ url_for('cloud.courses') }}")
+				h2 Featured Training
 
 		.page-triplet-container.homepage
 			.row
@@ -177,6 +179,7 @@ li.nav-item-sign-in
 			.page-card-side.text
 				a(href="{{ url_for('cloud.open_projects') }}")
 					h2.page-card-title Blender Open Movies
+
 				.page-card-summary
 					p.
 						Support open source software and open content creation.
@@ -188,7 +191,7 @@ li.nav-item-sign-in
 
 					p.summary-action
 						a.page-card-cta(
-						href="https://cloud.blender.org/blog/introducing-blender-sync")
+						href="https://store.blender.org/product/membership/")
 							| Subscribe for {{ price }}
 
 						a.learn(href="{{ url_for('cloud.open_projects') }}") Browse the Open Movies
@@ -201,7 +204,8 @@ li.nav-item-sign-in
 
 
 		section.page-card-header
-			h2 Featured Open Movies
+			a(href="{{ url_for('cloud.open_projects') }}")
+				h2 Featured Open Movies
 
 		.page-triplet-container.homepage
 			.row
@@ -269,7 +273,7 @@ li.nav-item-sign-in
 
 					p.summary-action
 						a.page-card-cta(
-						href="https://cloud.blender.org/blog/introducing-blender-sync")
+						href="https://store.blender.org/product/membership/")
 							| Subscribe for {{ price }}
 
 						a.learn(href="{{ url_for('cloud.services') }}") Learn More
@@ -333,7 +337,9 @@ li.nav-item-sign-in
 
 				.flex
 					.box.monthly
-						h3 Monthly
+						a(href="https://store.blender.org/product/membership/")
+							h3 Monthly
+
 						.pricing-display
 							span.currency-sign €
 							span.digit-int 9
@@ -346,7 +352,9 @@ li.nav-item-sign-in
 							| Subscribe Now
 
 					.box.yearly
-						h3 Yearly
+						a(href="https://store.blender.org/product/membership/")
+							h3 Yearly
+
 						.pricing-display
 							span.currency-sign €
 							span.digit-int 109
@@ -359,7 +367,9 @@ li.nav-item-sign-in
 							| Subscribe Now
 
 					.box.monthly
-						h3 Quaterly
+						a(href="https://store.blender.org/product/membership/")
+							h3 Quaterly
+
 						.pricing-display
 							span.currency-sign €
 							span.digit-int 28
