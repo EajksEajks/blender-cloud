@@ -4,6 +4,7 @@
 | {% set title = 'join' %}
 
 | {% set price = '€ 9.90/mo' %}
+| {% set subscribe_url = 'https://store.blender.org/product/membership/' %}
 
 | {% block og %}
 meta(property="og:title", content="Blender Cloud - Open Content Production Platform")
@@ -66,13 +67,13 @@ li.nav-item-sign-in
 						improve it for everyone's benefit.
 
 			.page-card-side
-				.page-card-image
+				a.page-card-image(href="https://cloud.blender.org/p/caminandes-3/56bdacccc379cf00797160b0", target="_blank")
 					video(autoplay, loop)
 						source(src="{{ url_for('static', filename='assets/img/features/animation_review_01.mp4')}}")
 
 
 		section.page-card-header
-			a(href="https://store.blender.org/product/membership/")
+			a(href="{{ subscribe_url }}")
 				h2 Subscribe to Get
 
 
@@ -98,7 +99,7 @@ li.nav-item-sign-in
 
 					p.summary-action
 						a.page-card-cta(
-						href="https://store.blender.org/product/membership/")
+						href="{{ subscribe_url }}")
 							| Subscribe for {{ price }}
 
 						| See #[a.learn(href="{{ url_for('cloud.courses') }}") Courses] & #[a.learn(href="{{ url_for('cloud.courses') }}") Workshops]
@@ -191,7 +192,7 @@ li.nav-item-sign-in
 
 					p.summary-action
 						a.page-card-cta(
-						href="https://store.blender.org/product/membership/")
+						href="{{ subscribe_url }}")
 							| Subscribe for {{ price }}
 
 						a.learn(href="{{ url_for('cloud.open_projects') }}") Browse the Open Movies
@@ -273,7 +274,7 @@ li.nav-item-sign-in
 
 					p.summary-action
 						a.page-card-cta(
-						href="https://store.blender.org/product/membership/")
+						href="{{ subscribe_url }}")
 							| Subscribe for {{ price }}
 
 						a.learn(href="{{ url_for('cloud.services') }}") Learn More
@@ -337,7 +338,7 @@ li.nav-item-sign-in
 
 				.flex
 					.box.monthly
-						a(href="https://store.blender.org/product/membership/")
+						a(href="{{ subscribe_url }}")
 							h3 Monthly
 
 						.pricing-display
@@ -348,11 +349,11 @@ li.nav-item-sign-in
 						.pricing-caption
 							p $11.50 USD
 
-						a.sign-up-now(href="https://store.blender.org/product/membership/")
+						a.sign-up-now(href="{{ subscribe_url }}")
 							| Subscribe Now
 
 					.box.yearly
-						a(href="https://store.blender.org/product/membership/")
+						a(href="{{ subscribe_url }}")
 							h3 Yearly
 
 						.pricing-display
@@ -363,11 +364,11 @@ li.nav-item-sign-in
 						.pricing-caption
 							p $119 USD
 
-						a.sign-up-now(href="https://store.blender.org/product/membership/")
+						a.sign-up-now(href="{{ subscribe_url }}")
 							| Subscribe Now
 
 					.box.monthly
-						a(href="https://store.blender.org/product/membership/")
+						a(href="{{ subscribe_url }}")
 							h3 Quaterly
 
 						.pricing-display
@@ -378,7 +379,7 @@ li.nav-item-sign-in
 						.pricing-caption
 							p $32 USD
 
-						a.sign-up-now(href="https://store.blender.org/product/membership/")
+						a.sign-up-now(href="{{ subscribe_url }}")
 							| Subscribe Now
 
 				.education
@@ -410,7 +411,7 @@ li.nav-item-sign-in
 					| Support Blender, get inspiration, knowledge and tools in one place.
 
 				a.page-card-cta(
-					href="https://store.blender.org/product/membership/")
+					href="{{ subscribe_url }}")
 					i.pi-heart-filled
 					| Subscribe for {{ price }}
 
