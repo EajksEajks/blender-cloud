@@ -3,7 +3,7 @@
 | {% block user_links %}
 p This user on:
     =' '
-    a(href="https://store.blender.org/wp-admin/users.php?s={{ user.email | urlencode }}") Blender Store
+    a(href="https://store.blender.org/wp-admin/users.php?s={{ user.email | urlencode }}",target='_blank') Blender Store
     =' | '
-    a(href="https://www.blender.org/id/admin/bid_main/user/?q={{ user.email | urlencode }}") Blender ID
+    a(href="https://www.blender.org/id/admin/bid_main/user/?q={{ user.email | urlencode }}",target='_blank') Blender ID
 | {% endblock %}
