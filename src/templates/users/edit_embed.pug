@@ -1,0 +1,9 @@
+| {% extends "users/edit_embed_base.html" %}
+
+| {% block user_links %}
+p This user on:
+    =' '
+    a(href="https://store.blender.org/wp-admin/users.php?s={{ user.email | urlencode }}") Blender Store
+    =' | '
+    a(href="https://www.blender.org/id/admin/users/?flt1_4={{ user.email | urlencode }}") Blender ID
+| {% endblock %}
