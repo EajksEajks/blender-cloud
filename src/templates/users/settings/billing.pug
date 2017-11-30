@@ -15,7 +15,7 @@ style(type='text/css').
 
 			.settings-content
 
-				| {% if store_user['cloud_access'] %}
+				| {% if current_user.has_role('subscriber') %}
 				h3.subscription-active
 					i.pi-check
 					|  Your subscription is active

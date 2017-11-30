@@ -340,6 +340,8 @@ def emails():
 def billing():
     """View the subscription status of a user
     """
+    from . import store
+
     if current_user.has_role('protected'):
         return abort(404)  # TODO: make this 403, handle template properly
     api = system_util.pillar_api()
@@ -350,7 +352,7 @@ def billing():
             group = Group.find(group_id, api=api)
             groups.append(group.name)
 
-    store_user = pillar.api.blender_cloud.subscription.fetch_subscription_info(user.email)
+    store_user = store.fetch_subscription_info(user.email)
 
     return render_template(
         'users/settings/billing.html',

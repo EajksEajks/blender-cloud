@@ -38,7 +38,10 @@ class CloudExtension(PillarExtension):
         # Just so that it registers the management commands.
         from . import cli
 
-        return {}
+        return {
+            'EXTERNAL_SUBSCRIPTIONS_MANAGEMENT_SERVER': 'https://store.blender.org/api/',
+            'EXTERNAL_SUBSCRIPTIONS_TIMEOUT_SECS': 10,
+        }
 
     def eve_settings(self):
         """Returns extensions to the Eve settings.
