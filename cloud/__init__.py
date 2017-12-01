@@ -41,6 +41,7 @@ class CloudExtension(PillarExtension):
         return {
             'EXTERNAL_SUBSCRIPTIONS_MANAGEMENT_SERVER': 'https://store.blender.org/api/',
             'EXTERNAL_SUBSCRIPTIONS_TIMEOUT_SECS': 10,
+            'BLENDER_ID_WEBHOOK_USER_CHANGED_SECRET': 'oos9wah1Zoa0Yau6ahThohleiChephoi',
         }
 
     def eve_settings(self):
@@ -93,10 +94,11 @@ class CloudExtension(PillarExtension):
         """
 
         from pillar.api.service import signal_user_changed_role
-        from . import routes
+        from . import routes, webhooks
 
         signal_user_changed_role.connect(self._user_changed_role)
         routes.setup_app(app)
+        app.register_api_blueprint(webhooks.blueprint, '/webhooks')
 
     def _user_changed_role(self, sender, user: dict):
         from pillar.api import service
