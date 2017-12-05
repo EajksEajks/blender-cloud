@@ -44,6 +44,7 @@ def reconcile_subscribers():
     import concurrent.futures
 
     from pillar.auth import UserClass
+    from pillar.api import blender_id
     from pillar.api.blender_cloud.subscription import do_update_subscription
 
     sessions = threading.local()
@@ -75,14 +76,11 @@ def reconcile_subscribers():
             sess = sessions.session = requests.Session()
 
         # Get the info from Blender ID
-        bid_user_ids = [auth['user_id']
-                        for auth in user['auth']
-                        if auth['provider'] == 'blender-id']
-        if not bid_user_ids:
+        bid_user_id = blender_id.get_user_blenderid(user)
+        if not bid_user_id:
             with lock:
                 count_skipped += 1
             return
-        bid_user_id = bid_user_ids[0]
 
         url = urljoin(api_url, bid_user_id)
         resp = sess.get(url, headers={'Authorization': f'Bearer {api_token}'})
