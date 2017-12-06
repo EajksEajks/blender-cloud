@@ -187,6 +187,11 @@ def join():
     return redirect('https://store.blender.org/product/membership/')
 
 
+@blueprint.route('/renew')
+def renew_subscription():
+    return render_template('renew_subscription.html')
+
+
 def get_projects(category):
     """Utility to get projects based on category. Should be moved on the API
     and improved with more extensive filtering capabilities.

@@ -1,0 +1,28 @@
+| {% extends "errors/layout.html" %}
+| {% block title %}Renew | Blender Cloud{% endblock %}
+| {% block head %}
+noscript
+	meta(http-equiv="refresh", content="2; url=https://store.blender.org/renew-my-subscription.php")
+| {% endblock %}
+| {% block body %}
+#error-container(class="error-404")
+	#error-box
+		.error-top-container
+			.error-title
+				i.pi-heart
+				| Renew your Blender Cloud subscription
+			.error-lead
+				p
+					='You are being forwarded to '
+					a(href='https://store.blender.org/renew-my-subscription.php') the Blender Store
+					=' to renew your subscription.'
+
+		.error-lead.extra
+			p
+				="If you aren't forwarded in a few seconds, use "
+				a(href="https://store.blender.org/renew-my-subscription.php") this direct link
+				=' instead.'
+script.
+	// Use replace() so that the back button doesn't even visit this page.
+	window.location.replace('https://store.blender.org/renew-my-subscription.php');
+| {% endblock %}
