@@ -42,6 +42,7 @@ RUN a2enmod rewrite && a2enmod wsgi-py36
 
 ADD apache2.conf /etc/apache2/apache2.conf
 ADD 000-default.conf /etc/apache2/sites-available/000-default.conf
+ADD apache-logrotate.conf /etc/logrotate.d/apache2
 ADD *.sh /
 
 # Remove some empty top-level directories we won't use anyway.
