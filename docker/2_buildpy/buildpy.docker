@@ -11,13 +11,13 @@ RUN sed -i 's/^# deb-src/deb-src/' /etc/apt/sources.list && \
 
 RUN apt-get build-dep -y python3.5
 
-ADD Python-3.6.2.tar.xz.sha256 /Python-3.6.2.tar.xz.sha256
+ADD Python-3.6.3.tar.xz.md5 /Python-3.6.3.tar.xz.md5
 
 # Install Python sources
-RUN curl -O https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tar.xz && \
-    sha256sum -c Python-3.6.2.tar.xz.sha256 && \
-    tar xf Python-3.6.2.tar.xz && \
-    rm -v Python-3.6.2.tar.xz
+RUN curl -O https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tar.xz && \
+    md5sum -c Python-3.6.3.tar.xz.md5 && \
+    tar xf Python-3.6.3.tar.xz && \
+    rm -v Python-3.6.3.tar.xz
 
 # Install mod-wsgi sources
 RUN mkdir -p /dpkg && cd /dpkg && apt-get source libapache2-mod-wsgi-py3
@@ -32,4 +32,4 @@ RUN echo /opt/python/lib > /etc/ld.so.conf.d/python.conf
 RUN ldconfig
 ENV PATH=/opt/python/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-ENV PYTHONSOURCE=/Python-3.6.2
+ENV PYTHONSOURCE=/Python-3.6.3
