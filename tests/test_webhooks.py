@@ -98,7 +98,7 @@ class UserModifiedTest(AbstractCloudTest):
         db_user = self.fetch_user_from_db(self.uid)
         self.assertEqual('old@email.address', db_user['email'])
         self.assertEqual('ကြယ်ဆွတ်', db_user['full_name'])
-        self.assertEqual({'demo'}, set(db_user['roles']))
+        self.assertEqual({'flamenco-user', 'attract-user', 'demo'}, set(db_user['roles']))
 
     def test_bad_hmac(self):
         payload = {'id': 1112333,

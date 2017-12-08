@@ -7,6 +7,7 @@ from pillar.api.utils import authorization
 from pillar.extension import PillarExtension
 
 EXTENSION_NAME = 'cloud'
+ROLES_TO_BE_SUBSCRIBER = {'demo', 'subscriber', 'admin'}  # TODO: get rid of this, use 'subscriber' cap
 
 
 class CloudExtension(PillarExtension):
@@ -85,10 +86,48 @@ class CloudExtension(PillarExtension):
         }
 
     def setup_app(self, app):
+        """Links certain roles to the subscriber role.
+
+        This means that users who get the subscriber role also get this linked
+        role, and when the subscriber role is revoked, the linked role is also
+        revoked.
+        """
+
+        from pillar.api.service import signal_user_changed_role
         from . import routes, webhooks
 
+        signal_user_changed_role.connect(self._user_changed_role)
         routes.setup_app(app)
         app.register_api_blueprint(webhooks.blueprint, '/webhooks')
+
+    def _user_changed_role(self, sender, user: dict):
+        from pillar.api import service
+
+        linked_roles = {'flamenco-user', 'attract-user'}
+        link_to = {'subscriber', 'demo'}
+        user_roles = set(user.get('roles', []))
+
+        # Determine what to do
+        has_linked_roles = not (linked_roles - user_roles)
+        has_link_to = bool(link_to.intersection(user_roles))
+        action = ''
+        if has_link_to and not has_linked_roles:
+            self._log.info('Granting roles %s to user %s', linked_roles, user['_id'])
+            action = 'grant'
+        elif not has_link_to and has_linked_roles:
+            self._log.info('Revoking roles %s from user %s', linked_roles, user['_id'])
+            action = 'revoke'
+
+        if not action:
+            return
+
+        # Avoid infinite loops while we're changing the user's roles.
+        service.signal_user_changed_role.disconnect(self._user_changed_role)
+        try:
+            if linked_roles:
+                service.do_badger(action, roles=linked_roles, user_id=user['_id'])
+        finally:
+            service.signal_user_changed_role.connect(self._user_changed_role)
 
 
 def _get_current_cloud():
