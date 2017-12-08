@@ -78,9 +78,13 @@ def user_modified():
         updates['email'] = payload['email']
 
     if payload['full_name'] != db_user['full_name']:
-        my_log.info('User changed full name from %s to %s',
+        my_log.info('User changed full name from %r to %r',
                     payload['full_name'], db_user['full_name'])
-        updates['full_name'] = payload['full_name']
+        if payload['full_name']:
+            updates['full_name'] = payload['full_name']
+        else:
+            # Fall back to the username when the full name was erased.
+            updates['full_name'] = db_user['username']
 
     if updates:
         update_res = users_coll.update_one({'_id': db_user['_id']},

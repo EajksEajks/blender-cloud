@@ -35,6 +35,29 @@ class UserModifiedTest(AbstractCloudTest):
         self.assertEqual('ကြယ်ဆွတ်', db_user['full_name'])
         self.assertEqual(['subscriber'], db_user['roles'])
 
+    def test_clear_full_name(self):
+        """An empty full name should make it fall back to the username"""
+        payload = {'id': 1112333,
+                   'old_email': 'old@email.address',
+                   'full_name': '',
+                   'email': 'old@email.address',
+                   'roles': ['cloud_subscriber']}
+        as_json = json.dumps(payload).encode()
+        mac = hmac.new(self.hmac_secret,
+                       as_json, hashlib.sha256)
+        self.post('/api/webhooks/user-modified',
+                  data=as_json,
+                  content_type='application/json',
+                  headers={'X-Webhook-HMAC': mac.hexdigest()},
+                  expected_status=204)
+
+        # Check the effect on the user
+        db_user = self.fetch_user_from_db(self.uid)
+        self.assertNotEqual('', db_user['username'])
+        self.assertEqual('old@email.address', db_user['email'])
+        self.assertEqual(db_user['username'], db_user['full_name'])
+        self.assertEqual(['subscriber'], db_user['roles'])
+
     def test_change_email(self):
         payload = {'id': 1112333,
                    'old_email': 'old@email.address',
