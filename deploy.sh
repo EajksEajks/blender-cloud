@@ -27,7 +27,7 @@ CELERY_WORKER_DOCKER_NAME="celery_worker"
 CELERY_BEAT_DOCKER_NAME="celery_beat"
 REMOTE_ROOT="/data/git/${PROJECT_NAME}"
 
-SSH="ssh -o ClearAllForwardings=yes ${DEPLOYHOST}"
+SSH="ssh -o ClearAllForwardings=yes -o PermitLocalCommand=no ${DEPLOYHOST}"
 
 # macOS does not support readlink -f, so we use greadlink instead
 if [[ `uname` == 'Darwin' ]]; then
