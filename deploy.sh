@@ -121,13 +121,16 @@ $FLAMENCO_DIR/rsync_ui.sh ${DEPLOYHOST}
 $SVNMAN_DIR/rsync_ui.sh ${DEPLOYHOST}
 ./rsync_ui.sh ${DEPLOYHOST}
 
-# Notify Bugsnag of this new deploy.
+# Notify Sentry of this new deploy.
+# See https://sentry.io/blender-institute/blender-cloud/settings/release-tracking/
+# and https://docs.sentry.io/api/releases/post-organization-releases/
+# and https://sentry.io/api/
 echo
 echo "==================================================================="
 REVISION=$(date +'%Y%m%d.%H%M%S.%Z')
-echo "Notifying Bugsnag of this new deploy of revision ${REVISION}."
-BUGSNAG_API_KEY=$(${SSH} python -c "\"import sys; sys.path.append('${REMOTE_ROOT}'); import config_local; print(config_local.BUGSNAG_API_KEY)\"")
-curl --data "apiKey=${BUGSNAG_API_KEY}&revision=${REVISION}" https://notify.bugsnag.com/deploy
+echo "Notifying Sentry of this new deploy of revision ${REVISION}."
+SENTRY_RELEASE_URL="$(${SSH} python3 -c "\"import sys; sys.path.append('${REMOTE_ROOT}'); import config_local; print(config_local.SENTRY_RELEASE_URL)\"")"
+curl -vs "$SENTRY_RELEASE_URL" -XPOST -H 'Content-Type: application/json' -d "{\"version\": \"$REVISION\"}" | json_pp
 echo
 
 # Wait for [ENTER] to restart the server
