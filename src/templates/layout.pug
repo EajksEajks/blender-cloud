@@ -218,9 +218,8 @@ html(lang="en")
 
 							| {% block navigation_user %}
 
-							| {% from '_macros/_menu.html' import navigation_menu_notifications, navigation_menu_user %}
-							| {{ navigation_menu_notifications(current_user) }}
-							| {{ navigation_menu_user(current_user) }}
+							| {% include 'menus/notifications.html' %}
+							| {% include 'menus/user.html' %}
 
 							| {% endblock navigation_user %}
 
