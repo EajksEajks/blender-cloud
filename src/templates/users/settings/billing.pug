@@ -15,8 +15,7 @@ style(type='text/css').
 				.settings-title Subscription
 
 			.settings-content
-
-				| {% if current_user.has_cap('has-subscription') %}
+				| {% if current_user.has_cap('can-renew-subscription') %}
 				| {% if current_user.has_cap('subscriber') %}
 				h3.subscription-active
 					i.pi-check
