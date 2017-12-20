@@ -131,7 +131,9 @@ def insert_or_fetch_user(wh_payload: dict) -> typing.Optional[dict]:
                          if r in subscription.ROLES_BID_TO_PILLAR]
 
     user_ob = UserClass.construct('', user_doc)
-    create = user_ob.has_cap('subscriber') or user_ob.has_cap('can-renew-subscription')
+    create = (user_ob.has_cap('subscriber') or
+              user_ob.has_cap('can-renew-subscription') or
+              current_app.org_manager.user_is_unknown_member(email))
     if not create:
         my_log.info('Received update for unknown user %r without Cloud access (caps=%s)',
                     wh_payload['old_email'], user_ob.capabilities)

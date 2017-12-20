@@ -168,8 +168,6 @@ class UserModifiedTest(AbstractWebhookTest):
         other_user = self.fetch_user_from_db(other_uid)
         self.assertEqual('new@elsewhere.address', other_user['email'])
 
-
-
     def test_change_roles(self):
         payload = {'id': 1112333,
                    'old_email': 'old@email.address',
@@ -452,3 +450,29 @@ class UserModifiedUserCreationTest(AbstractWebhookTest):
         users_coll = self.app.db('users')
         new_user = users_coll.find_one({'email': 'new@email.address'})
         self.assertIsNone(new_user)
+
+    def test_create_in_organisation(self):
+        # Create organisation and add user's email address.
+        org = self.app.org_manager.create_new_org('test org', self.uid, seat_count=5,
+                                                  org_roles={'org-subscriber'})
+        org_id = org['_id']
+        self.app.org_manager.assign_users(org_id, emails=['some@email.address'])
+
+        # Now create the user via the webhook.
+        payload = {'id': 1112333,
+                   'old_email': 'some@email.address',
+                   'full_name': 'ကြယ်ဆွတ်',
+                   'email': 'some@email.address',
+                   'roles': []}
+        as_json = json.dumps(payload).encode()
+        mac = hmac.new(self.hmac_secret,
+                       as_json, hashlib.sha256)
+        self.post('/api/webhooks/user-modified',
+                  data=as_json,
+                  content_type='application/json',
+                  headers={'X-Webhook-HMAC': mac.hexdigest()},
+                  expected_status=204)
+
+        users_coll = self.app.db('users')
+        new_user = users_coll.find_one({'email': 'some@email.address'})
+        self.assertEqual(['org-subscriber'], new_user['roles'])
