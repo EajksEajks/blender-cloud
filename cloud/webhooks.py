@@ -76,8 +76,10 @@ def user_modified():
     users_coll = current_app.db('users')
     db_user = users_coll.find_one({'email': payload['old_email']})
     if not db_user:
-        my_log.info('Received update for unknown user %r', payload['old_email'])
-        return '', 204
+        db_user = users_coll.find_one({'email': payload['email']})
+        if not db_user:
+            my_log.info('Received update for unknown user %r', payload['old_email'])
+            return '', 204
 
     # Use direct database updates to change the email and full name.
     updates = {}

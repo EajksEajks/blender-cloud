@@ -79,6 +79,27 @@ class UserModifiedTest(AbstractCloudTest):
         self.assertEqual('ကြယ်ဆွတ်', db_user['full_name'])
         self.assertEqual(['subscriber'], db_user['roles'])
 
+    def test_change_email_unknown_old(self):
+        payload = {'id': 1112333,
+                   'old_email': 'ancient@email.address',
+                   'full_name': 'ကြယ်ဆွတ်',
+                   'email': 'old@email.address',
+                   'roles': ['cloud_demo']}
+        as_json = json.dumps(payload).encode()
+        mac = hmac.new(self.hmac_secret,
+                       as_json, hashlib.sha256)
+        self.post('/api/webhooks/user-modified',
+                  data=as_json,
+                  content_type='application/json',
+                  headers={'X-Webhook-HMAC': mac.hexdigest()},
+                  expected_status=204)
+
+        # Check the effect on the user
+        db_user = self.fetch_user_from_db(self.uid)
+        self.assertEqual('old@email.address', db_user['email'])
+        self.assertEqual('ကြယ်ဆွတ်', db_user['full_name'])
+        self.assertEqual(['demo'], db_user['roles'])
+
     def test_change_roles(self):
         payload = {'id': 1112333,
                    'old_email': 'old@email.address',
