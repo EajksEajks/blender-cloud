@@ -55,7 +55,15 @@ def webhook_payload(hmac_secret: str) -> dict:
 
 @blueprint.route('/user-modified', methods=['POST'])
 def user_modified():
-    """Updates the local user based on the info from Blender ID."""
+    """Updates the local user based on the info from Blender ID.
+
+    The payload we expect is a dictionary like:
+    {'id': 12345,  # the user's ID in Blender ID
+     'old_email': 'old@example.com',
+     'full_name': 'Harry',
+     'email': 'new@example'com,
+     'roles': ['role1', 'role2', …]}
+    """
     my_log = log.getChild('user_modified')
     my_log.debug('Received request from %s', request.remote_addr)
 
