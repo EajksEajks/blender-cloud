@@ -1,9 +1,11 @@
 """Blender ID webhooks."""
 
+import functools
 import hashlib
 import hmac
 import json
 import logging
+import typing
 
 from flask_login import request
 from flask import Blueprint
@@ -53,6 +55,66 @@ def webhook_payload(hmac_secret: str) -> dict:
         raise wz_exceptions.BadRequest('Bad JSON')
 
 
+def score(wh_payload: dict, user: dict) -> int:
+    """Determine how likely it is that this is the correct user to modify.
+
+    :param wh_payload: the info we received from Blender ID;
+        see user_modified()
+    :param user: the user in our database
+    :return: the score for this user
+    """
+
+    bid_str = str(wh_payload['id'])
+    try:
+        match_on_bid = any((auth['provider'] == 'blender-id' and auth['user_id'] == bid_str)
+                           for auth in user['auth'])
+    except KeyError:
+        match_on_bid = False
+
+    match_on_old_email = user.get('email', 'none') == wh_payload.get('old_email', 'nothere')
+    match_on_new_email = user.get('email', 'none') == wh_payload.get('email', 'nothere')
+    return match_on_bid * 10 + match_on_old_email + match_on_new_email * 2
+
+
+def fetch_user(wh_payload: dict) -> typing.Optional[dict]:
+    """Fetch the user from the DB
+
+    :returns the user document, or None when not found.
+    """
+
+    users_coll = current_app.db('users')
+    my_log = log.getChild('insert_or_fetch_user')
+
+    # Find the user by their Blender ID, or any of their email addresses.
+    # We use one query to find all matching users. This is done as a
+    # consistency check; if more than one user is returned, we know the
+    # database is inconsistent with Blender ID and can emit a warning
+    # about this.
+    bid_str = str(wh_payload['id'])
+    query = {'$or': [
+        {'auth.provider': 'blender-id', 'auth.user_id': bid_str},
+        {'email': {'$in': [wh_payload['old_email'], wh_payload['email']]}},
+    ]}
+    db_users = users_coll.find(query)
+    user_count = db_users.count()
+    if user_count > 1:
+        # Now we have to pay the price for finding users in one query; we
+        # have to prioritise them and return the one we think is most reliable.
+        calc_score = functools.partial(score, wh_payload)
+        best_score = max(db_users, key=calc_score)
+
+        my_log.warning('%d users found for query %s, picking %s',
+                       user_count, query, best_score['email'])
+        return best_score
+    if user_count:
+        db_user = db_users[0]
+        my_log.debug('found user %s', db_user['email'])
+        return db_user
+
+    my_log.info('Received update for unknown user %r', wh_payload['old_email'])
+    return None
+
+
 @blueprint.route('/user-modified', methods=['POST'])
 def user_modified():
     """Updates the local user based on the info from Blender ID.
@@ -73,17 +135,14 @@ def user_modified():
     my_log.info('payload: %s', payload)
 
     # Update the user
-    users_coll = current_app.db('users')
-    db_user = users_coll.find_one({'email': payload['old_email']})
+    db_user = fetch_user(payload)
     if not db_user:
-        db_user = users_coll.find_one({'email': payload['email']})
-        if not db_user:
-            my_log.info('Received update for unknown user %r', payload['old_email'])
-            return '', 204
+        my_log.info('Received update for unknown user %r', payload['old_email'])
+        return '', 204
 
     # Use direct database updates to change the email and full name.
     updates = {}
-    if payload['old_email'] != payload['email']:
+    if db_user['email'] != payload['email']:
         my_log.info('User changed email from %s to %s', payload['old_email'], payload['email'])
         updates['email'] = payload['email']
 
@@ -97,6 +156,7 @@ def user_modified():
             updates['full_name'] = db_user['username']
 
     if updates:
+        users_coll = current_app.db('users')
         update_res = users_coll.update_one({'_id': db_user['_id']},
                                            {'$set': updates})
         if update_res.matched_count != 1:

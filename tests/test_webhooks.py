@@ -100,6 +100,34 @@ class UserModifiedTest(AbstractCloudTest):
         self.assertEqual('ကြယ်ဆွတ်', db_user['full_name'])
         self.assertEqual(['demo'], db_user['roles'])
 
+    def test_change_email_unknown_bid_known(self):
+        users_coll = self.app.db('users')
+        users_coll.update_one({'_id': self.uid},
+                              {'$set': {'auth': [
+                                  {'provider': 'mastodon', 'user_id': 'hey@there'},
+                                  {'provider': 'blender-id', 'user_id': '1112333'}
+                              ]}})
+
+        payload = {'id': 1112333,
+                   'old_email': 'new@elsewhere.address',
+                   'full_name': 'ကြယ်ဆွတ်',
+                   'email': 'new@elsewhere.address',
+                   'roles': ['cloud_demo']}
+        as_json = json.dumps(payload).encode()
+        mac = hmac.new(self.hmac_secret,
+                       as_json, hashlib.sha256)
+        self.post('/api/webhooks/user-modified',
+                  data=as_json,
+                  content_type='application/json',
+                  headers={'X-Webhook-HMAC': mac.hexdigest()},
+                  expected_status=204)
+
+        # Check the effect on the user
+        db_user = self.fetch_user_from_db(self.uid)
+        self.assertEqual('new@elsewhere.address', db_user['email'])
+        self.assertEqual('ကြယ်ဆွတ်', db_user['full_name'])
+        self.assertEqual(['demo'], db_user['roles'])
+
     def test_change_roles(self):
         payload = {'id': 1112333,
                    'old_email': 'old@email.address',
@@ -189,3 +217,40 @@ class UserModifiedTest(AbstractCloudTest):
         self.assertEqual('old@email.address', db_user['email'])
         self.assertEqual('คนรักของผัดไทย', db_user['full_name'])
         self.assertEqual({'subscriber'}, set(db_user['roles']))
+
+
+class UserScoreTest(AbstractCloudTest):
+    def setUp(self, **kwargs):
+        super().setUp(**kwargs)
+        self.payload = {'id': 123,
+                        'old_email': 'old@email.address',
+                        'full_name': 'ကြယ်ဆွတ်',
+                        'email': 'new@email.address',
+                        'roles': ['cloud_demo']}
+
+    def test_score_bid_only(self):
+        from cloud.webhooks import score
+        self.assertEqual(10, score(self.payload,
+                                   {'auth': [
+                                       {'provider': 'mastodon', 'user_id': 'hey@there'},
+                                       {'provider': 'blender-id', 'user_id': '123'}
+                                   ]}))
+
+    def test_score_old_mail_only(self):
+        from cloud.webhooks import score
+        self.assertEqual(1, score(self.payload, {'email': 'old@email.address'}))
+
+    def test_score_new_mail_only(self):
+        from cloud.webhooks import score
+        self.assertEqual(2, score(self.payload, {'email': 'new@email.address'}))
+
+    def test_match_everything(self):
+        from cloud.webhooks import score
+        self.payload['old_email'] = self.payload['email']
+        self.assertEqual(13, score(self.payload,
+                                   {'auth': [
+                                       {'provider': 'mastodon', 'user_id': 'hey@there'},
+                                       {'provider': 'blender-id', 'user_id': '123'}
+                                   ],
+                                       'email': 'new@email.address'
+                                   }))
