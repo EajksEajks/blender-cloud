@@ -371,7 +371,7 @@ class UserModifiedUserCreationTest(AbstractWebhookTest):
         self.assertIsNotNone(new_user)
         self.assertEqual('new', new_user['username'])
         self.assertEqual('ကြယ်ဆွတ်', new_user['full_name'])
-        self.assertEqual(['subscriber', 'has_subscription'], new_user['roles'])
+        self.assertEqual({'subscriber', 'has_subscription'}, set(new_user['roles']))
 
     def test_create_renewable(self):
         payload = {'id': 1112333,
@@ -423,7 +423,7 @@ class UserModifiedUserCreationTest(AbstractWebhookTest):
         self.assertIsNotNone(new_user)
         self.assertEqual('new', new_user['username'])
         self.assertEqual('new', new_user['full_name'])  # defaults to username
-        self.assertEqual(['subscriber', 'has_subscription'], new_user['roles'])
+        self.assertEqual({'subscriber', 'has_subscription'}, set(new_user['roles']))
 
     def test_no_create_when_not_subscriber(self):
         """Don't create local users when they are not subscriber."""

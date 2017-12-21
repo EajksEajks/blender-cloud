@@ -55,6 +55,12 @@ gulp.task('templates', function() {
         }))
         .pipe(gulp.dest(destination.pug))
         .pipe(gulpif(argv.livereload, livereload()));
+    // TODO(venomgfx): please check why 'gulp watch' doesn't pick up on .txt changes.
+    gulp.src('src/templates/**/*.txt')
+        .pipe(gulpif(enabled.failCheck, plumber()))
+        .pipe(gulpif(enabled.cachify, cache('templating')))
+        .pipe(gulp.dest(destination.pug))
+        .pipe(gulpif(argv.livereload, livereload()));
 });
 
 

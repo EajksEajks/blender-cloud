@@ -1,0 +1,53 @@
+{% extends "emails/layout.txt" %}
+{% set blender_cloud = abs_url('cloud.homepage') %}
+{% block body %}Welcome to Blender Cloud, {{ user.full_name or user.nickname }}!
+
+Sybren here. I'm one of the Blender Cloud developers, and I'm very
+happy to welcome you. The Blender Animation Studio projects are
+made possible thanks to you! In this email I'll explain where to
+go and what to see. If you want to dive in now, just log in and
+explore at:
+
+    {{ blender_cloud }}
+
+To get the most out of Blender Cloud, be sure to check out the
+services we offer at, like accessing our texture library from
+within Blender using the Cloud add-on, Blender Sync, and Image
+Sharing:
+    {{ abs_url('cloud.services') }}
+
+
+If you have any questions, remarks, ideas, or complaints, you can
+contact us at cloudsupport@blender.org. We're always happy to
+help, and on working days we'll get back to you within a day.
+
+To update your personal details, such as your email address,
+password, or full name, please visit Blender ID at:
+    https://www.blender.org/id/
+
+For renewing your subscription and other monetary things, there is
+the Subscription Overview at the Blender Store:
+    https://store.blender.org/my-account/subscriptions/
+
+Warm regards,
+
+Sybren A. Stüvel
+and the entire Blender Cloud team
+
+PS: If you do not want to receive other emails from us, we've got
+you covered: {{ abs_url('settings.emails') }}
+
+
+
+About Blender Cloud
+
+Blender Cloud is the creative hub for your projects, powered by
+Free and Open Source software.
+
+On Blender Cloud you can create and share personal projects,
+access our texture and HDRI library, keep track of your
+production, manage your renders, and much more!
+
+The Blender Animation Studio projects are made possible thanks to
+subscriptions to the Blender Cloud. Thanks for joining!
+{% endblock %}

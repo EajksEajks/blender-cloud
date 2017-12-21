@@ -85,10 +85,12 @@ class CloudExtension(PillarExtension):
         }
 
     def setup_app(self, app):
-        from . import routes, webhooks
+        from . import routes, webhooks, eve_hooks, email
 
         routes.setup_app(app)
         app.register_api_blueprint(webhooks.blueprint, '/webhooks')
+        eve_hooks.setup_app(app)
+        email.setup_app(app)
 
 
 def _get_current_cloud():

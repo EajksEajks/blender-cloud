@@ -126,11 +126,14 @@ def insert_or_fetch_user(wh_payload: dict) -> typing.Optional[dict]:
                                         provider='blender-id',
                                         full_name=wh_payload['full_name'])
 
-    user_doc['roles'] = [subscription.ROLES_BID_TO_PILLAR[r]
-                         for r in wh_payload.get('roles', [])
-                         if r in subscription.ROLES_BID_TO_PILLAR]
-
+    # Figure out the user's eventual roles. These aren't stored in the document yet,
+    # because that's handled by the badger service.
+    eventual_roles = [subscription.ROLES_BID_TO_PILLAR[r]
+                      for r in wh_payload.get('roles', [])
+                      if r in subscription.ROLES_BID_TO_PILLAR]
     user_ob = UserClass.construct('', user_doc)
+    user_ob.roles = eventual_roles
+    user_ob.collect_capabilities()
     create = (user_ob.has_cap('subscriber') or
               user_ob.has_cap('can-renew-subscription') or
               current_app.org_manager.user_is_unknown_member(email))
@@ -179,19 +182,23 @@ def user_modified():
         return '', 204
 
     # Use direct database updates to change the email and full name.
+    # Also updates the db_user dict so that local_user below will have
+    # the updated information.
     updates = {}
     if db_user['email'] != payload['email']:
         my_log.info('User changed email from %s to %s', payload['old_email'], payload['email'])
         updates['email'] = payload['email']
+        db_user['email'] = payload['email']
 
-    if payload['full_name'] != db_user['full_name']:
+    if db_user['full_name'] != payload['full_name']:
         my_log.info('User changed full name from %r to %r',
-                    payload['full_name'], db_user['full_name'])
+                    db_user['full_name'], payload['full_name'])
         if payload['full_name']:
             updates['full_name'] = payload['full_name']
         else:
             # Fall back to the username when the full name was erased.
             updates['full_name'] = db_user['username']
+        db_user['full_name'] = updates['full_name']
 
     if updates:
         users_coll = current_app.db('users')

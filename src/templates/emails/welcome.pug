@@ -1,0 +1,72 @@
+| {% extends "emails/layout.html" %}
+| {% block body %}
+| {% set blender_cloud = abs_url('cloud.homepage') %}
+h1 Welcome to Blender Cloud
+section
+	h2 Hi {{ user.full_name or user.email }}
+
+	p.
+		Sybren here. I'm one of the Blender Cloud developers, and I'm very happy to welcome you. The
+		Blender Animation Studio projects are made possible thanks to you!
+		#[strong In this email I'll explain where to go and what to see.]
+		If you want to dive in now, just hit this button:
+
+	p.buttons
+		a.button(href="{{ blender_cloud }}", target='_blank') Log in and Explore!
+
+	p.
+		To get the most out of Blender Cloud, be sure to check out
+		#[a(href="{{ abs_url('cloud.services') }}", target='_blank') the services] we offer, like
+		accessing our texture library from within Blender using the Cloud add-on, Blender Sync,
+		Image Sharing, and more:
+
+	p
+		ul
+			li #[a(href="{{ abs_url('cloud.courses') }}", target='_blank') Courses] &amp; #[a(href="{{ abs_url('cloud.workshops') }}", target='_blank') Workshops]
+			li #[a(href="{{ abs_url('projects.view', project_url='characters') }}", target='_blank') Characters] &amp; #[a(href="{{ abs_url('cloud.open_projects') }}", target='_blank') Open Movies]
+			li #[a(href="{{ abs_url('projects.view', project_url='textures') }}", target='_blank') Textures] &amp; #[a(href="{{ abs_url('projects.view', project_url='hdri') }}", target='_blank') HDRIs]
+			li #[a(href="{{ abs_url('projects.view', project_url='gallery') }}", target='_blank') Art Gallery]
+			li #[a(href="{{ abs_url('projects.index') }}", target='_blank') Your own Projects]
+
+	p.
+		If you have any questions, remarks, ideas, or complaints, you can contact us at
+		#[a(href='mailto:cloudsupport@blender.org') cloudsupport@blender.org]. We're always
+		happy to help, and on working days we'll get back to you within a day.
+
+	p.
+		To update your personal details, such as your email address, password, or full name, please
+		visit #[a(href="https://www.blender.org/id/") Blender ID].
+
+	p.
+		For renewing your subscription and other monetary things, there is the
+		#[a(href='https://store.blender.org/my-account/subscriptions/') Subscription Overview at the Blender Store].
+
+	p.closing
+		a.cloudlogo(href="{{ blender_cloud }}")
+			img#blendercloud(src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA1MDMuNSAzODkuMyI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTk0LjM3IC0xLjU2MykiPjxwYXRoIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGQ9Im0yMjguMSAzMzQuNWMtMzguNzQtOC4zOS03MS4xLTQxLjY0LTc4LjY4LTgwLjg1LTQuNjI2LTIzLjk1IDAuNjcxMS01My42IDEzLjE5LTczLjg1bDUuNTIxLTguOTI1LTkuMy02LjY4MmMtNS4xMTUtMy42NzUtOS4zLTcuMzg1LTkuMy04LjI0NCAwLTEuNTA3IDcuMzcxLTMuMjc1IDMwLjU3LTcuMzM1IDEwLjQyLTEuODI1IDE4LTAuNDY4MiAxOC4wOSAzLjIzNSAwLjAxODMgMC43MzUyIDEuNjA1IDEwLjAzIDMuNTMxIDIwLjY1IDQuMTExIDIyLjY4IDMuMDY1IDI0LjM3LTkuNDU1IDE1LjNsLTguMTAzLTUuODctNC4yMzkgNS4yNjhjLTkuMTU5IDExLjM4LTEyLjU2IDI0LjE5LTEyLjU4IDQ3LjM1LTAuMDEyNyAyMC42OCAwLjIyODYgMjIuMDIgNi4zNTYgMzQuNiAxMS43OCAyNC4yMSAzNS41NyA0My4wNiA2MC4yMyA0Ny43NCA1LjUyOSAxLjA0NyA1My4yMiAxLjgyNSAxMTIgMS44MjUgNTguNzcgMCAxMDYuNS0wLjc3OCAxMTItMS44MjUgMjQuNzUtNC42OTUgNDguNjEtMjMuNjQgNjAuMDgtNDcuNzEgNS4zNTYtMTEuMjQgNi4zNDMtMTUuNTYgNy4wNi0zMC44NiAwLjY5NDYtMTQuODUgMC4xNDk0LTE5Ljc5LTMuMjU1LTI5Ljg1LTExLjE0LTMyLjg1LTM4LjYzLTU1LjU2LTY5LjcyLTU3LjYtMTYuNjEtMS4wOTItMjEuMTMtMy42NTgtMjIuODYtMTMtMy41MjItMTguOTUtMjMuODgtNDUuNS00MS45OS01NC43My0yMi40OS0xMS40Ny01MS4zLTEyLjQ2LTczLjExLTIuNTE1LTM0LjMyIDE1LjY1LTU1LjAxIDUzLjU4LTQ4Ljc3IDg5LjQxIDcuMDQxIDQwLjQzIDQxLjg4IDcwLjE0IDgyLjI3IDcwLjE0IDEwLjQ1IDAgMjkuMDgtMy42OTQgMzQuMTktNi43ODEgMC43MDUzLTAuNDI3My0wLjc4MjMtNS40NDUtMy4zMDYtMTEuMTUtMi41MjQtNS43MDgtNC4xMzItMTEuMTItMy41NzItMTIuMDIgMC41NjAyLTAuOTA0MSA4Ljc4MSAxLjE4MiAxOC4yNyA0LjY0MSAyMy45NSA4LjcyNSAyMy4zOSA4LjQ2NyAyNC41MyAxMS40MyAxLjIyNSAzLjE4OS0xMi42NiA0Mi44OC0xNSA0Mi44OC0wLjg5NzcgMC0zLjk3My00LjM2NS02LjgzMi05LjcwMWwtNS4xOTktOS43MDEtMTAuNyAzLjc4OGMtMTUuMTcgNS4zNjktMzkuMzggNi41NzQtNTQuNjYgMi43MTktMzguNDUtOS43MDEtNjguMDUtMzguOTctNzYuODQtNzUuOTUtOC4wODUtMzQuMDUgMi4wMzMtNjkuMjUgMjcuMi05NC42NSAxOS45My0yMC4xIDQ0Ljc3LTMwLjY4IDcyLjA4LTMwLjY4IDQxLjYzIDAgODIuNDIgMjguMjcgOTUuMjUgNjYuMDJsMy4yNCA5LjUzMSAxMy43NCAyLjMxNWMzOC43MyA2LjUyNyA3MS4zNCAzNy4xNSA4MS4zMyA3Ni4zNyAxNC4wOSA1NS4zNC0yMi4zNSAxMTMuNS03OC41MyAxMjUuNC0xOC42OSAzLjk0MS0yMTYuNSAzLjg1My0yMzQuNy0wLjEwNjd6IiBzdHJva2U9IiM5MmM2ZDQiIHN0cm9rZS13aWR0aD0iNi43OTYiIGZpbGw9IiM5MmM2ZDQiLz48L2c+PC9zdmc+Cg==",
+			alt="Blender Cloud Logo")
+		| Warm regards,
+	p.
+		Sybren A. Stüvel #[br] and the entire Blender Cloud team
+
+	p.ps.
+		PS: If you do not want to receive other emails from us,
+		#[a(href="{{ abs_url('settings.emails') }}") we've got you covered].
+
+section.about
+	h2 About Blender Cloud
+	
+	p.
+		Blender Cloud is the creative hub for your projects, powered by Free and Open Source
+		software.
+
+	p.
+		On Blender Cloud you can create and share personal projects, access our texture and HDRI
+		library, keep track of your production, manage your renders, and much more!
+
+	p.
+		The Blender Animation Studio projects are made possible thanks to subscriptions to the
+		#[a(href='{{ blender_cloud }}') Blender Cloud]. Thanks for joining!
+
+
+| {% endblock %}

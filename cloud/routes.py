@@ -1,10 +1,10 @@
 import functools
-import itertools
 import json
 import logging
 import typing
 
 from flask_login import current_user, login_required
+import flask
 from flask import Blueprint, render_template, redirect, session, url_for, abort, flash
 from pillarsdk import Node, Project, User, exceptions as sdk_exceptions, Group
 from pillarsdk.exceptions import ResourceNotFound
@@ -370,6 +370,31 @@ def terms_and_conditions():
 @blueprint.route('/privacy')
 def privacy():
     return render_template('privacy.html')
+
+
+@blueprint.route('/emails/welcome.send')
+@login_required
+def emails_welcome_send():
+    from cloud import email
+    email.queue_welcome_mail(current_user)
+    return f'queued mail to {current_user.email}'
+
+
+@blueprint.route('/emails/welcome.html')
+@login_required
+def emails_welcome_html():
+    return render_template('emails/welcome.html',
+                           subject='Welcome to Blender Cloud',
+                           user=current_user)
+
+
+@blueprint.route('/emails/welcome.txt')
+@login_required
+def emails_welcome_txt():
+    txt = render_template('emails/welcome.txt',
+                          subject='Welcome to Blender Cloud',
+                          user=current_user)
+    return flask.Response(txt, content_type='text/plain; charset=utf-8')
 
 
 def setup_app(app):
