@@ -40,14 +40,14 @@ def _homepage_context() -> dict:
     api = system_util.pillar_api()
     latest_posts = Node.all({
         'projection': {
-                        'name': 1,
-                        'project': 1,
-                        'node_type': 1,
-                        'picture': 1,
-                        'properties.url': 1,
-                        'properties.content': 1,
-                        'properties.attachments': 1
-                    },
+            'name': 1,
+            'project': 1,
+            'node_type': 1,
+            'picture': 1,
+            'properties.url': 1,
+            'properties.content': 1,
+            'properties.attachments': 1
+        },
 
         'where': {'node_type': 'post', 'properties.status': 'published'},
         'embedded': {'project': 1},
