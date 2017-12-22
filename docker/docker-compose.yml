@@ -111,6 +111,11 @@ services:
      - mongo
      - redis
      - rabbit
+    logging:
+      driver:                  "json-file"
+      options:
+        max-size:              "200k"
+        max-file:              "20"
 
   # notifserv:
   #   container_name:          notifserv
