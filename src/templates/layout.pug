@@ -31,12 +31,9 @@ html(lang="en")
 
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery-3.1.0.min.js', v=9112017)}}")
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.typeahead-0.11.1.min.js', v=9112017)}}")
-		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/algoliasearch-3.19.0.min.js', v=9112017)}}")
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/js.cookie-2.0.3.min.js', v=9112017)}}")
 
 		script.
-			var algolia = algoliasearch("{{config['ALGOLIA_USER']}}", "{{config['ALGOLIA_PUBLIC_KEY']}}");
-			var algoliaIndex = algolia.initIndex("{{config['ALGOLIA_INDEX_NODES']}}");
 
 		| {% if current_user.has_cap('subscriber') %}
 		| {# Only load if we can comment (for converting markdown as-we-type) #}
