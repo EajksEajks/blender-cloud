@@ -41,7 +41,7 @@ services:
       container_name:          elasticproxy
       restart:                 always
       command:                 /elasticproxy -elastic http://elastic:9200/
-      links:
+      depends_on:
           - elastic
 
   kibana:
@@ -58,7 +58,7 @@ services:
 
           # See https://github.com/elastic/kibana/issues/5170#issuecomment-163042525
           NODE_OPTIONS:        "--max-old-space-size=200"
-      links:
+      depends_on:
           - elasticproxy
 
   blender_cloud:
@@ -76,7 +76,7 @@ services:
      - /data/config:/data/config:ro
      - /data/storage/pillar:/data/storage/pillar
      - /data/log:/var/log
-    links:
+    depends_on:
      - mongo
      - redis
      - rabbit
@@ -92,7 +92,7 @@ services:
      - /data/config:/data/config:ro
      - /data/storage/pillar:/data/storage/pillar
      - /data/log:/var/log
-    links:
+    depends_on:
      - mongo
      - redis
      - rabbit
@@ -107,7 +107,7 @@ services:
      - /data/git:/data/git:ro
      - /data/storage/pillar:/data/storage/pillar
      - /data/log:/var/log
-    links:
+    depends_on:
      - mongo
      - redis
      - rabbit
@@ -156,15 +156,17 @@ services:
      - "443:443"
      - "80:80"
     environment:
+     - ADDITIONAL_SERVICES=docker:blender_cloud,docker:letsencrypt,docker:kibana
      - CERT_FOLDER=/certs/
      - TIMEOUT=connect 5s, client 5m, server 10m
      - SSL_BIND_CIPHERS=ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!MD5:!DSS
      - SSL_BIND_OPTIONS=no-sslv3
      - EXTRA_GLOBAL_SETTINGS=tune.ssl.default-dh-param 2048
-    links:
+    depends_on:
      - blender_cloud
      # - notifserv
      - letsencrypt
      - kibana
     volumes:
      - '/data/certs:/certs'
+     - /var/run/docker.sock:/var/run/docker.sock
