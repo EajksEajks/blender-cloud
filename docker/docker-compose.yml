@@ -117,17 +117,6 @@ services:
         max-size:            "200k"
         max-file:            "20"
 
-  # notifserv:
-  #   container_name:        notifserv
-  #   image:                 armadillica/pillar-notifserv:cd8fa678436563ac3b800b2721e36830c32e4656
-  #   restart:               always
-  #   links:
-  #    - mongo
-  #   environment:
-  #    VIRTUAL_HOST:         https://cloud.blender.org/notifications*,http://pillar-web/notifications*
-  #    VIRTUAL_HOST_WEIGHT:  20
-  #    FORCE_SSL:            true
-
   grafista:
     image:                   armadillica/grafista:latest
     container_name:          grafista
@@ -164,7 +153,6 @@ services:
       - EXTRA_GLOBAL_SETTINGS=tune.ssl.default-dh-param 2048
     depends_on:
       - blender_cloud
-      # - notifserv
       - letsencrypt
       - kibana
     volumes:
