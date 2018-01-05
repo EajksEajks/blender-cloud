@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-exec docker build "$@" -t pillar_base -f base.docker .
+# Uses --no-cache to always get the latest upstream (security) upgrades.
+exec docker build --no-cache "$@" -t pillar_base -f base.docker .
