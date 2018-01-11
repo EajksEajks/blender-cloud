@@ -25,7 +25,7 @@ services:
       - "127.0.0.1:5672:5672"
 
   elastic:
-    image:                   armadillica/elasticsearch:latest
+    image:                   armadillica/elasticsearch:6.1.1
     container_name:          elastic
     restart:                 always
     volumes:
@@ -45,7 +45,7 @@ services:
       - elastic
 
   kibana:
-    image:                   armadillica/kibana:latest
+    image:                   armadillica/kibana:6.1.1
     container_name:          kibana
     restart:                 always
     environment:
