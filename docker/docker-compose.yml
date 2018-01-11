@@ -37,7 +37,7 @@ services:
       ES_JAVA_OPTS:          "-Xms256m -Xmx256m"
 
   elasticproxy:
-    image:                   armadillica/elasticproxy:latest
+    image:                   armadillica/elasticproxy:1.2
     container_name:          elasticproxy
     restart:                 always
     command:                 /elasticproxy -elastic http://elastic:9200/
