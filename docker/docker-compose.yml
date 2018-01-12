@@ -157,4 +157,4 @@ services:
       - kibana
     volumes:
       - '/data/certs:/certs'
-     - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock
