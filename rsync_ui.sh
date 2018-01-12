@@ -62,7 +62,9 @@ fi
 
 echo
 echo "*** GULPA GULPA PILLAR ***"
-./gulp --production
+# TODO(Pablo): this command fails when passing the --production CLI
+# arg.
+./gulp
 
 echo
 echo "*** SYNCING PILLAR_ASSETS ***"
