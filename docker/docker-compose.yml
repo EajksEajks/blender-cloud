@@ -1,172 +1,172 @@
-version:                       '3.4'
+version:                     '3.4'
 services:
   mongo:
-    image:                     mongo:3.4.2
-    container_name:            mongo
-    restart:                   always
+    image:                   mongo:3.4.2
+    container_name:          mongo
+    restart:                 always
     volumes:
-     - /data/storage/db:/data/db
-     - /data/storage/db-bak:/data/db-bak # for backing up stuff etc.
+      - /data/storage/db:/data/db
+      - /data/storage/db-bak:/data/db-bak # for backing up stuff etc.
     ports:
-     - "127.0.0.1:27017:27017"
+      - "127.0.0.1:27017:27017"
 
   redis:
-    image:                     redis:3.2.8
-    container_name:            redis
-    restart:                   always
+    image:                   redis:3.2.8
+    container_name:          redis
+    restart:                 always
     ports:
-     - "127.0.0.1:6379:6379"
+      - "127.0.0.1:6379:6379"
 
   rabbit:
-      image:                   rabbitmq:3.6.10
-      container_name:          rabbit
-      restart:                 always
-      ports:
-          - "127.0.0.1:5672:5672"
+    image:                   rabbitmq:3.6.10
+    container_name:          rabbit
+    restart:                 always
+    ports:
+      - "127.0.0.1:5672:5672"
 
   elastic:
-      image:                   armadillica/elasticsearch:latest
-      container_name:          elastic
-      restart:                 always
-      volumes:
-          # NOTE:              this path must be writable by UID=1000 GID=1000.
-          - /data/storage/elastic:/usr/share/elasticsearch/data
-      ports:
-          - "127.0.0.1:9200:9200"
-      environment:
-          ES_JAVA_OPTS:        "-Xms256m -Xmx256m"
+    image:                   armadillica/elasticsearch:latest
+    container_name:          elastic
+    restart:                 always
+    volumes:
+      #  NOTE:               this path must be writable by UID=1000 GID=1000.
+      - /data/storage/elastic:/usr/share/elasticsearch/data
+    ports:
+      - "127.0.0.1:9200:9200"
+    environment:
+      ES_JAVA_OPTS:          "-Xms256m -Xmx256m"
 
   elasticproxy:
-      image:                   armadillica/elasticproxy:latest
-      container_name:          elasticproxy
-      restart:                 always
-      command:                 /elasticproxy -elastic http://elastic:9200/
-      depends_on:
-          - elastic
+    image:                   armadillica/elasticproxy:latest
+    container_name:          elasticproxy
+    restart:                 always
+    command:                 /elasticproxy -elastic http://elastic:9200/
+    depends_on:
+      - elastic
 
   kibana:
-      image:                   armadillica/kibana:latest
-      container_name:          kibana
-      restart:                 always
-      environment:
-          SERVER_NAME:         "stats.cloud.blender.org"
-          ELASTICSEARCH_URL:   http://elasticproxy:9200
-          CONSOLE_ENABLED:     'false'
-          VIRTUAL_HOST:        http://stats.cloud.blender.org/*,https://stats.cloud.blender.org/*,http://stats.blender-cloud/*,https://stats.blender-cloud/*
-          VIRTUAL_HOST_WEIGHT: 20
-          FORCE_SSL:           "true"
+    image:                   armadillica/kibana:latest
+    container_name:          kibana
+    restart:                 always
+    environment:
+      SERVER_NAME:           "stats.cloud.blender.org"
+      ELASTICSEARCH_URL:     http://elasticproxy:9200
+      CONSOLE_ENABLED:       'false'
+      VIRTUAL_HOST:          http://stats.cloud.blender.org/*,https://stats.cloud.blender.org/*,http://stats.blender-cloud/*,https://stats.blender-cloud/*
+      VIRTUAL_HOST_WEIGHT:   20
+      FORCE_SSL:             "true"
 
-          # See https://github.com/elastic/kibana/issues/5170#issuecomment-163042525
-          NODE_OPTIONS:        "--max-old-space-size=200"
-      depends_on:
-          - elasticproxy
+      # See https://github.com/elastic/kibana/issues/5170#issuecomment-163042525
+      NODE_OPTIONS:          "--max-old-space-size=200"
+    depends_on:
+      - elasticproxy
 
   blender_cloud:
-    image:                     armadillica/blender_cloud:latest
-    container_name:            blender_cloud
-    restart:                   always
+    image:                   armadillica/blender_cloud:latest
+    container_name:          blender_cloud
+    restart:                 always
     environment:
-     VIRTUAL_HOST:             http://cloud.blender.org/*,https://cloud.blender.org/*,http://blender-cloud/*,https://blender-cloud/*
-     VIRTUAL_HOST_WEIGHT:      10
-     FORCE_SSL:                "true"
-     GZIP_COMPRESSION_TYPE:    "text/html text/plain text/css application/javascript"
+      VIRTUAL_HOST:          http://cloud.blender.org/*,https://cloud.blender.org/*,http://blender-cloud/*,https://blender-cloud/*
+      VIRTUAL_HOST_WEIGHT:   10
+      FORCE_SSL:             "true"
+      GZIP_COMPRESSION_TYPE: "text/html text/plain text/css application/javascript"
     volumes:
-     # format:                 HOST:CONTAINER
-     - /data/git:/data/git:ro
-     - /data/config:/data/config:ro
-     - /data/storage/pillar:/data/storage/pillar
-     - /data/log:/var/log
+      # format:              HOST:CONTAINER
+      - /data/git:/data/git:ro
+      - /data/config:/data/config:ro
+      - /data/storage/pillar:/data/storage/pillar
+      - /data/log:/var/log
     depends_on:
-     - mongo
-     - redis
-     - rabbit
+      - mongo
+      - redis
+      - rabbit
 
   celery_worker:
-    image:                     armadillica/blender_cloud:latest
-    entrypoint:                /celery-worker.sh
-    container_name:            celery_worker
-    restart:                   always
+    image:                   armadillica/blender_cloud:latest
+    entrypoint:              /celery-worker.sh
+    container_name:          celery_worker
+    restart:                 always
     volumes:
-     # format:                 HOST:CONTAINER
-     - /data/git:/data/git:ro
-     - /data/config:/data/config:ro
-     - /data/storage/pillar:/data/storage/pillar
-     - /data/log:/var/log
+      # format:              HOST:CONTAINER
+      - /data/git:/data/git:ro
+      - /data/config:/data/config:ro
+      - /data/storage/pillar:/data/storage/pillar
+      - /data/log:/var/log
     depends_on:
-     - mongo
-     - redis
-     - rabbit
+      - mongo
+      - redis
+      - rabbit
 
   celery_beat:
-    image:                     armadillica/blender_cloud:latest
-    entrypoint:                /celery-beat.sh
-    container_name:            celery_beat
-    restart:                   always
+    image:                   armadillica/blender_cloud:latest
+    entrypoint:              /celery-beat.sh
+    container_name:          celery_beat
+    restart:                 always
     volumes:
-     # format:                 HOST:CONTAINER
-     - /data/git:/data/git:ro
-     - /data/storage/pillar:/data/storage/pillar
-     - /data/log:/var/log
+      # format:              HOST:CONTAINER
+      - /data/git:/data/git:ro
+      - /data/storage/pillar:/data/storage/pillar
+      - /data/log:/var/log
     depends_on:
-     - mongo
-     - redis
-     - rabbit
+      - mongo
+      - redis
+      - rabbit
     logging:
-      driver:                  "json-file"
+      driver:                "json-file"
       options:
-        max-size:              "200k"
-        max-file:              "20"
+        max-size:            "200k"
+        max-file:            "20"
 
   # notifserv:
-  #   container_name:          notifserv
-  #   image:                   armadillica/pillar-notifserv:cd8fa678436563ac3b800b2721e36830c32e4656
-  #   restart:                 always
+  #   container_name:        notifserv
+  #   image:                 armadillica/pillar-notifserv:cd8fa678436563ac3b800b2721e36830c32e4656
+  #   restart:               always
   #   links:
   #    - mongo
   #   environment:
-  #    VIRTUAL_HOST:           https://cloud.blender.org/notifications*,http://pillar-web/notifications*
-  #    VIRTUAL_HOST_WEIGHT:    20
-  #    FORCE_SSL:              true
+  #    VIRTUAL_HOST:         https://cloud.blender.org/notifications*,http://pillar-web/notifications*
+  #    VIRTUAL_HOST_WEIGHT:  20
+  #    FORCE_SSL:            true
 
   grafista:
-    image:                     armadillica/grafista:latest
-    container_name:            grafista
-    restart:                   always
+    image:                   armadillica/grafista:latest
+    container_name:          grafista
+    restart:                 always
     volumes:
       - /data/git/grafista:/data/git/grafista:ro
       - /data/storage/grafista:/data/storage/grafista
 
   letsencrypt:
-      image:                   armadillica/picohttp:latest
-      container_name:          letsencrypt
-      restart:                 always
-      environment:
-          WEBROOT:             /data/letsencrypt
-          LISTEN:              '[::]:80'
-          VIRTUAL_HOST:        http://cloud.blender.org/.well-known/*, http://stats.cloud.blender.org/.well-known/*
-          VIRTUAL_HOST_WEIGHT: 20
-      volumes:
-          - /data/letsencrypt:/data/letsencrypt
+    image:                   armadillica/picohttp:latest
+    container_name:          letsencrypt
+    restart:                 always
+    environment:
+      WEBROOT:               /data/letsencrypt
+      LISTEN:                '[::]:80'
+      VIRTUAL_HOST:          http://cloud.blender.org/.well-known/*, http://stats.cloud.blender.org/.well-known/*
+      VIRTUAL_HOST_WEIGHT:   20
+    volumes:
+      - /data/letsencrypt:/data/letsencrypt
 
   haproxy:
-    image:                     dockercloud/haproxy:1.5.3
-    container_name:            haproxy
-    restart:                   always
+    image:                   dockercloud/haproxy:1.5.3
+    container_name:          haproxy
+    restart:                 always
     ports:
-     - "443:443"
-     - "80:80"
+      - "443:443"
+      - "80:80"
     environment:
-     - ADDITIONAL_SERVICES=docker:blender_cloud,docker:letsencrypt,docker:kibana
-     - CERT_FOLDER=/certs/
-     - TIMEOUT=connect 5s, client 5m, server 10m
-     - SSL_BIND_CIPHERS=ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!MD5:!DSS
-     - SSL_BIND_OPTIONS=no-sslv3
-     - EXTRA_GLOBAL_SETTINGS=tune.ssl.default-dh-param 2048
+      - ADDITIONAL_SERVICES=docker:blender_cloud,docker:letsencrypt,docker:kibana
+      - CERT_FOLDER=/certs/
+      - TIMEOUT=connect 5s, client 5m, server 10m
+      - SSL_BIND_CIPHERS=ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!MD5:!DSS
+      - SSL_BIND_OPTIONS=no-sslv3
+      - EXTRA_GLOBAL_SETTINGS=tune.ssl.default-dh-param 2048
     depends_on:
-     - blender_cloud
-     # - notifserv
-     - letsencrypt
-     - kibana
+      - blender_cloud
+      # - notifserv
+      - letsencrypt
+      - kibana
     volumes:
-     - '/data/certs:/certs'
+      - '/data/certs:/certs'
      - /var/run/docker.sock:/var/run/docker.sock
