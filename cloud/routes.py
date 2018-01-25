@@ -347,25 +347,45 @@ def billing():
     """
     from . import store
 
+    log.debug('START OF REQUEST')
+
     if current_user.has_role('protected'):
         return abort(404)  # TODO: make this 403, handle template properly
-    api = system_util.pillar_api()
-    user = User.find(current_user.objectid, api=api)
-    groups = []
-    if user.groups:
-        for group_id in user.groups:
-            group = Group.find(group_id, api=api)
-            groups.append(group.name)
 
-    store_user = store.fetch_subscription_info(user.email)
-    if store_user is None:
-        expiration_date = 'Unable to reach Blender Store to check'
+    expiration_date = 'No subscription to expire'
+
+    # Classify the user based on their roles and capabilities
+    cap_subs = current_user.has_cap('subscriber')
+    if current_user.has_role('demo'):
+        user_cls = 'demo'
+    elif not cap_subs and current_user.has_cap('can-renew-subscription'):
+        # This user has an inactive but renewable subscription.
+        user_cls = 'subscriber-expired'
+    elif cap_subs:
+        if current_user.has_role('subscriber'):
+            # This user pays for their own subscription. Only in this case do we need to fetch
+            # the expiration date from the Store.
+            user_cls = 'subscriber'
+            store_user = store.fetch_subscription_info(current_user.email)
+            if store_user is None:
+                expiration_date = 'Unable to reach Blender Store to check'
+            else:
+                expiration_date = store_user['expiration_date'][:10]
+
+        elif current_user.has_role('org-subscriber'):
+            # An organisation pays for this subscription.
+            user_cls = 'subscriber-org'
+        else:
+            # This user gets the subscription cap from somewhere else (like an organisation).
+            user_cls = 'subscriber-other'
     else:
-        expiration_date = store_user['expiration_date'][:10]
+        user_cls = 'outsider'
 
     return render_template(
         'users/settings/billing.html',
-        expiration_date=expiration_date, groups=groups, title='billing')
+        user_cls=user_cls,
+        expiration_date=expiration_date,
+        title='billing')
 
 
 @blueprint.route('/terms-and-conditions')
