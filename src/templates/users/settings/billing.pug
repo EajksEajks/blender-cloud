@@ -1,62 +1,58 @@
-| {% extends 'layout.html' %}
+| {% extends 'users/settings/page.html' %}
 | {% block head %}
+| {{ super() }}
 style(type='text/css').
 	button#recheck_subscription {
 		margin-top: 1em;
 	}
 | {% endblock %}
-| {% block body %}
+
+| {% block settings_page_title %}Subscription{% endblock %}
+| {% block settings_page_content %}
 | {% set renew_url = url_for('cloud.renew_subscription') %}
-.container
-	#settings
-		| {% include 'users/settings/_sidebar.html'%}
-		#settings-container
-			.settings-header
-				.settings-title Subscription
+| {% if current_user.has_cap('can-renew-subscription') %}
+| {% if current_user.has_cap('subscriber') %}
+h3.subscription-active
+	i.pi-check
+	|  Your subscription is active
+h4 Thank you for supporting us!
+hr
+p Subscription expires on: <strong>{{ expiration_date }}</strong>
+| {% else %}
+h3.subscription-missing
+	i.pi-info
+	a(href="{{renew_url}}") Your subscription can be renewed
+hr
+p.text-danger Subscription expired on: <strong>{{ expiration_date }}</strong>
+p
+	a.btn.btn-success(href="{{renew_url}}") Renew now
+| {% endif %}
 
-			.settings-content
-				| {% if current_user.has_cap('can-renew-subscription') %}
-				| {% if current_user.has_cap('subscriber') %}
-				h3.subscription-active
-					i.pi-check
-					|  Your subscription is active
-				h4 Thank you for supporting us!
-				hr
-				p Subscription expires on: <strong>{{ expiration_date }}</strong>
-				| {% else %}
-				h3.subscription-missing
-					i.pi-info
-					a(href="{{renew_url}}") Your subscription can be renewed
-				hr
-				p.text-danger Subscription expired on: <strong>{{ expiration_date }}</strong>
-				p
-					a.btn.btn-success(href="{{renew_url}}") Renew now
-				| {% endif %}
+p
+	a(href="{{ config['EXTERNAL_SUBSCRIPTIONS_MANAGEMENT_SERVER'] | urljoin('my-account/subscriptions/') }}") Manage your subscription on Blender Store
 
-				p
-					a(href="{{ config['EXTERNAL_SUBSCRIPTIONS_MANAGEMENT_SERVER'] | urljoin('my-account/subscriptions/') }}") Manage your subscription on Blender Store
+| {% elif 'demo' in groups %}
+h3.subscription-demo
+	i.pi-heart-filled
+	| You have a free account
 
-				| {% elif 'demo' in groups %}
-				h3.subscription-demo
-					i.pi-heart-filled
-					| You have a free account
+hr
 
-				hr
+p You have full access to the Blender Cloud, provided by the Blender Institute. This account is meant for free evaluation of the service. Get in touch with #[a(href="mailto:cloudsupport@blender.org") cloudsupport@blender.org] if you have any questions.
 
-				p You have full access to the Blender Cloud, provided by the Blender Institute. This account is meant for free evaluation of the service. Get in touch with #[a(href="mailto:cloudsupport@blender.org") cloudsupport@blender.org] if you have any questions.
+| {% else %}
+h3.subscription-missing
+	i.pi-info
+	| You do not have an active subscription.
+h3
+	a(href="https://store.blender.org/product/membership/") Get full access to Blender Cloud now!
+| {% endif %}
 
-				| {% else %}
-				h3.subscription-missing
-					i.pi-info
-					| You do not have an active subscription.
-				h3
-					a(href="https://store.blender.org/product/membership/") Get full access to Blender Cloud now!
-				| {% endif %}
+hr
+p
+	button#recheck_subscription.btn.btn-default(onclick="javascript:recheck_subscription(this)") Re-check my subscription
 
-				hr
-				p
-					button#recheck_subscription.btn.btn-default(onclick="javascript:recheck_subscription(this)") Re-check my subscription
-
+hr
 
 script.
 	function recheck_subscription(button) {

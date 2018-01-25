@@ -1,0 +1,14 @@
+| {% extends 'users/settings/base.html' %}
+| {% block settings_sidebar_menu %}
+| {{ super() }}
+a(class="{% if title == 'emails' %}active{% endif %}",
+        href="{{ url_for('settings.emails') }}")
+    li
+        i.pi-email
+        | Emails
+a(class="{% if title == 'billing' %}active{% endif %}",
+        href="{{ url_for('settings.billing') }}")
+    li
+        i.pi-credit-card
+        | Subscription
+| {% endblock %}

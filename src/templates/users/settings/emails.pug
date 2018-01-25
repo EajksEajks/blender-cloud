@@ -1,27 +1,17 @@
-| {% extends 'layout.html' %}
-| {% block body %}
-.container
-	#settings
-		| {% include 'users/settings/_sidebar.html'%}
-		#settings-container
-			.settings-header
-				.settings-title Emails
+| {% extends 'users/settings/page.html' %}
+| {% block settings_page_title %}Emails{% endblock %}
+| {% block settings_page_content %}
+.settings-form
+	form#settings-form(method='POST', action="{{url_for('settings.emails')}}")
+		| {{ form.csrf_token }}
+		| {% for subfield in form.email_communications %}
+		.form-group.
+			{{ subfield }}
+			{{ subfield.label }}
+		| {% endfor %}
 
-			.settings-content
-
-				.settings-form
-					form#settings-form(method='POST', action="{{url_for('settings.emails')}}")
-						| {{ form.csrf_token }}
-						| {% for subfield in form.email_communications %}
-						.form-group.
-							{{ subfield }}
-							{{ subfield.label }}
-						| {% endfor %}
-
-						.buttons
-							button.btn.btn-default.button-submit(type='submit')
-								i.pi-check
-								| Save Changes
-
-
+		.buttons
+			button.btn.btn-default.button-submit(type='submit')
+				i.pi-check
+				| Save Changes
 | {% endblock %}
