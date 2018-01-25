@@ -1,0 +1,15 @@
+| {% extends 'users/settings/roles_base.html' %}
+| {% block explanation %}
+p.
+	Here is some behind-the-scenes info! In order to define what you can do on Blender Cloud, we
+	rely on a system of #[em roles] and #[em capabilities]. For example, every subscriber can use
+	Flamenco, but only admins can create an Organisation.
+
+p.
+	Your roles are determined by multiple factors, such as being part of an organisation, being
+	subscribed to Blender Cloud, etc… Your capabilities are determined by the roles you have.
+
+p.
+	If the website does not work as expected, for example you received permission-related errors,
+	it is often useful to mention what your roles and capabilities are when asking for support.
+| {% endblock explanation %}
