@@ -34,7 +34,7 @@ style(type='text/css').
 				| {% endif %}
 
 				p
-					a(href="https://store.blender.org/my-account/subscriptions/") Manage your subscription on Blender Store
+					a(href="{{ config['EXTERNAL_SUBSCRIPTIONS_MANAGEMENT_SERVER'] | urljoin('my-account/subscriptions/') }}") Manage your subscription on Blender Store
 
 				| {% elif 'demo' in groups %}
 				h3.subscription-demo
