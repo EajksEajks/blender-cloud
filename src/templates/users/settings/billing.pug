@@ -22,13 +22,13 @@ style(type='text/css').
 					|  Your subscription is active
 				h4 Thank you for supporting us!
 				hr
-				p Subscription expires on: <strong>{{ store_user['expiration_date'][:10] }}</strong>
+				p Subscription expires on: <strong>{{ expiration_date }}</strong>
 				| {% else %}
 				h3.subscription-missing
 					i.pi-info
 					a(href="{{renew_url}}") Your subscription can be renewed
 				hr
-				p.text-danger Subscription expired on: <strong>{{ store_user['expiration_date'][:10] }}</strong>
+				p.text-danger Subscription expired on: <strong>{{ expiration_date }}</strong>
 				p
 					a.btn.btn-success(href="{{renew_url}}") Renew now
 				| {% endif %}

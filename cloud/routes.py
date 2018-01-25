@@ -358,10 +358,14 @@ def billing():
             groups.append(group.name)
 
     store_user = store.fetch_subscription_info(user.email)
+    if store_user is None:
+        expiration_date = 'Unable to reach Blender Store to check'
+    else:
+        expiration_date = store_user['expiration_date'][:10]
 
     return render_template(
         'users/settings/billing.html',
-        store_user=store_user, groups=groups, title='billing')
+        expiration_date=expiration_date, groups=groups, title='billing')
 
 
 @blueprint.route('/terms-and-conditions')
