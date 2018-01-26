@@ -4,6 +4,7 @@ html
 		title {% block title %}{{ subject }}{% endblock %}
 		style.
 			@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 			html, body {
 				font-family: 'Roboto', 'Noto Sans', sans-serif;
 				font-size: 11pt;
@@ -11,61 +12,64 @@ html
 				color: black;
 			}
 
-			section, h1 {
-				max-width: 100%;
-				width: 522px;
-				margin: 15px auto;
+			section {
+				max-width: 522px;
+				/*width: 522px;*/
+				margin: 0 auto 15px auto;
 				padding: 10px 25px;
-				box-shadow: rgba(0,0,0,0.298039) 0px 1px 4px -1px;
+				box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+				background-color: white;
 			}
+
 			a:link {
 				color: #2e99b8;
 			}
+
 			a:link, a:visited {
 				text-decoration: none;
 			}
 
-			section {
-				background-color: white;
-				border-radius: 2px;
-			}
 			section.about, p.ps {
 				color: #888;
 				font-size: smaller;
 			}
+
 			section.about a:link, p.ps a:link {
 				color: #7297ab;
 			}
 
 			h1 {
-				text-shadow: 1px 1px 1px rgba(0,0,0,0.5), 0 0 25px rgba(0,0,0,0.6);
+				text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 0, 0, 0.6);
 				color: white;
 				font-size: 30px;
-				background: #d5d0cb url('{{ abs_url("static", filename="assets/img/email/background_caminandes_3_03.jpg") }}') no-repeat top center;
+				background: #d5d0cb url('https://cloud.blender.org/static/assets/img/email/background_caminandes_3_03.jpg') no-repeat top center;
 				-webkit-background-size: cover;
-			    -moz-background-size: cover;
-			    -o-background-size: cover;
-			    background-size: cover;
-				min-height: 120px;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+				padding: 35px 25px;
+				max-width: 522px;
+				/*width: 522px;*/
+				margin: 15px auto 0 auto;
 			}
-			h2 {
+
+			h2, h3 {
 				font-weight: 300;
 				color: #eb5e28;
 				position: relative;
 			}
+
 			p {
 				line-height: 150%;
-				text-align: justify;
 			}
+
 			p.closing {
 				margin-top: 2.5em;
 			}
-			p.closing a.cloudlogo {
-				float: right;
-			}
+
 			p.buttons {
 				text-align: center;
-				margin: 5ex;
+				margin: 4ex;
 			}
 
 			a.button {
@@ -73,25 +77,17 @@ html
 				max-width: 30ex;
 				padding: 5px 30px;
 				text-decoration: none;
-				
 				border-radius: 3px;
 				border: thin solid #2e99b8;
-			    color: #2e99b8;
+				color: #2e99b8;
 				background-color: transparent;
-			    text-shadow: none;
-			    transition: color 350ms ease-out, border 150ms ease-in-out, opacity 150ms ease-in-out, background-color 150ms ease-in-out;
+				text-shadow: none;
+				transition: color 350ms ease-out, border 150ms ease-in-out, opacity 150ms ease-in-out, background-color 150ms ease-in-out;
 			}
+
 			a.button:hover {
 				color: white;
 				background-color: #2e99b8;
-			}
-			img#blendercloud {
-				height: 6em;
-				width: auto;
-				margin-right: 0;
-				margin-top: -0.5em;
-				margin-bottom: -0.2em;
-				vertical-align: middle;
 			}
 	body
 		| {% block body %}{% endblock %}
