@@ -1,6 +1,5 @@
 | {% extends "emails/layout.html" %}
 | {% block body %}
-| {% set blender_cloud = abs_url('cloud.homepage') %}
 
 h1 Welcome to Blender Cloud!
 section
@@ -12,7 +11,8 @@ section
 		our team to create more Open Projects, training, services and of course to make Blender the best
 		CG pipeline in the world. You rock!
 	p.buttons
-		a.button(href="{{ blender_cloud }}", target='_blank') Explore Now >
+		a.button(href="{{ abs_url('cloud.login', next='/') }}", target='_blank') Explore Now >
+
 	p.
 		Here is a quick guide to help you get started with Blender Cloud.
 
