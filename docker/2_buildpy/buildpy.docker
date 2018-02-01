@@ -9,7 +9,7 @@ RUN sed -i 's/^# deb-src/deb-src/' /etc/apt/sources.list && \
         checkinstall \
         curl
 
-RUN apt-get build-dep -y python3.5
+RUN apt-get build-dep -y python3.6
 
 ADD Python-3.6.4.tar.xz.md5 /Python-3.6.4.tar.xz.md5
 
