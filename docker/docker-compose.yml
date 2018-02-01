@@ -9,6 +9,11 @@ services:
       - /data/storage/db-bak:/data/db-bak # for backing up stuff etc.
     ports:
       - "127.0.0.1:27017:27017"
+    logging:
+      driver:                "json-file"
+      options:
+        max-size:            "200k"
+        max-file:            "20"
 
   redis:
     image:                   redis:3.2.8
@@ -16,6 +21,11 @@ services:
     restart:                 always
     ports:
       - "127.0.0.1:6379:6379"
+    logging:
+      driver:                "json-file"
+      options:
+        max-size:            "200k"
+        max-file:            "20"
 
   rabbit:
     image:                   rabbitmq:3.6.10
@@ -23,6 +33,11 @@ services:
     restart:                 always
     ports:
       - "127.0.0.1:5672:5672"
+    logging:
+      driver:                "json-file"
+      options:
+        max-size:            "200k"
+        max-file:            "20"
 
   elastic:
     image:                   armadillica/elasticsearch:6.1.1
@@ -35,6 +50,11 @@ services:
       - "127.0.0.1:9200:9200"
     environment:
       ES_JAVA_OPTS:          "-Xms256m -Xmx256m"
+    logging:
+      driver:                "json-file"
+      options:
+        max-size:            "200k"
+        max-file:            "20"
 
   elasticproxy:
     image:                   armadillica/elasticproxy:1.2
@@ -43,6 +63,11 @@ services:
     command:                 /elasticproxy -elastic http://elastic:9200/
     depends_on:
       - elastic
+    logging:
+      driver:                "json-file"
+      options:
+        max-size:            "200k"
+        max-file:            "20"
 
   kibana:
     image:                   armadillica/kibana:6.1.1
@@ -60,6 +85,11 @@ services:
       NODE_OPTIONS:          "--max-old-space-size=200"
     depends_on:
       - elasticproxy
+    logging:
+      driver:                "json-file"
+      options:
+        max-size:            "200k"
+        max-file:            "20"
 
   blender_cloud:
     image:                   armadillica/blender_cloud:latest
@@ -70,9 +100,9 @@ services:
       VIRTUAL_HOST_WEIGHT:   10
       FORCE_SSL:             "true"
       GZIP_COMPRESSION_TYPE: "text/html text/plain text/css application/javascript"
+      PILLAR_CONFIG:         /data/config/config_secrets.py
     volumes:
       # format:              HOST:CONTAINER
-      - /data/git:/data/git:ro
       - /data/config:/data/config:ro
       - /data/storage/pillar:/data/storage/pillar
       - /data/log:/var/log
@@ -86,25 +116,11 @@ services:
     entrypoint:              /celery-worker.sh
     container_name:          celery_worker
     restart:                 always
+    environment:
+      PILLAR_CONFIG:         /data/config/config_secrets.py
     volumes:
       # format:              HOST:CONTAINER
-      - /data/git:/data/git:ro
       - /data/config:/data/config:ro
-      - /data/storage/pillar:/data/storage/pillar
-      - /data/log:/var/log
-    depends_on:
-      - mongo
-      - redis
-      - rabbit
-
-  celery_beat:
-    image:                   armadillica/blender_cloud:latest
-    entrypoint:              /celery-beat.sh
-    container_name:          celery_beat
-    restart:                 always
-    volumes:
-      # format:              HOST:CONTAINER
-      - /data/git:/data/git:ro
       - /data/storage/pillar:/data/storage/pillar
       - /data/log:/var/log
     depends_on:
@@ -117,13 +133,28 @@ services:
         max-size:            "200k"
         max-file:            "20"
 
-  grafista:
-    image:                   armadillica/grafista:latest
-    container_name:          grafista
+  celery_beat:
+    image:                   armadillica/blender_cloud:latest
+    entrypoint:              /celery-beat.sh
+    container_name:          celery_beat
     restart:                 always
+    environment:
+      PILLAR_CONFIG:         /data/config/config_secrets.py
     volumes:
-      - /data/git/grafista:/data/git/grafista:ro
-      - /data/storage/grafista:/data/storage/grafista
+      # format:              HOST:CONTAINER
+      - /data/config:/data/config:ro
+      - /data/storage/pillar:/data/storage/pillar
+      - /data/log:/var/log
+    depends_on:
+      - mongo
+      - redis
+      - rabbit
+      - celery_worker
+    logging:
+      driver:                "json-file"
+      options:
+        max-size:            "200k"
+        max-file:            "20"
 
   letsencrypt:
     image:                   armadillica/picohttp:latest

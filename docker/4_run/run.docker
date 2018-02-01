@@ -27,7 +27,9 @@ RUN mkdir -p $APACHE_RUN_DIR $APACHE_LOCK_DIR $APACHE_LOG_DIR
 ADD wheelhouse /data/wheelhouse
 RUN pip3 install --no-index --find-links=/data/wheelhouse -r /data/wheelhouse/requirements.txt
 
-VOLUME /data/git
+ADD deploy /data/git
+ADD config_local.py /data/git/blender-cloud/
+
 VOLUME /data/config
 VOLUME /data/storage
 VOLUME /var/log

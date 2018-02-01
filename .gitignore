@@ -18,3 +18,4 @@ node_modules/
 /google_app*.json
 /docker/2_buildpy/python/
 /docker/4_run/wheelhouse/
+/docker/4_run/deploy/
