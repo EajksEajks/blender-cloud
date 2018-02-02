@@ -58,12 +58,16 @@ Place TLS certificates in `/data/certs/{cloud,cloudapi}.blender.org.pem`.
 They should contain (in order) the private key, the host certificate, and the
 CA certificate.
 
+
 ## 6. Create a local config
 
 Blender Cloud expects the following files to exist:
 
 - `/data/git/blender_cloud/config_local.py` with machine-local configuration overrides
 - `/data/config/google_app.json` with Google Cloud Storage credentials.
+
+When run from Docker, the `docker/4_run/config_local.py` file will be used. Overrides for that file
+can be placed in `/data/config/config_secrets.py`.
 
 
 ## 7. ElasticSearch & kibana

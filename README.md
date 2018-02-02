@@ -30,18 +30,20 @@ After these commands, run `deploy.sh` to build the static files and deploy
 those too (see below).
 
 
-## Deploying to production server
+## Preparing the production branch for deployment
 
-First of all, add those aliases to the `[alias]` section of your `~/.gitconfig`
+All revisions to deploy to production should be on the `production` branches of all the relevant
+repositories.
+
+Make sure you have these aliases in the `[alias]` section of your `~/.gitconfig`:
 
 ```
 prod = "!git checkout production && git fetch origin production && gitk --all"
 ff = "merge --ff-only"
-pp = "!git push && if [ -e deploy.sh ]; then ./deploy.sh; fi && git checkout master"
 ```
 
-The following commands should be executed for each subproject; specifically for
-Pillar and Attract:
+The following commands should be executed for each (sub)project; specifically for
+the current repository, Pillar, Attract, Flamenco, and Pillar-SVNMan:
 
 ```
 cd $projectdir
@@ -64,35 +66,22 @@ git ff master
 # Run tests again
 py.test
 
-# Push the production branch and run dummy deploy script.
-git pp  # pp = "Push to Production"
-
-# The above alias waits for [ENTER] until all deploys are done.
-# Let it wait, perform the other commands in another terminal.
+# Push the production branch.
+git push
 ```
 
-Now follow the above receipe on the Blender Cloud project as well.
-Contrary to the subprojects, `git pp` will actually perform the deploy
-for real.
+## Deploying to production server
 
-Now you can press `[ENTER]` in the Pillar, Attract, and Flamenco terminals
-that were still waiting for it.
+```
+workon blender-cloud  # activate your virtualenv
+cd $projectdir/deploy
+./2docker.sh
+cd $projectdir/docker
+./full_rebuild.sh  # or one of the other build scripts, if you know what you're doing.
+docker push armadillica/blender_cloud:latest
+cd $projectdir/deploy
+./2server.sh
+```
 
-After everything is done, your (sub)projects should all be back on
-the master branch.
-
-
-## Updating dependencies via Docker images
-
-To update dependencies that need compiling, you need the `2_build` docker
-container. To rebuild the lot, run `docker/build.sh`.
-
-Follow these steps to deploy the new container on production:
-
-1. run `docker/build.sh`
-2. `docker push armadillica/blender_cloud`
-
-On the production machine:
-
-1. `docker pull armadillica/blender_cloud`
-2. `docker-compose up -d` (from the `/data/git/blender-cloud/docker` directory)
+To deploy another branch than `production`, do `export DEPLOY_BRANCH=otherbranch` before starting
+the above commands.
