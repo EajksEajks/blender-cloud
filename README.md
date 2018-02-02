@@ -80,7 +80,7 @@ cd $projectdir/docker
 ./full_rebuild.sh  # or one of the other build scripts, if you know what you're doing.
 docker push armadillica/blender_cloud:latest
 cd $projectdir/deploy
-./2server.sh
+./2server.sh servername
 ```
 
 To deploy another branch than `production`, do `export DEPLOY_BRANCH=otherbranch` before starting
