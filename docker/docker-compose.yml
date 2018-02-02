@@ -164,7 +164,7 @@ services:
       WEBROOT:               /data/letsencrypt
       LISTEN:                '[::]:80'
       VIRTUAL_HOST:          http://cloud.blender.org/.well-known/*, http://stats.cloud.blender.org/.well-known/*
-      VIRTUAL_HOST_WEIGHT:   20
+      VIRTUAL_HOST_WEIGHT:   30
     volumes:
       - /data/letsencrypt:/data/letsencrypt
 

@@ -48,7 +48,9 @@ read dummy
 echo "==================================================================="
 echo "Bringing remote Docker up to date…"
 $SSH mkdir -p $REMOTE_DOCKER_COMPOSE_DIR
-$SCP $DOCKER_DEPLOYDIR/$PROJECT_NAME/docker/docker-compose.yml $DEPLOYHOST:$REMOTE_DOCKER_COMPOSE_DIR
+$SCP \
+    $DOCKER_DEPLOYDIR/$PROJECT_NAME/docker/{docker-compose.yml,renew-letsencrypt.sh} \
+    $DEPLOYHOST:$REMOTE_DOCKER_COMPOSE_DIR
 $SSH -T <<EOT
 set -e
 cd $REMOTE_DOCKER_COMPOSE_DIR
