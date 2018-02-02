@@ -57,14 +57,6 @@ except ImportError:
 print(os.path.dirname(os.path.dirname(${MODULE_NAME}.__file__)))
 EOT
 )
-
-    if [ -z "$SKIP_BRANCH_CHECK" ]; then
-        if [ $(git -C $MODULE_DIR rev-parse --abbrev-ref HEAD) != "$DEPLOY_BRANCH" ]; then
-            echo "${MODULE_NAME}: ($MODULE_DIR) NOT on the $DEPLOY_BRANCH branch, refusing to deploy." >&2
-            exit 1
-        fi
-    fi
-
     echo $MODULE_DIR
 }
 
