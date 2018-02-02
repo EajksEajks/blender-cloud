@@ -96,7 +96,7 @@ services:
     container_name:          blender_cloud
     restart:                 always
     environment:
-      VIRTUAL_HOST:          http://cloud.blender.org/*,https://cloud.blender.org/*,http://blender-cloud/*,https://blender-cloud/*
+      VIRTUAL_HOST:          http://cloud.blender.org/*,https://cloud.blender.org/*,http://blender-cloud/*,https://blender-cloud/*,http://cloud*/*,https://cloud*/*
       VIRTUAL_HOST_WEIGHT:   10
       FORCE_SSL:             "true"
       GZIP_COMPRESSION_TYPE: "text/html text/plain text/css application/javascript"
