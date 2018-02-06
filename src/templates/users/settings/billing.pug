@@ -53,7 +53,7 @@ h4 Thank you for supporting us!
 hr
 p Subscription expires on: <strong>{{ expiration_date }}</strong>
 p
-	a(href="{{ config['EXTERNAL_SUBSCRIPTIONS_MANAGEMENT_SERVER'] | urljoin('my-account/subscriptions/') }}") Manage your subscription on Blender Store
+	a(href="{{ config['EXTERNAL_SUBSCRIPTIONS_MANAGEMENT_SERVER'] | urljoin('/my-account/subscriptions/') }}") Manage your subscription on Blender Store
 
 //---------------------------------
 | {% elif user_cls == 'subscriber-org' %}
