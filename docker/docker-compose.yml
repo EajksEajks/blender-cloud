@@ -157,7 +157,7 @@ services:
         max-file:            "20"
 
   letsencrypt:
-    image:                   armadillica/picohttp:latest
+    image:                   armadillica/picohttp:1.0
     container_name:          letsencrypt
     restart:                 always
     environment:
