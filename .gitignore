@@ -19,3 +19,6 @@ node_modules/
 /docker/2_buildpy/python/
 /docker/4_run/wheelhouse/
 /docker/4_run/deploy/
+/celerybeat-schedule.bak
+/celerybeat-schedule.dat
+/celerybeat-schedule.dir
