@@ -20,6 +20,9 @@ meta(property="og:image", content="{{ url_for('static', filename='assets/img/bac
 | {% block navigation_search %}{% endblock %}
 | {% block navigation_sections %}
 li
+	a.navbar-item(href="{{ url_for('main.main_blog') }}")
+		span Blog
+li
 	a.navbar-item(href="#pricing")
 		span Pricing
 | {% endblock navigation_sections %}
@@ -113,21 +116,21 @@ li.nav-item-sign-in
 
 		section.page-card-header
 			a(href="{{ url_for('cloud.courses') }}")
-				h2 Featured Training
+				h2 Featured Content
 
 		.page-triplet-container.homepage
 			.row
 				.col-md-4
-					.triplet-card(data-url="https://cloud.blender.org/p/toon-character-workflow/")
+					.triplet-card(data-url="https://cloud.blender.org/p/minecraft-animation-workshop/")
 						.triplet-card-thumbnail
 							img(
 								alt="Textures",
-								src="{{ url_for('static', filename='assets/img/features/training_toon_character.jpg')}}")
+								src="{{ url_for('static', filename='assets/img/features/training_minecraft_animation.jpg')}}")
 						.triplet-card-info
-							h3 Toon Character Workflow
+							h3 Minecraft Animation
 							p.
-								Perfect for beginners, learn how to build a cartoon character from concept to finish.
-							a.triplet-cta(href="https://cloud.blender.org/p/toon-character-workflow/")
+								Learn how to make animations with this workshop by Dillon Gu.
+							a.triplet-cta(href="https://cloud.blender.org/p/minecraft-animation-workshop/")
 								| LEARN MORE
 
 				.col-md-4
@@ -160,6 +163,7 @@ li.nav-item-sign-in
 				.col-md-10.col-md-offset-1
 					p.
 						Other training:
+						#[a(href="https://cloud.blender.org/p/toon-character-workflow/") Toon Character Workflow],
 						#[a(href="https://cloud.blender.org/p/3d-printing/") Blender for 3D Printing],
 						#[a(href="https://cloud.blender.org/p/game-asset-creation/") Game Asset Creation],
 						#[a(href="https://cloud.blender.org/p/blenderella/") Character Modeling],
@@ -211,35 +215,41 @@ li.nav-item-sign-in
 		.page-triplet-container.homepage
 			.row
 				.col-md-4
-					.triplet-card(data-url="https://cloud.blender.org/p/cosmos-laundromat/")
+					.triplet-card(data-url="https://cloud.blender.org/p/hero/")
 						.triplet-card-thumbnail
 							img(
-								alt="HDRI",
-								src="{{ url_for('static', filename='assets/img/features/open_movies_cosmos.jpg')}}")
+								alt="Hero",
+								src="{{ url_for('static', filename='assets/img/features/open_movies_hero.jpg')}}")
 						.triplet-card-info
-							h3 Cosmos Laundromat
-							a.triplet-cta(href="https://cloud.blender.org/p/cosmos-laundromat/")
+							h3 Hero
+							p.
+								The first ever Grease Pencil open movie made with Blender 2.8
+							a.triplet-cta(href="https://cloud.blender.org/p/hero/")
 								| LEARN MORE
 
 				.col-md-4
-					.triplet-card(data-url="https://cloud.blender.org/p/agent-327/")
+					.triplet-card(data-url="https://cloud.blender.org/p/spring/")
 						.triplet-card-thumbnail
 							img(
-								alt="Textures",
-								src="{{ url_for('static', filename='assets/img/features/open_movies_agent_barbershop.jpg')}}")
+								alt="Spring",
+								src="{{ url_for('static', filename='assets/img/features/open_movies_spring.jpg')}}")
 						.triplet-card-info
-							h3 Agent 327
-							a.triplet-cta(href="https://cloud.blender.org/p/agent-327/")
+							h3 Spring
+							p.
+								A poetic fantasy film. #[br] A stunning visual journey.
+							a.triplet-cta(href="https://cloud.blender.org/p/spring/")
 								| LEARN MORE
 
 				.col-md-4
 					.triplet-card(data-url="https://cloud.blender.org/p/caminandes-3/")
 						.triplet-card-thumbnail
 							img(
-								alt="Characters",
+								alt="Caminandes",
 								src="{{ url_for('static', filename='assets/img/features/open_movies_caminandes_llamigos.jpg')}}")
 						.triplet-card-info
 							h3 Caminandes
+							p.
+								Follow the adventures of Koro through the Patagonian pampas.
 							a.triplet-cta(href="https://cloud.blender.org/p/caminandes-3/")
 								| LEARN MORE
 
@@ -251,8 +261,10 @@ li.nav-item-sign-in
 						#[a(href="https://cloud.blender.org/p/big-buck-bunny/") Big Buck Bunny],
 						#[a(href="https://cloud.blender.org/p/sintel/") Sintel],
 						#[a(href="https://cloud.blender.org/p/tears-of-steel/") Tears of Steel],
+						#[a(href="https://cloud.blender.org/p/cosmos-laundromat/") Cosmos Laundromat],
 						#[a(href="https://cloud.blender.org/p/glass-half/") Glass Half],
-						#[a(href="https://cloud.blender.org/p/dailydweebs/") The Daily Dweebs]
+						#[a(href="https://cloud.blender.org/p/dailydweebs/") The Daily Dweebs],
+						#[a(href="https://cloud.blender.org/p/agent-327/") Agent 327]
 						and #[a(href="{{ url_for('cloud.open_projects') }}") more]
 
 
