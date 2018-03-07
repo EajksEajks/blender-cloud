@@ -76,10 +76,7 @@ git push
 workon blender-cloud  # activate your virtualenv
 cd $projectdir/deploy
 ./2docker.sh
-cd $projectdir/docker
-./full_rebuild.sh  # or one of the other build scripts, if you know what you're doing.
-docker push armadillica/blender_cloud:latest
-cd $projectdir/deploy
+./build-all.sh  # or ./build-quick.sh
 ./2server.sh servername
 ```
 
