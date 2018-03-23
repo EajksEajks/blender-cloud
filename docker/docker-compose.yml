@@ -77,7 +77,7 @@ services:
       SERVER_NAME:           "stats.cloud.blender.org"
       ELASTICSEARCH_URL:     http://elasticproxy:9200
       CONSOLE_ENABLED:       'false'
-      VIRTUAL_HOST:          http://stats.cloud.blender.org/*,https://stats.cloud.blender.org/*,http://stats.blender-cloud/*,https://stats.blender-cloud/*
+      VIRTUAL_HOST:          http://stats.cloud.blender.org/*,https://stats.cloud.blender.org/*,http://stats.cloud.local/*,https://stats.cloud.local/*
       VIRTUAL_HOST_WEIGHT:   20
       FORCE_SSL:             "true"
 
@@ -96,7 +96,7 @@ services:
     container_name:          blender_cloud
     restart:                 always
     environment:
-      VIRTUAL_HOST:          http://cloud.blender.org/*,https://cloud.blender.org/*,http://blender-cloud/*,https://blender-cloud/*
+      VIRTUAL_HOST:          http://cloud.blender.org/*,https://cloud.blender.org/*,http://cloud.local/*,https://cloud.local/*
       VIRTUAL_HOST_WEIGHT:   10
       FORCE_SSL:             "true"
       GZIP_COMPRESSION_TYPE: "text/html text/plain text/css application/javascript"
