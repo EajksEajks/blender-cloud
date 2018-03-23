@@ -1,12 +1,13 @@
 import os
 from collections import defaultdict
+
 DEBUG = False
 
 SCHEME = 'https'
 PREFERRED_URL_SCHEME = 'https'
 SERVER_NAME = 'cloud.blender.org'
 
-#os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = 'true'
+# os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = 'true'
 os.environ['PILLAR_MONGO_DBNAME'] = 'cloud'
 os.environ['PILLAR_MONGO_PORT'] = '27017'
 os.environ['PILLAR_MONGO_HOST'] = 'mongo'
@@ -19,7 +20,7 @@ CDN_SERVICE_DOMAIN = 'blendercloud-pro.r.worldssl.net'
 CDN_CONTENT_SUBFOLDER = ''
 CDN_STORAGE_ADDRESS = 'push-11.cdnsun.com'
 
-CACHE_TYPE = 'redis' #null
+CACHE_TYPE = 'redis'  # null
 CACHE_KEY_PREFIX = 'pw_'
 CACHE_REDIS_HOST = 'redis'
 CACHE_REDIS_PORT = '6379'
@@ -60,19 +61,19 @@ LOGGING = {
     },
     'loggers': {
         'pillar': {'level': 'INFO'},
-        #'pillar.auth': {'level': 'DEBUG'},
-        #'pillar.api.blender_id': {'level': 'DEBUG'},
-        #'pillar.api.blender_cloud.subscription': {'level': 'DEBUG'},
+        # 'pillar.auth': {'level': 'DEBUG'},
+        # 'pillar.api.blender_id': {'level': 'DEBUG'},
+        # 'pillar.api.blender_cloud.subscription': {'level': 'DEBUG'},
         'bcloud': {'level': 'INFO'},
         'cloud': {'level': 'INFO'},
         'attract': {'level': 'INFO'},
         'flamenco': {'level': 'INFO'},
-        #'pillar.api.file_storage': {'level': 'DEBUG'},
-        #'pillar.api.file_storage.ensure_valid_link': {'level': 'INFO'},
+        # 'pillar.api.file_storage': {'level': 'DEBUG'},
+        # 'pillar.api.file_storage.ensure_valid_link': {'level': 'INFO'},
         'pillar.api.file_storage.refresh_links_for_backend': {'level': 'DEBUG'},
         'werkzeug': {'level': 'DEBUG'},
         'eve': {'level': 'WARNING'},
-        #'elasticsearch': {'level': 'DEBUG'},
+        # 'elasticsearch': {'level': 'DEBUG'},
     },
     'root': {
         'level': 'WARNING',
