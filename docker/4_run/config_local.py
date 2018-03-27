@@ -50,7 +50,7 @@ FILE_LINK_VALIDITY = defaultdict(
 LOGGING = {
     'version': 1,
     'formatters': {
-        'default': {'format': '%(asctime)-15s %(levelname)8s %(name)s %(message)s'}
+        'default': {'format': '%(levelname)8s %(name)s %(message)s'}
     },
     'handlers': {
         'console': {
