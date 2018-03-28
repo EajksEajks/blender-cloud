@@ -322,6 +322,20 @@ html(lang="en")
 
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.bootstrap-3.3.7.min.js') }}")
 
+		| {% if current_user.is_authenticated %}
+		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.typewatch-3.0.0.min.js') }}")
+		script.
+			// When sending an AJAX request, always add the X-CSRFToken header to it.
+			var csrf_token = "{{ csrf_token() }}";
+			$.ajaxSetup({
+				beforeSend: function (xhr, settings) {
+					if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+						xhr.setRequestHeader("X-CSRFToken", csrf_token);
+					}
+				}
+			});
+		| {% endif %}
+
 		script.
 			$(document).ready(function() {
 				{% if current_user.is_authenticated %}
