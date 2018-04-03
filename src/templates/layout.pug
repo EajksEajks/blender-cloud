@@ -32,8 +32,7 @@ html(lang="en")
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery-3.1.0.min.js')}}")
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.typeahead-0.11.1.min.js')}}")
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/js.cookie-2.0.3.min.js')}}")
-
-		script.
+		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/clipboard.min.js')}}")
 
 		| {% if current_user.has_cap('subscriber') %}
 		| {# Only load if we can comment (for converting markdown as-we-type) #}
@@ -321,6 +320,20 @@ html(lang="en")
 			link(href='//fonts.googleapis.com/css?family=Roboto:300,400', rel='stylesheet', type='text/css')
 
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.bootstrap-3.3.7.min.js') }}")
+
+		| {% if current_user.is_authenticated %}
+		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.typewatch-3.0.0.min.js') }}")
+		script.
+			// When sending an AJAX request, always add the X-CSRFToken header to it.
+			var csrf_token = "{{ csrf_token() }}";
+			$.ajaxSetup({
+				beforeSend: function (xhr, settings) {
+					if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+						xhr.setRequestHeader("X-CSRFToken", csrf_token);
+					}
+				}
+			});
+		| {% endif %}
 
 		script.
 			$(document).ready(function() {

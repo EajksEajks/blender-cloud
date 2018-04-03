@@ -62,15 +62,6 @@ def _homepage_context() -> dict:
         post.picture = get_file(post.picture, api=api)
         post.url = url_for_node(node=post)
 
-        # Render attachments
-        try:
-            post_contents = post['properties']['content']
-        except KeyError:
-            log.warning('Blog post %s has no content', post._id)
-        else:
-            post['properties']['content'] = pillar.web.nodes.attachments.render_attachments(
-                post, post_contents)
-
     # Get latest assets added to any project
     latest_assets = Node.latest('assets', api=api)
 
