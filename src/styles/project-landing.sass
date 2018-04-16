@@ -10,6 +10,9 @@ body
 
 nav.navbar
 	background-color: white
+	.navbar-header
+		+media-xs
+			width: 100%
 
 	.navbar-brand
 		color: $color-text
@@ -40,8 +43,10 @@ nav.navbar
 		+container-behavior
 
 	.navbar-toggle
-		border: 2px solid $color-text-dark-primary
+		border: none
 		color: $color-text
+		position: absolute
+		right: 10px
 
 	.navbar-nav
 		+media-xs
@@ -57,7 +62,9 @@ nav.navbar
 	line-height: 1.5em
 	margin: 0 auto 40px auto
 	padding-bottom: 40px
-
+	+media-xs
+		padding-left: 10px
+		padding-right: 10px
 
 	p
 		margin-bottom: 1.3em
