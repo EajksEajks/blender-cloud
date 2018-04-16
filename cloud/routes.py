@@ -17,6 +17,8 @@ from pillar.web.utils import attach_project_pictures
 from pillar.web.settings import blueprint as blueprint_settings
 from pillar.web.nodes.routes import url_for_node
 from pillar.web.nodes.custom.comments import render_comments_for_node
+from pillar.web.projects.routes import render_project
+from pillar.web.projects.routes import find_project_or_404
 
 
 blueprint = Blueprint('cloud', __name__)
@@ -432,6 +434,32 @@ def comments_for_node(node_id):
         'subscriber')
 
     return render_comments_for_node(node_id, can_post_comments=can_post_comments)
+
+
+@blueprint.route('/p/hero')
+def project_hero():
+    api = system_util.pillar_api()
+    project = find_project_or_404('hero',
+                                  embedded={'header_node': 1},
+                                  api=api)
+    # Load the header video file, if there is any.
+    header_video_file = None
+    header_video_node = None
+    if project.header_node and project.header_node.node_type == 'asset' and \
+            project.header_node.properties.content_type == 'video':
+        header_video_node = project.header_node
+        header_video_file = get_file(project.header_node.properties.file)
+        header_video_node.picture = get_file(header_video_node.picture)
+
+    pages = Node.all({
+        'where': {'project': project._id, 'node_type': 'page'},
+        'projection': {'name': 1}}, api=api)
+
+    return render_project(project, api,
+                          extra_context={'header_video_file': header_video_file,
+                                         'header_video_node': header_video_node,
+                                         'pages': pages._items,},
+                          template_name='projects/landing.html')
 
 
 def setup_app(app):
