@@ -88,11 +88,6 @@ header
 	//a(href="{{ url_for( 'projects.view', project_url=project.url) }}")
 	img.header(src="{{ project.picture_header.thumbnail('l', api=api) }}")
 
-	a.page-card-cta.js-watch-video(
-		href="https://www.youtube.com/watch?v=NwVGvcIrNWA",
-		data-youtube-id="NwVGvcIrNWA")
-		i.pi-play
-		| Watch Film
 | {% block navbar_secondary %}
 | {{ projectmacros.render_secondary_navigation(project, pages=pages) }}
 
@@ -123,7 +118,16 @@ header
 		| {% endif %}
 		| {% endfor %}
 		div(class="clearfix")
-		a.btn(href="{{ url_for('main.project_blog', project_url=project.url) }}") See more
+		| {% if project.nodes_featured %}
+		| {# In some cases featured_nodes might might be embedded #}
+		| {% if '_id' in project.nodes_featured[0] %}
+		| {% set featured_node_id=project.nodes_featured[0]._id %}
+		| {% else %}
+		| {% set featured_node_id=project.nodes_featured[0] %}
+		| {% endif %}
+		a.btn(href="{{ url_for('projects.view_node', project_url=project.url, node_id=featured_node_id) }}") See more
+		| {% endif %}
+
 
 	section.node-extra
 		h2 Latest Updates
@@ -178,62 +182,6 @@ script.
 			hideOverlay();
 		}
 	});
-
-	$('a.js-watch-video').click(function (e) {
-		e.preventDefault();
-		e.stopPropagation();
-
-		$('#page-overlay.video').addClass('active');
-
-		var videoId = $(this).attr('data-youtube-id');
-		$('#page-overlay .video-embed').html('<iframe src="https://www.youtube.com/embed/' + videoId + '?rel=0&amp;showinfo=0;autoplay=1" frameborder="0" allowfullscreen></iframe>')
-	});
-
-	function loadNodeContent(url, nodeId) {
-
-		$('#project-loading').addClass('active');
-		$.get(url, function (dataHtml) {
-			// Update the DOM injecting the generate HTML into the page
-			$('#page-overlay').addClass('active');
-			$('#others').html(dataHtml);
-			// $('#project_context').html(dataHtml);
-		})
-			.done(function () {
-				// updateUi(nodeId, 'view');
-			})
-			.fail(function (dataResponse) {
-				$('#project_context').html($('<iframe id="server_error"/>'));
-				$('#server_error').attr('src', url);
-			})
-			.always(function () {
-				$('#project-loading').removeAttr('class');
-				$('.button-edit-icon').addClass('pi-edit').removeClass('pi-spin spin');
-			});
-	}
-
-	function displayNode(nodeId, pushState) {
-		// Remove the 'n_' suffix from the id
-		if (nodeId.substring(0, 2) == 'n_') {
-			nodeId = nodeId.substr(2);
-		}
-
-		var url = '/nodes/' + nodeId + '/view';
-		loadNodeContent(url, nodeId);
-
-		// Determine whether we should push the new state or not.
-		pushState = (typeof pushState !== 'undefined') ? pushState : true;
-		if (!pushState) return;
-
-		// Push the correct URL onto the history.
-		var push_state = {nodeId: nodeId, url: url};
-		var push_url = '{{url_for("projects.view", project_url=project.url)}}' + nodeId;
-		// console.log('Pushing state ', push_state, ' with URL ', push_url);
-		window.history.pushState(
-			push_state,
-			'Node ' + nodeId, // TODO: use sensible title
-			push_url
-		);
-	}
 
 	$("a[data-node_id]").on( "click", function(e) {
 		// var nodeId = $(this).data('node_id');
