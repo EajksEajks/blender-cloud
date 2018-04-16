@@ -111,7 +111,7 @@ header
 	section.gallery
 		h2 Gallery
 		| {% for n in activity_stream %}
-		| {% if n.node_type not in ['comment', 'post'] %}
+		| {% if n.node_type not in ['comment', 'post'] and n.picture %}
 		.thumbnail.expand-image-links
 			.img-container
 				a(href="{{ n.picture.thumbnail('l', api=api) }}", data-node_id="{{ n._id }}")
