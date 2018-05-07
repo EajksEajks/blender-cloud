@@ -86,7 +86,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-landing.css')
 | {% block body %}
 header
 	//a(href="{{ url_for( 'projects.view', project_url=project.url) }}")
-	img.header(src="{{ project.picture_header.thumbnail('l', api=api) }}")
+	img.header(src="{{ project.picture_header.thumbnail('h', api=api) }}")
 
 | {% block navbar_secondary %}
 | {{ projectmacros.render_secondary_navigation(project, pages=pages) }}
