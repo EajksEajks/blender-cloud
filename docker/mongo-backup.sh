@@ -23,6 +23,6 @@ tar -Jcf $ARCHIVE dump-$DATE/
 rm -rf dump-$DATE
 
 TO_DELETE="$(ls $BACKUPDIR/mongo-live-*.tar.xz | head -n -7)"
-[ -z "$TO_DELETE" ] || rm -v $TO_DELETE
+[ -z "$TO_DELETE" ] || rm "$TO_DELETE"
 
-rsync -va $BACKUPDIR/mongo-live-*.tar.xz cloud-backup@swami-direct.blender.cloud:
+rsync -a $BACKUPDIR/mongo-live-*.tar.xz cloud-backup@swami-direct.blender.cloud:
