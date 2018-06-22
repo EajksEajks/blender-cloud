@@ -14,6 +14,18 @@ function install() {
 if [ "$1" == "watch" ]; then
     # Treat "gulp watch" as "gulp && gulp watch"
     $GULP
+elif [ "$1" == "all" ]; then
+    # This is useful when building the Blender Cloud project for the first time.
+    # Run "gulp" once inside the repo
+    $GULP
+    # Run ./gulp in all depending projects (pillar, attract, flamenco, pillar-svnman)
+    declare -a repos=("pillar" "attract" "flamenco" "pillar-svnman")
+    for r in "${repos[@]}"
+    do
+        cd ../$r
+        ./gulp
+    done
+    exit 1
 fi
 
 exec $GULP "$@"
