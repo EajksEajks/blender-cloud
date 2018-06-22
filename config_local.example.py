@@ -2,6 +2,8 @@ import os
 
 DEBUG = True
 
+BLENDER_ID_ENDPOINT = 'http://id.local:8000'
+
 SERVER_NAME = 'cloud.local:5001'
 SCHEME = 'http'
 PILLAR_SERVER_ENDPOINT = f'{SCHEME}://{SERVER_NAME}/api/'
@@ -19,7 +21,6 @@ OAUTH_CREDENTIALS = {
     'blender-id': {
         'id': 'CLOUD-OF-SNOWFLAKES-42',
         'secret': '##DEFINE##',
-        'base_url': 'http://id.local:8000/',
     }
 }
 
