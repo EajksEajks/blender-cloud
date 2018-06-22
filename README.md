@@ -25,11 +25,11 @@ git clone git://git.blender.org/blender-cloud.git
 
 ### Initial setup and configuration
 
-Switch to the (previously created) virtualenv for the project and install the requirements:
+Create a virtualenv for the project and install the requirements:
 
 ```
-cd /home/guest/Developer/blender-cloud
-workon blender-cloud
+cd blender-cloud
+mkvirtualenv blender-cloud -p python3.6
 pip install -r requirements-dev.txt
 ```
 
