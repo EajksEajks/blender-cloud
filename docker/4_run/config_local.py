@@ -28,7 +28,7 @@ CACHE_REDIS_URL = 'redis://redis:6379'
 
 PILLAR_SERVER_ENDPOINT = 'https://cloud.blender.org/api/'
 
-BLENDER_ID_ENDPOINT = 'https://www.blender.org/id/'
+BLENDER_ID_ENDPOINT = 'https://www.blender.org/id'
 
 GCLOUD_APP_CREDENTIALS = '/data/config/google_app.json'
 GCLOUD_PROJECT = 'blender-cloud'
