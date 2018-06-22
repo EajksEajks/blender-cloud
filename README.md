@@ -8,7 +8,7 @@ Jumpstart Blender Cloud development with this simple guide.
 
 ### System setup
 Blender Cloud relies on a number of services in order to run. Check out the [Pillar system setup](
-http://localhost:8000/development/system_setup/#step-by-step-setup) to set this up.
+https://pillarframework.org/development/system_setup/#step-by-step-setup) to set this up.
 
 ### Check out the code
 Go to the local development directory and check out the following repositories, next to each other.
