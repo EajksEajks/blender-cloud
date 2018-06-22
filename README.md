@@ -3,31 +3,71 @@
 Welcome to the [Blender Cloud](https://cloud.blender.org/) code repo!
 Blender Cloud runs on the [Pillar](https://pillarframework.org/) framework.
 
-## Quick setup
-Set up a node with these commands.
+## Development setup
+Jumpstart Blender Cloud development with this simple guide.
+
+### System setup
+Blender Cloud relies on a number of services in order to run. Check out the [Pillar system setup](
+http://localhost:8000/development/system_setup/#step-by-step-setup) to set this up.
+
+### Check out the code
+Go to the local development directory and check out the following repositories, next to each other.
 
 ```
-#!/usr/bin/env bash
-
-sudo mkdir -p /data/{git,storage,config,certs}
-sudo apt-get update
-sudo apt-get -y install python3-pip
-pip3 install docker-compose
-
-cd /data/git
+cd /home/guest/Developer
 git clone git://git.blender.org/pillar-python-sdk.git
-git clone git://git.blender.org/pillar.git -b production
-git clone git://git.blender.org/attract.git -b production
-git clone git://git.blender.org/flamenco.git -b production
-git clone git://git.blender.org/blender-cloud.git -b production
-git clone https://github.com/armadillica/grafista.git -b production
-
-echo '0 8 * * * root docker exec -d grafista bash manage.sh collect' > /etc/cron.d/grafista
-
+git clone git://git.blender.org/pillar.git
+git clone git://git.blender.org/attract.git
+git clone git://git.blender.org/flamenco.git
+git clone git://git.blender.org/pillar-svnman.git
+git clone git://git.blender.org/blender-cloud.git
 ```
 
-After these commands, run `deploy.sh` to build the static files and deploy
-those too (see below).
+### Initial setup and configuration
+
+Switch to the (previously created) virtualenv for the project and install the requirements:
+
+```
+cd /home/guest/Developer/blender-cloud
+workon blender-cloud
+pip install -r requirements-dev.txt
+```
+
+Build assets and templates for all Blender Cloud dependencies using Gulp.
+
+```
+./gulp all
+```
+
+Make a copy of the config_local example, which will be further edited as the application is
+configured.
+
+```
+cp config_local.example.py config_local.py
+```
+
+Setup the database with the initial collections and the admin user.
+
+```
+./manage.py setup setup_db your_email
+```
+
+The command will return the following message:
+
+```
+Created project <project_id> for user <user_id>
+```
+
+Copy the value of `<project_id>` and assign it as value for `MAIN_PROJECT_ID`.
+
+
+## Development
+
+When ready to commit, change the remotes to work over SSH. For example:
+
+`git remote set-url origin git@git.blender.org:blender-cloud.git`
+
+For more information, check out [this guide](https://wiki.blender.org/wiki/Tools/Git#Commit_Access).
 
 
 ## Preparing the production branch for deployment
