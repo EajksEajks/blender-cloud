@@ -10,6 +10,8 @@ Jumpstart Blender Cloud development with this simple guide.
 Blender Cloud relies on a number of services in order to run. Check out the [Pillar system setup](
 https://pillarframework.org/development/system_setup/#step-by-step-setup) to set this up.
 
+Add `cloud.local` to the `/etc/hosts` file on localhost. This is a development convention.
+
 ### Check out the code
 Go to the local development directory and check out the following repositories, next to each other.
 
@@ -59,6 +61,12 @@ Created project <project_id> for user <user_id>
 ```
 
 Copy the value of `<project_id>` and assign it as value for `MAIN_PROJECT_ID`.
+
+Run the application:
+
+```
+./manage.py runserver
+```
 
 
 ## Development
