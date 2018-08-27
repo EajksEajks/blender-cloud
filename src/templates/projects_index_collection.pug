@@ -9,13 +9,13 @@
 | {% if title == 'courses' %}
 | 	{% set page_title = 'Courses' %}
 | 	{% set page_description = 'Production quality training by 3D professionals' %}
-| 	{% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_caminandes_3_03.jpg') %}
+| 	{% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg') %}
 | 	{% set page_header_text = 'Character modeling, 3D printing, VFX, rigging and more.' %}
 
 | {% elif title == 'workshops' %}
 | 	{% set page_title = 'Workshops' %}
 | 	{% set page_description = 'Production quality training by 3D professionals' %}
-| 	{% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_caminandes_3_03.jpg') %}
+| 	{% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg') %}
 | 	{% set page_header_text = 'Enter the artist workshop and learn by example.' %}
 
 | {% endif %}
@@ -39,58 +39,63 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 | {% endblock %}
 
 | {% block body %}
+.jumbotron.jumbotron-overlay.text-white(style="background-image: url({{ page_header_image }})")
+	.container
+		.row
+			.col-md-8
+				.display-4.text-uppercase.font-weight-bold {{ page_title }}
+				.lead {{ page_header_text }}
 
-#project-container
+.container.pb-5
+	ul.nav.nav-secondary.justify-content-center.mb-5
+		li.nav-item.nav-title
+			| {% if title in ['courses', 'workshops'] %}Training{% else %}Open Projects{% endif %}
 
-	#node_index-container
-		#node_index-header.collection
-			img.background-header(src="{{ page_header_image }}")
-			#node_index-collection-info
-				.node_index-collection-name
-					span {{ page_title }}
-				.node_index-collection-description
-					span.
-						{{ page_header_text }}
+		li.nav-item
+			a.nav-link(
+				class="{% if title == 'workshops' %}active{% endif %}",
+				href="{{ url_for('cloud.workshops') }}") Workshops
+		li.nav-item
+			a.nav-link(
+				class="{% if title == 'courses' %}active{% endif %}",
+				href="{{ url_for('cloud.courses') }}") Courses
+		li.nav-item
+			a.nav-link(
+				class="{% if title == 'gallery' %}active{% endif %}",
+				href="{{ url_for('projects.view', project_url='gallery') }}") Art Gallery
 
-		.node_index-collection
+	.card-deck.card-padless.card-3-columns
+		| {% for project in projects %}
+		| {% if (project.status == 'published') or (project.status == 'pending' and current_user.is_authenticated) and project._id != config.MAIN_PROJECT_ID %}
+		.card.card-fade.cursor-pointer.mb-4.js-project-go(
+					data-url="{{ url_for('projects.view', project_url=project.url) }}",
+					tabindex="{{ loop.index }}")
+			| {% if project.picture_header %}
+			a(href="{{ url_for('projects.view', project_url=project.url) }}")
+				img.card-img-top.rounded-0(
+					src="{{ project.picture_header.thumbnail('l', api=api) }}", alt="{{ project.name }}")
+			| {% endif %}
 
-			| {% for project in projects %}
-			| {% if (project.status == 'published') or (project.status == 'pending' and current_user.is_authenticated) and project._id != config.MAIN_PROJECT_ID %}
-
-			.node_index-collection-card.project(
-				data-url="{{ url_for('projects.view', project_url=project.url) }}",
-				tabindex="{{ loop.index }}")
-				| {% if project.picture_header %}
-				a.item-header(
-					href="{{ url_for('projects.view', project_url=project.url) }}")
-					img(src="{{ project.picture_header.thumbnail('l', api=api) }}")
-				| {% endif %}
-
-				.item-info
-					a.item-title(
-						href="{{ url_for('projects.view', project_url=project.url) }}")
-						| {{project.name}}
-						| {% if project.status == 'pending' and current_user.is_authenticated and current_user.has_role('admin') %}
-						small (pending)
-						| {% endif %}
-
-					| {% if project.summary %}
-					p.item-description
-						| {{project.summary|safe}}
+			.card-body
+				h5.card-title
+					| {{ project.name }}
+					| {% if project.status == 'pending' and current_user.is_authenticated and current_user.has_role('admin') %}
+					small (pending)
 					| {% endif %}
 
-				a.learn-more LEARN MORE
-
-			| {% endif %}
-			| {% endfor %}
-
+				| {% if project.summary %}
+				p.card-text
+					| {{project.summary|safe}}
+				| {% endif %}
+		| {% endif %}
+		| {% endfor %}
 
 | {% endblock %}
 
 
 | {% block footer_scripts %}
 script.
-	$('.node_index-collection-card.project').on('click', function(e){
+	$('.js-project-go').on('click', function(e){
 		e.preventDefault();
 		window.location.href = $(this).data('url');
 	});
