@@ -51,7 +51,7 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 		| {{ navigation_tabs(title) }}
 
 		section.dashboard-in-production
-			h4 In Production
+			h6.section-title In Production
 			span.section-lead.
 				Check out these projects currently in production!
 
@@ -68,9 +68,9 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 
 		section.stream
 
-			h4 Latest Assets
+			h6.section-title Latest Assets
 
-			ul.activity-stream__list
+			ul.activity-stream__list.list-unstyled
 				| {% for n in activity_stream %}
 				li(
 					class="{{ n.node_type }} {{ n.properties.content_type }} {% if n.picture %}with-picture{% endif %}",
@@ -135,11 +135,11 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 
 
 		section.random-asset
-			h4
+			h6.section-title
 				a(href="/search") Explore the Cloud
 			span.section-lead Random selection of the best assets &amp; tutorials
 
-			ul.random-asset__list
+			ul.random-asset__list.list-unstyled
 				| {% for n in random_featured %}
 				| {% if n.picture and loop.first %}
 				li.random-asset__list-item.project
@@ -220,9 +220,9 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 
 		section.comments
 
-			h4 Latest Comments
+			h6.section-title Latest Comments
 
-			ul
+			ul.list-unstyled
 				| {% if latest_comments %}
 				| {% for n in latest_comments %}
 				li(

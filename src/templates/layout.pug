@@ -3,7 +3,7 @@ html(lang="en")
 	head
 		meta(charset="utf-8")
 		title {% if self.page_title() %}{% block page_title %}{% endblock %} — {% endif %}Blender Cloud
-		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
 		meta(name="description", content="Blender Cloud is a web based service developed by Blender Institute that allows people to access the training videos and all the data from the open projects.")
 		meta(name="author", content="Blender Institute")
 		meta(name="theme-color", content="#3e92aa")
@@ -50,7 +50,6 @@ html(lang="en")
 
 		| {% block css %}
 		link(href="{{ url_for('static_pillar', filename='assets/css/font-pillar.css') }}", rel="stylesheet")
-		link(href="{{ url_for('static_pillar', filename='assets/css/base.css') }}", rel="stylesheet")
 		| {% if title == 'blog' %}
 		link(href="{{ url_for('static_pillar', filename='assets/css/blog.css') }}", rel="stylesheet")
 		| {% else %}
@@ -58,14 +57,11 @@ html(lang="en")
 		| {% endif %}
 		| {% endblock css %}
 
-
-		| {% if not title %}{% set title="default" %}{% endif %}
-
+	| {% if not title %}{% set title="default" %}{% endif %}
 	body(class="{{ title }}")
 		.container-page
 			| {% with messages = get_flashed_messages(with_categories=True) %}
-			|		{% if messages %}
-
+			|	{% if messages %}
 			|	{% for (category, message) in messages %}
 			.alert(role="alert", class="alert-{{ category }}")
 				i.alert-icon(class="{{ category }}")
@@ -73,21 +69,25 @@ html(lang="en")
 				button.close(type="button", data-dismiss="alert")
 					i.pi-cancel
 			|	{% endfor %}
-
-			|		{% endif %}
+			|	{% endif %}
 			| {% endwith %}
 
-			nav.navbar
+			nav.navbar.navbar-expand-md
 				.navbar-container
-					header.navbar-header
-						button.navbar-toggle(data-target=".navbar-collapse", data-toggle="collapse", type="button")
-							span.sr-only Toggle navigation
+					//- header.navbar-header
+					a.navbar-brand(
+						href="{{ url_for('main.homepage') }}",
+						title="Blender Cloud")
+						span.app-logo
+							i.pi-blender-cloud-logo
+
+					button.navbar-toggler.text-light(
+						data-target=".navbar-collapse",
+						data-toggle="collapse",
+						type="button")
+						span.sr-only Toggle navigation
+						span.navbar-toggler-icon.d-flex.align-items-center
 							i.pi-menu
-						a.navbar-brand(
-							href="{{ url_for('main.homepage') }}",
-							title="Blender Cloud")
-							span.app-logo
-								i.pi-blender-cloud
 
 					| {% block navigation_search %}
 					.search-input
@@ -97,8 +97,8 @@ html(lang="en")
 						i.search-icon.pi-search
 					| {% endblock navigation_search %}
 
-					nav.collapse.navbar-collapse
-						ul.nav.navbar-nav.navbar-right
+					.collapse.navbar-collapse
+						ul.nav.navbar-nav.ml-auto
 							| {% if node and node.properties and node.properties.category %}
 							| {% set category = node.properties.category %}
 							| {% else %}
@@ -234,40 +234,95 @@ html(lang="en")
 				.container
 					.row
 						.col-md-4.col-xs-6
-							.footer-support
-								h4 Support & Feedback
-								p.
-									Let us know what you think or if you have any issues
-									just write to cloudsupport at blender dot org
-
-						.col-md-2.col-xs-6
-							ul.footer-social
-								li
-									a(href="https://www.facebook.com/BlenderCloudOfficial/",
-										title="Follow us on Facebook")
-										i.pi-social-facebook
-								li
-									a(href="https://twitter.com/Blender_Cloud",
-										title="Follow us on Twitter")
-										i.pi-social-twitter
-
-						.col-md-2.col-xs-6
 							h4
 								a(href="{{ url_for('main.homepage') }}")
-									| Blender Cloud
-							ul.footer-links
+									i.pi-blender-cloud-logo
+
+							p.pl-2.
+								Blender Cloud is the creative hub for your projects,
+								powered by Free and Open Source Software.
+
+							h5.d-flex
+								a.px-2(href="https://twitter.com/Blender_Cloud",
+									title="Follow us on Twitter")
+									i.pi-social-youtube
+
+								a.px-2(href="https://twitter.com/Blender_Cloud",
+									title="Follow us on Twitter")
+									i.pi-social-twitter
+
+								a.px-2(href="https://www.facebook.com/BlenderCloudOfficial/",
+									title="Follow us on Facebook")
+									i.pi-social-facebook
+
+						.col-md-2.col-xs-6
+							h7.font-weight-bold
+								| TRAINING
+
+							ul.list-unstyled
+								li
+									a(href="{{ url_for('cloud.courses') }}")
+										| Courses
+								li
+									a(href="{{ url_for('cloud.workshops') }}")
+										| Workshops
+								li
+									a(href="{{ url_for('projects.view', project_url='gallery') }}")
+										| Art Gallery
+
+						.col-md-2.col-xs-6
+							h7.font-weight-bold
+								| LIBRARIES
+
+							ul.list-unstyled
 								li
 									a(href="{{ url_for('main.main_blog') }}",
 										title="Blender Cloud Blog")
-										| Blog
+										| HDRIs
 								li
 									a(href="{{ url_for('cloud.services') }}",
 										title="Blender Cloud Services")
-										| Services
+										| Textures
 								li
 									a(href="{{ url_for('cloud.about') }}",
 										title="About Blender Cloud")
-										| About
+										| Characters
+
+						.col-md-2.col-xs-6
+							h7.font-weight-bold
+								a(href="{{ url_for('cloud.services') }}")
+									| SERVICES
+
+							ul.list-unstyled
+								li
+									a(href="{{ url_for('main.main_blog') }}",
+										title="Blender Cloud Blog")
+										| Add-on
+								li
+									a(href="{{ url_for('main.main_blog') }}",
+										title="Blender Cloud Blog")
+										| Blender Sync
+								li
+									a(href="{{ url_for('cloud.services') }}",
+										title="Blender Cloud Services")
+										| Attract
+								li
+									a(href="{{ url_for('cloud.about') }}",
+										title="About Blender Cloud")
+										| Flamenco
+								li
+									a(href="{{ url_for('cloud.about') }}",
+										title="About Blender Cloud")
+										| Image Sharing
+
+						.col-md-2.col-xs-6
+							h7.font-weight-bold
+								| BLENDER
+							ul.list-unstyled
+								li
+									a(href="{{ url_for('main.main_blog') }}",
+										title="Blender Cloud Blog")
+										| blender.org
 								li
 									a(href="{{ url_for('cloud.terms_and_conditions') }}",
 										title="Terms and Conditions")
@@ -276,26 +331,6 @@ html(lang="en")
 									a(href="{{ url_for('cloud.privacy') }}",
 									title="Privacy")
 										| Privacy
-
-						.col-md-2.col-xs-6
-							h4
-								a(href="https://www.blender.org",
-									title="Blender official Website")
-									| Blender
-							ul.footer-links
-								li
-									a(href="https://www.blender.org",
-										title="Blender official Website")
-										| Blender.org
-								li
-									a(href="https://store.blender.org/",
-										title="The official Blender Store")
-										| Blender Store
-
-						.col-md-2.col-xs-6.special
-							| With the support of the <br/> MEDIA Programme of the European Union<br/><br/>
-							img(alt="MEDIA Programme of the European Union",
-									src="https://gooseberry.blender.org/wp-content/uploads/2014/01/media_programme.png")
 			| {% endblock footer_navigation %}
 
 			| {% block footer %}

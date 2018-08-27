@@ -33,7 +33,7 @@
 
 	section.dashboard-main,
 	section.dashboard-secondary
-		h4
+		.section-title
 			padding-bottom: 5px
 			margin-bottom: 20px
 			position: relative
@@ -139,11 +139,8 @@
 		border-bottom: thin solid $color-background-dark
 
 		ul.activity-stream__list
-			list-style: none
-			margin: 0
-			padding: 0
-
 			$activity-stream-thumbnail-size: 110px
+
 			> li
 				position: relative
 				display: flex
@@ -180,17 +177,6 @@
 								transition: font-size 100ms ease-in-out
 
 				&.comment
-					.activity-stream__list-thumbnail
-						background: transparent
-						color: $node-type-comment
-						font-size: 1.2em
-						box-shadow: none
-
-						i
-							+position-center-translate
-							left: 22px
-							top: 19px
-
 					.activity-stream__list-details
 						padding: 0
 						.title
@@ -300,7 +286,6 @@
 					overflow: hidden
 					position: relative
 					max-width: 100%
-					margin-right: auto
 					padding: 10px 0
 
 					+media-xs
@@ -310,18 +295,14 @@
 						+ribbon
 						right: -47px
 						top: 5px
-						font:
-							size: 12px
-							weight: 500
+						font-size: 12px
 
 						span
 							padding: 1px 50px
 
 					.title
-						display: inline-block
 						padding: 0 10px
 						color: $color-text-dark
-						font-size: 1.1em
 
 						span
 							@include badge(hsl(hue($color-success), 60%, 45%), 3px)
@@ -653,10 +634,6 @@ section.announcement
 
 		.title
 			padding-bottom: 10px
-			font:
-				family: $font-body
-				size: 1.4em
-				weight: 300
 
 			+media-xs
 				font-size: 1.4em
