@@ -29,6 +29,7 @@ var destination = {
     js: 'cloud/static/assets/js',
 }
 
+var pillar = '../pillar/';
 
 /* CSS */
 gulp.task('styles', function() {
@@ -103,6 +104,8 @@ gulp.task('watch',function() {
     }
 
     gulp.watch('src/styles/**/*.sass',['styles']);
+    gulp.watch(pillar + 'src/styles/**/*.sass',['styles']);
+
     gulp.watch('src/templates/**/*.pug',['templates']);
     gulp.watch('src/scripts/*.js',['scripts']);
     gulp.watch('src/scripts/tutti/**/*.js',['scripts_concat_tutti']);
