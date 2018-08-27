@@ -46,7 +46,6 @@ html(lang="en")
 		link(href="{{ url_for('static', filename='assets/img/favicon.png') }}", rel="shortcut icon")
 		link(href="{{ url_for('static', filename='assets/img/apple-touch-icon-precomposed.png') }}", rel="icon apple-touch-icon-precomposed", sizes="192x192")
 
-		link(href="{{ url_for('static_pillar', filename='assets/css/vendor/bootstrap.min.css') }}", rel="stylesheet")
 		link(href="{{ url_for('static', filename='assets/google-font-roboto/roboto.css') }}", rel="stylesheet")
 
 		| {% block head %}{% endblock %}
@@ -318,10 +317,10 @@ html(lang="en")
 					span.nc-date
 						a(href="")
 
+		script(src="{{ url_for('static_cloud', filename='assets/js/bootstrap.min.js') }}")
 		noscript
 			link(href='//fonts.googleapis.com/css?family=Roboto:300,400', rel='stylesheet', type='text/css')
 
-		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.bootstrap-3.3.7.min.js') }}")
 
 		| {% if current_user.is_authenticated %}
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.typewatch-3.0.0.min.js') }}")

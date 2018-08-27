@@ -29,7 +29,12 @@ var destination = {
     js: 'cloud/static/assets/js',
 }
 
-var pillar = '../pillar/';
+var source = {
+    pillar: '../pillar/',
+    bootstrap: 'node_modules/bootstrap/',
+    popper: 'node_modules/popper.js/'
+}
+
 
 /* CSS */
 gulp.task('styles', function() {
@@ -95,6 +100,28 @@ gulp.task('scripts_concat_tutti', function() {
 });
 
 
+// Combine all needed Bootstrap JavaScript into a single file.
+gulp.task('scripts_concat_bootstrap', function() {
+
+    toUglify = [
+        source.popper    + 'dist/umd/popper.min.js',
+        source.bootstrap + 'js/dist/index.js',
+        source.bootstrap + 'js/dist/util.js',
+        source.bootstrap + 'js/dist/tooltip.js',
+        source.bootstrap + 'js/dist/dropdown.js',
+    ];
+
+    gulp.src(toUglify)
+        .pipe(gulpif(enabled.failCheck, plumber()))
+        .pipe(gulpif(enabled.maps, sourcemaps.init()))
+        .pipe(concat("bootstrap.min.js"))
+        .pipe(gulpif(enabled.uglify, uglify()))
+        .pipe(gulpif(enabled.maps, sourcemaps.write(".")))
+        .pipe(chmod(644))
+        .pipe(gulp.dest(destination.js))
+        .pipe(gulpif(argv.livereload, livereload()));
+});
+
 
 // While developing, run 'gulp watch'
 gulp.task('watch',function() {
@@ -104,7 +131,7 @@ gulp.task('watch',function() {
     }
 
     gulp.watch('src/styles/**/*.sass',['styles']);
-    gulp.watch(pillar + 'src/styles/**/*.sass',['styles']);
+    gulp.watch(source.pillar + 'src/styles/**/*.sass',['styles']);
 
     gulp.watch('src/templates/**/*.pug',['templates']);
     gulp.watch('src/scripts/*.js',['scripts']);
@@ -128,4 +155,5 @@ gulp.task('cleanup', function() {
 // Run 'gulp' to build everything at once
 var tasks = [];
 if (enabled.cleanup) tasks.push('cleanup');
-gulp.task('default', tasks.concat(['styles', 'templates', 'scripts', 'scripts_concat_tutti']));
+
+gulp.task('default', tasks.concat(['styles', 'templates', 'scripts', 'scripts_concat_tutti', 'scripts_concat_bootstrap']));

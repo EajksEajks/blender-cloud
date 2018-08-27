@@ -6,6 +6,7 @@ __pycache__
 
 /cloud/templates/
 /cloud/static/assets/css/
+/cloud/static/assets/js/bootstrap.min.js
 node_modules/
 
 /config_local.py
