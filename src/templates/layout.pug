@@ -72,151 +72,149 @@ html(lang="en")
 			|	{% endif %}
 			| {% endwith %}
 
-			nav.navbar.navbar-expand-md
-				.navbar-container
-					//- header.navbar-header
-					a.navbar-brand(
-						href="{{ url_for('main.homepage') }}",
-						title="Blender Cloud")
-						span.app-logo
-							i.pi-blender-cloud-logo
+			nav.navbar.navbar-expand-md.fixed-top
+				a.navbar-brand(
+					href="{{ url_for('main.homepage') }}",
+					title="Blender Cloud")
+					span.app-logo
+						i.pi-blender-cloud-logo
 
-					button.navbar-toggler.text-light(
-						data-target=".navbar-collapse",
-						data-toggle="collapse",
-						type="button")
-						span.sr-only Toggle navigation
-						span.navbar-toggler-icon.d-flex.align-items-center
-							i.pi-menu
+				button.navbar-toggler.text-light(
+					data-target=".navbar-collapse",
+					data-toggle="collapse",
+					type="button")
+					span.sr-only Toggle navigation
+					span.navbar-toggler-icon.d-flex.align-items-center
+						i.pi-menu
 
-					| {% block navigation_search %}
-					.search-input
-						input#cloud-search(
-							type="text",
-							placeholder="Search assets, tutorials...")
-						i.search-icon.pi-search
-					| {% endblock navigation_search %}
+				| {% block navigation_search %}
+				.search-input
+					input#cloud-search(
+						type="text",
+						placeholder="Search assets, tutorials...")
+					i.search-icon.pi-search
+				| {% endblock navigation_search %}
 
-					.collapse.navbar-collapse
-						ul.nav.navbar-nav.ml-auto
-							| {% if node and node.properties and node.properties.category %}
-							| {% set category = node.properties.category %}
-							| {% else %}
-							| {% set category = title %}
-							| {% endif %}
+				.collapse.navbar-collapse
+					ul.navbar-nav.ml-auto
+						| {% if node and node.properties and node.properties.category %}
+						| {% set category = node.properties.category %}
+						| {% else %}
+						| {% set category = title %}
+						| {% endif %}
 
-							| {% block navigation_sections %}
-							li
-								a.navbar-item(
-									href="{{ url_for('main.main_blog') }}",
-									title="Blender Cloud Blog",
-									data-toggle="tooltip",
-									data-placement="bottom",
-									class="{% if category == 'blog' %}active{% endif %}")
-									span Blog
+						| {% block navigation_sections %}
+						li
+							a.navbar-item(
+								href="{{ url_for('main.main_blog') }}",
+								title="Blender Cloud Blog",
+								data-toggle="tooltip",
+								data-placement="bottom",
+								class="{% if category == 'blog' %}active{% endif %}")
+								span Blog
 
-							li(class="dropdown libraries")
-								a.navbar-item.dropdown-toggle(
-									href="",
-									data-toggle="dropdown",
-									title="Libraries")
-									span Libraries
-									i.pi-angle-down
-
-								ul.dropdown-menu
-									li
-										a.navbar-item(
-											href="{{ url_for('projects.view', project_url='hdri') }}",
-											title="HDRI Library",
-											data-toggle="tooltip",
-											data-placement="left")
-											i.pi-globe
-											| HDRI
-									li
-										a.navbar-item(
-											href="{{ url_for('projects.view', project_url='textures') }}",
-											title="Textures Library",
-											data-toggle="tooltip",
-											data-placement="left")
-											i.pi-folder-texture
-											| Textures
-									li
-										a.navbar-item(
-											href="{{ url_for('projects.view', project_url='characters') }}",
-											title="Character Library",
-											data-toggle="tooltip",
-											data-placement="left")
-											i.pi-character
-											| Characters
-
-
-							li(class="dropdown libraries")
-								a.navbar-item.dropdown-toggle(
+						li.dropdown
+							a.navbar-item.dropdown-toggle(
 								href="",
 								data-toggle="dropdown",
-								title="Training")
-									span Training
-									i.pi-angle-down
+								title="Libraries")
+								span Libraries
+								i.pi-angle-down
 
-								ul.dropdown-menu
-									li
-										a.navbar-item(
-										href="{{ url_for('cloud.courses') }}",
-										title="Courses",
+							ul.dropdown-menu.p-0
+								li
+									a.navbar-item(
+										href="{{ url_for('projects.view', project_url='hdri') }}",
+										title="HDRI Library",
 										data-toggle="tooltip",
 										data-placement="left")
-											i.pi-graduation-cap
-											| Courses
-									li
-										a.navbar-item(
-										href="{{ url_for('cloud.workshops') }}",
-										title="Workshops",
+										i.pi-globe
+										| HDRI
+								li
+									a.navbar-item(
+										href="{{ url_for('projects.view', project_url='textures') }}",
+										title="Textures Library",
 										data-toggle="tooltip",
 										data-placement="left")
-											i.pi-lightbulb
-											| Workshops
-									li
-										a.navbar-item(
-										href="{{ url_for('projects.view', project_url='gallery') }}",
-										title="Curated artwork collection",
+										i.pi-folder-texture
+										| Textures
+								li
+									a.navbar-item(
+										href="{{ url_for('projects.view', project_url='characters') }}",
+										title="Character Library",
 										data-toggle="tooltip",
 										data-placement="left")
-											i.pi-image
-											| Art Gallery
+										i.pi-character
+										| Characters
 
-							li
-								a.navbar-item(
-									href="{{ url_for('cloud.open_projects') }}",
-									title="Browse all the Open Projects",
+
+						li(class="dropdown libraries")
+							a.navbar-item.dropdown-toggle(
+							href="",
+							data-toggle="dropdown",
+							title="Training")
+								span Training
+								i.pi-angle-down
+
+							ul.dropdown-menu
+								li
+									a.navbar-item(
+									href="{{ url_for('cloud.courses') }}",
+									title="Courses",
 									data-toggle="tooltip",
-									data-placement="bottom",
-									class="{% if category in ['open-projects', 'film'] %}active{% endif %}")
-									span Open Projects
-							li
-								a.navbar-item(
-									href="{{ url_for('cloud.services') }}",
-									title="Blender Cloud Services",
+									data-placement="left")
+										i.pi-graduation-cap
+										| Courses
+								li
+									a.navbar-item(
+									href="{{ url_for('cloud.workshops') }}",
+									title="Workshops",
 									data-toggle="tooltip",
-									data-placement="bottom",
-									class="{% if category == 'services' %}active{% endif %}")
-									span Services
-							| {% endblock navigation_sections %}
+									data-placement="left")
+										i.pi-lightbulb
+										| Workshops
+								li
+									a.navbar-item(
+									href="{{ url_for('projects.view', project_url='gallery') }}",
+									title="Curated artwork collection",
+									data-toggle="tooltip",
+									data-placement="left")
+										i.pi-image
+										| Art Gallery
+
+						li
+							a.navbar-item(
+								href="{{ url_for('cloud.open_projects') }}",
+								title="Browse all the Open Projects",
+								data-toggle="tooltip",
+								data-placement="bottom",
+								class="{% if category in ['open-projects', 'film'] %}active{% endif %}")
+								span Open Projects
+						li
+							a.navbar-item(
+								href="{{ url_for('cloud.services') }}",
+								title="Blender Cloud Services",
+								data-toggle="tooltip",
+								data-placement="bottom",
+								class="{% if category == 'services' %}active{% endif %}")
+								span Services
+						| {% endblock navigation_sections %}
 
 
-							| {% if current_user.is_anonymous %}
-							li
-								a.navbar-item(
-									href="https://store.blender.org/product/membership/",
-									title="Sign up") Sign up
-							| {% endif %}
+						| {% if current_user.is_anonymous %}
+						li
+							a.navbar-item(
+								href="https://store.blender.org/product/membership/",
+								title="Sign up") Sign up
+						| {% endif %}
 
 
-							| {% block navigation_user %}
+						| {% block navigation_user %}
 
-							| {% include 'menus/notifications.html' %}
-							| {% include 'menus/user.html' %}
+						| {% include 'menus/notifications.html' %}
+						| {% include 'menus/user.html' %}
 
-							| {% endblock navigation_user %}
+						| {% endblock navigation_user %}
 
 
 			.page-content
