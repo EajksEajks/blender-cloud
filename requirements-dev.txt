@@ -9,3 +9,4 @@
 -e ../attract
 -e ../flamenco
 -e ../pillar-svnman
+-e .
