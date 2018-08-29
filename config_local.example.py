@@ -2,7 +2,7 @@ import os
 
 DEBUG = True
 
-BLENDER_ID_ENDPOINT = 'http://id.local:8000'
+BLENDER_ID_ENDPOINT = 'http://id.local:8000/'
 
 SERVER_NAME = 'cloud.local:5001'
 SCHEME = 'http'
