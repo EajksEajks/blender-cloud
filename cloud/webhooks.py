@@ -7,8 +7,7 @@ import json
 import logging
 import typing
 
-from flask_login import request
-from flask import Blueprint
+from flask import Blueprint, request
 import werkzeug.exceptions as wz_exceptions
 
 from pillar import current_app
