@@ -1,3 +1,4 @@
+#!/bin/sh
 
 if [ -f /installed ]; then
     return
