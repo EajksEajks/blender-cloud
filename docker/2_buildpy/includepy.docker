@@ -1,5 +1,5 @@
 FROM pillar_base
-LABEL maintainer Sybren A. Stüvel <sybren@blender.studio>
+LABEL maintainer="Sybren A. Stüvel <sybren@blender.studio>"
 
 ADD python /opt/python
 

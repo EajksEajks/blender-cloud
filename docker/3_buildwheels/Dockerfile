@@ -1,7 +1,9 @@
 FROM armadillica/pillar_py:3.6
-LABEL maintainer Sybren A. Stüvel <sybren@blender.studio>
+LABEL maintainer="Sybren A. Stüvel <sybren@blender.studio>"
 
-RUN apt-get update && apt-get install -qy \
+RUN set -ex; \
+    apt-get update; \
+    DEBIAN_FRONTEND=noninteractive apt-get install -qy \
     git \
     build-essential \
     checkinstall \

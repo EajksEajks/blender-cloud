@@ -1,17 +1,19 @@
 FROM armadillica/pillar_py:3.6
-LABEL maintainer Sybren A. Stüvel <sybren@blender.studio>
+LABEL maintainer="Sybren A. Stüvel <sybren@blender.studio>"
 
-RUN apt-get update && apt-get install -qyy \
--o APT::Install-Recommends=false -o APT::Install-Suggests=false \
-git \
-apache2 \
-libapache2-mod-xsendfile \
-libjpeg8 \
-libtiff5 \
-ffmpeg \
-rsyslog logrotate \
-nano vim-tiny curl \
-&& rm -rf /var/lib/apt/lists/*
+RUN set -ex; \
+    apt-get update; \
+    DEBIAN_FRONTEND=noninteractive apt-get install -qy \
+    -o APT::Install-Recommends=false -o APT::Install-Suggests=false \
+        git \
+        apache2 \
+        libapache2-mod-xsendfile \
+        libjpeg8 \
+        libtiff5 \
+        ffmpeg \
+        rsyslog logrotate \
+        nano vim-tiny curl; \
+    rm -rf /var/lib/apt/lists/*
 
 RUN ln -s /usr/bin/vim.tiny /usr/bin/vim
 
