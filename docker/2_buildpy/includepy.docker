@@ -10,5 +10,4 @@ RUN echo Python is installed in /opt/python/ > README.python
 ENV PATH=/opt/python/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 RUN cd /opt/python/bin && \
-    ln -s python3 python && \
-    ln -s pip3 pip
+    ln -s python3 python

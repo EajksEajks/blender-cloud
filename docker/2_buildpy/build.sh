@@ -34,6 +34,9 @@ make -j8 install
 # Make sure we can run Python
 ldconfig
 
+# Upgrade pip
+/opt/python/bin/python3 -m pip install -U pip
+
 # Build mod-wsgi-py3 for Python 3.6
 cd /dpkg/mod-wsgi-*
 ./configure --with-python=/opt/python/bin/python3
