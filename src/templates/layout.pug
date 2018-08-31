@@ -199,22 +199,17 @@ html(lang="en")
 							span Services
 					| {% endblock navigation_sections %}
 
+					| {% block navigation_user %}
+					| {% include 'menus/notifications.html' %}
+					| {% include 'menus/user.html' %}
+					| {% endblock navigation_user %}
 
 					| {% if current_user.is_anonymous %}
-					li
-						a.navbar-item(
+					li.pt-1
+						a.btn.btn-sm.btn-primary.px-3.mx-1(
 							href="https://store.blender.org/product/membership/",
 							title="Sign up") Sign up
 					| {% endif %}
-
-
-					| {% block navigation_user %}
-
-					| {% include 'menus/notifications.html' %}
-					| {% include 'menus/user.html' %}
-
-					| {% endblock navigation_user %}
-
 
 		.page-content
 			#search-overlay
