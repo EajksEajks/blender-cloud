@@ -1,4 +1,5 @@
 | {% extends 'layout.html' %}
+include mixins/components
 
 | {# Default case is Open Projects #}
 | {% set page_title = 'Open Projects' %}
@@ -39,37 +40,31 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 | {% endblock %}
 
 | {% block body %}
-.jumbotron.jumbotron-overlay.text-white(style="background-image: url({{ page_header_image }})")
-	.container
-		.row
-			.col-md-8
-				.display-4.text-uppercase.font-weight-bold {{ page_title }}
-				.lead {{ page_header_text }}
+
++jumbotron("{{ page_title }}", "{{ page_header_text }}", "{{ page_header_image }}")
 
 .container.pb-5
-	ul.nav.nav-secondary.justify-content-center.mb-5
-		li.nav-item.nav-title
-			| {% if title in ['courses', 'workshops'] %}Training{% else %}Open Projects{% endif %}
-
-		li.nav-item
-			a.nav-link(
+	+nav-secondary("{% if title in ['courses', 'workshops'] %}Training{% else %}Open Projects{% endif %}")
+		+nav-secondary-link(
 				class="{% if title == 'workshops' %}active{% endif %}",
-				href="{{ url_for('cloud.workshops') }}") Workshops
-		li.nav-item
-			a.nav-link(
-				class="{% if title == 'courses' %}active{% endif %}",
-				href="{{ url_for('cloud.courses') }}") Courses
-		li.nav-item
-			a.nav-link(
-				class="{% if title == 'gallery' %}active{% endif %}",
-				href="{{ url_for('projects.view', project_url='gallery') }}") Art Gallery
+				href="{{ url_for('cloud.workshops') }}")
+			| Workshops
 
-	.card-deck.card-padless.card-3-columns
+		+nav-secondary-link(
+				class="{% if title == 'courses' %}active{% endif %}",
+				href="{{ url_for('cloud.courses') }}")
+			| Courses
+
+		+nav-secondary-link(
+				class="{% if title == 'gallery' %}active{% endif %}",
+				href="{{ url_for('projects.view', project_url='gallery') }}")
+			| Art Gallery
+
+	+card-deck(3)
 		| {% for project in projects %}
+
 		| {% if (project.status == 'published') or (project.status == 'pending' and current_user.is_authenticated) and project._id != config.MAIN_PROJECT_ID %}
-		.card.card-fade.cursor-pointer.mb-4.js-project-go(
-					data-url="{{ url_for('projects.view', project_url=project.url) }}",
-					tabindex="{{ loop.index }}")
+		+card(data-url="{{ url_for('projects.view', project_url=project.url) }}", tabindex='{{ loop.index }}')
 			| {% if project.picture_header %}
 			a(href="{{ url_for('projects.view', project_url=project.url) }}")
 				img.card-img-top.rounded-0(

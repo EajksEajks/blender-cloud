@@ -1,6 +1,7 @@
 | {% extends 'layout.html' %}
 | {% block page_title %}Services{% endblock %}
 | {% set title = 'services' %}
+include mixins/components
 
 | {% block og %}
 meta(property="og:type", content="website")
@@ -20,17 +21,10 @@ meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/ba
 | {% endblock %}
 
 | {% block body %}
-.jumbotron.jumbotron-overlay.text-white.mb-1(style="background-image: url({{ url_for('static', filename='assets/img/backgrounds/services_projects.jpg')}})")
-	.container
-		.row
-			.col-md-8
-				.display-4.text-uppercase.font-weight-bold
-					| Services
-				.lead.
-					On Blender Cloud you can create and share personal projects, access our texture and HDRI
-					library (or create your own), keep track of your production, manage your renders and much more!
+- var header_text = "On Blender Cloud you can create and share personal projects, access our texture and HDRI library (or create your own), keep track of your production, manage your renders and much more!";
++jumbotron("Services", header_text, "{{ url_for('static', filename='assets/img/backgrounds/services_projects.jpg')}}")
 
-- var addon_text = 'Available through the <a href="{{ url_for(\'cloud.services\') }}#blender-cloud-add-on">Blender Cloud add-on</a>'
+- var addon_text = 'Available through the <a href="{{ url_for(\'cloud.services\') }}#blender-cloud-add-on">Blender Cloud add-on</a>';
 section#blender-cloud-add-on.page-card
 	.page-card-side
 		h2.page-card-title
@@ -45,7 +39,7 @@ section#blender-cloud-add-on.page-card
 
 			small Blender Cloud add-on requires Blender 2.78 or newer
 
-		a.btn-success(
+		a.btn.btn-outline-success(
 			href="https://cloud.blender.org/r/downloads/blender_cloud-latest-addon.zip")
 			i.pi-download
 			| Download add-on &nbsp;<small>v</small> {{ config.BLENDER_CLOUD_ADDON_VERSION }}
@@ -88,7 +82,7 @@ section#texture-browser.page-card.right
 
 			.tip !{addon_text}
 
-		a.btn-success.js-watch-video(
+		a.btn.btn-outline-success.js-watch-video(
 			href="https://www.youtube.com/watch?v=-srXYv2Osjw",
 			data-youtube-id="-srXYv2Osjw")
 			i.pi-play
@@ -108,7 +102,7 @@ section#image-sharing.page-card.right
 
 			.tip !{addon_text}
 
-		a.btn-success.js-watch-video(
+		a.btn.btn-outline-success.js-watch-video(
 			href="https://www.youtube.com/watch?v=yvtqeMBOAyk",
 			data-youtube-id="yvtqeMBOAyk")
 			i.pi-play
@@ -146,7 +140,7 @@ section#attract.page-card.right
 		.page-card-summary.
 			Production-management software for your film, game, or commercial projects.
 
-		a.btn-success.js-watch-video(
+		a.btn.btn-outline-success.js-watch-video(
 			href="https://www.youtube.com/watch?v=b9x1rlyyt_o",
 			data-youtube-id="b9x1rlyyt_o")
 			i.pi-play
@@ -169,7 +163,7 @@ section#flamenco.page-card.right
 		.page-card-summary.
 			Take control of your computing infrastructure and get things done.
 
-		a.btn-success.js-watch-video(
+		a.btn.btn-outline-success.js-watch-video(
 			href="https://www.youtube.com/watch?v=7cnFKhsM67Q",
 			data-youtube-id="7cnFKhsM67Q")
 			i.pi-play
