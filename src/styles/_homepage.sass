@@ -113,27 +113,6 @@
 						border-color: $color-background-light
 						pointer-events: none
 
-			li.create
-				cursor: pointer
-				display: inline-block
-				float: right
-				font:
-					size: 1.2em
-					weight: 400
-				padding: 5px 10px
-				margin-top: 3px
-
-				a
-					color: $color-success
-					text-decoration: none
-
-				&.disabled
-					cursor: wait
-					border-color: $color-success
-					opacity: .8
-					a
-						cursor: wait
-
 	section.stream
 		background-color: white
 		border-bottom: thin solid $color-background-dark
@@ -669,35 +648,6 @@ section.announcement
 			align-items: center
 			justify-content: space-around
 			flex-wrap: wrap
-
-			a
-				+button($color-text-light, 3px)
-				padding: 5px 0
-				margin:
-					bottom: 5px
-					right: auto
-					left: auto
-				font-size: .9em
-				opacity: 1
-				flex: 1
-
-				+media-xs
-					margin: 10px auto
-					width: 100%
-
-				&:first-child
-					margin-right: 15px
-
-				&.blue
-					+button(hsl(hue($color-info), 60%, 45%), 3px)
-
-				&.orange
-					+button(hsl(hue($color-secondary), 50%, 50%), 3px)
-					padding: 5px 15px
-
-				&.green
-					+button(hsl(hue($color-success), 60%, 40%), 3px, true)
-
 
 section.dashboard-in-production
 	.in-production-project
