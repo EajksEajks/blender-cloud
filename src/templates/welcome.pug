@@ -70,7 +70,7 @@ li.nav-item-sign-in
 						improve it for everyone's benefit.
 
 			.page-card-side
-				a.page-card-image(href="https://cloud.blender.org/p/caminandes-3/56bdacccc379cf00797160b0", target="_blank")
+				a.page-card-image(href="/p/caminandes-3/56bdacccc379cf00797160b0", target="_blank")
 					video(autoplay, loop)
 						source(src="{{ url_for('static', filename='assets/img/features/animation_review_01.mp4')}}")
 
@@ -92,7 +92,7 @@ li.nav-item-sign-in
 						Access high quality content, organized in
 						#[a(href="{{ url_for('cloud.courses') }}") classes],
 						#[a(href="{{ url_for('cloud.workshops') }}") workshop] and the
-						#[a(href="https://cloud.blender.org/p/gallery") art gallery],
+						#[a(href="/p/gallery") art gallery],
 						a curated artwork selection, where you can open a
 						.blend file and see how it was made.
 
@@ -108,7 +108,7 @@ li.nav-item-sign-in
 						| See #[a.learn(href="{{ url_for('cloud.courses') }}") Courses] & #[a.learn(href="{{ url_for('cloud.courses') }}") Workshops]
 
 			.page-card-side
-				a.page-card-image(href="https://cloud.blender.org/p/scripting-for-artists/")
+				a.page-card-image(href="/p/scripting-for-artists/")
 					img(
 						alt="Sybren teaches Python Scripting with Blender",
 						src="{{ url_for('static', filename='assets/img/backgrounds/background_sybren_01.jpg')}}")
@@ -121,7 +121,7 @@ li.nav-item-sign-in
 		.page-triplet-container.homepage
 			.row
 				.col-md-4
-					.triplet-card(data-url="https://cloud.blender.org/p/minecraft-animation-workshop/")
+					.triplet-card(data-url="/p/minecraft-animation-workshop/")
 						.triplet-card-thumbnail
 							img(
 								alt="Textures",
@@ -130,11 +130,11 @@ li.nav-item-sign-in
 							h3 Minecraft Animation
 							p.
 								Learn how to make animations with this workshop by Dillon Gu.
-							a.triplet-cta(href="https://cloud.blender.org/p/minecraft-animation-workshop/")
+							a.triplet-cta(href="/p/minecraft-animation-workshop/")
 								| LEARN MORE
 
 				.col-md-4
-					.triplet-card(data-url="https://cloud.blender.org/p/motion-graphics/")
+					.triplet-card(data-url="/p/motion-graphics/")
 						.triplet-card-thumbnail
 							img(
 								alt="HDRI",
@@ -143,11 +143,11 @@ li.nav-item-sign-in
 							h3 Motion Graphics
 							p.
 								A comprehensive guide to motion graphics techniques using Blender.
-							a.triplet-cta(href="https://cloud.blender.org/p/motion-graphics/")
+							a.triplet-cta(href="/p/motion-graphics/")
 								| LEARN MORE
 
 				.col-md-4
-					.triplet-card(data-url="https://cloud.blender.org/p/gallery")
+					.triplet-card(data-url="/p/gallery")
 						.triplet-card-thumbnail
 							img(
 								alt="Characters",
@@ -156,25 +156,25 @@ li.nav-item-sign-in
 							h3 Art Walk-throughs
 							p.
 								Follow the creative process and techniques behind stunning artwork.
-							a.triplet-cta(href="https://cloud.blender.org/p/gallery")
+							a.triplet-cta(href="/p/gallery")
 								| LEARN MORE
 
 			.row.training-other
 				.col-md-10.col-md-offset-1
 					p.
 						Other training:
-						#[a(href="https://cloud.blender.org/p/toon-character-workflow/") Toon Character Workflow],
-						#[a(href="https://cloud.blender.org/p/3d-printing/") Blender for 3D Printing],
-						#[a(href="https://cloud.blender.org/p/game-asset-creation/") Game Asset Creation],
-						#[a(href="https://cloud.blender.org/p/blenderella/") Character Modeling],
-						#[a(href="https://cloud.blender.org/p/character-animation/") Character Animation],
-						#[a(href="https://cloud.blender.org/p/humane-rigging/") Introduction] and
-						#[a(href="https://cloud.blender.org/p/blenrig/") Advanced Rigging],
-						#[a(href="https://cloud.blender.org/p/track-match-2/") VFX Workflow],
-						#[a(href="https://cloud.blender.org/p/creature-factory-2/") Creature] and
-						#[a(href="https://cloud.blender.org/p/venoms-lab-2/") Cartoon Character creation],
-						#[a(href="https://cloud.blender.org/p/chaos-evolution/") Advanced]
-						#[a(href="https://cloud.blender.org/p/blend-and-paint/") Digital Painting] and
+						#[a(href="/p/toon-character-workflow/") Toon Character Workflow],
+						#[a(href="/p/3d-printing/") Blender for 3D Printing],
+						#[a(href="/p/game-asset-creation/") Game Asset Creation],
+						#[a(href="/p/blenderella/") Character Modeling],
+						#[a(href="/p/character-animation/") Character Animation],
+						#[a(href="/p/humane-rigging/") Introduction] and
+						#[a(href="/p/blenrig/") Advanced Rigging],
+						#[a(href="/p/track-match-2/") VFX Workflow],
+						#[a(href="/p/creature-factory-2/") Creature] and
+						#[a(href="/p/venoms-lab-2/") Cartoon Character creation],
+						#[a(href="/p/chaos-evolution/") Advanced]
+						#[a(href="/p/blend-and-paint/") Digital Painting] and
 						#[a(href="{{ url_for('cloud.courses') }}") much more]!
 
 
@@ -215,7 +215,7 @@ li.nav-item-sign-in
 		.page-triplet-container.homepage
 			.row
 				.col-md-4
-					.triplet-card(data-url="https://cloud.blender.org/p/hero/")
+					.triplet-card(data-url="/p/hero/")
 						.triplet-card-thumbnail
 							img(
 								alt="Hero",
@@ -224,11 +224,11 @@ li.nav-item-sign-in
 							h3 Hero
 							p.
 								The first ever Grease Pencil open movie made with Blender 2.8
-							a.triplet-cta(href="https://cloud.blender.org/p/hero/")
+							a.triplet-cta(href="/p/hero/")
 								| LEARN MORE
 
 				.col-md-4
-					.triplet-card(data-url="https://cloud.blender.org/p/spring/")
+					.triplet-card(data-url="/p/spring/")
 						.triplet-card-thumbnail
 							img(
 								alt="Spring",
@@ -237,11 +237,11 @@ li.nav-item-sign-in
 							h3 Spring
 							p.
 								A poetic fantasy film. #[br] A stunning visual journey.
-							a.triplet-cta(href="https://cloud.blender.org/p/spring/")
+							a.triplet-cta(href="/p/spring/")
 								| LEARN MORE
 
 				.col-md-4
-					.triplet-card(data-url="https://cloud.blender.org/p/caminandes-3/")
+					.triplet-card(data-url="/p/caminandes-3/")
 						.triplet-card-thumbnail
 							img(
 								alt="Caminandes",
@@ -250,21 +250,21 @@ li.nav-item-sign-in
 							h3 Caminandes
 							p.
 								Follow the adventures of Koro through the Patagonian pampas.
-							a.triplet-cta(href="https://cloud.blender.org/p/caminandes-3/")
+							a.triplet-cta(href="/p/caminandes-3/")
 								| LEARN MORE
 
 			.row.training-other
 				.col-md-10.col-md-offset-1
 					p.
 						Other open movies:
-						#[a(href="https://cloud.blender.org/p/elephants-dream/") Elephants Dream],
-						#[a(href="https://cloud.blender.org/p/big-buck-bunny/") Big Buck Bunny],
-						#[a(href="https://cloud.blender.org/p/sintel/") Sintel],
-						#[a(href="https://cloud.blender.org/p/tears-of-steel/") Tears of Steel],
-						#[a(href="https://cloud.blender.org/p/cosmos-laundromat/") Cosmos Laundromat],
-						#[a(href="https://cloud.blender.org/p/glass-half/") Glass Half],
-						#[a(href="https://cloud.blender.org/p/dailydweebs/") The Daily Dweebs],
-						#[a(href="https://cloud.blender.org/p/agent-327/") Agent 327]
+						#[a(href="/p/elephants-dream/") Elephants Dream],
+						#[a(href="/p/big-buck-bunny/") Big Buck Bunny],
+						#[a(href="/p/sintel/") Sintel],
+						#[a(href="/p/tears-of-steel/") Tears of Steel],
+						#[a(href="/p/cosmos-laundromat/") Cosmos Laundromat],
+						#[a(href="/p/glass-half/") Glass Half],
+						#[a(href="/p/dailydweebs/") The Daily Dweebs],
+						#[a(href="/p/agent-327/") Agent 327]
 						and #[a(href="{{ url_for('cloud.open_projects') }}") more]
 
 

@@ -6,7 +6,7 @@
 
 | {% block og %}
 meta(property="og:type", content="website")
-meta(property="og:url", content="https://cloud.blender.org/")
+meta(property="og:url", content="{{ request.url }}")
 
 meta(property="og:title", content="Blender Cloud")
 meta(name="twitter:title", content="Blender Cloud")
@@ -55,12 +55,12 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 			span.section-lead.
 				Check out these projects currently in production!
 
-			a.in-production-project(href="https://cloud.blender.org/p/spring/")
+			a.in-production-project(href="/p/spring/")
 				img(src="{{ url_for('static', filename='assets/img/projects/spring_450x150.jpg')}}")
 				p.
 					#[strong Spring] - A poetic short film about a mountain spirit and her wise little dog.
 
-			a.in-production-project(href="https://cloud.blender.org/p/hero/")
+			a.in-production-project(href="/p/hero/")
 				img(src="{{ url_for('static', filename='assets/img/projects/hero_450x150.jpg')}}")
 				p.
 					#[strong Hero] - A '2D' trailer-style movie focused on getting grease pencil
