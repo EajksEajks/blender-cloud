@@ -83,20 +83,21 @@ LOGGING = {
     }
 }
 
+# Latest version of the add-on.
+BLENDER_CLOUD_ADDON_VERSION = '1.9.0'
+
 REDIRECTS = {
     # For old links, refer to the services page (hopefully it refreshes then)
     'downloads/blender_cloud-latest-bundle.zip': 'https://cloud.blender.org/services#blender-addon',
 
-    # Latest Blender Cloud add-on; remember to update BLENDER_CLOUD_ADDON_VERSION.
+    # Latest Blender Cloud add-on.
     'downloads/blender_cloud-latest-addon.zip':
-        'https://storage.googleapis.com/institute-storage/addons/blender_cloud-1.8.0.addon.zip',
+        f'https://storage.googleapis.com/institute-storage/addons/'
+        f'blender_cloud-{BLENDER_CLOUD_ADDON_VERSION}.addon.zip',
 
     # Redirect old Grafista endpoint to /stats
     '/stats/': '/stats',
 }
-
-# Latest version of the add-on; remember to update REDIRECTS.
-BLENDER_CLOUD_ADDON_VERSION = '1.8.0'
 
 UTM_LINKS = {
     'cartoon_brew': {
