@@ -51,7 +51,7 @@ meta(name="twitter:description", content="Blender Cloud, your source for open co
 
 | {% endif %}
 
-meta(property="og:url", content="{{url_for('projects.view_node', project_url=project.url, node_id=node._id), _external=True}}")
+meta(property="og:url", content="{{url_for('projects.view_node', project_url=project.url, node_id=node._id, _external=True)}}")
 | {% else %}
 meta(property="og:title", content="{{ project.name }} Blog on Blender Cloud")
 meta(name="twitter:title", content="{{ project.name }} Blog on Blender Cloud")
