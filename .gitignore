@@ -7,8 +7,7 @@ __pycache__
 *.css.map
 
 /cloud/templates/
-/cloud/static/assets/css/
-/cloud/static/assets/js/bootstrap.min.js
+/cloud/static/assets/
 node_modules/
 
 /config_local.py

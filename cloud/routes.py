@@ -391,6 +391,11 @@ def privacy():
     return render_template('privacy.html')
 
 
+@blueprint.route('/production')
+def production():
+    return render_template('production.html')
+
+
 @blueprint.route('/emails/welcome.send')
 @login_required
 def emails_welcome_send():

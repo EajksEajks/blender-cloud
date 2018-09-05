@@ -1,0 +1,35 @@
+| {% extends 'layout.html' %}
+| {% block page_title %}Production of Stuff{% endblock %}
+| {% block head %}
+script(src="{{ url_for('static_cloud', filename='assets/js/tagged_assets.min.js') }}")
+
+script.
+	$(function() {
+		$('ul.js-asset-list').loadTaggedAssets();
+	})
+| {% endblock %}
+| {% block body %}
+#page-container
+	#page-content
+		h2 Production of Stuff
+		p.
+			Here are our hand-selected assets 'bout stuff.
+
+		h3 Animation
+		ul.js-asset-list(data-asset-tag="animation")
+
+		h3 Modelling
+		ul.js-asset-list(data-asset-tag="modelling")
+
+		h3 Rigging
+		ul.js-asset-list(data-asset-tag="rigging")
+
+		h3 pipeline
+		ul.js-asset-list(data-asset-tag="pipeline")
+
+		h3 lookdev
+		ul.js-asset-list(data-asset-tag="lookdev")
+
+		h3 crazyspace
+		ul.js-asset-list(data-asset-tag="crazyspace")
+| {% endblock body%}
