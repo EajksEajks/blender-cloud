@@ -4,7 +4,7 @@
 
 | {% block og %}
 meta(property="og:type", content="website")
-meta(property="og:url", content="{{ url_for('cloud.services') }}")
+meta(property="og:url", content="{{ request.url }}")
 
 meta(property="og:title", content="Services - Blender Cloud")
 meta(name="twitter:title", content="Services - Blender Cloud")

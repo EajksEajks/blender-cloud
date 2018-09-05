@@ -5,7 +5,7 @@
 
 | {% block og %}
 meta(property="og:title", content="Blender Cloud Statistics")
-meta(property="og:url", content="https://cloud.blender.org/stats")
+meta(property="og:url", content="{{ request.url }}")
 meta(property="og:image", content="{{ url_for('static', filename='assets/img/backgrounds/background_andy_hdribot_01.jpg')}}")
 | {% endblock %}
 

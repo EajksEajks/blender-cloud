@@ -22,7 +22,7 @@
 
 | {% block og %}
 meta(property="og:type", content="website")
-meta(property="og:url", content="https://cloud.blender.org")
+meta(property="og:url", content="{{ request.url }}")
 
 meta(property="og:title", content="{{ page_title }} on Blender Cloud")
 meta(name="twitter:title", content="{{ page_title }} on Blender Cloud")

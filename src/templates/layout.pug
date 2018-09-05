@@ -19,7 +19,7 @@ html(lang="en")
 
 		| {% block og %}
 		meta(property="og:title", content="Blender Cloud")
-		meta(property="og:url", content="https://cloud.blender.org")
+		meta(property="og:url", content="{{ request.url }}")
 		meta(property="og:type", content="website")
 		meta(property="og:image", content="{{ url_for('static', filename='assets/img/backgrounds/background_gleb_locomotive.jpg')}}")
 		meta(property="og:description", content="Blender Cloud is a web based service developed by Blender Institute that allows people to access the training videos and all the data from the open projects.")

@@ -8,7 +8,7 @@
 
 | {% block og %}
 meta(property="og:title", content="Blender Cloud - Open Content Production Platform")
-meta(property="og:url", content="https://cloud.blender.org/")
+meta(property="og:url", content="{{ request.url }}")
 meta(property="og:image", content="{{ url_for('static', filename='assets/img/backgrounds/background_dweebs_01.jpg')}}")
 | {% endblock og %}
 
