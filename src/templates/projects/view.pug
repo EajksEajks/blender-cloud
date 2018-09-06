@@ -85,7 +85,7 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 | {% endblock %}
 
 | {% block navigation_tabs %}
-+nav-secondary()(class="bg-white")
++nav-secondary()
 	| {% if project.category == 'course' %}
 	li.text-capitalize
 		a.nav-link.text-muted.px-0(href="{{ url_for('cloud.courses') }}")
@@ -178,17 +178,6 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 		#project_nav(class="{{ title }}")
 			#project_nav-container
 				| {% if title != 'about' %}
-				//- +nav-secondary(class="bg-white")
-				//- 	+nav-secondary-link(
-				//- 		class="active",
-				//- 		href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
-				//- 		| {{ project.name }}
-				//- #project_nav-header.bg-white
-
-					//- a.project-title.p-2.font-weight-bold.text-dark(
-					//- 	href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
-					//- 	| {{ project.name }}
-
 				| {% block project_tree %}
 				#project_tree.bg-white
 				| {% endblock project_tree %}
@@ -197,12 +186,12 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 
 	#project_context-container.border-left
 		| {% if project.has_method('PUT') %}
-		#project_context-header.bg-white
-			span#status-bar
-
-			ul.project-edit-tools.disabled
+		#project_context-header.d-flex.justify-content-end.position-fixed.bg-white
+			ul.project-edit-tools.disabled.d-flex.list-unstyled.p-2.mb-0
 				li.dropdown
-					button#item_add.project-mode-view.btn.btn-sm.btn-outline-secondary.dropdown-toggle(
+					button.btn.btn-sm.btn-outline-secondary.dropdown-toggle(
+						id="item_add",
+						class="project-mode-view",
 						type="button",
 						data-toggle="dropdown",
 						aria-haspopup="true",
@@ -214,7 +203,9 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 						| {{ add_new_menu(project.node_types) }}
 
 				li.button-edit
-					a#item_edit.project-mode-view.btn.btn-sm.btn-outline-secondary.ml-2(
+					a.btn.btn-sm.btn-outline-secondary.ml-2(
+						id="item_edit",
+						class="project-mode-view",
 						href="javascript:void(0);",
 						title="Edit",
 						data-project_id="{{project._id}}")
