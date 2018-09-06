@@ -1,0 +1,51 @@
+| {% extends 'layout.html' %}
+| {% from '_macros/_navigation.html' import navigation_tabs %}
+include ../mixins/components
+
+| {% set title = 'home' %}
+
+| {% block og %}
+meta(property="og:type", content="website")
+meta(property="og:url", content="https://cloud.blender.org{{ request.path }}")
+
+meta(property="og:title", content="Blender Cloud - Home")
+meta(name="twitter:title", content="Blender Cloud")
+
+meta(property="og:image", content="{{ url_for('static', filename='assets/img/backgrounds/cloud_services_oti.jpg')}}")
+meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/backgrounds/cloud_services_oti.jpg')}}")
+| {% endblock %}
+
+| {% block page_title %}
+| {{current_user.full_name}}
+| {% endblock %}
+
+| {% block navigation_tabs %}
+| {{ navigation_tabs(title) }}
+| {% endblock navigation_tabs %}
+
+| {% block body %}
+.dashboard-container
+
+	section#projects.bg-white
+		+nav-secondary()(id='sub-nav-tabs__list')
+			+nav-secondary-link(id="subtab-blender_sync", data-tab-url="{{ url_for('projects.home_project')}}")
+				| Blender Sync
+
+			+nav-secondary-link(id="subtab-images", data-tab-url="{{ url_for('projects.home_project_shared_images')}}")
+				| Images
+
+		| {% block currenttab %}{% endblock %}
+| {% endblock %}
+
+| {% block footer_scripts %}
+script.
+	$(document).ready(function () {
+		$('#subtab-{{ subtab }}').addClass('active');
+
+		var $nav_tabs = $('#sub-nav-tabs__list').find('a.nav-link');
+		$nav_tabs.on('click', function (e) {
+			console.log($(this));
+			window.location = $(this).attr('data-tab-url');
+		});
+	});
+| {% endblock %}

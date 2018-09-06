@@ -1,0 +1,26 @@
+include ../mixins/components
+
+| {% macro navigation_tabs(title) %}
++nav-secondary()
+	+nav-secondary-link(
+			class="{% if title == 'homepage' %}active{% endif %}",
+			href="{{ url_for('main.homepage') }}")
+		| Activity
+
+	+nav-secondary-link(
+			class="{% if title == 'home' %}active{% endif %}",
+			href="{{ url_for('projects.home_project') }}")
+		| Home
+
+	+nav-secondary-link(
+			class="{% if title == 'dashboard' %}active{% endif %}",
+			href="{{ url_for('projects.index') }}")
+		| My Projects
+
+	| {% if current_user.has_organizations() %}
+	+nav-secondary-link(
+			class="{% if title == 'organizations' %}active{% endif %}",
+			href="{{ url_for('pillar.web.organizations.index') }}")
+		| My Organizations
+	| {% endif %}
+| {% endmacro %}
