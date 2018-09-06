@@ -1,4 +1,5 @@
 | {% extends 'layout.html' %}
+
 include mixins/components
 
 | {# Default case is Open Projects #}
@@ -39,26 +40,38 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 | {{ page_title }}
 | {% endblock %}
 
+| {% block navigation_tabs %}
+
+| {% if title in ['courses', 'workshops'] %}
++nav-secondary
+	+nav-secondary-link(
+			class="{% if title == 'workshops' %}active{% endif %}",
+			href="{{ url_for('cloud.workshops') }}")
+		| Workshops
+
+	+nav-secondary-link(
+			class="{% if title == 'courses' %}active{% endif %}",
+			href="{{ url_for('cloud.courses') }}")
+		| Courses
+
+	+nav-secondary-link(
+			class="{% if title == 'gallery' %}active{% endif %}",
+			href="{{ url_for('projects.view', project_url='gallery') }}")
+		| Art Gallery
+| {% endif %}
+
+| {% endblock navigation_tabs %}
+
 | {% block body %}
 
-+jumbotron("{{ page_title }}", "{{ page_header_text }}", "{{ page_header_image }}")
-
 .container.pb-5
-	+nav-secondary("{% if title in ['courses', 'workshops'] %}Training{% else %}Open Projects{% endif %}")
-		+nav-secondary-link(
-				class="{% if title == 'workshops' %}active{% endif %}",
-				href="{{ url_for('cloud.workshops') }}")
-			| Workshops
+	.pt-4
+		h2.text-uppercase.font-weight-bold
+			| {{ page_title }}
+		.lead
+			| {{ page_header_text }}
 
-		+nav-secondary-link(
-				class="{% if title == 'courses' %}active{% endif %}",
-				href="{{ url_for('cloud.courses') }}")
-			| Courses
-
-		+nav-secondary-link(
-				class="{% if title == 'gallery' %}active{% endif %}",
-				href="{{ url_for('projects.view', project_url='gallery') }}")
-			| Art Gallery
+		hr.pb-2
 
 	+card-deck(3)
 		| {% for project in projects %}
@@ -67,7 +80,7 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 		+card(data-url="{{ url_for('projects.view', project_url=project.url) }}", tabindex='{{ loop.index }}')
 			| {% if project.picture_header %}
 			a(href="{{ url_for('projects.view', project_url=project.url) }}")
-				img.card-img-top.rounded-0(
+				img.card-img-top(
 					src="{{ project.picture_header.thumbnail('l', api=api) }}", alt="{{ project.name }}")
 			| {% endif %}
 

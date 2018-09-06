@@ -76,7 +76,7 @@ html(lang="en")
 				href="{{ url_for('main.homepage') }}",
 				title="Blender Cloud")
 				span.app-logo
-					i.pi-blender-cloud-logo
+					i.pi-blender-cloud
 
 			button.navbar-toggler.text-light(
 				data-target=".navbar-collapse",
@@ -86,12 +86,16 @@ html(lang="en")
 				span.navbar-toggler-icon.d-flex.align-items-center
 					i.pi-menu
 
+			| {% block navigation_tabs %}
+			| {% endblock navigation_tabs %}
+
 			| {% block navigation_search %}
-			.search-input
-				input#cloud-search(
-					type="text",
-					placeholder="Search assets, tutorials...")
-				i.search-icon.pi-search
+			// TODO (pablo) - bring it back asap
+				.search-input
+					input#cloud-search(
+						type="text",
+						placeholder="Search assets, tutorials...")
+					i.search-icon.pi-search
 			| {% endblock navigation_search %}
 
 			.collapse.navbar-collapse

@@ -18,6 +18,10 @@ meta(property="og:image", content="{% if main_project.picture_header %}{{ main_p
 meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_project.picture_header.thumbnail('l', api=api) }}{% else %}{{ url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg')}}{% endif %}")
 | {% endblock %}
 
+| {% block navigation_tabs %}
+| {{ navigation_tabs(title) }}
+| {% endblock navigation_tabs %}
+
 | {% block body %}
 .dashboard-container
 	section.dashboard-main
