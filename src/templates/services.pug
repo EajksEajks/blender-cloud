@@ -39,8 +39,8 @@ section#blender-cloud-add-on.page-card
 
 			small Blender Cloud add-on requires Blender 2.78 or newer
 
-		a.btn.btn-outline-success(
-			href="https://cloud.blender.org/r/downloads/blender_cloud-latest-addon.zip")
+		a.btn.btn-primary(
+			href="/r/downloads/blender_cloud-latest-addon.zip")
 			i.pi-download
 			| Download add-on &nbsp;<small>v</small> {{ config.BLENDER_CLOUD_ADDON_VERSION }}
 
@@ -61,33 +61,33 @@ section#blender-sync.page-card.right
 
 			.tip !{addon_text}
 
-				a.page-card-cta.download(
-					href="https://cloud.blender.org/r/downloads/blender_cloud-latest-addon.zip")
-					i.pi-download
-					| Download add-on &nbsp;<small>v</small> {{ config.BLENDER_CLOUD_ADDON_VERSION }}
+		a.btn.btn-outline-primary(
+			href="/r/downloads/blender_cloud-latest-addon.zip")
+			i.pi-download
+			| Download add-on &nbsp;<small>v</small> {{ config.BLENDER_CLOUD_ADDON_VERSION }}
 
-		a.page-card-cta(
-			href="https://cloud.blender.org/blog/introducing-blender-sync")
+		a.btn.btn-link(
+			href="/blog/introducing-blender-sync")
 			| Learn More
+			i.pi-angle-right
 
 	.page-card-side
 		img(
 			src="{{ url_for('static', filename='assets/img/features/sync_thumbnail.jpg')}}")
 
-		.tip !{addon_text}
 
 section#texture-browser.page-card.right
 	.page-card-side
 		h2.page-card-title Texture & HDRI Browser
 		.page-card-summary
 			p.
-				Access the <a href="https://cloud.blender.org/p/textures/">Blender Cloud Textures</a>
+				Access the <a href="/p/textures/">Blender Cloud Textures</a>
 				library from within Blender using our exclusive add-on.
 				Create, manage and share <em>your own</em> texture libraries!
 
 			.tip !{addon_text}
 
-		a.btn.btn-outline-success.js-watch-video(
+		a.btn.btn-outline-primary.js-watch-video(
 			href="https://www.youtube.com/watch?v=-srXYv2Osjw",
 			data-youtube-id="-srXYv2Osjw")
 			i.pi-play
@@ -97,14 +97,6 @@ section#texture-browser.page-card.right
 		img(
 			src="{{ url_for('static', filename='assets/img/features/tex_library_thumbnail.jpg')}}")
 
-		section#texture-browser.page-card.right
-			.page-card-side
-				h2.page-card-title Texture & HDRI Browser
-				.page-card-summary
-					p.
-						Access the <a href="https://cloud.blender.org/p/textures/">Blender Cloud Textures</a>
-						library from within Blender using our exclusive add-on.
-						Create, manage and share <em>your own</em> texture libraries!
 
 section#image-sharing.page-card.right
 	.page-card-side
@@ -115,21 +107,21 @@ section#image-sharing.page-card.right
 
 			.tip !{addon_text}
 
-		a.btn.btn-outline-success.js-watch-video(
+		a.btn.btn-outline-primary.js-watch-video(
 			href="https://www.youtube.com/watch?v=yvtqeMBOAyk",
 			data-youtube-id="yvtqeMBOAyk")
 			i.pi-play
 			| Watch Video
 
-		a.page-card-cta.outline(
-		href="https://cloud.blender.org/blog/introducing-image-sharing")
+		a.btn.btn-link(
+			href="/blog/introducing-image-sharing")
 			| Learn More
+			i.pi-angle-right
 
 	.page-card-side
 		img(
 			src="{{ url_for('static', filename='assets/img/features/image_sharing_thumbnail.jpg')}}")
 
-		.tip !{addon_text}
 
 section#projects.page-card.right
 	.page-card-side
@@ -138,9 +130,10 @@ section#projects.page-card.right
 			Create and manage your own personal projects.
 			Upload assets and collaborate with other Blender Cloud members.
 
-		a.page-card-cta(
-			href="https://cloud.blender.org/blog/introducing-private-projects")
+		a.btn.btn-link(
+			href="/blog/introducing-private-projects")
 			| Learn More
+			i.pi-angle-right
 
 	.page-card-side
 		img(
@@ -154,27 +147,22 @@ section#attract.page-card.right
 		.page-card-summary.
 			Production-management software for your film, game, or commercial projects.
 
-		a.btn.btn-outline-success.js-watch-video(
+		a.btn.btn-outline-primary.js-watch-video(
 			href="https://www.youtube.com/watch?v=b9x1rlyyt_o",
 			data-youtube-id="b9x1rlyyt_o")
 			i.pi-play
 			| Watch Video
 
-		a.page-card-cta(
-			href="https://cloud.blender.org/blog/attract-and-flamenco-public-beta",
+		a.btn.btn-link(
+			href="/blog/attract-and-flamenco-public-beta",
 			title="Learn more about Attract")
 			| Learn More
+			i.pi-angle-right
 
 	.page-card-side
 		img(
 			src="{{ url_for('static', filename='assets/img/features/attract_thumbnail.jpg')}}")
 
-		section#attract.page-card.right
-			.page-card-side
-				h2.page-card-title
-					| Attract
-				.page-card-summary.
-					Production-management software for your film, game, or commercial projects.
 
 section#flamenco.page-card.right
 	.page-card-side
@@ -183,27 +171,22 @@ section#flamenco.page-card.right
 		.page-card-summary.
 			Take control of your computing infrastructure and get things done.
 
-		a.btn.btn-outline-success.js-watch-video(
+		a.btn.btn-outline-primary.js-watch-video(
 			href="https://www.youtube.com/watch?v=7cnFKhsM67Q",
 			data-youtube-id="7cnFKhsM67Q")
 			i.pi-play
 			| Watch Video
 
-		a.page-card-cta(
+		a.btn.btn-link(
 			href="https://flamenco.io",
 			title="Learn more about Flamenco")
 			| Learn More
+			i.pi-angle-right
 
 	.page-card-side
 		img(
 			src="{{ url_for('static', filename='assets/img/features/flamenco_thumbnail.jpg')}}")
 
-		section#flamenco.page-card.right
-			.page-card-side
-				h2.page-card-title
-					| Flamenco
-				.page-card-summary.
-					Take control of your computing infrastructure and get things done.
 
 | {% if not current_user.has_role('subscriber') %}
 section.page-card(
@@ -216,7 +199,8 @@ section.page-card(
 		.page-card-summary.text-white
 			| Join us for only $9.90/month!
 
-		a.page-card-cta(href="https://store.blender.org/product/membership/")
+		a.btn.btn-outline-light.px-3(href="https://store.blender.org/product/membership/")
+			i.pi-heart.mr-2
 			| Subscribe Now
 | {% endif %}
 
