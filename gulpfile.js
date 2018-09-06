@@ -1,5 +1,6 @@
 var argv         = require('minimist')(process.argv.slice(2));
 var autoprefixer = require('gulp-autoprefixer');
+var cache        = require('gulp-cached');
 var chmod        = require('gulp-chmod');
 var concat       = require('gulp-concat');
 var git          = require('gulp-git');
@@ -11,22 +12,28 @@ var plumber      = require('gulp-plumber');
 var rename       = require('gulp-rename');
 var sass         = require('gulp-sass');
 var sourcemaps   = require('gulp-sourcemaps');
-var uglify       = require('gulp-uglify');
-var cache        = require('gulp-cached');
+var uglify       = require('gulp-uglify-es').default;
 
 var enabled = {
     uglify: argv.production,
-    maps: argv.production,
+    maps: !argv.production,
     failCheck: !argv.production,
     prettyPug: !argv.production,
     cachify: !argv.production,
     cleanup: argv.production,
+    chmod: argv.production,
 };
 
 var destination = {
     css: 'cloud/static/assets/css',
     pug: 'cloud/templates',
     js: 'cloud/static/assets/js',
+}
+
+var source = {
+    pillar: '../pillar/',
+    bootstrap: 'node_modules/bootstrap/',
+    popper: 'node_modules/popper.js/'
 }
 
 
@@ -73,7 +80,7 @@ gulp.task('scripts', function() {
         .pipe(gulpif(enabled.uglify, uglify()))
         .pipe(rename({suffix: '.min'}))
         .pipe(gulpif(enabled.maps, sourcemaps.write(".")))
-        .pipe(chmod(644))
+        .pipe(gulpif(enabled.chmod, chmod(644)))
         .pipe(gulp.dest(destination.js))
         .pipe(gulpif(argv.livereload, livereload()));
 });
@@ -88,11 +95,33 @@ gulp.task('scripts_concat_tutti', function() {
         .pipe(concat("tutti.min.js"))
         .pipe(gulpif(enabled.uglify, uglify()))
         .pipe(gulpif(enabled.maps, sourcemaps.write(".")))
-        .pipe(chmod(644))
+        .pipe(gulpif(enabled.chmod, chmod(644)))
         .pipe(gulp.dest(destination.js))
         .pipe(gulpif(argv.livereload, livereload()));
 });
 
+
+// Combine all needed Bootstrap JavaScript into a single file.
+gulp.task('scripts_concat_bootstrap', function() {
+
+    toUglify = [
+        source.popper    + 'dist/umd/popper.min.js',
+        source.bootstrap + 'js/dist/index.js',
+        source.bootstrap + 'js/dist/util.js',
+        source.bootstrap + 'js/dist/tooltip.js',
+        source.bootstrap + 'js/dist/dropdown.js',
+    ];
+
+    gulp.src(toUglify)
+        .pipe(gulpif(enabled.failCheck, plumber()))
+        .pipe(gulpif(enabled.maps, sourcemaps.init()))
+        .pipe(concat("bootstrap.min.js"))
+        .pipe(gulpif(enabled.uglify, uglify()))
+        .pipe(gulpif(enabled.maps, sourcemaps.write(".")))
+        .pipe(gulpif(enabled.chmod, chmod(644)))
+        .pipe(gulp.dest(destination.js))
+        .pipe(gulpif(argv.livereload, livereload()));
+});
 
 
 // While developing, run 'gulp watch'
@@ -103,6 +132,8 @@ gulp.task('watch',function() {
     }
 
     gulp.watch('src/styles/**/*.sass',['styles']);
+    gulp.watch(source.pillar + 'src/styles/**/*.sass',['styles']);
+
     gulp.watch('src/templates/**/*.pug',['templates']);
     gulp.watch('src/scripts/*.js',['scripts']);
     gulp.watch('src/scripts/tutti/**/*.js',['scripts_concat_tutti']);
@@ -125,4 +156,5 @@ gulp.task('cleanup', function() {
 // Run 'gulp' to build everything at once
 var tasks = [];
 if (enabled.cleanup) tasks.push('cleanup');
-gulp.task('default', tasks.concat(['styles', 'templates', 'scripts', 'scripts_concat_tutti']));
+
+gulp.task('default', tasks.concat(['styles', 'templates', 'scripts', 'scripts_concat_tutti', 'scripts_concat_bootstrap']));

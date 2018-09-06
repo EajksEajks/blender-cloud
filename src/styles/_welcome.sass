@@ -10,9 +10,6 @@
 		li a.navbar-item
 			color: $color-text
 
-		.navbar-container
-			+container-behavior
-
 		.navbar-toggle
 			border: 2px solid $color-text-dark-primary
 			color: $color-text
@@ -267,22 +264,6 @@
 			+media-xs
 				margin-top: 20px
 
-	.navbar
-		.nav-item-sign-in
-			a.navbar-item
-				background-color: $color-primary
-				border: none
-				border-radius: 3px
-				color: white
-				height: auto
-				font-weight: bold
-				margin-top: 5px
-				margin-left: 10px
-				padding: 10px 20px
-
-				&:hover
-					background-color: lighten($color-primary, 10%)
-					box-shadow: none
 
 .container.wide-on-sm
 	+media-sm
@@ -334,9 +315,7 @@ section.pricing
 				+button($color-primary, 3px, true)
 
 		h3
-			font:
-				size: 1.8em
-				family: $font-body
+			font-size: 1.8em
 			padding-bottom: 0
 			margin: 25px 0 0 10px
 

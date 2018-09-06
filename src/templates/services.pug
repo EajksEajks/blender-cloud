@@ -1,6 +1,7 @@
 | {% extends 'layout.html' %}
 | {% block page_title %}Services{% endblock %}
 | {% set title = 'services' %}
+include mixins/components
 
 | {% block og %}
 meta(property="og:type", content="website")
@@ -20,133 +21,153 @@ meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/ba
 | {% endblock %}
 
 | {% block body %}
-#page-container
-	#page-header(style="background-image: url({{ url_for('static', filename='assets/img/backgrounds/services_projects.jpg')}})")
-		.container
-			.page-title
-				| Blender Cloud Services
-			.page-title-summary
-				span.text-background
-					p.
-						Blender Cloud is the creative hub for your projects, powered by Free and Open Source software.
+- var header_text = "On Blender Cloud you can create and share personal projects, access our texture and HDRI library (or create your own), keep track of your production, manage your renders and much more!";
++jumbotron("Services", header_text, "{{ url_for('static', filename='assets/img/backgrounds/services_projects.jpg')}}")
 
-					p.
-						On Blender Cloud you can create and share personal projects, access our texture and HDRI
-						library (or create your own), keep track of your production, manage your renders and much more!
+- var addon_text = 'Available through the <a href="{{ url_for(\'cloud.services\') }}#blender-cloud-add-on">Blender Cloud add-on</a>';
+section#blender-cloud-add-on.page-card
+	.page-card-side
+		h2.page-card-title
+			| Blender Cloud add-on
+		.page-card-summary
+			p.
+				The Blender Cloud add-on provides access to most of our services directly within Blender.
+			p.
+				Use the add-on to share images online, submit renders to Flamenco or browse textures and HDRI libraries!
 
-		.navbar-backdrop-overlay
+			hr
 
-	- var addon_text = 'Available through the <a href="{{ url_for(\'cloud.services\') }}#blender-cloud-add-on">Blender Cloud add-on</a>'
+			small Blender Cloud add-on requires Blender 2.78 or newer
 
-	#page-content
+		a.btn.btn-outline-success(
+			href="https://cloud.blender.org/r/downloads/blender_cloud-latest-addon.zip")
+			i.pi-download
+			| Download add-on &nbsp;<small>v</small> {{ config.BLENDER_CLOUD_ADDON_VERSION }}
 
-		section#blender-cloud-add-on.page-card
-			.page-card-side
-				h2.page-card-title
-					| Blender Cloud add-on
-				.page-card-summary
-					p.
-						The Blender Cloud add-on provides access to most of our services directly within Blender.
-					p.
-						Use the add-on to share images online, submit renders to Flamenco or browse textures and HDRI libraries!
+	.page-card-side
+		img(
+			src="{{ url_for('static', filename='assets/img/features/blender_cloud_addon_thumbnail.png')}}")
 
-					hr
+section#blender-sync.page-card.right
+	.page-card-side
+		h2.page-card-title Blender Sync
+		.page-card-summary
+			| Save your settings once. Use them anywhere.
+			| Carry your Blender configuration with you,
+			| use our add-on to sync your keymaps and preferences.
+			hr
+			small Blender Sync is <strong>free</strong> for everyone! No subscription required.
+			small  This add-on requires Blender 2.78 or newer.
 
-					small Blender Cloud add-on requires Blender 2.78 or newer
+			.tip !{addon_text}
 
 				a.page-card-cta.download(
-					href="/r/downloads/blender_cloud-latest-addon.zip")
+					href="https://cloud.blender.org/r/downloads/blender_cloud-latest-addon.zip")
 					i.pi-download
 					| Download add-on &nbsp;<small>v</small> {{ config.BLENDER_CLOUD_ADDON_VERSION }}
 
-			.page-card-side
-				img(
-					src="{{ url_for('static', filename='assets/img/features/blender_cloud_addon_thumbnail.png')}}")
+		a.page-card-cta(
+			href="https://cloud.blender.org/blog/introducing-blender-sync")
+			| Learn More
 
-		section#blender-sync.page-card.right
-			.page-card-side
-				h2.page-card-title Blender Sync
-				.page-card-summary
-					| Save your settings once. Use them anywhere.
-					| Carry your Blender configuration with you,
-					| use our add-on to sync your keymaps and preferences.
-					hr
-					small Blender Sync is <strong>free</strong> for everyone! No subscription required.
-					small  This add-on requires Blender 2.78 or newer.
+	.page-card-side
+		img(
+			src="{{ url_for('static', filename='assets/img/features/sync_thumbnail.jpg')}}")
 
-					.tip !{addon_text}
+		.tip !{addon_text}
 
+section#texture-browser.page-card.right
+	.page-card-side
+		h2.page-card-title Texture & HDRI Browser
+		.page-card-summary
+			p.
+				Access the <a href="https://cloud.blender.org/p/textures/">Blender Cloud Textures</a>
+				library from within Blender using our exclusive add-on.
+				Create, manage and share <em>your own</em> texture libraries!
 
-				a.page-card-cta(
-					href="/blog/introducing-blender-sync")
-					| Learn More
+			.tip !{addon_text}
 
-			.page-card-side
-				img(
-					src="{{ url_for('static', filename='assets/img/features/sync_thumbnail.jpg')}}")
+		a.btn.btn-outline-success.js-watch-video(
+			href="https://www.youtube.com/watch?v=-srXYv2Osjw",
+			data-youtube-id="-srXYv2Osjw")
+			i.pi-play
+			| Watch Video
 
+	.page-card-side
+		img(
+			src="{{ url_for('static', filename='assets/img/features/tex_library_thumbnail.jpg')}}")
 
 		section#texture-browser.page-card.right
 			.page-card-side
 				h2.page-card-title Texture & HDRI Browser
 				.page-card-summary
 					p.
-						Access the <a href="/p/textures/">Blender Cloud Textures</a>
+						Access the <a href="https://cloud.blender.org/p/textures/">Blender Cloud Textures</a>
 						library from within Blender using our exclusive add-on.
 						Create, manage and share <em>your own</em> texture libraries!
 
-					.tip !{addon_text}
+section#image-sharing.page-card.right
+	.page-card-side
+		h2.page-card-title Image Sharing
+		.page-card-summary
+			| Got a nice render, a Blender oddity, a cool screenshot?
+			| Share it instantly from within Blender to the Cloud, to the world!
 
-				a.page-card-cta.js-watch-video.download(
-					href="https://www.youtube.com/watch?v=-srXYv2Osjw",
-					data-youtube-id="-srXYv2Osjw")
-					i.pi-play
-					| Watch Video
+			.tip !{addon_text}
 
-			.page-card-side
-				img(
-					src="{{ url_for('static', filename='assets/img/features/tex_library_thumbnail.jpg')}}")
+		a.btn.btn-outline-success.js-watch-video(
+			href="https://www.youtube.com/watch?v=yvtqeMBOAyk",
+			data-youtube-id="yvtqeMBOAyk")
+			i.pi-play
+			| Watch Video
+
+		a.page-card-cta.outline(
+		href="https://cloud.blender.org/blog/introducing-image-sharing")
+			| Learn More
+
+	.page-card-side
+		img(
+			src="{{ url_for('static', filename='assets/img/features/image_sharing_thumbnail.jpg')}}")
+
+		.tip !{addon_text}
+
+section#projects.page-card.right
+	.page-card-side
+		h2.page-card-title Private Projects
+		.page-card-summary.
+			Create and manage your own personal projects.
+			Upload assets and collaborate with other Blender Cloud members.
+
+		a.page-card-cta(
+			href="https://cloud.blender.org/blog/introducing-private-projects")
+			| Learn More
+
+	.page-card-side
+		img(
+			src="{{ url_for('static', filename='assets/img/features/projects_thumbnail.jpg')}}")
 
 
-		section#image-sharing.page-card.right
-			.page-card-side
-				h2.page-card-title Image Sharing
-				.page-card-summary
-					| Got a nice render, a Blender oddity, a cool screenshot?
-					| Share it instantly from within Blender to the Cloud, to the world!
+section#attract.page-card.right
+	.page-card-side
+		h2.page-card-title
+			| Attract
+		.page-card-summary.
+			Production-management software for your film, game, or commercial projects.
 
-					.tip !{addon_text}
+		a.btn.btn-outline-success.js-watch-video(
+			href="https://www.youtube.com/watch?v=b9x1rlyyt_o",
+			data-youtube-id="b9x1rlyyt_o")
+			i.pi-play
+			| Watch Video
 
-				a.page-card-cta.download.js-watch-video(
-					href="https://www.youtube.com/watch?v=yvtqeMBOAyk",
-					data-youtube-id="yvtqeMBOAyk")
-					i.pi-play
-					| Watch Video
+		a.page-card-cta(
+			href="https://cloud.blender.org/blog/attract-and-flamenco-public-beta",
+			title="Learn more about Attract")
+			| Learn More
 
-				a.page-card-cta.outline(
-				href="/blog/introducing-image-sharing")
-					| Learn More
-
-			.page-card-side
-				img(
-					src="{{ url_for('static', filename='assets/img/features/image_sharing_thumbnail.jpg')}}")
-
-
-		section#projects.page-card.right
-			.page-card-side
-				h2.page-card-title Private Projects
-				.page-card-summary.
-					Create and manage your own personal projects.
-					Upload assets and collaborate with other Blender Cloud members.
-
-				a.page-card-cta(
-					href="/blog/introducing-private-projects")
-					| Learn More
-
-			.page-card-side
-				img(
-					src="{{ url_for('static', filename='assets/img/features/projects_thumbnail.jpg')}}")
-
+	.page-card-side
+		img(
+			src="{{ url_for('static', filename='assets/img/features/attract_thumbnail.jpg')}}")
 
 		section#attract.page-card.right
 			.page-card-side
@@ -155,21 +176,27 @@ meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/ba
 				.page-card-summary.
 					Production-management software for your film, game, or commercial projects.
 
-				a.page-card-cta.download.js-watch-video(
-					href="https://www.youtube.com/watch?v=b9x1rlyyt_o",
-					data-youtube-id="b9x1rlyyt_o")
-					i.pi-play
-					| Watch Video
+section#flamenco.page-card.right
+	.page-card-side
+		h2.page-card-title
+			| Flamenco
+		.page-card-summary.
+			Take control of your computing infrastructure and get things done.
 
-				a.page-card-cta(
-					href="/blog/attract-and-flamenco-public-beta",
-					title="Learn more about Attract")
-					| Learn More
+		a.btn.btn-outline-success.js-watch-video(
+			href="https://www.youtube.com/watch?v=7cnFKhsM67Q",
+			data-youtube-id="7cnFKhsM67Q")
+			i.pi-play
+			| Watch Video
 
-			.page-card-side
-				img(
-					src="{{ url_for('static', filename='assets/img/features/attract_thumbnail.jpg')}}")
+		a.page-card-cta(
+			href="https://flamenco.io",
+			title="Learn more about Flamenco")
+			| Learn More
 
+	.page-card-side
+		img(
+			src="{{ url_for('static', filename='assets/img/features/flamenco_thumbnail.jpg')}}")
 
 		section#flamenco.page-card.right
 			.page-card-side
@@ -178,46 +205,33 @@ meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/ba
 				.page-card-summary.
 					Take control of your computing infrastructure and get things done.
 
-				a.page-card-cta.download.js-watch-video(
-					href="https://www.youtube.com/watch?v=7cnFKhsM67Q",
-					data-youtube-id="7cnFKhsM67Q")
-					i.pi-play
-					| Watch Video
+| {% if not current_user.has_role('subscriber') %}
+section.page-card(
+	style="background-image: url({{ url_for('static', filename='assets/img/backgrounds/pattern_01.jpg')}})")
+	.page-card-side
 
-				a.page-card-cta(
-					href="https://flamenco.io",
-					title="Learn more about Flamenco")
-					| Learn More
+		h2.page-card-title
+			| All of this, plus hours of training and production assets.
 
-			.page-card-side
-				img(
-					src="{{ url_for('static', filename='assets/img/features/flamenco_thumbnail.jpg')}}")
+		.page-card-summary.text-white
+			| Join us for only $9.90/month!
 
-
-		| {% if not current_user.has_role('subscriber') %}
-		section.page-card.subscribe(
-			style="background-image: url({{ url_for('static', filename='assets/img/backgrounds/pattern_01.jpg')}})")
-			.page-card-side
-				h2.page-card-title
-					| All of this, plus hours of training and production assets.
-				.page-card-summary
-					| Join us for only $9.90/month!
-				a.page-card-cta(
-					href="https://store.blender.org/product/membership/")
-					| Subscribe Now
-		| {% endif %}
+		a.page-card-cta(href="https://store.blender.org/product/membership/")
+			| Subscribe Now
+| {% endif %}
 
 
 | {% endblock %}
 
 | {% block footer_scripts %}
 script.
-	// Click anywhere in the page to hide the overlay
+	// Hide the video overlay.
 	function hideOverlay() {
 		$('#page-overlay.video').removeClass('active');
 		$('#page-overlay.video .video-embed').html('');
 	}
 
+	// Click anywhere in the page or hit Esc to hide the overlay.
 	$(document).click(function() {
 		hideOverlay();
 	});
@@ -229,12 +243,12 @@ script.
 	});
 
 	$('a.js-watch-video').click(function(e){
+		var videoId = $(this).attr('data-youtube-id');
+
 		e.preventDefault();
 		e.stopPropagation();
 
 		$('#page-overlay.video').addClass('active');
-
-		var videoId = $(this).attr('data-youtube-id');
 		$('#page-overlay .video-embed').html('<iframe src="https://www.youtube.com/embed/' + videoId +'?rel=0&amp;showinfo=0;autoplay=1" frameborder="0" allowfullscreen></iframe>')
 	});
 

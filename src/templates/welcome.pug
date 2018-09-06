@@ -28,12 +28,12 @@ li
 | {% endblock navigation_sections %}
 
 | {% block navigation_user %}
-li.nav-item-sign-in
+li.pt-1.pr-1
 	| {% if current_user.is_anonymous %}
-	a.navbar-item(href="{{ url_for('users.login', next='/') }}")
+	a.btn.btn-outline-success(href="{{ url_for('users.login', next='/') }}")
 		| Log in and Explore
 	| {% else %}
-	a.navbar-item(href="{{ url_for('main.homepage') }}")
+	a.btn.btn-outline-success(href="{{ url_for('main.homepage') }}")
 		| Explore
 	| {% endif %}
 | {% endblock navigation_user %}

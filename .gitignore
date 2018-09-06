@@ -3,9 +3,12 @@
 .coverage
 *.pyc
 __pycache__
+*.js.map
+*.css.map
 
 /cloud/templates/
 /cloud/static/assets/css/
+/cloud/static/assets/js/bootstrap.min.js
 node_modules/
 
 /config_local.py
