@@ -436,9 +436,6 @@ html(lang="en")
 			if (typeof $().tooltip != 'undefined'){
 				$('[data-toggle="tooltip"]').tooltip({'delay' : {'show': 0, 'hide': 0}});
 			}
-			if(typeof($.fn.popover) != 'undefined'){
-				$('[data-toggle="popover"]').popover();
-			}
 
 		| {% block footer_scripts_pre %}{% endblock %}
 		| {% block footer_scripts %}{% endblock %}
