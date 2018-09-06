@@ -147,9 +147,9 @@ html(lang="en")
 									| Characters
 
 
-					li(class="dropdown libraries")
+					li(class="dropdown")
 						a.navbar-item.dropdown-toggle(
-						href="",
+						href="{{ url_for('cloud.workshops') }}"
 						data-toggle="dropdown",
 						title="Training")
 							span Training
@@ -181,22 +181,85 @@ html(lang="en")
 									i.pi-image
 									| Art Gallery
 
-					li
-						a.navbar-item(
+					li(class="dropdown")
+						a.navbar-item.dropdown-toggle(
 							href="{{ url_for('cloud.open_projects') }}",
 							title="Browse all the Open Projects",
-							data-toggle="tooltip",
-							data-placement="bottom",
+							data-toggle="dropdown",
 							class="{% if category in ['open-projects', 'film'] %}active{% endif %}")
 							span Open Projects
-					li
-						a.navbar-item(
+							i.pi-angle-down
+
+						ul.dropdown-menu
+							li
+								a.navbar-item(href="/p/spring")
+									span.px-2 Spring
+							li
+								a.navbar-item(href="/p/hero")
+									span.px-2 Hero
+							li
+								a.navbar-item(href="/p/dailydweebs")
+									span.px-2 The Daily Dweebs
+							li
+								a.navbar-item(href="/p/agent-327")
+									span.px-2 Agent 327
+							li
+								a.navbar-item(href="/p/caminandes-3")
+									span.px-2 Caminandes: Llamigos
+
+							li.dropdown-divider
+
+							li
+								a.navbar-item(href="{{ url_for('cloud.open_projects') }}")
+									span.pl-2 All Open Projects
+
+					li(class="dropdown")
+						a.navbar-item.dropdown-toggle(
 							href="{{ url_for('cloud.services') }}",
 							title="Blender Cloud Services",
-							data-toggle="tooltip",
-							data-placement="bottom",
+							data-toggle="dropdown",
 							class="{% if category == 'services' %}active{% endif %}")
 							span Services
+							i.pi-angle-down
+
+						ul.dropdown-menu
+							li
+								a.navbar-item(
+								href="/attract",
+								title="Production Management",
+								data-toggle="tooltip",
+								data-placement="left")
+									i.pi-attract
+									| Attract
+							li
+								a.navbar-item(
+								href="/flamenco",
+								title="Render Management",
+								data-toggle="tooltip",
+								data-placement="left")
+									i.pi-flamenco
+									| Flamenco
+
+							li
+								a.navbar-item(
+								href="/services#blender-cloud-add-on",
+								title="Blender Sync, Texture Browser and more",
+								data-toggle="tooltip",
+								data-placement="left")
+									i.pi-blender
+									| Blender Cloud Add-on
+
+							li.dropdown-divider
+
+							li
+								a.navbar-item(
+								href="{{ url_for('cloud.services') }}",
+								title="All Blender Cloud services",
+								data-toggle="tooltip",
+								data-placement="left")
+									i.pi-list
+									| All Services
+
 					| {% endblock navigation_sections %}
 
 					| {% block navigation_user %}
