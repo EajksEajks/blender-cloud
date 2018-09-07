@@ -1,6 +1,6 @@
 | {% extends 'layout.html' %}
 | {% from '_macros/_add_new_menu.html' import add_new_menu %}
-include ../mixins/components
+include ../../../../pillar/src/templates/mixins/components
 
 | {% block page_title %}{{ project.name }}{% endblock%}
 | {% set title = 'project' %}
@@ -189,7 +189,8 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 						i.button-add-icon.pi-collection-plus
 						| New...
 
-					ul.dropdown-menu.add_new-menu
+					ul.dropdown-menu.dropdown-menu-right(
+						class="add_new-menu")
 						| {{ add_new_menu(project.node_types) }}
 
 				li.button-edit
