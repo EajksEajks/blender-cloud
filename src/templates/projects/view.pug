@@ -187,7 +187,7 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 	#project_context-container.border-left
 		| {% if project.has_method('PUT') %}
 		#project_context-header.d-flex.justify-content-end.position-fixed.bg-white
-			ul.project-edit-tools.disabled.d-flex.list-unstyled.p-2.mb-0
+			ul.project-edit-tools.disabled.d-flex.list-unstyled.py-1.mb-0
 				li.dropdown
 					button.btn.btn-sm.btn-outline-secondary.dropdown-toggle(
 						id="item_add",
@@ -203,7 +203,7 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 						| {{ add_new_menu(project.node_types) }}
 
 				li.button-edit
-					a.btn.btn-sm.btn-outline-secondary.ml-2(
+					a.btn.btn-sm.btn-outline-secondary.ml-2.px-3.text-capitalize(
 						id="item_edit",
 						class="project-mode-view",
 						href="javascript:void(0);",
@@ -213,7 +213,8 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 						| Edit Project
 
 				li.dropdown
-					button.dropdown-toggle.project-mode-view.btn.btn-sm.btn-outline-secondary.mx-2(
+					button.dropdown-toggle.btn.btn-sm.btn-outline-secondary.mx-2(
+						class="project-mode-view",
 						type="button",
 						data-toggle="dropdown",
 						aria-haspopup="true",
@@ -223,7 +224,8 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 					ul.dropdown-menu
 						| {% if current_user.has_cap('admin') %}
 						li.dropdown-item
-							a#item_featured(
+							a(
+								id="item_featured",
 								href="javascript:void(0);",
 								title="Feature on project's homepage",
 								data-toggle="tooltip",
@@ -232,7 +234,8 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 								| Toggle Featured
 
 						li.dropdown-item
-							a#item_toggle_public(
+							a(
+								id="item_toggle_public",
 								href="javascript:void(0);",
 								title="Make it accessible to anyone",
 								data-toggle="tooltip",
@@ -242,7 +245,8 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 						| {% endif %}
 
 						li.dropdown-item
-							a#item_toggle_projheader(
+							a(
+								id="item_toggle_projheader",
 								href="javascript:void(0);",
 								title="Feature as project's header",
 								data-toggle="tooltip",
@@ -251,7 +255,8 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 								| Toggle Project Header video
 
 						li.dropdown-item.button-move
-							a#item_move(
+							a(
+								id="item_move",
 								href="javascript:void(0);",
 								title="Move into a folder...",
 								data-toggle="tooltip",
@@ -260,7 +265,8 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 								| Move
 
 						li.dropdown-item.button-delete
-							a#item_delete(
+							a(
+								id="item_delete",
 								href="javascript:void(0);",
 								title="Can be undone within a month",
 								data-toggle="tooltip",
@@ -270,14 +276,18 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 
 				// Edit Mode
 				li.button-cancel
-					a#item_cancel.project-mode-edit.btn.btn-outline-secondary(
+					a.btn.btn-outline-secondary(
+						id="item_cancel",
+						class="project-mode-edit",
 						href="javascript:void(0);",
 						title="Cancel changes")
 						i.button-cancel-icon.pi-cancel
 						| Cancel
 
 				li.button-save
-					a#item_save.project-mode-edit.btn.btn-outline-success.mx-2(
+					a.btn.btn-outline-success.mx-2(
+						id="item_save",
+						class="project-mode-edit",
 						href="javascript:void(0);",
 						title="Save changes")
 						i.button-save-icon.pi-check
@@ -584,7 +594,7 @@ script.
 						"image" : {"icon": "pi-image", "max_children": 0},
 						"hdri" : {"icon": "pi-globe", "max_children": 0},
 						"texture" : {"icon": "pi-texture", "max_children": 0},
-						"video" : {"icon": "pi-play", "max_children": 0},
+						"video" : {"icon": "pi-film-thick", "max_children": 0},
 						"blog" : {"icon": "pi-newspaper", "max_children": 0},
 						"page" : {"icon": "pi-document-text", "max_children": 0},
 						"default" : {"icon": "pi-document"}
