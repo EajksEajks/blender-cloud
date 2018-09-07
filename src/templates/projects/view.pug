@@ -99,7 +99,7 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 	| {% endif %}
 
 	+nav-secondary-link(
-		class="px-0",
+		class="px-0 font-weight-bold",
 		href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
 		| {{ project.name }}
 
@@ -128,16 +128,6 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 	#project-side-container
 		#project_sidebar.bg-white
 			ul.project-tabs.p-0
-				//- li.tabs-thumbnail(class="{% if project.picture_square %}image{% endif %}")
-				//- 	a(href="{{url_for('projects.view', project_url=project.url)}}")
-				//- 		#project-loading
-				//- 			i.pi-spin
-				//- 		| {% if project.picture_square %}
-				//- 		img(src="{{ project.picture_square.thumbnail('b', api=api) }}")
-				//- 		| {% else %}
-				//- 		i.pi-home
-				//- 		| {% endif %}
-
 				li.tabs-browse(
 					title="Browse",
 					data-toggle="tooltip",
@@ -223,8 +213,8 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 
 					ul.dropdown-menu
 						| {% if current_user.has_cap('admin') %}
-						li.dropdown-item
-							a(
+						li
+							a.dropdown-item(
 								id="item_featured",
 								href="javascript:void(0);",
 								title="Feature on project's homepage",
@@ -233,8 +223,8 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 								i.pi-star
 								| Toggle Featured
 
-						li.dropdown-item
-							a(
+						li
+							a.dropdown-item(
 								id="item_toggle_public",
 								href="javascript:void(0);",
 								title="Make it accessible to anyone",
@@ -244,8 +234,8 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 								| Toggle Public
 						| {% endif %}
 
-						li.dropdown-item
-							a(
+						li
+							a.dropdown-item(
 								id="item_toggle_projheader",
 								href="javascript:void(0);",
 								title="Feature as project's header",
@@ -254,8 +244,8 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 								i.pi-star
 								| Toggle Project Header video
 
-						li.dropdown-item.button-move
-							a(
+						li.button-move
+							a.dropdown-item(
 								id="item_move",
 								href="javascript:void(0);",
 								title="Move into a folder...",
@@ -264,8 +254,8 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 								i.button-move-icon.pi-move
 								| Move
 
-						li.dropdown-item.button-delete
-							a(
+						li.button-delete
+							a.dropdown-item(
 								id="item_delete",
 								href="javascript:void(0);",
 								title="Can be undone within a month",
@@ -389,7 +379,7 @@ script.
 
 		// TODO: Maybe remove this, now it's also in loadNodeContent(), but double-check
 		// it's done like that in all users of updateUi().
-		$('#project-loading').removeAttr('class');
+		$('.loader-bar').removeClass('active');
 	}
 | {% endblock %}
 
@@ -417,7 +407,7 @@ script.
 
 
 	function loadNodeContent(url, nodeId) {
-		$('#project-loading').addClass('active');
+		$('.loader-bar').addClass('active');
 		$.get(url, function(dataHtml) {
 			// Update the DOM injecting the generate HTML into the page
 			$('#project_context').html(dataHtml);
@@ -430,14 +420,14 @@ script.
 			$('#server_error').attr('src', url);
 		})
 		.always(function(){
-			$('#project-loading').removeAttr('class');
+			$('.loader-bar').removeClass('active');
 			$('.button-edit-icon').addClass('pi-edit').removeClass('pi-spin spin');
 		});
 	}
 
 
 	function loadProjectContent(url) {
-		$('#project-loading').addClass('active');
+		$('.loader-bar').addClass('active');
 
 		$.get(url, function(dataHtml) {
 			// Update the DOM injecting the generated HTML into the page
@@ -453,7 +443,7 @@ script.
 			$('#server_error').attr('src', url);
 		})
 		.always(function(){
-			$('#project-loading').removeAttr('class');
+			$('.loader-bar').removeClass('active');
 			$('.button-edit-icon').addClass('pi-edit').removeClass('pi-spin spin');
 		});
 	}
