@@ -78,6 +78,7 @@ script(src="{{ url_for('static_pillar', filename='assets/js/vendor/videojs-hotke
 | {% endblock %}
 
 | {% block css %}
+link(href="{{ url_for('static_pillar', filename='assets/css/font-pillar.css') }}", rel="stylesheet")
 link(href="{{ url_for('static_cloud', filename='assets/css/project-landing.css') }}", rel="stylesheet")
 | {% endblock %}
 
@@ -158,7 +159,9 @@ header
 				| {% endif %}
 				| {% endfor %}
 		| {% endif %}
-		a.btn(href="{{ url_for('main.project_blog', project_url=project.url) }}") See all updates
+
+.text-center.p-5
+	a.btn.btn-outline-secondary.px-5(href="{{ url_for('main.project_blog', project_url=project.url) }}") See All Updates
 
 | {% endblock body %}
 
