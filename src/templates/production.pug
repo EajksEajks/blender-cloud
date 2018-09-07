@@ -1,5 +1,7 @@
 | {% extends 'layout.html' %}
 | {% block page_title %}Production of Stuff{% endblock %}
+| {% set page_header_text = "Here are our hand-selected assets 'bout stuff." %}
+
 | {% block head %}
 script(src="{{ url_for('static_cloud', filename='assets/js/tagged_assets.min.js') }}")
 
@@ -9,27 +11,31 @@ script.
 	})
 | {% endblock %}
 | {% block body %}
-#page-container
-	#page-content
-		h2 Production of Stuff
-		p.
-			Here are our hand-selected assets 'bout stuff.
+.container.pb-5
+	.pt-4
+		h2.text-uppercase.font-weight-bold
+			| {{ self.page_title() }}
+		.lead
+			| {{ page_header_text }}
+
+		hr.pb-2
 
 		h3 Animation
 		ul.js-asset-list(data-asset-tag="animation")
 
-		h3 Modelling
+		h3 Modeling
 		ul.js-asset-list(data-asset-tag="modelling")
 
 		h3 Rigging
 		ul.js-asset-list(data-asset-tag="rigging")
 
-		h3 pipeline
+		h3 Pipeline
 		ul.js-asset-list(data-asset-tag="pipeline")
 
-		h3 lookdev
+		h3 Look-dev
 		ul.js-asset-list(data-asset-tag="lookdev")
 
-		h3 crazyspace
+		h3 Crazyspace
 		ul.js-asset-list(data-asset-tag="crazyspace")
+
 | {% endblock body%}
