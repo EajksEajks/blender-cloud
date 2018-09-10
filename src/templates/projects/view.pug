@@ -103,24 +103,16 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 		href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
 		| {{ project.name }}
 
-	| {% if project.category == "open_project" %}
-	+nav-secondary-link(
-		class="active",
-		href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
-		| Explore
-	+nav-secondary-link(
-		href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
+	| {% if project.nodes_blog %}
+	// TODO - Use url_for blog
+	+nav-secondary-link(href="{{ url_for('projects.view', project_url=project.url) }}blog")
 		| Blog
-	+nav-secondary-link(
-		href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
-		| About
-	+nav-secondary-link(
-		href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
-		| Team
-	+nav-secondary-link(
-		href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
-		| Awards
 	| {% endif %}
+
+	| {% for page in pages %}
+	+nav-secondary-link(href="{{ page.url }}")
+		| {{ page.name }}
+	| {% endfor %}
 | {% endblock navigation_tabs %}
 
 | {% block body %}
@@ -128,11 +120,10 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 	#project-side-container
 		#project_sidebar.bg-white
 			ul.project-tabs.p-0
-				li.tabs-browse(
+				li.tabs-browse.active(
 					title="Browse",
 					data-toggle="tooltip",
-					data-placement="right",
-					class="active")
+					data-placement="right")
 					a(href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
 						i.pi-folder
 
