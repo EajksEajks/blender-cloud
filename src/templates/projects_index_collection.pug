@@ -77,7 +77,10 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 		| {% for project in projects %}
 
 		| {% if (project.status == 'published') or (project.status == 'pending' and current_user.is_authenticated) and project._id != config.MAIN_PROJECT_ID %}
-		+card(data-url="{{ url_for('projects.view', project_url=project.url) }}", tabindex='{{ loop.index }}')
+		+card(
+			class='js-project-go card-fade cursor-pointer mb-4',
+			data-url="{{ url_for('projects.view', project_url=project.url) }}",
+			tabindex='{{ loop.index }}')
 			| {% if project.picture_header %}
 			a(href="{{ url_for('projects.view', project_url=project.url) }}")
 				img.card-img-top(

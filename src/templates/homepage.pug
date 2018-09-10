@@ -1,6 +1,7 @@
 | {% extends 'layout.html' %}
 | {% from '_macros/_navigation.html' import navigation_tabs %}
 | {% from 'nodes/custom/blog/_macros.html' import render_blog_post %}
+include ../../../pillar/src/templates/mixins/components
 
 | {% set title = 'homepage' %}
 
@@ -62,69 +63,24 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 				section.stream.py-3
 					h6.title-underline Latest Assets
 
-					ul.activity-stream__list.list-unstyled
+					| {% if activity_stream %}
+					.card-padless.p-2
 						| {% for n in activity_stream %}
-						li(
-							class="{{ n.node_type }} {{ n.properties.content_type }} {% if n.picture %}with-picture{% endif %}",
-							data-url="{{ n.url }}")
-							a.activity-stream__list-thumbnail(
-								class="{{ n.properties.content_type }}",
-								href="{{ n.url }}")
-								| {% if n.picture %}
-								img(src="{{ n.picture.thumbnail('m', api=api) }}")
-								| {% endif %}
-
-								.activity-stream__list-thumbnail-icon
-									| {% if n.node_type == 'asset' %}
-									| {% if n.properties.content_type == 'video' %}
-									i.pi-play
-									| {% elif n.properties.content_type == 'image' %}
-									i.pi-picture
-									| {% elif n.properties.content_type == 'file' %}
-									i.pi-file-archive
-									| {% else %}
-									i.pi-folder
-									| {% endif %}
-									| {% endif %}
-
-
-							.activity-stream__list-details
-								a.title(href="{{ n.url }}")
-									| {{ n.name }}
-
-								| {% if n.permissions.world %}
-								.ribbon
-									span free
-								| {% endif %}
-								ul.list-unstyled.d-flex.text-muted
-									| {% if not n.picture %}
-									li.when
-										a(href="{{ n.url }}", title="{{ n._created }}") {{ n._created | pretty_date_time }}
-									li.who {{ n.user.full_name }}
-									| {% endif %}
-
-									| {% if n.attached_to %}
-									li.where-parent
-										a(href="{{ n.attached_to.url }}") {{ n.attached_to.name }}
-									| {% endif %}
-									li.where-project
-										a.project(href="{{ url_for('projects.view', project_url=n.project.url) }}") {{ n.project.name }}
-									li.what
-										| {% if n.node_type == 'asset' %}
-										| {{ n.properties.content_type | undertitle  }}
-										| {% endif %}
-
-								| {% if n.picture %}
-								ul.list-unstyled.d-flex.text-muted.extra
-									li.when
-										a(href="{{ n.url }}", title="{{ n._created }}") {{ n._created | pretty_date_time }}
-									li.who {{ n.user.full_name }}
-								| {% endif %}
+						| {% if n.node_type not in ['comment'] %}
+						+list-asset(
+							'{{ n.name }}',
+							'{{ url_for_node(node=n) }}',
+							"{% if n.picture %}{{ n.picture.thumbnail('l', api=api) }}{% endif %}",
+							"{% if n.properties.content_type %}{{ n.properties.content_type | undertitle }}{% else %}{{ n.node_type | undertitle }}{% endif %}",
+							"{{ n._updated | pretty_date }}")(class="{% if n.permissions.world %}free{% endif %}")
+						| {% endif %}
 						| {% endfor %}
-
-						li.activity-stream__list-item.empty#activity-stream__empty
-							| No items to list.
-
+					| {% else %}
+					.card
+						.card-body
+							h6.card-title
+								| No assets.
+					| {% endif %}
 
 				section.random-asset.py-3
 					h6.title-underline
@@ -151,7 +107,7 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 						li.random-asset__list-item.featured
 							| {% if n.permissions.world %}
 							.ribbon
-								span free
+								span FREE
 							| {% endif %}
 							a.random-asset__thumbnail(
 								href="{{ n.url }}",
@@ -179,7 +135,7 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 						li
 							| {% if n.permissions.world %}
 							.ribbon
-								span free
+								span FREE
 							| {% endif %}
 							a.random-asset__list-thumbnail(
 								href="{{ n.url }}",
