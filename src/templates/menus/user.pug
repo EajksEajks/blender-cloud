@@ -9,8 +9,8 @@
 | {% endif %}
 
 | {% block menu_avatar %}
-a.navbar-item.dropdown-toggle(href="#", data-toggle="dropdown", title="{{ current_user.email }}")
-	img.gravatar(
+a.navbar-item.dropdown-toggle(href="{{ url_for('settings.profile') }}", data-toggle="dropdown")
+	img.gravatar.rounded-circle(
 	src="{{ current_user.gravatar }}",
 	class="{{ subscription }}",
 	alt="Avatar")
@@ -28,17 +28,17 @@ a.navbar-item.dropdown-toggle(href="#", data-toggle="dropdown", title="{{ curren
 | {% block menu_list %}
 li.subscription-status(class="{{ subscription }}")
 	| {% if subscription == 'subscriber' %}
-	a.navbar-item(
-	href="{{url_for('settings.billing')}}"
-	title="View subscription info")
+	a.navbar-item.pt-2.pr-3(
+		href="{{ url_for('settings.billing') }}"
+		title="View subscription info")
 		i.pi-grin
-		span Your subscription is active!
+		span.subitem Your subscription is active!
 	| {% elif subscription == 'demo' %}
-	a.navbar-item(
-	href="{{url_for('settings.billing')}}"
-	title="View subscription info")
+	a.navbar-item.pt-2.pr-3(
+		href="{{url_for('settings.billing')}}"
+		title="View subscription info")
 		i.pi-heart-filled
-		span You have a free account.
+		span.subitem You have a free account.
 	| {% elif current_user.has_cap('can-renew-subscription') %}
 	a.navbar-item(target='_blank', href="/renew", title="Renew subscription")
 		i.pi-heart
@@ -46,8 +46,8 @@ li.subscription-status(class="{{ subscription }}")
 			span.renew Click here to renew.
 	| {% else %}
 	a.navbar-item(
-	href="https://store.blender.org/product/membership/"
-	title="Renew subscription")
+		href="https://store.blender.org/product/membership/"
+		title="Renew subscription")
 		i.pi-unhappy
 		span.info Your subscription is not active.
 			span.renew Click here to renew.
@@ -57,8 +57,8 @@ li.subscription-status(class="{{ subscription }}")
 
 li
 	a.navbar-item(
-	href="{{ url_for('settings.billing') }}"
-	title="Billing")
+		href="{{ url_for('settings.billing') }}"
+		title="Billing")
 		i.pi-credit-card
 		| Subscription
 | {% endblock menu_list %}
