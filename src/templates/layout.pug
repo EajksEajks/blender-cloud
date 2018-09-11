@@ -110,6 +110,14 @@ html(lang="en")
 				| {% block navigation_sections %}
 
 				+nav-secondary-link(
+					href="{{ url_for('main.nodes_search_index') }}",
+					title="Search Blender Cloud",
+					data-toggle="tooltip",
+					data-placement="bottom",
+					class="px-2")
+					i.pi-search
+
+				+nav-secondary-link(
 					href="{{ url_for('main.main_blog') }}",
 					title="Blender Cloud Blog",
 					data-toggle="tooltip",
