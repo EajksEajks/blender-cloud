@@ -90,6 +90,8 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 	li.text-capitalize
 		a.nav-link.text-muted.px-0(href="{{ url_for('cloud.courses') }}")
 			| Courses
+	li.px-1
+		i.pi-angle-right
 	| {% elif project.category == 'workshop' %}
 	li.text-capitalize
 		a.nav-link.text-muted.px-0(href="{{ url_for('cloud.workshops') }}")
@@ -659,10 +661,6 @@ script.
 	/* UI Stuff */
 	$(window).on("load resize",function(){
 		containerResizeY($(window).height());
-
-		if ($(window).width() > 480) {
-			project_container.style.height = (window.innerHeight - project_container.offsetTop) + "px";
-		}
 	});
 
 	{% if current_user_is_subscriber %}

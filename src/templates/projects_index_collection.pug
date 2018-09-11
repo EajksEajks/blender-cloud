@@ -1,5 +1,4 @@
 | {% extends 'layout.html' %}
-
 include ../../../pillar/src/templates/mixins/components
 
 | {# Default case is Open Projects #}
@@ -78,7 +77,7 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 
 		| {% if (project.status == 'published') or (project.status == 'pending' and current_user.is_authenticated) and project._id != config.MAIN_PROJECT_ID %}
 		+card(
-			class='js-project-go card-fade cursor-pointer mb-4',
+			class='js-project-go card-fade cursor-pointer mb-4 mx-0',
 			data-url="{{ url_for('projects.view', project_url=project.url) }}",
 			tabindex='{{ loop.index }}')
 			| {% if project.picture_header %}
