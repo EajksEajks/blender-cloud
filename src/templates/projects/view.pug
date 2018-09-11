@@ -160,17 +160,20 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 			#project_nav-container
 				| {% if title != 'about' %}
 				| {% block project_tree %}
-				#project_tree.bg-white
+				#project_tree.bg-white.border-right
 				| {% endblock project_tree %}
 				| {% endif %}
 
 
-	#project_context-container.border-left
+	#project_context-container
 		| {% if project.has_method('PUT') %}
-		#project_context-header.d-flex.justify-content-end.position-fixed.bg-white
-			ul.project-edit-tools.disabled.d-flex.list-unstyled.py-1.mb-0
-				li.dropdown
-					button.btn.btn-sm.btn-outline-secondary.dropdown-toggle(
+		#project_context-header.position-fixed
+			ul.project-edit-tools.disabled.d-flex.list-unstyled.py-2.mb-0
+				li.dropdown(
+					title="Create...",
+					data-toggle="tooltip",
+					data-placement="left")
+					button.dropdown-toggle.btn.btn-sm.btn-outline-secondary(
 						id="item_add",
 						class="project-mode-view",
 						type="button",
@@ -178,21 +181,21 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 						aria-haspopup="true",
 						aria-expanded="false")
 						i.button-add-icon.pi-collection-plus
-						| New...
 
 					ul.dropdown-menu.dropdown-menu-right(
 						class="add_new-menu")
 						| {{ add_new_menu(project.node_types) }}
 
 				li.button-edit
-					a.btn.btn-sm.btn-outline-secondary.ml-2.px-3.text-capitalize(
+					a.btn.btn-sm.btn-outline-secondary.ml-2.px-2(
 						id="item_edit",
 						class="project-mode-view",
 						href="javascript:void(0);",
 						title="Edit",
-						data-project_id="{{project._id}}")
-						i.button-edit-icon.pi-edit.pr-2
-						| Edit Project
+						data-project_id="{{project._id}}",
+						data-toggle="tooltip",
+						data-placement="top")
+						i.button-edit-icon.pi-edit
 
 				li.dropdown
 					button.dropdown-toggle.btn.btn-sm.btn-outline-secondary.mx-2(

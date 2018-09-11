@@ -73,7 +73,7 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 
 		hr.pb-2
 
-	+card-deck(3)
+	+card-deck
 		| {% for project in projects %}
 
 		| {% if (project.status == 'published') or (project.status == 'pending' and current_user.is_authenticated) and project._id != config.MAIN_PROJECT_ID %}

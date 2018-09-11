@@ -1,6 +1,8 @@
 | {% extends 'layout.html' %}
 | {% from '_macros/_navigation.html' import navigation_tabs %}
+| {% from '_macros/_asset_list_item.html' import asset_list_item %}
 | {% from 'nodes/custom/blog/_macros.html' import render_blog_post %}
+
 include ../../../pillar/src/templates/mixins/components
 
 | {% set title = 'homepage' %}
@@ -65,14 +67,9 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 
 					| {% if activity_stream %}
 					.card-padless.p-2
-						| {% for n in activity_stream %}
-						| {% if n.node_type not in ['comment'] %}
-						+list-asset(
-							'{{ n.name }}',
-							'{{ url_for_node(node=n) }}',
-							"{% if n.picture %}{{ n.picture.thumbnail('l', api=api) }}{% endif %}",
-							"{% if n.properties.content_type %}{{ n.properties.content_type | undertitle }}{% else %}{{ n.node_type | undertitle }}{% endif %}",
-							"{{ n._updated | pretty_date }}")(class="{% if n.permissions.world %}free{% endif %}")
+						| {% for child in activity_stream %}
+						| {% if child.node_type not in ['comment'] %}
+						| {{ asset_list_item(child, current_user) }}
 						| {% endif %}
 						| {% endfor %}
 					| {% else %}
