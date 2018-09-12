@@ -28,19 +28,19 @@ a.navbar-item.dropdown-toggle(href="{{ url_for('settings.profile') }}", data-tog
 | {% block menu_list %}
 li.subscription-status(class="{{ subscription }}")
 	| {% if subscription == 'subscriber' %}
-	a.navbar-item.pt-2.pr-3(
+	a.navbar-item.pt-2.pl-2.pr-3(
 		href="{{ url_for('settings.billing') }}"
 		title="View subscription info")
 		i.pi-grin
 		span.subitem Your subscription is active!
 	| {% elif subscription == 'demo' %}
-	a.navbar-item.pt-2.pr-3(
+	a.navbar-item.pt-2.pl-2.pr-3(
 		href="{{url_for('settings.billing')}}"
 		title="View subscription info")
 		i.pi-heart-filled
 		span.subitem You have a free account.
 	| {% elif current_user.has_cap('can-renew-subscription') %}
-	a.navbar-item(target='_blank', href="/renew", title="Renew subscription")
+	a.navbar-item.pt-2.pl-2.pr-3(target='_blank', href="/renew", title="Renew subscription")
 		i.pi-heart
 		span.info Your subscription is not active.
 			span.renew Click here to renew.
@@ -56,7 +56,7 @@ li.subscription-status(class="{{ subscription }}")
 | {{ super() }}
 
 li
-	a.navbar-item(
+	a.navbar-item.px-2(
 		href="{{ url_for('settings.billing') }}"
 		title="Billing")
 		i.pi-credit-card
