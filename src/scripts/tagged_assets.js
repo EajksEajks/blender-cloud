@@ -6,103 +6,119 @@
     const LOAD_INITIAL_COUNT = 5;
     const LOAD_NEXT_COUNT = 3;
 
-    /* Renders a node as a <li> element, returns a jQuery object. */
+    /* Renders a node as an asset card, returns a jQuery object. */
     function renderAsset(node) {
-        let li = $('<li>').addClass('js-tagged-asset');
-        let link = $('<a>')
+        let card = $('<a class="card asset card-image-fade pr-0 mx-0 mb-2">')
+            .addClass('js-tagged-asset')
             .attr('href', '/nodes/' + node._id + '/redir')
-            .appendTo(li);
+            .attr('title', node.name);
+
+        let thumbnail_container = $('<div class="embed-responsive embed-responsive-16by9">');
 
         function warnNoPicture() {
-            li.addClass('warning');
-            link.text('no picture for node ' + node._id);
+            let card_icon = $('<div class="card-img-top card-icon embed-responsive-item">');
+            card_icon.html('<i class="pi-' + node.node_type + '">');
+            thumbnail_container.append(card_icon);
         }
 
         if (!node.picture) {
             warnNoPicture();
-            return li;
+        } else {
+            // TODO: show 'loading' thingy
+            $.get('/api/files/' + node.picture)
+                .fail(function(error) {
+                    let msg = xhrErrorResponseMessage(error);
+                    console.log(msg);
+                })
+                .done(function(resp) {
+                    // Render the picture if it has the proper size.
+                    var show_variation = null;
+                    if (typeof resp.variations != 'undefined') {
+                        for (variation of resp.variations) {
+                            if (variation.size != 'm') continue;
+                            show_variation = variation;
+                            break;
+                        }
+                    }
+
+                    if (show_variation == null) {
+                        warnNoPicture();
+                        return;
+                    }
+
+                    let img = $('<img class="card-img-top embed-responsive-item">')
+                        .attr('alt', node.name)
+                        .attr('src', variation.link)
+                        .attr('width', variation.width)
+                        .attr('height', variation.height);
+                    thumbnail_container.append(img);
+                });
         }
 
-        // TODO: show 'loading' thingy
-        $.get('/api/files/' + node.picture)
-            .fail(function(error) {
-                let msg = xhrErrorResponseMessage(error);
-                li.addClass('error').text(msg);
-            })
-            .done(function(resp) {
-                // Render the picture if it has the proper size.
-                var show_variation = null;
-                if (typeof resp.variations != 'undefined') {
-                    for (variation of resp.variations) {
-                        if (variation.size != 'm') continue;
-                        show_variation = variation;
-                        break;
-                    }
-                }
+        card.append(thumbnail_container);
 
-                if (show_variation == null) {
-                    warnNoPicture();
-                    return;
-                }
+        /* Card body for title and meta info. */
+        let card_body = $('<div class="card-body py-2 d-flex flex-column">');
+        let card_title = $('<div class="card-title mb-1 font-weight-bold">');
+        card_title.text(node.name);
+        card_body.append(card_title);
 
-                let img = $('<img>')
-                    .attr('alt', node.name)
-                    .attr('src', variation.link)
-                    .attr('width', variation.width)
-                    .attr('height', variation.height);
-                link.append(img);
-            });
+        card.append(card_body);
 
-        return li;
+        /* 'Free' ribbon for public assets. */
+        if (node.permissions && node.permissions.world){
+            card.addClass('free');
+        }
+
+        return card;
     }
 
-    function loadNext(ul_element) {
-        let $ul = $(ul_element);
-        let tagged_assets = ul_element.tagged_assets;  // Stored here by loadTaggedAssets().
-        let already_loaded = $ul.find('li.js-tagged-asset').length;
+    function loadNext(card_deck_element) {
+        let $card_deck = $(card_deck_element);
+        let tagged_assets = card_deck_element.tagged_assets;  // Stored here by loadTaggedAssets().
+        let already_loaded = $card_deck.find('a.js-tagged-asset').length;
 
-        let load_next = $ul.find('li.js-load-next');
+        let load_next = $card_deck.find('a.js-load-next');
 
         let nodes_to_load = tagged_assets.slice(already_loaded, already_loaded + LOAD_NEXT_COUNT);
         for (node of nodes_to_load) {
-            let li = renderAsset(node);
-            load_next.before(li);
+            let link = renderAsset(node);
+            load_next.before(link);
         }
 
         if (already_loaded + LOAD_NEXT_COUNT >= tagged_assets.length)
             load_next.remove();
     }
 
-    $.fn.loadTaggedAssets = function(api_base_url) {
-        this.each(function(index, ul_element) {
+    $.fn.loadTaggedAssets = function() {
+        this.each(function(index, card_deck_element) {
             // TODO(Sybren): show a 'loading' animation.
-            $.get('/api/nodes/tagged/' + ul_element.dataset.assetTag)
+            $.get('/api/nodes/tagged/' + card_deck_element.dataset.assetTag)
                 .fail(function(error) {
                     let msg = xhrErrorResponseMessage(error);
-                    $('<li>').addClass('error').text(msg).appendTo(ul_element);
+                    $('<a>').addClass('bg-danger').text(msg).appendTo(card_deck_element);
                 })
                 .done(function(resp) {
                     // 'resp' is a list of node documents.
-                    // Store the response on the DOM <ul>-element so that we can later render more.
-                    ul_element.tagged_assets = resp;
+                    // Store the response on the DOM card_deck_element so that we can later render more.
+                    card_deck_element.tagged_assets = resp;
 
                     // Here render the first N.
                     for (node of resp.slice(0, LOAD_INITIAL_COUNT)) {
                         let li = renderAsset(node);
-                        li.appendTo(ul_element);
+                        li.appendTo(card_deck_element);
                     }
 
                     // Don't bother with a 'load next' link if there is no more.
                     if (resp.length <= LOAD_INITIAL_COUNT) return;
 
                     // Construct the 'load next' link.
-                    let load_next = $('<li>').addClass('js-load-next');
                     let link = $('<a>')
+                        .addClass('js-load-next')
                         .attr('href', 'javascript:void(0);')
-                        .click(function() { loadNext(ul_element); return false; })
-                        .text('Load next')
-                        .appendTo(load_next);
-                    load_next.appendTo(ul_element);
+                        .click(function() { loadNext(card_deck_element); return false; })
+                        .text('Load next');
+                    link.appendTo(card_deck_element);
                 });
         });
     };
