@@ -105,15 +105,9 @@ link(href="{{ url_for('static_pillar', filename='assets/css/project-main.css') }
 		href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
 		| {{ project.name }}
 
-	| {% if project.nodes_blog %}
-	// TODO - Use url_for blog
-	+nav-secondary-link(href="{{ url_for('projects.view', project_url=project.url) }}blog")
-		| Blog
-	| {% endif %}
-
-	| {% for page in pages %}
-	+nav-secondary-link(href="{{ page.url }}")
-		| {{ page.name }}
+	| {% for link in navigation_links %}
+	+nav-secondary-link(href="{{ link['url'] }}")
+		| {{ link['label'] }}
 	| {% endfor %}
 | {% endblock navigation_tabs %}
 
