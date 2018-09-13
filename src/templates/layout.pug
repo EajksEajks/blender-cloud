@@ -31,19 +31,12 @@ html(lang="en")
 		meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/backgrounds/background_gleb_locomotive.jpg')}}")
 		| {% endblock og %}
 
-		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery-3.1.0.min.js')}}")
+		script(src="{{ url_for('static_pillar', filename='assets/js/tutti.min.js') }}")
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.typeahead-0.11.1.min.js')}}")
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/js.cookie-2.0.3.min.js')}}")
 		| {% if current_user.is_authenticated %}
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/clipboard.min.js')}}")
 		| {% endif %}
-
-		| {% if current_user.has_cap('subscriber') %}
-		| {# Only load if we can comment (for converting markdown as-we-type) #}
-		script(src="{{ url_for('static_pillar', filename='assets/js/markdown.min.js') }}")
-		| {% endif %}
-
-		script(src="{{ url_for('static_pillar', filename='assets/js/tutti.min.js') }}")
 
 		link(href="{{ url_for('static', filename='assets/img/favicon.png') }}", rel="shortcut icon")
 		link(href="{{ url_for('static', filename='assets/img/apple-touch-icon-precomposed.png') }}", rel="icon apple-touch-icon-precomposed", sizes="192x192")
@@ -416,8 +409,6 @@ html(lang="en")
 				.nc-text
 					span.nc-date
 						a(href="")
-
-		script(src="{{ url_for('static_cloud', filename='assets/js/bootstrap.min.js') }}")
 
 		| {% if current_user.is_authenticated %}
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.typewatch-3.0.0.min.js') }}")
