@@ -31,9 +31,7 @@ var destination = {
 }
 
 var source = {
-    pillar: '../pillar/',
-    bootstrap: 'node_modules/bootstrap/',
-    popper: 'node_modules/popper.js/'
+    pillar: '../pillar/'
 }
 
 
@@ -71,6 +69,9 @@ gulp.task('templates', function() {
 });
 
 
+/* Tutti gets built by Pillar. See gulpfile.js in pillar.*/
+
+
 /* Individual Uglified Scripts */
 gulp.task('scripts', function() {
     gulp.src('src/scripts/*.js')
@@ -79,44 +80,6 @@ gulp.task('scripts', function() {
         .pipe(gulpif(enabled.maps, sourcemaps.init()))
         .pipe(gulpif(enabled.uglify, uglify()))
         .pipe(rename({suffix: '.min'}))
-        .pipe(gulpif(enabled.maps, sourcemaps.write(".")))
-        .pipe(gulpif(enabled.chmod, chmod(644)))
-        .pipe(gulp.dest(destination.js))
-        .pipe(gulpif(argv.livereload, livereload()));
-});
-
-
-/* Collection of scripts in src/scripts/tutti/ to merge into tutti.min.js */
-/* Since it's always loaded, it's only for functions that we want site-wide */
-gulp.task('scripts_concat_tutti', function() {
-    gulp.src('src/scripts/tutti/**/*.js')
-        .pipe(gulpif(enabled.failCheck, plumber()))
-        .pipe(gulpif(enabled.maps, sourcemaps.init()))
-        .pipe(concat("tutti.min.js"))
-        .pipe(gulpif(enabled.uglify, uglify()))
-        .pipe(gulpif(enabled.maps, sourcemaps.write(".")))
-        .pipe(gulpif(enabled.chmod, chmod(644)))
-        .pipe(gulp.dest(destination.js))
-        .pipe(gulpif(argv.livereload, livereload()));
-});
-
-
-// Combine all needed Bootstrap JavaScript into a single file.
-gulp.task('scripts_concat_bootstrap', function() {
-
-    toUglify = [
-        source.popper    + 'dist/umd/popper.min.js',
-        source.bootstrap + 'js/dist/index.js',
-        source.bootstrap + 'js/dist/util.js',
-        source.bootstrap + 'js/dist/tooltip.js',
-        source.bootstrap + 'js/dist/dropdown.js',
-    ];
-
-    gulp.src(toUglify)
-        .pipe(gulpif(enabled.failCheck, plumber()))
-        .pipe(gulpif(enabled.maps, sourcemaps.init()))
-        .pipe(concat("bootstrap.min.js"))
-        .pipe(gulpif(enabled.uglify, uglify()))
         .pipe(gulpif(enabled.maps, sourcemaps.write(".")))
         .pipe(gulpif(enabled.chmod, chmod(644)))
         .pipe(gulp.dest(destination.js))
@@ -133,11 +96,10 @@ gulp.task('watch',function() {
 
     gulp.watch('src/styles/**/*.sass',['styles']);
     gulp.watch(source.pillar + 'src/styles/**/*.sass',['styles']);
-
-    gulp.watch('src/templates/**/*.pug',['templates']);
     gulp.watch('src/scripts/*.js',['scripts']);
-    gulp.watch('src/scripts/tutti/**/*.js',['scripts_concat_tutti']);
+    gulp.watch('src/templates/**/*.pug',['templates']);
 });
+
 
 // Erases all generated files in output directories.
 gulp.task('cleanup', function() {
@@ -157,4 +119,4 @@ gulp.task('cleanup', function() {
 var tasks = [];
 if (enabled.cleanup) tasks.push('cleanup');
 
-gulp.task('default', tasks.concat(['styles', 'templates', 'scripts', 'scripts_concat_tutti', 'scripts_concat_bootstrap']));
+gulp.task('default', tasks.concat(['styles', 'templates', 'scripts']));
