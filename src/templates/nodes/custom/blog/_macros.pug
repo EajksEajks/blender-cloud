@@ -11,8 +11,8 @@ include ../../../../../../pillar/src/templates/mixins/components
 		"{{ node.picture.thumbnail('h', api=api) }}",
 		"{{ node.url }}")(class="row")
 	| {% else %}
-	.pt-3.text-center.text-muted
-		h2
+	.pt-5.text-center.text-muted
+		h2.pb-2
 			a.text-muted(href="{{ node.url }}")
 				| {{ node.name }}
 		ul.d-flex.list-unstyled.justify-content-center
@@ -46,6 +46,11 @@ include ../../../../../../pillar/src/templates/mixins/components
 				| {{ node.properties | markdowned('content') }}
 
 			hr.my-4
+
+			.mx-auto
+				#comments-embed
+					.comments-list-loading
+						i.pi-spin
 | {% endmacro %}
 
 //- ******************************************************* -//
@@ -118,7 +123,7 @@ include ../../../../../../pillar/src/templates/mixins/components
 
 //- Macro for rendering the navigation buttons for prev/next pages -//
 | {% macro render_archive_pagination(project) %}
-.blog-archive-navigation
+.blog-archive-navigation.mb-4
 	| {% if project.blog_archive_prev %}
 	a.archive-nav-button(
 		href="{{ project.blog_archive_prev }}", rel="prev")
