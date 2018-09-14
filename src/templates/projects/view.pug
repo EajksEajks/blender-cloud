@@ -1,5 +1,7 @@
 | {% extends 'layout.html' %}
 | {% from '_macros/_add_new_menu.html' import add_new_menu %}
+| {% import 'projects/_macros.html' as projectmacros %}
+
 include ../../../../pillar/src/templates/mixins/components
 
 | {% block page_title %}{{ project.name }}{% endblock%}
@@ -85,30 +87,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 | {% endblock %}
 
 | {% block navigation_tabs %}
-+nav-secondary()
-	| {% if project.category == 'course' %}
-	li.text-capitalize
-		a.nav-link.text-muted.px-0(href="{{ url_for('cloud.courses') }}")
-			| Courses
-	li.px-1
-		i.pi-angle-right
-	| {% elif project.category == 'workshop' %}
-	li.text-capitalize
-		a.nav-link.text-muted.px-0(href="{{ url_for('cloud.workshops') }}")
-			| Workshops
-	li.px-1
-		i.pi-angle-right
-	| {% endif %}
-
-	+nav-secondary-link(
-		class="px-0 font-weight-bold",
-		href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
-		| {{ project.name }}
-
-	| {% for link in navigation_links %}
-	+nav-secondary-link(href="{{ link['url'] }}")
-		| {{ link['label'] }}
-	| {% endfor %}
+| {{ projectmacros.render_secondary_navigation(project, navigation_links, title) }}
 | {% endblock navigation_tabs %}
 
 | {% block body %}

@@ -39,10 +39,6 @@ include ../../../../../../pillar/src/templates/mixins/components
 			| {% endif %}
 	| {% endif %}
 
-	| {% if project and project._id != config.MAIN_PROJECT_ID %}
-	| {{ projectmacros.render_secondary_navigation(project, pages=pages) }}
-	| {% endif %}
-
 	.row
 		.col-md-9.mx-auto
 

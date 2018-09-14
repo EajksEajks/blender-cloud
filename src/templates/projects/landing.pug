@@ -1,5 +1,8 @@
-| {% import 'projects/_macros.html' as projectmacros %}
 | {% extends 'layout.html' %}
+| {% import 'projects/_macros.html' as projectmacros %}
+| {% from '_macros/_asset_list_item.html' import asset_list_item %}
+| {% set title = 'landing' %}
+include ../../../../pillar/src/templates/mixins/components
 
 | {% block page_title %}{{ project.name }}{% endblock%}
 
@@ -70,95 +73,73 @@ meta(property="og:url", content="{{url_for('projects.view', project_url=project.
 #others
 | {% endblock %}
 
-| {% block head %}
-
-script(src="{{ url_for('static_pillar', filename='assets/js/vendor/videojs-6.2.8.min.js') }}")
-script(src="{{ url_for('static_pillar', filename='assets/js/vendor/videojs-ga-0.4.2.min.js') }}")
-script(src="{{ url_for('static_pillar', filename='assets/js/vendor/videojs-hotkeys-0.2.20.min.js') }}")
-| {% endblock %}
-
 | {% block css %}
 link(href="{{ url_for('static_pillar', filename='assets/css/font-pillar.css') }}", rel="stylesheet")
 link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}", rel="stylesheet")
 | {% endblock %}
 
+| {% block navigation_tabs %}
+| {{ projectmacros.render_secondary_navigation(project, navigation_links, title) }}
+| {% endblock navigation_tabs %}
+
 | {% block body %}
-header
-	//a(href="{{ url_for( 'projects.view', project_url=project.url) }}")
-	img.header(src="{{ project.picture_header.thumbnail('h', api=api) }}")
++jumbotron(null, null, "{{ project.picture_header.thumbnail('h', api=api) }}")
 
-| {% block navbar_secondary %}
-| {{ projectmacros.render_secondary_navigation(project, pages=pages) }}
+.container-fluid
+	.row
+		.col-md-8.mx-auto
+			h2.pt-5 {{ project.name }}
 
-| {% endblock navbar_secondary %}
-#container.landing
-	section.node-details-container.project
-		.node-details-title
-			h1 {{ project.name }}
+			| {% if project.description %}
+			.node-details-description
+				| {{ project | markdowned('description') }}
+			| {% endif %}
 
-		| {% if project.description %}
-		.node-details-description
-			| {{ project | markdowned('description') }}
-		| {% endif %}
+	.row
+		.col-md-10.mx-auto
+			section.py-5
+				h2.pb-3 Gallery
+
+				.gallery
+					| {% for n in activity_stream %}
+					| {% if n.node_type not in ['comment', 'post'] and n.picture %}
+					.thumbnail.expand-image-links
+						.img-container
+							a(href="{{ n.picture.thumbnail('l', api=api) }}", data-node_id="{{ n._id }}")
+								img(src="{{ n.picture.thumbnail('l', api=api) }}", alt="{{ n.name }}")
+								.img-caption.table
+									| {# Not using for the moment
+									span.table-cell {{ n.name }}
+									| #}
+					| {% endif %}
+					| {% endfor %}
+					div(class="clearfix")
+					| {% if project.nodes_featured %}
+					| {# In some cases featured_nodes might might be embedded #}
+					| {% if '_id' in project.nodes_featured[0] %}
+					| {% set featured_node_id=project.nodes_featured[0]._id %}
+					| {% else %}
+					| {% set featured_node_id=project.nodes_featured[0] %}
+					| {% endif %}
+					.text-center.p-5
+						a.btn.btn-outline-secondary.px-5(
+							href="{{ url_for('projects.view_node', project_url=project.url, node_id=featured_node_id) }}")
+							| See More Artwork
+					| {% endif %}
 
 
-	section.gallery
-		h2 Gallery
-		| {% for n in activity_stream %}
-		| {% if n.node_type not in ['comment', 'post'] and n.picture %}
-		.thumbnail.expand-image-links
-			.img-container
-				a(href="{{ n.picture.thumbnail('l', api=api) }}", data-node_id="{{ n._id }}")
-					img(src="{{ n.picture.thumbnail('l', api=api) }}", alt="{{ n.name }}")
-					.img-caption.table
-						| {# Not using for the moment
-						span.table-cell {{ n.name }}
-						| #}
-		| {% endif %}
-		| {% endfor %}
-		div(class="clearfix")
-		| {% if project.nodes_featured %}
-		| {# In some cases featured_nodes might might be embedded #}
-		| {% if '_id' in project.nodes_featured[0] %}
-		| {% set featured_node_id=project.nodes_featured[0]._id %}
-		| {% else %}
-		| {% set featured_node_id=project.nodes_featured[0] %}
-		| {% endif %}
-		a.btn(href="{{ url_for('projects.view_node', project_url=project.url, node_id=featured_node_id) }}") See more
-		| {% endif %}
+	.row
+		.col-md-10.mx-auto
+			h2 Latest Updates
 
-
-	section.node-extra
-		h2 Latest Updates
-
-		| {% if activity_stream %}
-		.node-updates
-			ul.node-updates-list
-				| {% for n in activity_stream %}
-				| {% if n.node_type == 'post' %}
-				li.node-updates-list-item(
-				data-node_id="{{ n._id }}",
-				class="{{ n.node_type }} {{ n.properties.content_type | hide_none }}")
-					a.image(href="{{ url_for_node(node=n) }}")
-						| {% if n.picture %}
-						img(src="{{ n.picture.thumbnail('l', api=api) }}")
-						| {% endif %}
-
-					.info
-						a.title(href="{{ url_for_node(node=n) }}") {{ n.name }}
-						p.description(href="{{ url_for_node(node=n) }}")
-							| {% if n.node_type == 'post' %}
-							| {{ n.properties | markdowned('content') | striptags | truncate(140, end="... <small>read more</small>") | safe | hide_none }}
-							| {% else %}
-							| {{ n | markdowned('description') | striptags | truncate(140, end="... <small>read more</small>") | safe | hide_none }}
-							| {% endif %}
-						//span.details
-						//	span.what {% if n.properties.content_type %}{{ n.properties.content_type | undertitle }}{% else %}{{ n.node_type | undertitle }}{% endif %} ·
-						//	span.when  {{ n._updated | pretty_date }} by
-						//	span.who {{ n.user.full_name }}
-				| {% endif %}
-				| {% endfor %}
-		| {% endif %}
+			| {% if activity_stream %}
+			+card-deck(class="px-2")
+					| {% for n in activity_stream %}
+					| {% if n.node_type == 'post' %}
+					| {{ asset_list_item(n, current_user) }}
+					| {% endif %}
+					| {% endfor %}
+			| {% endif %}
 
 .text-center.p-5
 	a.btn.btn-outline-secondary.px-5(href="{{ url_for('main.project_blog', project_url=project.url) }}") See All Updates
