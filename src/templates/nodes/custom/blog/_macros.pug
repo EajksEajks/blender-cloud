@@ -7,7 +7,7 @@ include ../../../../../../pillar/src/templates/mixins/components
 	| {% if node.picture %}
 	+jumbotron(
 		"{{ node.name }}",
-		"{{ node._created | pretty_date }}",
+		"{{ node._created | pretty_date }}{% if node.user.full_name %} · {{ node.user.full_name }}{% endif %}",
 		"{{ node.picture.thumbnail('h', api=api) }}",
 		"{{ node.url }}")
 	| {% else %}
