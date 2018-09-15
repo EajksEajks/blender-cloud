@@ -253,12 +253,18 @@ html(lang="en")
 									+nav-secondary-link(href="{{ url_for('projects.view', project_url='textures') }}")
 										i.mr-2.pi-folder-texture
 										span Textures
+
 									+nav-secondary-link(href="{{ url_for('projects.view', project_url='hdri') }}")
 										i.mr-2.pi-globe
 										span HDRI
+
 									+nav-secondary-link(href="{{ url_for('projects.view', project_url='characters') }}")
 										i.mr-2.pi-character
 										span Characters
+
+									+nav-secondary-link(href="{{ url_for('projects.view', project_url='gallery') }}")
+										i.mr-2.pi-picture
+										span Art Gallery
 
 						.dropdown-menu-tab(data-tab='services')
 							.dropdown-menu-column
