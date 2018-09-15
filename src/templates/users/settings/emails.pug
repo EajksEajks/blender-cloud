@@ -10,8 +10,9 @@
 			{{ subfield.label }}
 		| {% endfor %}
 
-		.buttons
-			button.btn.btn-outline-success.button-submit(type='submit')
-				i.pi-check
-				| Save Changes
+		.py-3
+			button.btn.btn-outline-success.px-5.button-submit(type='submit')
+				i.pi-check.pr-2
+				| {{ _("Save Changes") }}
+
 | {% endblock %}

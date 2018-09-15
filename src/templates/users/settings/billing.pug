@@ -12,7 +12,7 @@ style(type='text/css').
 
 //--------------------------------------------------------------------------------------------------
 | {% if user_cls == 'demo' %}
-h3.subscription-demo
+h4.text-info.py-3
 	i.pi-heart-filled
 	| You have a free account
 hr
@@ -23,7 +23,7 @@ p.
 
 //--------------------------------------------------------------------------------------------------
 | {% elif user_cls == 'outsider' %}
-h3.subscription-missing
+h4.text-info.py-3
 	i.pi-info
 	| You do not have an active subscription.
 hr
@@ -33,23 +33,23 @@ h3
 //--------------------------------------------------------------------------------------------------
 | {% elif user_cls == 'subscriber-expired' %}
 | {% set renew_url = url_for('cloud.renew_subscription') %}
-h3.subscription-missing
+h4.text-info.py-3
 	i.pi-info
 	a(href="{{renew_url}}") Your subscription can be renewed
 hr
 p.text-danger Subscription expired on: <strong>{{ expiration_date }}</strong>
 p
-	a.btn.btn-success(href="{{renew_url}}") Renew now
+	a.btn.btn-success.px-5(href="{{renew_url}}") Renew now
 
 //--------------------------------------------------------------------------------------------------
 | {% elif current_user.has_cap('subscriber') %}
-h3.subscription-active
-	i.pi-check
+h4.text-success.py-3
+	i.pi-heart-filled.text-danger.pr-2
 	| Your subscription is active
 
 //---------------------------------
 | {% if user_cls == 'subscriber' %}
-h4 Thank you for supporting us!
+h5 Thank you for supporting Blender!
 hr
 p Subscription expires on: <strong>{{ expiration_date }}</strong>
 p
@@ -64,10 +64,9 @@ p Your organisation provides you with your subscription.
 | {% endif %}
 
 hr
-p
-	button#recheck_subscription.btn.btn-outline-secondary(onclick="javascript:recheck_subscription(this)") Re-check my subscription
 
-hr
+button#recheck_subscription.btn.btn-sm.btn-outline-secondary.px-5(onclick="javascript:recheck_subscription(this)")
+	| Re-check my Subscription
 
 script.
 	function recheck_subscription(button) {

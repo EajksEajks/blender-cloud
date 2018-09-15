@@ -1,14 +1,16 @@
 | {% extends 'users/settings/base.html' %}
+include ../../../../../pillar/src/templates/mixins/components
+
 | {% block settings_sidebar_menu %}
 | {{ super() }}
-a(class="{% if title == 'emails' %}active{% endif %}",
-        href="{{ url_for('settings.emails') }}")
-    li
-        i.pi-email
-        | Emails
-a(class="{% if title == 'billing' %}active{% endif %}",
-        href="{{ url_for('settings.billing') }}")
-    li
-        i.pi-credit-card
-        | Subscription
++nav-secondary-link(
+	class="{% if title == 'emails' %}active{% endif %}",
+	href="{{ url_for('settings.emails') }}")
+	i.pr-3.pi-email
+	span Emails
++nav-secondary-link(
+	class="{% if title == 'billing' %}active{% endif %}",
+	href="{{ url_for('settings.billing') }}")
+	i.pr-3.pi-credit-card
+	span Subscription
 | {% endblock %}
