@@ -9,7 +9,7 @@ include ../../../../../../pillar/src/templates/mixins/components
 		"{{ node.name }}",
 		"{{ node._created | pretty_date }}",
 		"{{ node.picture.thumbnail('h', api=api) }}",
-		"{{ node.url }}")(class="row")
+		"{{ node.url }}")
 	| {% else %}
 	.pt-5.text-center.text-muted
 		h2.pb-2
@@ -39,18 +39,19 @@ include ../../../../../../pillar/src/templates/mixins/components
 			| {% endif %}
 	| {% endif %}
 
-	.row
-		.col-md-9.mx-auto
+	.container
+		.row
+			.col-md-9.mx-auto
 
-			.item-content.pt-4
-				| {{ node.properties | markdowned('content') }}
+				.item-content.pt-4
+					| {{ node.properties | markdowned('content') }}
 
-			hr.my-4
+				hr.my-4
 
-			.mx-auto
-				#comments-embed
-					.comments-list-loading
-						i.pi-spin
+				.mx-auto
+					#comments-embed
+						.comments-list-loading
+							i.pi-spin
 | {% endmacro %}
 
 //- ******************************************************* -//
@@ -93,7 +94,7 @@ a.card.asset.card-image-fade.pr-0.mx-0.mb-4(
 | {{ render_blog_post(posts[0], project=project, pages=pages) }}
 
 .container
-	h5.text-muted.text-center.py-3 Blasts from the past
+	h5.text-muted.text-center.py-3 More from {{ project.name }} blog
 	+card-deck(class="px-2 justify-content-center")
 		| {% for node in posts[1:] %}
 		| {{ render_blog_list_item(node) }}
