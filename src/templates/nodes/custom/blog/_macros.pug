@@ -55,29 +55,26 @@ include ../../../../../../pillar/src/templates/mixins/components
 
 //- ******************************************************* -//
 | {% macro render_blog_list_item(node) %}
-.row.position-relative.py-2
-	.col-md-1
+a.card.asset.card-image-fade.pr-0.mx-0.mb-4(
+	href="{{ node.url }}")
+	.embed-responsive.embed-responsive-16by9
 		| {% if node.picture %}
-		a.imgs-fluid(href="{{ node.url }}")
-			img(src="{{ node.picture.thumbnail('s', api=api) }}")
+		.card-img-top.embed-responsive-item(style="background-image: url({{ node.picture.thumbnail('m', api=api) }})")
 		| {% else %}
-		.bg-primary.rounded.h-100
-			a.d-flex.align-items-center.justify-content-center.h-100.text-white(href="{{ node.url }}")
-				i.pi-document-text
+		.card-img-top.card-icon.embed-responsive-item
+			i.pi-document-text
 		| {% endif %}
 
-	.col-md-11
-		h5
-			a.text-muted(href="{{ node.url }}") {{node.name}}
+	.card-body.py-2.d-flex.flex-column
+		.card-title.mb-1.font-weight-bold
+			| {{ node.name }}
 
-		.text-muted.
-			#[span(title="{{node._created}}") {{node._created | pretty_date }}]
-			{% if node._created != node._updated %}
-			#[span(title="{{node._updated}}") (updated {{node._updated | pretty_date }})]
-			{% endif %}
-			{% if node.properties.category %} · {{node.properties.category}}{% endif %}
-			· {{node.user.full_name}}
-			{% if node.properties.status != 'published' %} · {{ node.properties.status}} {% endif %}
+		ul.card-text.list-unstyled.d-flex.text-black-50.mt-auto
+			li.pr-2 {{ node.user.full_name }}
+			li {{ node._created | pretty_date }}
+			| {% if node.properties.status != 'published' %}
+			li.text-info.font-weight-bold {{ node.properties.status}}
+			| {% endif %}
 
 | {% endmacro %}
 
@@ -96,21 +93,18 @@ include ../../../../../../pillar/src/templates/mixins/components
 | {{ render_blog_post(posts[0], project=project, pages=pages) }}
 
 .container
-	.row
-		.col-md-9.mx-auto
-			| {% for node in posts[1:] %}
-			| {% if loop.first %}
-			h5.text-muted.text-center Blasts from the past
-			| {% endif %}
-			| {{ render_blog_list_item(node) }}
-			| {% endfor %}
+	h5.text-muted.text-center.py-3 Blasts from the past
+	+card-deck(class="px-2 justify-content-center")
+		| {% for node in posts[1:] %}
+		| {{ render_blog_list_item(node) }}
+		| {% endfor %}
 
-			| {% if more_posts_available %}
-			.blog-archive-navigation
-				a(href="{{ project.blog_archive_url }}")
-					| {{posts_meta.total - posts|length}} more blog posts over here
-					i.pi-angle-right
-			| {% endif %}
+		| {% if more_posts_available %}
+		.blog-archive-navigation
+			a(href="{{ project.blog_archive_url }}")
+				| {{posts_meta.total - posts|length}} more blog posts over here
+				i.pi-angle-right
+		| {% endif %}
 
 | {% else %}
 
@@ -156,9 +150,10 @@ include ../../../../../../pillar/src/templates/mixins/components
 
 | {{ render_archive_pagination(project) }}
 
-| {% for node in posts %}
-| {{ render_blog_list_item(node) }}
-| {% endfor %}
++card-deck(class="px-2")
+	| {% for node in posts %}
+	| {{ render_blog_list_item(node) }}
+	| {% endfor %}
 
 | {{ render_archive_pagination(project) }}
 
