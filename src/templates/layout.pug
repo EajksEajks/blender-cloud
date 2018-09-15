@@ -175,31 +175,12 @@ html(lang="en")
 
 									+nav-secondary-link(
 										href="{{ url_for('cloud.open_projects') }}",
-										class="pr-0 text-muted")
-										span See All Open Movies
+										class="nav-see-more")
+										span.font-weight-bold
+											| ALL OPEN MOVIES
 										i.pi-angle-right.pl-2
 
 						.dropdown-menu-tab(data-tab='training')
-							.dropdown-menu-column
-								+nav-secondary('Workshops')(class="nav-secondary-vertical")
-									+nav-secondary-link(
-										href="{{ url_for('projects.view', project_url='minecraft-animation-workshop') }}")
-										span Minecraft Animation Workshop
-
-									+nav-secondary-link(
-										href="{{ url_for('projects.view', project_url='low-poly-character-creation') }}")
-										span Low Poly Character Creation
-
-									+nav-secondary-link(
-										href="{{ url_for('projects.view', project_url='waking-the-forest') }}")
-										span Waking The Forest
-
-									+nav-secondary-link(
-										href="{{ url_for('cloud.workshops') }}",
-										class="pr-0 text-muted")
-										| See All Workshops
-										i.pi-angle-right.pl-2
-
 							.dropdown-menu-column
 								+nav-secondary('Courses')(class="nav-secondary-vertical border-left")
 									+nav-secondary-link(
@@ -216,8 +197,30 @@ html(lang="en")
 
 									+nav-secondary-link(
 										href="{{ url_for('cloud.courses') }}",
-										class="pr-0 text-muted")
-										span See All Courses
+										class="nav-see-more")
+										span.font-weight-bold
+											| ALL COURSES
+										i.pi-angle-right.pl-2
+
+							.dropdown-menu-column
+								+nav-secondary('Workshops')(class="nav-secondary-vertical")
+									+nav-secondary-link(
+										href="{{ url_for('projects.view', project_url='minecraft-animation-workshop') }}")
+										span Minecraft Animation Workshop
+
+									+nav-secondary-link(
+										href="{{ url_for('projects.view', project_url='low-poly-character-creation') }}")
+										span Low Poly Character Creation
+
+									+nav-secondary-link(
+										href="{{ url_for('projects.view', project_url='waking-the-forest') }}")
+										span Waking The Forest
+
+									+nav-secondary-link(
+										href="{{ url_for('cloud.workshops') }}",
+										class="nav-see-more")
+										span.font-weight-bold
+											| ALL WORKSHOPS
 										i.pi-angle-right.pl-2
 
 							.dropdown-menu-column
@@ -239,8 +242,9 @@ html(lang="en")
 
 									+nav-secondary-link(
 										href="{{ url_for('cloud.production') }}",
-										class="pr-0 text-muted")
-										span See All Techniques
+										class="nav-see-more")
+										span.font-weight-bold
+											| ALL LESSONS
 										i.pi-angle-right.pl-2
 
 						.dropdown-menu-tab(data-tab='libraries')
@@ -277,9 +281,9 @@ html(lang="en")
 
 									+nav-secondary-link(
 										href="{{ url_for('cloud.services') }}",
-										class="pr-0 text-muted")
-										i.mr-2.pi-blank
-										span See All Services
+										class="nav-see-more")
+										span.font-weight-bold
+											| ALL SERVICES
 										i.pi-angle-right.pl-2
 
 			| {% block navigation_tabs %}
