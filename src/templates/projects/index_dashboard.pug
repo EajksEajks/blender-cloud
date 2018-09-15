@@ -49,15 +49,15 @@ style.
 		section#projects.bg-white
 			+nav-secondary()(id='sub-nav-tabs__list')
 				+nav-secondary-link(data-tab-toggle='own_projects', class="active")
-					| Own Projects
+					span Own Projects
 					| {% if projects_user|length != 0 %}
-					span ({{ projects_user|length }})
+					.text-muted ({{ projects_user|length }})
 					| {% endif %}
 
 				+nav-secondary-link(data-tab-toggle='shared')
-					| Shared with me
+					span Shared with me
 					| {% if projects_shared|length != 0 %}
-					span ({{ projects_shared|length }})
+					.text-muted ({{ projects_shared|length }})
 					| {% endif %}
 
 				| {% if current_user.has_cap('subscriber') %}
@@ -65,8 +65,8 @@ style.
 						id="project-create",
 						data-url="{{ url_for('projects.create') }}",
 						href="{{ url_for('projects.create') }}")
-						span.text-success
-							| #[i.pi-plus] Create New Project
+						i.pi-plus
+						span Create New Project
 				| {% elif current_user.has_cap('can-renew-subscription') %}
 				+nav-secondary-link(
 						id="project-create",

@@ -67,33 +67,228 @@ html(lang="en")
 		| {% endwith %}
 
 		nav.navbar.navbar-expand-md.fixed-top.bg-white
-			a.navbar-brand(
-				href="{{ url_for('main.homepage') }}",
-				title="Blender Cloud")
-				span.app-logo
+			+nav-secondary()
+				+nav-secondary-link(
+					href="{{ url_for('main.homepage') }}",
+					title="Blender Cloud Homepage",
+					data-toggle="tooltip",
+					data-placement="bottom",
+					class="px-2")
 					i.pi-blender-cloud
 
-			button.navbar-toggler.text-light(
-				data-target=".navbar-collapse",
-				data-toggle="collapse",
-				type="button")
-				span.sr-only Toggle navigation
-				span.navbar-toggler-icon.d-flex.align-items-center
-					i.pi-menu
+				button.navbar-toggler.text-light(
+					data-target=".navbar-collapse",
+					data-toggle="collapse",
+					type="button")
+					span.sr-only Toggle navigation
+					span.navbar-toggler-icon.d-flex.align-items-center
+						i.pi-menu
+
+				li.nav-item.dropdown.large
+					a.nav-link.dropdown-toggle.px-2(
+					href="{{ url_for('main.homepage') }}"
+					data-toggle="dropdown")
+						span Blender Cloud
+						i.pi-angle-down
+
+					ul.dropdown-menu.nav-main
+						+nav-secondary()(
+							class="nav-secondary-vertical float-left bg-light border-right border-left rounded-left")
+							+nav-secondary-link(
+								href="{{ url_for('main.homepage') }}",
+								data-toggle='dropdown-tab',
+								data-tab-target='home')
+								i.mr-2.pi-home
+								span Home
+
+							+nav-secondary-link(
+								href="{{ url_for('cloud.open_projects') }}",
+								data-toggle='dropdown-tab',
+								data-tab-target='films')
+								i.mr-2.pi-film-thick
+								span Films
+
+							+nav-secondary-link(
+								href="{{ url_for('cloud.workshops') }}",
+								data-toggle='dropdown-tab',
+								data-tab-target='training')
+								i.mr-2.pi-graduation-cap
+								span Training
+
+							+nav-secondary-link(
+								href="/p/textures",
+								data-toggle='dropdown-tab',
+								data-tab-target='libraries')
+								i.mr-2.pi-file-archive
+								span Libraries
+
+							+nav-secondary-link(
+								href="{{ url_for('cloud.services') }}",
+								data-toggle='dropdown-tab',
+								data-tab-target='services')
+								i.mr-2.pi-whoosh
+								span Services
+
+						.dropdown-menu-tab(data-tab='home')
+							.dropdown-menu-column
+								+nav-secondary()(class="nav-secondary-vertical rounded-right overflow-hidden")
+									+nav-secondary-link(href="{{ url_for('projects.index') }}")
+										i.pi-star
+										span My Projects
+
+									+nav-secondary-link(href="{{ url_for('projects.index') }}")
+										i.pi-heart
+										span Shared with me
+
+									| {% if current_user.has_organizations() %}
+									+nav-secondary-link(href="{{ url_for('pillar.web.organizations.index') }}")
+										i.mr-2.pi-users
+										span My Organizations
+									| {% endif %}
+
+									+nav-secondary-link(href="{{ url_for('projects.home_project_shared_images')}}")
+										i.mr-2.pi-picture
+										span Image Sharing
+
+									+nav-secondary-link(href="{{ url_for('projects.home_project') }}")
+										i.mr-2.pi-blender
+										span Blender Sync
+
+						.dropdown-menu-tab(data-tab='films')
+							.dropdown-menu-column
+								+nav-secondary()(class="nav-secondary-vertical rounded-right overflow-hidden")
+									+nav-secondary-link(
+										href="{{ url_for('projects.view', project_url='spring') }}")
+										span Spring
+
+									+nav-secondary-link(
+										href="{{ url_for('projects.view', project_url='hero') }}")
+										span Hero
+
+									+nav-secondary-link(
+										href="{{ url_for('projects.view', project_url='dailydweebs') }}")
+										span The Daily Dweebs
+
+									+nav-secondary-link(
+										href="{{ url_for('projects.view', project_url='agent-327') }}")
+										span Agent 327
+
+									+nav-secondary-link(
+										href="{{ url_for('cloud.open_projects') }}",
+										class="pr-0 text-muted")
+										span See All Open Movies
+										i.pi-angle-right.pl-2
+
+						.dropdown-menu-tab(data-tab='training')
+							.dropdown-menu-column
+								+nav-secondary('Workshops')(class="nav-secondary-vertical")
+									+nav-secondary-link(
+										href="{{ url_for('projects.view', project_url='minecraft-animation-workshop') }}")
+										span Minecraft Animation Workshop
+
+									+nav-secondary-link(
+										href="{{ url_for('projects.view', project_url='low-poly-character-creation') }}")
+										span Low Poly Character Creation
+
+									+nav-secondary-link(
+										href="{{ url_for('projects.view', project_url='waking-the-forest') }}")
+										span Waking The Forest
+
+									+nav-secondary-link(
+										href="{{ url_for('cloud.workshops') }}",
+										class="pr-0 text-muted")
+										| See All Workshops
+										i.pi-angle-right.pl-2
+
+							.dropdown-menu-column
+								+nav-secondary('Courses')(class="nav-secondary-vertical border-left")
+									+nav-secondary-link(
+										href="{{ url_for('projects.view', project_url='blender-fundamentals') }}")
+										span Blender Fundamentals
+
+									+nav-secondary-link(
+										href="{{ url_for('projects.view', project_url='motion-graphics') }}")
+										span Motion Graphics
+
+									+nav-secondary-link(
+										href="{{ url_for('projects.view', project_url='game-asset-creation') }}")
+										span Game Asset Creation
+
+									+nav-secondary-link(
+										href="{{ url_for('cloud.courses') }}",
+										class="pr-0 text-muted")
+										span See All Courses
+										i.pi-angle-right.pl-2
+
+							.dropdown-menu-column
+								+nav-secondary('Production Lessons')(class="nav-secondary-vertical border-left rounded-right overflow-hidden")
+									+nav-secondary-link(
+										href="{{ url_for('cloud.production') }}#animation",
+										title="Animation")
+										span Animation
+
+									+nav-secondary-link(
+										href="{{ url_for('cloud.production') }}#modeling",
+										title="Modeling")
+										span Modeling
+
+									+nav-secondary-link(
+										href="{{ url_for('cloud.production') }}#pipeline",
+										title="Pipeline")
+										span Pipeline
+
+									+nav-secondary-link(
+										href="{{ url_for('cloud.production') }}",
+										class="pr-0 text-muted")
+										span See All Techniques
+										i.pi-angle-right.pl-2
+
+						.dropdown-menu-tab(data-tab='libraries')
+							.dropdown-menu-column
+								+nav-secondary('Libraries')(class="nav-secondary-vertical rounded-right overflow-hidden")
+									+nav-secondary-link(href="{{ url_for('projects.view', project_url='textures') }}")
+										i.mr-2.pi-folder-texture
+										span Textures
+									+nav-secondary-link(href="{{ url_for('projects.view', project_url='hdri') }}")
+										i.mr-2.pi-globe
+										span HDRI
+									+nav-secondary-link(href="{{ url_for('projects.view', project_url='characters') }}")
+										i.mr-2.pi-character
+										span Characters
+
+						.dropdown-menu-tab(data-tab='services')
+							.dropdown-menu-column
+								+nav-secondary()(class="nav-secondary-vertical rounded-right overflow-hidden")
+									+nav-secondary-link(href="/attract")
+										i.mr-2.pi-attract
+										span Attract
+
+									+nav-secondary-link(href="/flamenco")
+										i.mr-2.pi-attract
+										span Flamenco
+
+									+nav-secondary-link(href="{{ url_for('cloud.services') }}#blender-cloud-add-on")
+										i.mr-2.pi-blender
+										span Blender Cloud add-on
+
+									+nav-secondary-link(href="{{ url_for('cloud.services') }}#texture-browser")
+										i.mr-2.pi-texture
+										span Texture & HDRI Browser
+
+									+nav-secondary-link(
+										href="{{ url_for('cloud.services') }}",
+										class="pr-0 text-muted")
+										i.mr-2.pi-blank
+										span See All Services
+										i.pi-angle-right.pl-2
 
 			| {% block navigation_tabs %}
 			| {% endblock navigation_tabs %}
 
 			| {% block navigation_search %}
-			// TODO (pablo) - bring it back asap
-				.search-input
-					input#cloud-search(
-						type="text",
-						placeholder="Search assets, tutorials...")
-					i.search-icon.pi-search
 			| {% endblock navigation_search %}
 
-			+nav-secondary()(class="ml-auto nav-main")
+			+nav-secondary()(class="ml-auto")
 				| {% if node and node.properties and node.properties.category %}
 				| {% set category = node.properties.category %}
 				| {% else %}
@@ -107,163 +302,8 @@ html(lang="en")
 					title="Search Blender Cloud",
 					data-toggle="tooltip",
 					data-placement="bottom",
-					class="px-2")
+					class="py-2 px-2 text-muted")
 					i.pi-search
-
-				+nav-secondary-link(
-					href="{{ url_for('main.main_blog') }}",
-					title="Blender Cloud Blog",
-					data-toggle="tooltip",
-					data-placement="bottom",
-					class="{% if category == 'blog' %}active{% endif %} px-2")
-					| Blog
-
-				li.nav-item.dropdown
-					a.nav-link.dropdown-toggle.px-2(
-						href="",
-						data-toggle="dropdown",
-						title="Libraries")
-						span Libraries
-						i.pi-angle-down
-
-					ul.dropdown-menu.p-0
-						li
-							a.navbar-item.px-2(
-								href="{{ url_for('projects.view', project_url='hdri') }}",
-								title="HDRI Library",
-								data-toggle="tooltip",
-								data-placement="left")
-								i.pi-globe
-								| HDRI
-						li
-							a.navbar-item.px-2(
-								href="{{ url_for('projects.view', project_url='textures') }}",
-								title="Textures Library",
-								data-toggle="tooltip",
-								data-placement="left")
-								i.pi-folder-texture
-								| Textures
-						li
-							a.navbar-item.px-2(
-								href="{{ url_for('projects.view', project_url='characters') }}",
-								title="Character Library",
-								data-toggle="tooltip",
-								data-placement="left")
-								i.pi-character
-								| Characters
-
-				li.nav-item.dropdown
-					a.nav-link.dropdown-toggle.px-2(
-					href="{{ url_for('cloud.workshops') }}"
-					data-toggle="dropdown",
-					title="Training")
-						span Training
-						i.pi-angle-down
-
-					ul.dropdown-menu
-						li
-							a.navbar-item.px-2(
-							href="{{ url_for('cloud.courses') }}",
-							title="Courses",
-							data-toggle="tooltip",
-							data-placement="left")
-								i.pi-graduation-cap
-								| Courses
-						li
-							a.navbar-item.px-2(
-							href="{{ url_for('cloud.workshops') }}",
-							title="Workshops",
-							data-toggle="tooltip",
-							data-placement="left")
-								i.pi-lightbulb
-								| Workshops
-						li
-							a.navbar-item.px-2(
-							href="{{ url_for('projects.view', project_url='gallery') }}",
-							title="Curated artwork collection",
-							data-toggle="tooltip",
-							data-placement="left")
-								i.pi-image
-								| Art Gallery
-
-				li.nav-item.dropdown
-					a.nav-link.dropdown-toggle.px-2(
-						href="{{ url_for('cloud.open_projects') }}",
-						title="Browse all the Open Projects",
-						data-toggle="dropdown",
-						class="{% if category in ['open-projects', 'film'] %}active{% endif %}")
-						span Open Projects
-						i.pi-angle-down
-
-					ul.dropdown-menu
-						li
-							a.navbar-item.px-2(href="/p/spring")
-								span.px-2 Spring
-						li
-							a.navbar-item.px-2(href="/p/hero")
-								span.px-2 Hero
-						li
-							a.navbar-item.px-2(href="/p/dailydweebs")
-								span.px-2 The Daily Dweebs
-						li
-							a.navbar-item.px-2(href="/p/agent-327")
-								span.px-2 Agent 327
-						li
-							a.navbar-item.px-2(href="/p/caminandes-3")
-								span.px-2 Caminandes: Llamigos
-
-						li.dropdown-divider
-
-						li
-							a.navbar-item.px-2(href="{{ url_for('cloud.open_projects') }}")
-								span.pl-2 All Open Projects
-
-				li.nav-item.dropdown
-					a.nav-link.dropdown-toggle.px-2(
-						href="{{ url_for('cloud.services') }}",
-						title="Blender Cloud Services",
-						data-toggle="dropdown",
-						class="{% if category == 'services' %}active{% endif %}")
-						span Services
-						i.pi-angle-down
-
-					ul.dropdown-menu.dropdown-menu-right
-						li
-							a.navbar-item.px-2(
-							href="/attract",
-							title="Production Management",
-							data-toggle="tooltip",
-							data-placement="left")
-								i.pi-attract
-								| Attract
-						li
-							a.navbar-item.px-2(
-							href="/flamenco",
-							title="Render Management",
-							data-toggle="tooltip",
-							data-placement="left")
-								i.pi-flamenco
-								| Flamenco
-
-						li
-							a.navbar-item.pl-2.pr-3(
-							href="/services#blender-cloud-add-on",
-							title="Blender Sync, Texture Browser and more",
-							data-toggle="tooltip",
-							data-placement="left")
-								i.pi-blender
-								| Blender Cloud Add-on
-
-						li.dropdown-divider
-
-						li
-							a.navbar-item.px-2(
-							href="{{ url_for('cloud.services') }}",
-							title="All Blender Cloud services",
-							data-toggle="tooltip",
-							data-placement="left")
-								i.pi-list
-								| All Services
 
 				| {% endblock navigation_sections %}
 
@@ -434,9 +474,21 @@ html(lang="en")
 				{% endif %}
 			});
 
+			// Enable all tooltips.
 			if (typeof $().tooltip != 'undefined'){
 				$('[data-toggle="tooltip"]').tooltip({'delay' : {'show': 0, 'hide': 0}});
 			}
+
+			// Main dropdown menu logic.
+			$('[data-toggle="dropdown-tab"]').hover(function(){
+				let tab = $(this).data('tab-target');
+
+				$('[data-toggle="dropdown-tab"]').removeClass('active');
+				$(this).addClass('active');
+
+				$('[data-tab]').removeClass('show');
+				$('[data-tab="' + tab + '"]').addClass('show');
+			});
 
 		| {% block footer_scripts_pre %}{% endblock %}
 		| {% block footer_scripts %}{% endblock %}

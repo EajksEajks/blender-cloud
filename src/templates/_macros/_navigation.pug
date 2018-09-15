@@ -2,25 +2,21 @@ include ../../../../pillar/src/templates/mixins/components
 
 | {% macro navigation_tabs(title) %}
 +nav-secondary()
-	+nav-secondary-link(
-			class="{% if title == 'homepage' %}active{% endif %}",
-			href="{{ url_for('main.homepage') }}")
-		| Activity
-
-	+nav-secondary-link(
-			class="{% if title == 'home' %}active{% endif %}",
-			href="{{ url_for('projects.home_project') }}")
-		| Home
+	+nav-secondary-link(href="{{ url_for('main.main_blog') }}")
+		span Blog
 
 	+nav-secondary-link(
 			class="{% if title == 'dashboard' %}active{% endif %}",
 			href="{{ url_for('projects.index') }}")
-		| My Projects
+		span My Projects
 
 	| {% if current_user.has_organizations() %}
 	+nav-secondary-link(
 			class="{% if title == 'organizations' %}active{% endif %}",
 			href="{{ url_for('pillar.web.organizations.index') }}")
-		| My Organizations
+		span My Organizations
 	| {% endif %}
+
+	+nav-secondary-link(href="{{ url_for('projects.home_project_shared_images')}}")
+		span Image Sharing
 | {% endmacro %}
