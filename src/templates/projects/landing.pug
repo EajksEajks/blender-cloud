@@ -98,7 +98,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 	.row
 		.col-md-10.mx-auto
 			section.py-5
-				h2.pb-3 Gallery
+				h2.pb-3.text-center Gallery
 
 				.gallery
 					| {% for n in activity_stream %}
@@ -130,7 +130,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 
 	.row
 		.col-md-10.mx-auto
-			h2 Latest Updates
+			h2.pb-3.text-center Latest Updates
 
 			| {% if activity_stream %}
 			+card-deck(class="px-2")
