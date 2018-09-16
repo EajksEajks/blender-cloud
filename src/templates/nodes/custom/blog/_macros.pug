@@ -48,10 +48,7 @@ include ../../../../../../pillar/src/templates/mixins/components
 
 				hr.my-4
 
-				.mx-auto
-					#comments-embed
-						.comments-list-loading
-							i.pi-spin
+				#comments-embed.d-flex.justify-content-center.mx-auto
 | {% endmacro %}
 
 //- ******************************************************* -//
@@ -81,7 +78,7 @@ a.card.asset.card-image-fade.pr-0.mx-0.mb-4(
 
 
 //- ******************************************************* -//
-| {% macro render_blog_index(project, posts, can_create_blog_posts, api, more_posts_available, posts_meta, pages=None) %}
+| {% macro render_blog_index(current_post, project, posts, can_create_blog_posts, api, more_posts_available, posts_meta, pages=None) %}
 | {% if can_create_blog_posts %}
 +nav-secondary
 	+nav-secondary-link(href="{{url_for('nodes.posts_create', project_id=project._id)}}")
@@ -91,20 +88,30 @@ a.card.asset.card-image-fade.pr-0.mx-0.mb-4(
 | {% endif %}
 
 | {% if posts %}
-| {{ render_blog_post(posts[0], project=project, pages=pages) }}
+| {{ render_blog_post(current_post, project=project, pages=pages) }}
 
 .container
-	h5.text-muted.text-center.py-3 More from {{ project.name }} blog
+	.pt-4.text-center
+		h5
+			| {% if more_posts_available %}
+			a.text-muted.py-3.d-block(href="{{ project.blog_archive_url }}")
+				| More from {{ project.name }} blog
+			| {% else %}
+			| More from {{ project.name }} blog
+			| {% endif %}
+
 	+card-deck(class="px-2 justify-content-center")
-		| {% for node in posts[1:] %}
+		| {% for node in posts %}
+		| {# Skip listing the current post #}
+		| {% if node._id != current_post._id %}
 		| {{ render_blog_list_item(node) }}
+		| {% endif %}
 		| {% endfor %}
 
 		| {% if more_posts_available %}
-		.blog-archive-navigation
-			a(href="{{ project.blog_archive_url }}")
-				| {{posts_meta.total - posts|length}} more blog posts over here
-				i.pi-angle-right
+		a.d-block.pb-4(href="{{ project.blog_archive_url }}")
+			| {{posts_meta.total - posts|length}} more blog posts over here
+			i.pi-angle-right
 		| {% endif %}
 
 | {% else %}
