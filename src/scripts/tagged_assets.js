@@ -108,7 +108,7 @@
             load_next.remove();
     }
 
-    $.fn.loadTaggedAssets = function() {
+    $.fn.loadTaggedAssets = function(LOAD_INITIAL_COUNT, LOAD_NEXT_COUNT) {
         this.each(function(index, card_deck_element) {
             // TODO(Sybren): show a 'loading' animation.
             $.get('/api/nodes/tagged/' + card_deck_element.dataset.assetTag)
@@ -130,13 +130,15 @@
                     // Don't bother with a 'load next' link if there is no more.
                     if (resp.length <= LOAD_INITIAL_COUNT) return;
 
-                    // Construct the 'load next' link.
-                    let link = $('<a class="btn btn-link px-5 my-auto">')
-                        .addClass('js-load-next')
-                        .attr('href', 'javascript:void(0);')
-                        .click(function() { loadNext(card_deck_element); return false; })
-                        .text('Load more items');
-                    link.appendTo(card_deck_element);
+                    if (LOAD_NEXT_COUNT > 0) {
+                        // Construct the 'load next' link.
+                        let link = $('<a class="btn btn-link px-5 my-auto">')
+                            .addClass('js-load-next')
+                            .attr('href', 'javascript:void(0);')
+                            .click(function() { loadNext(card_deck_element); return false; })
+                            .text('Load more items');
+                        link.appendTo(card_deck_element);
+                    }
                 });
         });
     };

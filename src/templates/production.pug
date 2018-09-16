@@ -7,7 +7,7 @@ script(src="{{ url_for('static_cloud', filename='assets/js/tagged_assets.min.js'
 
 script.
 	$(function() {
-		$('.js-asset-list').loadTaggedAssets();
+		$('.js-asset-list').loadTaggedAssets(5, 3);
 	})
 | {% endblock %}
 | {% block body %}
