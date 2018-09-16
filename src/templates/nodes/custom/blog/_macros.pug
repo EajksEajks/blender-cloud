@@ -9,7 +9,8 @@ include ../../../../../../pillar/src/templates/mixins/components
 		"{{ node.name }}",
 		"{{ node._created | pretty_date }}{% if node.user.full_name %} · {{ node.user.full_name }}{% endif %}",
 		"{{ node.picture.thumbnail('h', api=api) }}",
-		"{{ node.url }}")
+		"{{ node.url }}")(
+		class="jumbotron-overlay")
 	| {% else %}
 	.pt-5.text-center.text-muted
 		h2.pb-2
