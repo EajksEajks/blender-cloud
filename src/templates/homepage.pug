@@ -28,17 +28,15 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 | {% block body %}
 .container-fluid.dashboard-container.imgs-fluid
 	.row
-		.col-md-8
+		.col-md-9.col-xl-10
 			section.blog
-				ul.list-unstyled
-					| {% if latest_posts %}
-					| {% for node in latest_posts %}
-					| {{ render_blog_post(node) }}
-					| {% endfor %}
-					| {% else %}
-					li
-						| No blog entries... yet!
-					| {% endif %}
+				| {% if latest_posts %}
+				| {% for node in latest_posts %}
+				| {{ render_blog_post(node) }}
+				| {% endfor %}
+				| {% else %}
+				| No blog entries... yet!
+				| {% endif %}
 
 				.d-block.text-center
 					a.d-inline-block.p-3.text-muted(href="{{ url_for('main.main_blog') }}")
@@ -52,7 +50,7 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 						i.pi-rss
 						| RSS Feed
 
-		.col-md-4
+		.col-md-3.col-xl-2
 			.dashboard-sidebar
 				section.pt-3
 					h6.title-underline In Production

@@ -39,16 +39,12 @@ include ../../../../../../pillar/src/templates/mixins/components
 			| {% endif %}
 	| {% endif %}
 
-	.container
-		.row
-			.col-md-9.mx-auto
+	.node-details-description.mx-auto.py-5
+		| {{ node.properties | markdowned('content') }}
 
-				.item-content.pt-4
-					| {{ node.properties | markdowned('content') }}
+	hr.my-4
 
-				hr.my-4
-
-				#comments-embed.d-flex.justify-content-center.mx-auto
+	#comments-embed.d-flex.justify-content-center.mx-auto
 | {% endmacro %}
 
 //- ******************************************************* -//
@@ -108,11 +104,11 @@ a.card.asset.card-image-fade.pr-0.mx-0.mb-4(
 		| {% endif %}
 		| {% endfor %}
 
-		| {% if more_posts_available %}
-		a.d-block.pb-4(href="{{ project.blog_archive_url }}")
-			| {{posts_meta.total - posts|length}} more blog posts over here
-			i.pi-angle-right
-		| {% endif %}
+	| {% if more_posts_available %}
+	a.d-block.pb-4.text-center(href="{{ project.blog_archive_url }}")
+		| {{posts_meta.total - posts|length}} more blog posts over here
+		i.pi-angle-right
+	| {% endif %}
 
 | {% else %}
 
