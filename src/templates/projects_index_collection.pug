@@ -64,41 +64,43 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 | {% block body %}
 
 .container.pb-5
-	.pt-4
-		h2.text-uppercase.font-weight-bold
-			| {{ page_title }}
-		.lead
-			| {{ page_header_text }}
+	.row
+		.col-12
+			.pt-4
+				h2.text-uppercase.font-weight-bold
+					| {{ page_title }}
+				.lead
+					| {{ page_header_text }}
 
-		hr.pb-2
+				hr.pb-2
 
-	+card-deck
-		| {% for project in projects %}
+			+card-deck(3)
+				| {% for project in projects %}
 
-		| {% if (project.status == 'published') or (project.status == 'pending' and current_user.is_authenticated) and project._id != config.MAIN_PROJECT_ID %}
-		+card(
-			class='js-project-go card-fade cursor-pointer mb-4 mx-0',
-			data-url="{{ url_for('projects.view', project_url=project.url) }}",
-			tabindex='{{ loop.index }}')
-			| {% if project.picture_header %}
-			a(href="{{ url_for('projects.view', project_url=project.url) }}")
-				img.card-img-top(
-					src="{{ project.picture_header.thumbnail('l', api=api) }}", alt="{{ project.name }}")
-			| {% endif %}
-
-			.card-body
-				h5.card-title
-					| {{ project.name }}
-					| {% if project.status == 'pending' and current_user.is_authenticated and current_user.has_role('admin') %}
-					small (pending)
+				| {% if (project.status == 'published') or (project.status == 'pending' and current_user.is_authenticated) and project._id != config.MAIN_PROJECT_ID %}
+				+card(
+					class='js-project-go card-fade cursor-pointer mb-4 mx-0',
+					data-url="{{ url_for('projects.view', project_url=project.url) }}",
+					tabindex='{{ loop.index }}')
+					| {% if project.picture_header %}
+					a(href="{{ url_for('projects.view', project_url=project.url) }}")
+						img.card-img-top(
+							src="{{ project.picture_header.thumbnail('l', api=api) }}", alt="{{ project.name }}")
 					| {% endif %}
 
-				| {% if project.summary %}
-				p.card-text
-					| {{project.summary|safe}}
+					.card-body
+						h5.card-title
+							| {{ project.name }}
+							| {% if project.status == 'pending' and current_user.is_authenticated and current_user.has_role('admin') %}
+							small (pending)
+							| {% endif %}
+
+						| {% if project.summary %}
+						p.card-text
+							| {{project.summary|safe}}
+						| {% endif %}
 				| {% endif %}
-		| {% endif %}
-		| {% endfor %}
+				| {% endfor %}
 
 | {% endblock %}
 
