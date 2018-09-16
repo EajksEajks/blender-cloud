@@ -147,16 +147,23 @@ html(lang="en")
 									| {% endif %}
 
 									+nav-secondary-link(href="{{ url_for('projects.home_project_shared_images')}}")
-										i.mr-2.pi-picture
+										i.pi-picture
 										span Image Sharing
 
 									+nav-secondary-link(href="{{ url_for('projects.home_project') }}")
-										i.mr-2.pi-blender
+										i.pi-blender
 										span Blender Sync
 
 						.dropdown-menu-tab(data-tab='films')
 							.dropdown-menu-column
 								+nav-secondary()(class="nav-secondary-vertical rounded-right overflow-hidden")
+									+nav-secondary-link(
+										href="{{ url_for('cloud.open_projects') }}",
+										class="nav-see-more border-bottom")
+										span
+											| All Open Movies
+										i.pi-angle-right.pl-2
+
 									+nav-secondary-link(
 										href="{{ url_for('projects.view', project_url='spring') }}")
 										span Spring
@@ -173,124 +180,68 @@ html(lang="en")
 										href="{{ url_for('projects.view', project_url='agent-327') }}")
 										span Agent 327
 
-									+nav-secondary-link(
-										href="{{ url_for('cloud.open_projects') }}",
-										class="nav-see-more")
-										span.font-weight-bold
-											| ALL OPEN MOVIES
-										i.pi-angle-right.pl-2
-
 						.dropdown-menu-tab(data-tab='training')
 							.dropdown-menu-column
-								+nav-secondary('Courses')(class="nav-secondary-vertical")
+								+nav-secondary('Training')(class="nav-secondary-vertical")
 									+nav-secondary-link(
-										href="{{ url_for('projects.view', project_url='blender-fundamentals') }}")
-										span Blender Fundamentals
+										href="{{ url_for('cloud.courses') }}")
+										i.pi-graduation-cap
+										span Courses
 
 									+nav-secondary-link(
-										href="{{ url_for('projects.view', project_url='motion-graphics') }}")
-										span Motion Graphics
+										href="{{ url_for('cloud.workshops') }}")
+										i.pi-lightbulb
+										span Workshops
 
 									+nav-secondary-link(
-										href="{{ url_for('projects.view', project_url='game-asset-creation') }}")
-										span Game Asset Creation
-
-									+nav-secondary-link(
-										href="{{ url_for('cloud.courses') }}",
-										class="nav-see-more")
-										span.font-weight-bold
-											| ALL COURSES
-										i.pi-angle-right.pl-2
-
-							.dropdown-menu-column
-								+nav-secondary('Workshops')(class="nav-secondary-vertical")
-									+nav-secondary-link(
-										href="{{ url_for('projects.view', project_url='minecraft-animation-workshop') }}")
-										span Minecraft Animation Workshop
-
-									+nav-secondary-link(
-										href="{{ url_for('projects.view', project_url='low-poly-character-creation') }}")
-										span Low Poly Character Creation
-
-									+nav-secondary-link(
-										href="{{ url_for('projects.view', project_url='waking-the-forest') }}")
-										span Waking The Forest
-
-									+nav-secondary-link(
-										href="{{ url_for('cloud.workshops') }}",
-										class="nav-see-more")
-										span.font-weight-bold
-											| ALL WORKSHOPS
-										i.pi-angle-right.pl-2
-
-							.dropdown-menu-column
-								+nav-secondary('Production Lessons')(class="nav-secondary-vertical border-left rounded-right overflow-hidden")
-									+nav-secondary-link(
-										href="{{ url_for('cloud.production') }}#animation",
-										title="Animation")
-										span Animation
-
-									+nav-secondary-link(
-										href="{{ url_for('cloud.production') }}#modeling",
-										title="Modeling")
-										span Modeling
-
-									+nav-secondary-link(
-										href="{{ url_for('cloud.production') }}#pipeline",
-										title="Pipeline")
-										span Pipeline
-
-									+nav-secondary-link(
-										href="{{ url_for('cloud.production') }}",
-										class="nav-see-more")
-										span.font-weight-bold
-											| ALL LESSONS
-										i.pi-angle-right.pl-2
+										href="{{ url_for('cloud.production') }}")
+										i.pi-puzzle
+										span Production Lessons
 
 						.dropdown-menu-tab(data-tab='libraries')
 							.dropdown-menu-column
 								+nav-secondary('Libraries')(class="nav-secondary-vertical rounded-right overflow-hidden")
 									+nav-secondary-link(href="{{ url_for('projects.view', project_url='textures') }}")
-										i.mr-2.pi-folder-texture
+										i.pi-folder-texture
 										span Textures
 
 									+nav-secondary-link(href="{{ url_for('projects.view', project_url='hdri') }}")
-										i.mr-2.pi-globe
+										i.pi-globe
 										span HDRI
 
 									+nav-secondary-link(href="{{ url_for('projects.view', project_url='characters') }}")
-										i.mr-2.pi-character
+										i.pi-character
 										span Characters
 
 									+nav-secondary-link(href="{{ url_for('projects.view', project_url='gallery') }}")
-										i.mr-2.pi-picture
+										i.pi-picture
 										span Art Gallery
 
 						.dropdown-menu-tab(data-tab='services')
 							.dropdown-menu-column
 								+nav-secondary()(class="nav-secondary-vertical rounded-right overflow-hidden")
+									+nav-secondary-link(
+										href="{{ url_for('cloud.services') }}",
+										class="nav-see-more border-bottom")
+										span
+											| All Services
+										i.pi-angle-right.pl-2
+
 									+nav-secondary-link(href="/attract")
-										i.mr-2.pi-attract
+										i.pi-attract
 										span Attract
 
 									+nav-secondary-link(href="/flamenco")
-										i.mr-2.pi-attract
+										i.pi-attract
 										span Flamenco
 
 									+nav-secondary-link(href="{{ url_for('cloud.services') }}#blender-cloud-add-on")
-										i.mr-2.pi-blender
+										i.pi-blender
 										span Blender Cloud add-on
 
 									+nav-secondary-link(href="{{ url_for('cloud.services') }}#texture-browser")
-										i.mr-2.pi-texture
+										i.pi-texture
 										span Texture & HDRI Browser
-
-									+nav-secondary-link(
-										href="{{ url_for('cloud.services') }}",
-										class="nav-see-more")
-										span.font-weight-bold
-											| ALL SERVICES
-										i.pi-angle-right.pl-2
 
 			| {% block navigation_tabs %}
 			| {% endblock navigation_tabs %}
