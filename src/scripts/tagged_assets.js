@@ -63,12 +63,30 @@
         card_title.text(node.name);
         card_body.append(card_title);
 
-        card.append(card_body);
+        let card_meta = $('<ul class="card-text list-unstyled d-flex text-black-50 mt-auto">');
+        card_meta.append('<li>' + node._created + '</li>');
+        card_body.append(card_meta);
+
+        /* Video progress and 'watched' label. */
+        if (node.view_progress){
+            let card_progress = $('<div class="progress rounded-0">');
+            let card_progress_bar = $('<div class="progress-bar">');
+            card_progress_bar.css('width', node.view_progress.progress_in_percent);
+            card_progress.append(card_progress_bar);
+            card_body.append(card_progress);
+
+            if (node.view_progress.done){
+                let card_progress_done = $('<div class="card-label">WATCHED</div>');
+                card_body.append(card_progress_done);
+            }
+        }
 
         /* 'Free' ribbon for public assets. */
         if (node.permissions && node.permissions.world){
             card.addClass('free');
         }
+
+        card.append(card_body);
 
         return card;
     }
@@ -113,11 +131,11 @@
                     if (resp.length <= LOAD_INITIAL_COUNT) return;
 
                     // Construct the 'load next' link.
-                    let link = $('<a>')
+                    let link = $('<a class="btn btn-link px-5 my-auto">')
                         .addClass('js-load-next')
                         .attr('href', 'javascript:void(0);')
                         .click(function() { loadNext(card_deck_element); return false; })
-                        .text('Load next');
+                        .text('Load more items');
                     link.appendTo(card_deck_element);
                 });
         });
