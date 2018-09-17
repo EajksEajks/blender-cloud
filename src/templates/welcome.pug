@@ -1,4 +1,6 @@
 | {% extends 'layout.html' %}
+include ../../../pillar/src/templates/mixins/components
+
 | {% block page_title %}Welcome{% endblock %}
 
 | {% set title = 'join' %}
@@ -19,25 +21,20 @@ meta(property="og:image", content="{{ url_for('static', filename='assets/img/bac
 
 | {% block navigation_search %}{% endblock %}
 | {% block navigation_sections %}
-li
-	a.navbar-item(href="{{ url_for('main.main_blog') }}")
-		span Blog
-li
-	a.navbar-item(href="#pricing")
-		span Pricing
++nav-secondary-link(href="#pricing")
+	span Pricing
 | {% endblock navigation_sections %}
 
 | {% block navigation_user %}
-li.pt-1.pr-1
+li.pr-1
 	| {% if current_user.is_anonymous %}
-	a.btn.btn-outline-success(href="{{ url_for('users.login', next='/') }}")
-		| Log in and Explore
+	a.btn.btn-sm.btn-outline-primary.px-3(href="{{ url_for('users.login', next='/') }}")
+		| Log in &amp; Explore
 	| {% else %}
-	a.btn.btn-outline-success(href="{{ url_for('main.homepage') }}")
+	a.btn.btn-sm.btn-outline-primary.px-3(href="{{ url_for('main.homepage') }}")
 		| Explore
 	| {% endif %}
 | {% endblock navigation_user %}
-
 
 | {% block body %}
 #page-container.join
