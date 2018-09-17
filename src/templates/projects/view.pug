@@ -155,7 +155,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 						data-toggle="dropdown",
 						aria-haspopup="true",
 						aria-expanded="false")
-						i.button-add-icon.pi-collection-plus
+						i.pi-collection-plus
 
 					ul.dropdown-menu.dropdown-menu-right(
 						class="add_new-menu")
@@ -181,7 +181,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 						aria-expanded="false")
 						i.pi-more-vertical.p-0
 
-					ul.dropdown-menu
+					ul.dropdown-menu.dropdown-menu-right
 						| {% if current_user.has_cap('admin') %}
 						li
 							a.dropdown-item(
@@ -190,7 +190,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 								title="Feature on project's homepage",
 								data-toggle="tooltip",
 								data-placement="left")
-								i.pi-star
+								i.pi-star.pr-2
 								| Toggle Featured
 
 						li
@@ -200,7 +200,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 								title="Make it accessible to anyone",
 								data-toggle="tooltip",
 								data-placement="left")
-								i.pi-lock-open
+								i.pi-lock-open.pr-2
 								| Toggle Public
 						| {% endif %}
 
@@ -211,7 +211,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 								title="Feature as project's header",
 								data-toggle="tooltip",
 								data-placement="left")
-								i.pi-star
+								i.pi-star.pr-2
 								| Toggle Project Header video
 
 						li.button-move

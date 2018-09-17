@@ -22,7 +22,7 @@ meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/ba
 
 | {% block body %}
 - var header_text = "On Blender Cloud you can create and share personal projects, access our texture and HDRI library (or create your own), keep track of your production, manage your renders and much more!";
-+jumbotron("Services", header_text, "{{ url_for('static', filename='assets/img/backgrounds/services_projects.jpg')}}")
++jumbotron("Services", header_text, "{{ url_for('static', filename='assets/img/backgrounds/services_projects.jpg')}}")(class="jumbotron-overlay")
 
 - var addon_text = 'Available through the <a href="{{ url_for(\'cloud.services\') }}#blender-cloud-add-on">Blender Cloud add-on</a>';
 section#blender-cloud-add-on.page-card
