@@ -93,7 +93,7 @@ html(lang="en")
 
 					ul.dropdown-menu.nav-main
 						+nav-secondary()(
-							class="nav-secondary-vertical float-left bg-light border-right border-left rounded-left")
+							class="nav-secondary-vertical float-left bg-light border-left rounded-left")
 							+nav-secondary-link(
 								href="{{ url_for('main.homepage') }}",
 								data-toggle='dropdown-tab',
@@ -125,13 +125,14 @@ html(lang="en")
 							+nav-secondary-link(
 								href="{{ url_for('cloud.services') }}",
 								data-toggle='dropdown-tab',
-								data-tab-target='services')
+								data-tab-target='services',
+								class="{% if title == 'services' %}active{% endif %}")
 								i.mr-2.pi-whoosh
 								span Services
 
 						.dropdown-menu-tab(data-tab='home')
 							.dropdown-menu-column
-								+nav-secondary()(class="nav-secondary-vertical rounded-right overflow-hidden")
+								+nav-secondary()(class="nav-secondary-vertical rounded-right border-left overflow-hidden")
 									+nav-secondary-link(href="{{ url_for('projects.index') }}")
 										i.pi-star
 										span My Projects
@@ -156,7 +157,7 @@ html(lang="en")
 
 						.dropdown-menu-tab(data-tab='films')
 							.dropdown-menu-column
-								+nav-secondary()(class="nav-secondary-vertical rounded-right overflow-hidden")
+								+nav-secondary()(class="nav-secondary-vertical rounded-right border-left overflow-hidden")
 									+nav-secondary-link(
 										href="{{ url_for('cloud.open_projects') }}",
 										class="nav-see-more border-bottom")
@@ -182,7 +183,7 @@ html(lang="en")
 
 						.dropdown-menu-tab(data-tab='training')
 							.dropdown-menu-column
-								+nav-secondary('Training')(class="nav-secondary-vertical")
+								+nav-secondary('Training')(class="nav-secondary-vertical rounded-right border-left overflow-hidden")
 									+nav-secondary-link(
 										href="{{ url_for('cloud.courses') }}")
 										i.pi-graduation-cap
@@ -200,7 +201,7 @@ html(lang="en")
 
 						.dropdown-menu-tab(data-tab='libraries')
 							.dropdown-menu-column
-								+nav-secondary('Libraries')(class="nav-secondary-vertical rounded-right overflow-hidden")
+								+nav-secondary('Libraries')(class="nav-secondary-vertical rounded-right border-left overflow-hidden")
 									+nav-secondary-link(href="{{ url_for('projects.view', project_url='textures') }}")
 										i.pi-folder-texture
 										span Textures
@@ -219,7 +220,7 @@ html(lang="en")
 
 						.dropdown-menu-tab(data-tab='services')
 							.dropdown-menu-column
-								+nav-secondary()(class="nav-secondary-vertical rounded-right overflow-hidden")
+								+nav-secondary()(class="nav-secondary-vertical rounded-right border-left overflow-hidden")
 									+nav-secondary-link(
 										href="{{ url_for('cloud.services') }}",
 										class="nav-see-more border-bottom")
@@ -274,7 +275,7 @@ html(lang="en")
 				| {% endblock navigation_user %}
 
 				| {% if current_user.is_anonymous %}
-				li.pt-1
+				li
 					a.btn.btn-sm.btn-primary.px-3.mx-1(
 						href="https://store.blender.org/product/membership/",
 						title="Sign up") Sign up

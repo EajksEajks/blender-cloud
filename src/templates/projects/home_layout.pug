@@ -29,10 +29,10 @@ meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/ba
 	section#projects.bg-white
 		+nav-secondary()(id='sub-nav-tabs__list')
 			+nav-secondary-link(id="subtab-blender_sync", data-tab-url="{{ url_for('projects.home_project')}}")
-				| Blender Sync
+				span Blender Sync
 
 			+nav-secondary-link(id="subtab-images", data-tab-url="{{ url_for('projects.home_project_shared_images')}}")
-				| Images
+				span Images
 
 		| {% block currenttab %}{% endblock %}
 | {% endblock %}

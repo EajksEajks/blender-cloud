@@ -17,6 +17,7 @@ include ../../../../pillar/src/templates/mixins/components
 		span My Organizations
 	| {% endif %}
 
-	+nav-secondary-link(href="{{ url_for('projects.home_project_shared_images')}}")
+	+nav-secondary-link(href="{{ url_for('projects.home_project_shared_images')}}",
+		class="{% if title == 'images' %}active{% endif %}")
 		span Image Sharing
 | {% endmacro %}
