@@ -46,17 +46,17 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 	+nav-secondary-link(
 			class="{% if title == 'workshops' %}active{% endif %}",
 			href="{{ url_for('cloud.workshops') }}")
-		| Workshops
+		span Workshops
 
 	+nav-secondary-link(
 			class="{% if title == 'courses' %}active{% endif %}",
 			href="{{ url_for('cloud.courses') }}")
-		| Courses
+		span Courses
 
 	+nav-secondary-link(
 			class="{% if title == 'gallery' %}active{% endif %}",
 			href="{{ url_for('projects.view', project_url='gallery') }}")
-		| Art Gallery
+		span Art Gallery
 | {% endif %}
 
 | {% endblock navigation_tabs %}
