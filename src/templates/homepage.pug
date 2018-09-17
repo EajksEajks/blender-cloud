@@ -52,18 +52,18 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 
 		.col-md-3.col-xl-2
 			section.pt-3
-				h6.title-underline In Production
+				h6.title-underline Films In Production
 				a(href="/p/spring/")
 					img(src="{{ url_for('static', filename='assets/img/projects/spring_450x150.jpg')}}")
 
 				p.text-muted.pt-2.
 					A poetic short film about a mountain spirit and her wise little dog. #[a(href="/p/spring/") Check it out].
 
-			section.stream.py-3
-				h6.title-underline Latest Assets
+			section.py-3
+				h6.title-underline What's Going On
 
 				| {% if activity_stream %}
-				.card-padless.p-2
+				.card-padless
 					| {% for child in activity_stream %}
 					| {% if child.node_type not in ['comment'] %}
 					| {{ asset_list_item(child, current_user) }}
@@ -76,94 +76,44 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 							| No assets.
 				| {% endif %}
 
-			section.random-asset.py-3
+			section.py-3.border-bottom.mb-3
 				h6.title-underline
-					a.text-muted(href="{{ url_for('main.nodes_search_index') }}") Explore the Cloud
-				.pb-3.text-muted Random selection of the best assets &amp; tutorials
+					a.text-muted(href="{{ url_for('main.nodes_search_index') }}") Explore
+				.pb-3.text-muted Random awesome in the Cloud.
 
-				ul.random-asset__list.list-unstyled
+				ul.list-unstyled
 					| {% for n in random_featured %}
-					| {% if n.picture and loop.first %}
-					li.random-asset__list-item.project
-						| {% if n.project.picture_square %}
-						a.random-asset__list-thumbnail(
-							href="{{ n.project.url }}")
-							img.image(src="{{ n.project.picture_square.thumbnail('s', api=api) }}")
-						| {% endif %}
-						.random-asset__list-details
-							a.title(href="{{ n.project.url }}") {{ n.project.name }}
-							| {% if n.project.summary %}
-							ul.list-unstyled.d-flex.text-muted
-								li.what
-									a(href="{{ n.project.url }}") {{ n.project.summary }}
-							| {% endif %}
-
-					li.random-asset__list-item.featured
+					li.pt-3.mb-3.border-top.text-truncate.position-relative
 						| {% if n.permissions.world %}
 						.ribbon
 							span FREE
 						| {% endif %}
-						a.random-asset__thumbnail(
+						a.d-block(
 							href="{{ n.url }}",
 							class="{{ n.properties.content_type }}")
 							| {% if n.picture %}
-							img(src="{{ n.picture.thumbnail('l', api=api) }}")
-
+							img.img-fluid(
+								src="{{ n.picture.thumbnail('l', api=api) }}",
+								alt="{{ n.name }}")
 							| {% if n.properties.content_type == 'video' %}
 							i.pi-play
 							| {% endif %}
-
 							| {% endif %}
 
-						a.title(href="{{ n.url }}")
-							| {{ n.name }}
-						ul.list-unstyled.d-flex.text-muted
-							li.what
-								a(href="{{ n.url }}")
-									| {% if n.properties.content_type %}{{ n.properties.content_type | undertitle }}{% else %}Folder{% endif %}
-							li.where
-								a(href="{{ n.project.url }}")
-									| {{ n.project.name }}
-					| {% else %}
+						h6.pt-2.mb-1.text-truncate
+							a.text-muted.text-truncate(href="{{ n.url }}") {{ n.name }}
 
-					li
-						| {% if n.permissions.world %}
-						.ribbon
-							span FREE
-						| {% endif %}
-						a.random-asset__list-thumbnail(
-							href="{{ n.url }}",
-							class="{{ n.properties.content_type }}")
-							| {% if n.picture %}
-							img.image(src="{{ n.picture.thumbnail('s', api=api) }}")
-							| {% else %}
-							| {% if n.properties.content_type == 'video' %}
-							i.pi-film-thick
-							| {% elif n.properties.content_type == 'image' %}
-							i.pi-picture
-							| {% elif n.properties.content_type == 'file' %}
-							i.pi-file-archive
-							| {% else %}
-							i.pi-folder
-							| {% endif %}
-							| {% endif %}
-						.random-asset__list-details
-							a.title(href="{{ n.url }}") {{ n.name }}
-							ul.list-unstyled.d-flex.text-muted
-								li.what
-									a(href="{{ n.url }}")
-										| {% if n.properties.content_type %}{{ n.properties.content_type }}{% else %}Folder{% endif %}
-								li.where
-									a(href="{{ n.project.url }}") {{ n.project.name }}
-
-					| {% endif %}
+						.d-flex.align-items-baseline
+							a.text-muted.text-truncate(href="{{ n.url }}")
+								small.pr-2.font-weight-bold {{ n.project.name }}
+								small {% if n.properties.content_type %}{{ n.properties.content_type | undertitle }}{% else %}Folder{% endif %}
 					| {% endfor %}
 
 
 			section.py-3
 				h6.title-underline Latest Comments
 
-				ul.list-unstyled
+				ul.list-unstyled.pt-2
 					| {% if latest_comments %}
 					| {% for n in latest_comments %}
 					li.pb-2.mb-2.border-bottom.text-truncate
