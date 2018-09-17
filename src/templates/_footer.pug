@@ -46,16 +46,16 @@
 
 					ul.list-unstyled
 						li
-							a(href="{{ url_for('main.main_blog') }}",
-								title="Blender Cloud Blog")
+							a(href="{{ url_for('projects.view', project_url='hdri') }}",
+								title="HDRI Library")
 								| HDRIs
 						li
-							a(href="{{ url_for('cloud.services') }}",
-								title="Blender Cloud Services")
+							a(href="{{ url_for('projects.view', project_url='textures') }}",
+								title="Texture Library")
 								| Textures
 						li
-							a(href="{{ url_for('cloud.about') }}",
-								title="About Blender Cloud")
+							a(href="{{ url_for('projects.view', project_url='characters') }}",
+								title="Characters")
 								| Characters
 
 				.col-md-2.col-xs-6
@@ -65,34 +65,34 @@
 
 					ul.list-unstyled
 						li
-							a(href="{{ url_for('main.main_blog') }}",
-								title="Blender Cloud Blog")
+							a(href="{{ url_for('cloud.services') }}#blender-cloud-add-on",
+								title="Blender Cloud add-on")
 								| Add-on
 						li
-							a(href="{{ url_for('main.main_blog') }}",
-								title="Blender Cloud Blog")
+							a(href="{{ url_for('projects.home_project') }}",
+								title="Your synced Blender settings")
 								| Blender Sync
 						li
-							a(href="{{ url_for('cloud.services') }}",
-								title="Blender Cloud Services")
+							a(href="/attract",
+								title="Production management")
 								| Attract
 						li
-							a(href="{{ url_for('cloud.about') }}",
-								title="About Blender Cloud")
+							a(href="/flamenco",
+								title="Render management")
 								| Flamenco
 						li
-							a(href="{{ url_for('cloud.about') }}",
-								title="About Blender Cloud")
+							a(href="{{ url_for('projects.home_project_shared_images')}}",
+								title="Share your images from within Blender")
 								| Image Sharing
 
 				.col-md-2.col-xs-6
 					h7.font-weight-bold
-						| BLENDER
+						| RESOURCES
 					ul.list-unstyled
 						li
 							a(href="{{ url_for('main.main_blog') }}",
 								title="Blender Cloud Blog")
-								| blender.org
+								| Blog
 						li
 							a(href="{{ url_for('cloud.terms_and_conditions') }}",
 								title="Terms and Conditions")
@@ -101,6 +101,11 @@
 							a(href="{{ url_for('cloud.privacy') }}",
 							title="Privacy")
 								| Privacy
+						li
+							a(href="https://www.blender.org",
+								title="Home of Blender, the Free and Open Source creative suite")
+								| blender.org
+
 	| {% endblock footer_navigation %}
 
 	#hop(title="Be awesome in space")
