@@ -31,13 +31,6 @@ include ../../../../../../pillar/src/templates/mixins/components
 			li
 				a.px-2(href="{{ node.url }}#comments")
 					| Leave a comment
-
-			| {% if node.has_method('PUT') %}
-			li
-				a.px-2(href="{{url_for('nodes.edit', node_id=node._id)}}")
-					i.pi-edit
-					| Edit Post
-			| {% endif %}
 	| {% endif %}
 
 	.node-details-description.mx-auto.py-5
@@ -76,12 +69,19 @@ a.card.asset.card-image-fade.pr-0.mx-0.mb-4(
 
 //- ******************************************************* -//
 | {% macro render_blog_index(current_post, project, posts, can_create_blog_posts, api, more_posts_available, posts_meta, pages=None) %}
-| {% if can_create_blog_posts %}
+
+| {% if can_create_blog_posts or current_post.has_method('PUT') %}
 +nav-secondary
+	| {% if can_create_blog_posts %}
 	+nav-secondary-link(href="{{url_for('nodes.posts_create', project_id=project._id)}}")
-		span.text-success
-			i.pi-plus
-			| Create New Blog Post
+		i.pi-plus.pr-2
+		span Create New Blog Post
+	| {% endif %}
+	| {% if current_post.has_method('PUT') %}
+	+nav-secondary-link(href="{{url_for('nodes.edit', node_id=current_post._id)}}")
+		i.pi-edit.pr-2
+		span Edit Post
+	| {% endif %}
 | {% endif %}
 
 | {% if posts %}
