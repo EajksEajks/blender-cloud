@@ -85,7 +85,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 | {% block body %}
 +jumbotron(null, null, "{{ project.picture_header.thumbnail('h', api=api) }}")
 
-.container-fluid
+.container-fluid.landing
 	.row
 		.col-md-8.mx-auto
 			h2.pt-5 {{ project.name }}
@@ -130,6 +130,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 
 	.row
 		.col-md-10.mx-auto
+
 			h2.pb-3.text-center Latest Updates
 
 			| {% if activity_stream %}
