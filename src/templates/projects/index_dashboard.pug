@@ -47,34 +47,39 @@ style.
 .dashboard-container
 	section.dashboard-main
 		section#projects.bg-white
-			+nav-secondary()(id='sub-nav-tabs__list')
-				+nav-secondary-link(data-tab-toggle='own_projects', class="active")
-					span Own Projects
-					| {% if projects_user|length != 0 %}
-					.text-muted ({{ projects_user|length }})
-					| {% endif %}
+			.d-flex
+				+nav-secondary()(id='sub-nav-tabs__list')
+					+nav-secondary-link(data-tab-toggle='own_projects', class="active")
+						span
+							| Own Projects
+							| {% if projects_user | length != 0 %}
+							.d-inline.text-muted.pl-1 ({{ projects_user|length }})
+							| {% endif %}
 
-				+nav-secondary-link(data-tab-toggle='shared')
-					span Shared with me
-					| {% if projects_shared|length != 0 %}
-					.text-muted ({{ projects_shared|length }})
-					| {% endif %}
+					+nav-secondary-link(data-tab-toggle='shared')
+						span
+							| Shared with me
+							| {% if projects_shared | length != 0 %}
+							.d-inline.text-muted.pl-1 ({{ projects_shared|length }})
+							| {% endif %}
 
-				| {% if current_user.has_cap('subscriber') %}
-				+nav-secondary-link(
-						id="project-create",
-						data-url="{{ url_for('projects.create') }}",
-						href="{{ url_for('projects.create') }}")
-						i.pi-plus
-						span Create New Project
-				| {% elif current_user.has_cap('can-renew-subscription') %}
-				+nav-secondary-link(
-						id="project-create",
-						data-url="{{ url_for('projects.create') }}",
-						href="/renew",
-						target="_blank")
-						| #[i.pi-heart-filled.text-danger] Resubscribe to Create a Project
-				| {% endif %}
+				+nav-secondary()()
+					| {% if current_user.has_cap('subscriber') %}
+					+nav-secondary-link(
+							id="project-create",
+							data-url="{{ url_for('projects.create') }}",
+							href="{{ url_for('projects.create') }}")
+							span.text-success Create New Project...
+
+					| {% elif current_user.has_cap('can-renew-subscription') %}
+					+nav-secondary-link(
+							id="project-create",
+							data-url="{{ url_for('projects.create') }}",
+							href="/renew",
+							target="_blank")
+							i.pi-heart-filled.text-danger.pr-1
+							span Resubscribe to Create a Project
+					| {% endif %}
 
 			nav.nav-tabs__tab.active#own_projects
 				.deleted-projects-toggle
