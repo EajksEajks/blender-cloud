@@ -132,7 +132,7 @@
 
                     if (LOAD_NEXT_COUNT > 0) {
                         // Construct the 'load next' link.
-                        let link = $('<a class="btn btn-link px-5 my-auto">')
+                        let link = $('<a class="btn btn-outline-primary px-5 mb-auto mx-3 btn-block">')
                             .addClass('js-load-next')
                             .attr('href', 'javascript:void(0);')
                             .click(function() { loadNext(card_deck_element); return false; })
