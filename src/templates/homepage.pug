@@ -52,9 +52,14 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 
 		.col-md-4.col-xl-3
 			section.pt-3
-				h6.title-underline Films In Production
+				h6.title-underline
+					a.text-muted(href="{{ url_for('cloud.open_projects') }}")
+						| Films In Production
+
 				a(href="/p/spring/")
-					img(src="{{ url_for('static', filename='assets/img/projects/spring_450x150.jpg')}}")
+					img.rounded(
+						alt="Spring Open Movie Project",
+						src="{{ url_for('static', filename='assets/img/projects/spring_02_450x150.jpg')}}")
 
 				p.text-muted.pt-2.
 					A poetic short film about a mountain spirit and her wise little dog. #[a.text-muted(href="/p/spring/") Check it out].
