@@ -1,4 +1,12 @@
 | {% extends 'layout.html' %}
+include ../../../pillar/src/templates/mixins/components
+
+mixin group(title, tag)
+	section.py-3.my-3.border-bottom
+
+		h4.title-underline.mb-4= title
+		+card-deck(data-asset-tag=tag, class="js-asset-list py-3")
+
 | {% block page_title %}Production Lessons{% endblock %}
 | {% set page_header_text = "Tips and tricks by the Open Movie crew." %}
 
@@ -11,37 +19,23 @@ script.
 	})
 | {% endblock %}
 | {% block body %}
-.container.pb-5
-	.pt-4
-		h2.text-uppercase.font-weight-bold
-			| {{ self.page_title() }}
-		.lead
-			| {{ page_header_text }}
++jumbotron('{{ self.page_title() }}', '{{ page_header_text }}', "{{ url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg')}}")(class="jumbotron-overlay")
 
-		hr.pb-2
+.container
 
-		section.py-3.my-3.border-bottom
-			h3 Animation
-			.card-deck.card-padless.card-deck-responsive.list-unstyled(
-				class="js-asset-list",
-				data-asset-tag="animation")
+	+group('Modeling', 'modelling')
+	+group('Sculpting', 'sculpting')
+	+group('Animation', 'animation')
+	+group('Shading', 'shading')
+	+group('Texturing', 'texturing')
+	+group('Character Pipeline', 'character-pipeline')
+	+group('Rigging', 'rigging')
+	+group('Lighting & Rendering', 'lighting')
+	+group('Simulation & Effects', 'effects')
+	+group('Video Sequencer', 'sequencer')
 
-		section.py-3.my-3.border-bottom
-			h3 Modeling
-			.card-deck.card-padless.card-deck-responsive.list-unstyled(
-				class="js-asset-list",
-				data-asset-tag="modelling")
-
-		section.py-3.my-3.border-bottom
-			h3 Rigging
-			.card-deck.card-padless.card-deck-responsive.list-unstyled(
-				class="js-asset-list",
-				data-asset-tag="rigging")
-
-		section.py-3.my-3
-			h3 Pipeline
-			.card-deck.card-padless.card-deck-responsive.list-unstyled(
-				class="js-asset-list",
-				data-asset-tag="pipeline")
+	a.d-block.py-5.text-center.text-muted(
+		href="{{ url_for('main.nodes_search_index') }}")
+		| Search Blender Cloud to find even more awesome content!
 
 | {% endblock body%}

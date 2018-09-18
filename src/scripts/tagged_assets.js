@@ -136,7 +136,7 @@
                             .addClass('js-load-next')
                             .attr('href', 'javascript:void(0);')
                             .click(function() { loadNext(card_deck_element); return false; })
-                            .text('Load more items');
+                            .text('Load More');
                         link.appendTo(card_deck_element);
                     }
                 });
