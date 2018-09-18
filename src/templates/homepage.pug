@@ -28,7 +28,7 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 | {% block body %}
 .container-fluid.dashboard-container.imgs-fluid
 	.row
-		.col-md-9.col-xl-10
+		.col-md-8.col-xl-9
 			section.blog
 				| {% if latest_posts %}
 				| {% for node in latest_posts %}
@@ -50,20 +50,20 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 						i.pi-rss
 						| RSS Feed
 
-		.col-md-3.col-xl-2
+		.col-md-4.col-xl-3
 			section.pt-3
 				h6.title-underline Films In Production
 				a(href="/p/spring/")
 					img(src="{{ url_for('static', filename='assets/img/projects/spring_450x150.jpg')}}")
 
 				p.text-muted.pt-2.
-					A poetic short film about a mountain spirit and her wise little dog. #[a(href="/p/spring/") Check it out].
+					A poetic short film about a mountain spirit and her wise little dog. #[a.text-muted(href="/p/spring/") Check it out].
 
 			section.py-3
 				h6.title-underline What's Going On
 
 				| {% if activity_stream %}
-				.card-padless
+				+card-deck()(class='card-deck-vertical pl-3')
 					| {% for child in activity_stream %}
 					| {% if child.node_type not in ['comment'] %}
 					| {{ asset_list_item(child, current_user) }}
@@ -78,37 +78,22 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 
 			section.py-3.border-bottom.mb-3
 				h6.title-underline
-					a.text-muted(href="{{ url_for('main.nodes_search_index') }}") Explore
-				.pb-3.text-muted Random awesome in the Cloud.
+					a.text-muted(href="{{ url_for('main.nodes_search_index') }}")
+						| Random Awesome
 
-				ul.list-unstyled
-					| {% for n in random_featured %}
-					li.pt-3.mb-3.border-top.text-truncate.position-relative
-						| {% if n.permissions.world %}
-						.ribbon
-							span FREE
-						| {% endif %}
-						a.d-block(
-							href="{{ n.url }}",
-							class="{{ n.properties.content_type }}")
-							| {% if n.picture %}
-							img.img-fluid(
-								src="{{ n.picture.thumbnail('l', api=api) }}",
-								alt="{{ n.name }}")
-							| {% if n.properties.content_type == 'video' %}
-							i.pi-play
-							| {% endif %}
-							| {% endif %}
-
-						h6.pt-2.mb-1.text-truncate
-							a.text-muted.text-truncate(href="{{ n.url }}") {{ n.name }}
-
-						.d-flex.align-items-baseline
-							a.text-muted.text-truncate(href="{{ n.url }}")
-								small.pr-2.font-weight-bold {{ n.project.name }}
-								small {% if n.properties.content_type %}{{ n.properties.content_type | undertitle }}{% else %}Folder{% endif %}
+				| {% if random_featured %}
+				+card-deck()(class='card-deck-vertical pl-3')
+					| {% for child in random_featured %}
+					| {% if child.node_type not in ['comment'] %}
+					| {{ asset_list_item(child, current_user) }}
+					| {% endif %}
 					| {% endfor %}
-
+				| {% else %}
+				.card
+					.card-body
+						h6.card-title
+							| No random featured.
+				| {% endif %}
 
 			section.py-3
 				h6.title-underline Latest Comments
