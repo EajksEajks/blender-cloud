@@ -105,11 +105,23 @@ if [ ! -e $GULP -o gulpfile.js -nt $GULP ]; then
     touch $GULP  # installer doesn't always touch this after a build, so we do.
 fi
 
-pushd $DEPLOYDIR/pillar; ./gulp --production; popd;
-pushd $DEPLOYDIR/attract; ./gulp --production; popd;
-pushd $DEPLOYDIR/flamenco; ./gulp --production; popd;
-pushd $DEPLOYDIR/pillar-svnman; ./gulp --production; popd;
-pushd $DEPLOYDIR/blender-cloud; ./gulp --production; popd;
+
+
+# List of projects
+declare -a proj=("pillar" "attract" "flamenco" "pillar-svnman" "blender-cloud")
+
+# Run ./gulp for every project
+for i in "${proj[@]}"
+do
+    pushd $DEPLOYDIR/$i; ./gulp --production; popd;
+done
+
+# Remove node_modules (only after all projects with interdependencies have been built)
+for i in "${proj[@]}"
+do
+    pushd $DEPLOYDIR/$i; rm -r node_modules; popd;
+done
+
 
 echo
 echo "==================================================================="
