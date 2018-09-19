@@ -47,6 +47,7 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 
 | {% block body %}
 
+| {% if title in ['film', 'open-projects'] %}
 | {# Specify the URL of projects in production. These are hidden from the listing below. #}
 | {% set projects_in_production = ['spring'] %}
 - var jumbotron_title = 'SPRING';
@@ -57,13 +58,15 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 	"{{ url_for('static', filename='assets/img/backgrounds/background_spring_01.jpg')}}")(
 		class="jumbotron-overlay")
 
-	a.btn.btn-primary.mt-4.px-4(
-		href="{{ url_for('projects.view', project_url='spring') }}") Browse the Project
-	a.btn.btn-link-light.mt-4(
-		style="color: white",
-		href="{{ url_for('main.project_blog', project_url='spring') }}")
-		| Read the Blog
-		i.pi-angle-right.px-1
+	.d-block
+		a.btn.btn-primary.mt-4.px-4(
+			href="{{ url_for('projects.view', project_url='spring') }}") Browse the Project
+		a.btn.btn-link-light.mt-4(
+			style="color: white",
+			href="{{ url_for('main.project_blog', project_url='spring') }}")
+			| Read the Blog
+			i.pi-angle-right.px-1
+| {% endif %}
 
 .container.pb-5
 	.row
