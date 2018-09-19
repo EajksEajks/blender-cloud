@@ -42,7 +42,8 @@ class CloudExtension(PillarExtension):
             'EXTERNAL_SUBSCRIPTIONS_TIMEOUT_SECS': 10,
             'BLENDER_ID_WEBHOOK_USER_CHANGED_SECRET': 'oos9wah1Zoa0Yau6ahThohleiChephoi',
             'NODE_TAGS': ['animation', 'modeling', 'rigging', 'sculpting', 'shading', 'texturing', 'lighting',
-                          'character-pipeline',  'effects', 'video-editing', 'digital-painting'],
+                          'character-pipeline',  'effects', 'video-editing', 'digital-painting', 'production-design',
+                          'walk-through'],
         }
 
     def eve_settings(self):

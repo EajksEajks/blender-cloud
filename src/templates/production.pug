@@ -34,6 +34,7 @@ script.
 		style="background-position: center top")
 
 .container
+	+group('Walk-through', 'walk-through')
 	+group('Modeling', 'modeling')
 	+group('Sculpting', 'sculpting')
 	+group('Animation', 'animation')
@@ -45,6 +46,7 @@ script.
 	+group('Simulation & Effects', 'effects')
 	+group('Video Editing', 'video-editing')
 	+group('Digital Painting', 'digital-painting')
+	+group('Production Design', 'production-design')
 
 	a.d-block.py-5.text-center.text-muted(
 		href="{{ url_for('main.nodes_search_index') }}")
