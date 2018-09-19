@@ -59,26 +59,26 @@ include ../../../../pillar/src/templates/mixins/components
 		+nav-secondary-link(
 			href="{{ url_for('projects.index') }}",
 			class="{% if title == 'dashboard' %}active{% endif %}")
-			i.pi-star
+			i.pi-star.pr-2
 			span My Projects
 
 		| {% if current_user.has_organizations() %}
 		+nav-secondary-link(
 			href="{{ url_for('pillar.web.organizations.index') }}",
 			class="{% if title == 'organizations' %}active{% endif %}")
-			i.pi-users
+			i.pi-users.pr-2
 			span My Organizations
 		| {% endif %}
 
 		+nav-secondary-link(
 			href="{{ url_for('projects.home_project_shared_images')}}",
 			class="{% if title == 'images' %}active{% endif %}")
-			i.pi-picture
+			i.pi-picture.pr-2
 			span Image Sharing
 
 		+nav-secondary-link(
 			href="{{ url_for('projects.home_project') }}",
 			class="{% if title == 'blender-sync' %}active{% endif %}")
-			i.pi-blender
+			i.pi-blender.pr-2
 			span Blender Sync
 | {% endmacro %}
