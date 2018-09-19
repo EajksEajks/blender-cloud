@@ -37,8 +37,8 @@
 							a(href="{{ url_for('cloud.workshops') }}")
 								| Workshops
 						li
-							a(href="{{ url_for('projects.view', project_url='gallery') }}")
-								| Art Gallery
+							a(href="{{ url_for('cloud.production') }}")
+								span.new Production Lessons
 
 				.col-md-2.col-xs-6
 					h7.font-weight-bold
@@ -57,6 +57,9 @@
 							a(href="{{ url_for('projects.view', project_url='characters') }}",
 								title="Characters")
 								| Characters
+						li
+							a(href="{{ url_for('projects.view', project_url='gallery') }}")
+								| Art Gallery
 
 				.col-md-2.col-xs-6
 					h7.font-weight-bold
@@ -100,7 +103,8 @@
 						li
 							a(href="{{ url_for('cloud.privacy') }}",
 							title="Privacy")
-								| Privacy
+								| Privacy Policy
+						li.dropdown-divider
 						li
 							a(href="https://www.blender.org",
 								title="Home of Blender, the Free and Open Source creative suite")
