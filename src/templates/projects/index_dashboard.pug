@@ -1,5 +1,5 @@
 | {% extends 'layout.html' %}
-| {% from '_macros/_navigation.html' import navigation_tabs %}
+| {% from '_macros/_navigation.html' import navigation_home_project %}
 include ../../../../pillar/src/templates/mixins/components
 
 | {% set title = 'dashboard' %}
@@ -39,9 +39,8 @@ style.
 | {% endblock %}
 
 | {% block navigation_tabs %}
-| {{ navigation_tabs(title) }}
+| {{ navigation_home_project(title) }}
 | {% endblock navigation_tabs %}
-
 
 | {% block body %}
 .dashboard-container

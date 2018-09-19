@@ -53,3 +53,32 @@ include ../../../../pillar/src/templates/mixins/components
 		span Open Projects
 	| {% endif %}
 | {% endmacro %}
+
+| {% macro navigation_home_project(title) %}
++nav-secondary()
+		+nav-secondary-link(
+			href="{{ url_for('projects.index') }}",
+			class="{% if title == 'dashboard' %}active{% endif %}")
+			i.pi-star
+			span My Projects
+
+		| {% if current_user.has_organizations() %}
+		+nav-secondary-link(
+			href="{{ url_for('pillar.web.organizations.index') }}",
+			class="{% if title == 'organizations' %}active{% endif %}")
+			i.pi-users
+			span My Organizations
+		| {% endif %}
+
+		+nav-secondary-link(
+			href="{{ url_for('projects.home_project_shared_images')}}",
+			class="{% if title == 'images' %}active{% endif %}")
+			i.pi-picture
+			span Image Sharing
+
+		+nav-secondary-link(
+			href="{{ url_for('projects.home_project') }}",
+			class="{% if title == 'blender-sync' %}active{% endif %}")
+			i.pi-blender
+			span Blender Sync
+| {% endmacro %}
