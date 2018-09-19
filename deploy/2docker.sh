@@ -104,11 +104,12 @@ if [ ! -e $GULP -o gulpfile.js -nt $GULP ]; then
     npm install
     touch $GULP  # installer doesn't always touch this after a build, so we do.
 fi
-$GULP --cwd $DEPLOYDIR/pillar --production
-$GULP --cwd $DEPLOYDIR/attract --production
-$GULP --cwd $DEPLOYDIR/flamenco --production
-$GULP --cwd $DEPLOYDIR/pillar-svnman --production
-$GULP --cwd $DEPLOYDIR/blender-cloud --production
+
+pushd $DEPLOYDIR/pillar; ./gulp --production; popd;
+pushd $DEPLOYDIR/attract; ./gulp --production; popd;
+pushd $DEPLOYDIR/flamenco; ./gulp --production; popd;
+pushd $DEPLOYDIR/pillar-svnman; ./gulp --production; popd;
+pushd $DEPLOYDIR/blender-cloud; ./gulp --production; popd;
 
 echo
 echo "==================================================================="
