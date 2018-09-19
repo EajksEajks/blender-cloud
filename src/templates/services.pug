@@ -1,4 +1,6 @@
 | {% extends 'layout.html' %}
+| {% from '_macros/_navigation.html' import navigation_homepage %}
+
 | {% block page_title %}Services{% endblock %}
 | {% set title = 'services' %}
 include ../../../pillar/src/templates/mixins/components
@@ -14,6 +16,10 @@ meta(name="twitter:description", content="Personal Projects · Blender Integrati
 meta(property="og:image", content="{{ url_for('static', filename='assets/img/backgrounds/background_services.jpg')}}")
 meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/backgrounds/background_services.jpg')}}")
 | {% endblock %}
+
+| {% block navigation_tabs %}
+| {{ navigation_homepage(title) }}
+| {% endblock navigation_tabs %}
 
 | {% block page_overlay %}
 #page-overlay.video

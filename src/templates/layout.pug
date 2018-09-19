@@ -68,19 +68,11 @@ html(lang="en")
 
 		nav.navbar.navbar-expand-md.fixed-top.bg-white
 			+nav-secondary()
-				+nav-secondary-link(
-					href="{{ url_for('main.homepage') }}",
-					title="Blender Cloud Homepage",
-					data-toggle="tooltip",
-					data-placement="bottom",
-					class="px-2")
-					i.pi-blender-cloud
-
-				button.navbar-toggler.text-light(
-					data-target=".navbar-collapse",
+				button.navbar-toggler(
+					data-target=".sarasa",
 					data-toggle="collapse",
 					type="button")
-					span.sr-only Toggle navigation
+					span.sr-only Toggle Navigation
 					span.navbar-toggler-icon.d-flex.align-items-center
 						i.pi-menu
 
@@ -88,7 +80,7 @@ html(lang="en")
 					a.nav-link.dropdown-toggle.px-2(
 					href="{{ url_for('main.homepage') }}"
 					data-toggle="dropdown")
-						span Blender Cloud
+						i.pi-blender-cloud
 						i.pi-angle-down
 
 					| {% include 'menus/_dropdown_main.html' %}

@@ -1,14 +1,21 @@
 | {% extends 'layout.html' %}
+| {% from '_macros/_navigation.html' import navigation_collection %}
+
 include ../../../pillar/src/templates/mixins/components
 
 mixin group(title, tag)
-	section.py-3.my-3.border-bottom
+	.row
+		section.py-3.my-3.border-bottom.col-12
 
-		h4.title-underline.mb-4= title
-		+card-deck(data-asset-tag=tag, class="js-asset-list py-3")
+			h4.title-underline.mb-4= title
+			+card-deck(data-asset-tag=tag, class="js-asset-list py-3")
 
 | {% block page_title %}Production Lessons{% endblock %}
 | {% set page_header_text = "Tips and tricks by the Open Movie crew." %}
+
+| {% block navigation_tabs %}
+| {{ navigation_collection(title) }}
+| {% endblock navigation_tabs %}
 
 | {% block head %}
 script(src="{{ url_for('static_cloud', filename='assets/js/tagged_assets.min.js') }}")
@@ -16,13 +23,16 @@ script(src="{{ url_for('static_cloud', filename='assets/js/tagged_assets.min.js'
 script.
 	$(function() {
 		$('.js-asset-list').loadTaggedAssets(5, 3);
-	})
+	});
 | {% endblock %}
 | {% block body %}
-+jumbotron('{{ self.page_title() }}', '{{ page_header_text }}', "{{ url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg')}}")(class="jumbotron-overlay")
++jumbotron(
+	'{{ self.page_title() }}',
+	'{{ page_header_text }}',
+	"{{ url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg')}}")(
+		class="jumbotron-overlay")
 
 .container
-
 	+group('Modeling', 'modelling')
 	+group('Sculpting', 'sculpting')
 	+group('Animation', 'animation')
@@ -36,6 +46,7 @@ script.
 
 	a.d-block.py-5.text-center.text-muted(
 		href="{{ url_for('main.nodes_search_index') }}")
-		| Search Blender Cloud to find even more awesome content!
+		| Search Blender Cloud to find even more content
+		i.pi-angle-right.pl-1
 
 | {% endblock body%}

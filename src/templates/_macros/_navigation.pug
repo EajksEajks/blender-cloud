@@ -1,23 +1,55 @@
 include ../../../../pillar/src/templates/mixins/components
 
-| {% macro navigation_tabs(title) %}
+| {% macro navigation_homepage(title) %}
 +nav-secondary()
-	+nav-secondary-link(href="{{ url_for('main.main_blog') }}")
-		span Blog
+	+nav-secondary-link(
+		href="{{ url_for('cloud.open_projects') }}")
+		span Films
 
 	+nav-secondary-link(
-			class="{% if title == 'dashboard' %}active{% endif %}",
-			href="{{ url_for('projects.index') }}")
-		span My Projects
+		href="{{ url_for('cloud.courses') }}")
+		span Courses
 
-	| {% if current_user.has_organizations() %}
 	+nav-secondary-link(
-			class="{% if title == 'organizations' %}active{% endif %}",
-			href="{{ url_for('pillar.web.organizations.index') }}")
-		span My Organizations
+		href="{{ url_for('cloud.workshops') }}")
+		span Workshops
+
+	+nav-secondary-link(
+		href="{{ url_for('projects.view', project_url='textures') }}")
+		span Textures
+
+	+nav-secondary-link(
+		href="{{ url_for('projects.view', project_url='hdri') }}")
+		span HDRI
+
+	+nav-secondary-link(
+		class="{% if title == 'services' %}active{% endif %}",
+		href="{{ url_for('cloud.services') }}")
+		span Services
+| {% endmacro %}
+
+| {% macro navigation_collection(title) %}
++nav-secondary
+	| {% if title in ['courses', 'workshops', 'production'] %}
+	+nav-secondary-link(
+			class="{% if title == 'courses' %}active{% endif %}",
+			href="{{ url_for('cloud.courses') }}")
+		span Courses
+
+	+nav-secondary-link(
+			class="{% if title == 'workshops' %}active{% endif %}",
+			href="{{ url_for('cloud.workshops') }}")
+		span Workshops
+
+	+nav-secondary-link(
+		class="{% if title == 'production' %}active{% endif %}",
+		href="{{ url_for('cloud.production') }}")
+		span.new Production Lessons
+
+	| {% elif title in ['open-projects'] %}
+	+nav-secondary-link(
+			class="{% if title == 'open-projects' %}active{% endif %}",
+			href="{{ url_for('projects.view', project_url='gallery') }}")
+		span Open Projects
 	| {% endif %}
-
-	+nav-secondary-link(href="{{ url_for('projects.home_project_shared_images')}}",
-		class="{% if title == 'images' %}active{% endif %}")
-		span Image Sharing
 | {% endmacro %}

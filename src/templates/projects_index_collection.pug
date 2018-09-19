@@ -1,4 +1,6 @@
 | {% extends 'layout.html' %}
+| {% from '_macros/_navigation.html' import navigation_collection %}
+
 include ../../../pillar/src/templates/mixins/components
 
 | {# Default case is Open Projects #}
@@ -40,28 +42,21 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 | {% endblock %}
 
 | {% block navigation_tabs %}
-
-| {% if title in ['courses', 'workshops'] %}
-+nav-secondary
-	+nav-secondary-link(
-			class="{% if title == 'workshops' %}active{% endif %}",
-			href="{{ url_for('cloud.workshops') }}")
-		span Workshops
-
-	+nav-secondary-link(
-			class="{% if title == 'courses' %}active{% endif %}",
-			href="{{ url_for('cloud.courses') }}")
-		span Courses
-
-	+nav-secondary-link(
-			class="{% if title == 'gallery' %}active{% endif %}",
-			href="{{ url_for('projects.view', project_url='gallery') }}")
-		span Art Gallery
-| {% endif %}
-
+| {{ navigation_collection(title) }}
 | {% endblock navigation_tabs %}
 
 | {% block body %}
+
+| {# Specify the URL of projects in production. These are hidden from the listing below. #}
+| {% set projects_in_production = ['spring'] %}
+- var jumbotron_title = 'SPRING';
+- var jumbotron_lead  = 'A poetic short film about a mountain spirit and her wise little dog. Check it out.';
++jumbotron(
+	jumbotron_title,
+	jumbotron_lead,
+	"{{ url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg')}}",
+	"{{ url_for('projects.view', project_url='spring') }}")(
+		class="jumbotron-overlay")
 
 .container.pb-5
 	.row
@@ -77,6 +72,7 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 			+card-deck(3)
 				| {% for project in projects %}
 
+				| {% if project.url not in projects_in_production %}
 				| {% if (project.status == 'published') or (project.status == 'pending' and current_user.is_authenticated) and project._id != config.MAIN_PROJECT_ID %}
 				+card(
 					class='js-project-go card-fade cursor-pointer mb-4 mx-0',
@@ -99,6 +95,7 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 						p.card-text
 							| {{project.summary|safe}}
 						| {% endif %}
+				| {% endif %}
 				| {% endif %}
 				| {% endfor %}
 
