@@ -1,5 +1,5 @@
 | {% extends 'layout.html' %}
-| {% from '_macros/_navigation.html' import navigation_collection %}
+| {% from '_macros/_navigation.html' import navigation_collection, navigation_homepage %}
 
 include ../../../pillar/src/templates/mixins/components
 
@@ -42,7 +42,11 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 | {% endblock %}
 
 | {% block navigation_tabs %}
+| {% if title == 'open-projects' %}
+| {{ navigation_homepage(title) }}
+| {% else %}
 | {{ navigation_collection(title) }}
+| {% endif %}
 | {% endblock navigation_tabs %}
 
 | {% block body %}
@@ -51,17 +55,19 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 | {# Specify the URL of projects in production. These are hidden from the listing below. #}
 | {% set projects_in_production = ['spring'] %}
 - var jumbotron_title = 'SPRING';
-- var jumbotron_lead  = 'A poetic short film about a mountain spirit and her wise little dog. Check it out.';
+- var jumbotron_lead  = 'A poetic short film about a mountain spirit and her wise little dog.';
 +jumbotron(
 	jumbotron_title,
 	jumbotron_lead,
 	"{{ url_for('static', filename='assets/img/backgrounds/background_spring_01.jpg')}}")(
 		class="jumbotron-overlay")
 
-	.d-block
-		a.btn.btn-primary.mt-4.px-4(
-			href="{{ url_for('projects.view', project_url='spring') }}") Browse the Project
-		a.btn.btn-link-light.mt-4(
+	.d-block.mt-4
+		a.btn.btn-primary.px-5(
+			href="{{ url_for('projects.view', project_url='spring') }}")
+			| Browse the Project
+
+		a.btn.btn-link-light.px-4(
 			style="color: white",
 			href="{{ url_for('main.project_blog', project_url='spring') }}")
 			| Read the Blog

@@ -3,8 +3,14 @@ include ../../../../pillar/src/templates/mixins/components
 | {% macro navigation_homepage(title) %}
 +nav-secondary()
 	+nav-secondary-link(
-		href="{{ url_for('cloud.open_projects') }}")
-		span Films
+		href="{{ url_for('main.main_blog') }}",
+		class="{% if title == 'blog' %}active{% endif %}")
+		span Blog
+
+	+nav-secondary-link(
+		href="{{ url_for('cloud.open_projects') }}",
+		class="{% if title == 'open-projects' %}active{% endif %}")
+		span Open Projects
 
 	+nav-secondary-link(
 		href="{{ url_for('cloud.courses') }}")
@@ -31,6 +37,13 @@ include ../../../../pillar/src/templates/mixins/components
 | {% macro navigation_collection(title) %}
 +nav-secondary
 	| {% if title in ['courses', 'workshops', 'production'] %}
+	li
+		.nav-link.pointer-events-none.px-0
+			span Learn
+
+	li.px-1
+		i.pi-angle-right
+
 	+nav-secondary-link(
 			class="{% if title == 'courses' %}active{% endif %}",
 			href="{{ url_for('cloud.courses') }}")
@@ -81,4 +94,24 @@ include ../../../../pillar/src/templates/mixins/components
 			class="{% if title == 'blender-sync' %}active{% endif %}")
 			i.pi-blender.pr-2
 			span Blender Sync
+| {% endmacro %}
+
+| {% macro navigation_services(title) %}
++nav-secondary()
+		li
+			a.nav-link.active.px-0(href="{{ url_for('cloud.services') }}")
+				span Services
+
+		li.px-1
+			i.pi-angle-right
+
+		+nav-secondary-link(
+			href="/attract")
+			i.pi-attract.pr-2
+			span Attract
+
+		+nav-secondary-link(
+			href="/flamenco")
+			i.pi-flamenco.pr-2
+			span Flamenco
 | {% endmacro %}
