@@ -27,7 +27,8 @@
 
 				.col-md-2.col-xs-6
 					h7.font-weight-bold
-						| TRAINING
+						a.d-block.pb-2(href="{{ url_for('cloud.learn') }}")
+							| LEARN
 
 					ul.list-unstyled
 						li
@@ -42,7 +43,8 @@
 
 				.col-md-2.col-xs-6
 					h7.font-weight-bold
-						| LIBRARIES
+						a.d-block.pb-2(href="{{ url_for('cloud.libraries') }}")
+							| LIBRARIES
 
 					ul.list-unstyled
 						li
@@ -63,7 +65,7 @@
 
 				.col-md-2.col-xs-6
 					h7.font-weight-bold
-						a(href="{{ url_for('cloud.services') }}")
+						a.d-block.pb-2(href="{{ url_for('cloud.services') }}")
 							| SERVICES
 
 					ul.list-unstyled
@@ -89,7 +91,7 @@
 								| Image Sharing
 
 				.col-md-2.col-xs-6
-					h7.font-weight-bold
+					h7.font-weight-bold.d-block.pb-2
 						| RESOURCES
 					ul.list-unstyled
 						li

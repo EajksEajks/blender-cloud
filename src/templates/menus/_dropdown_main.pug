@@ -17,19 +17,19 @@ ul.dropdown-menu.nav-main
 			i.mr-2.pi-film-thick
 			span Open Projects
 
-		li.nav-item
-			.nav-link(
-				data-toggle='dropdown-tab',
-				data-tab-target='training')
-				i.mr-2.pi-graduation-cap
-				span Learn
+		+nav-secondary-link(
+			href="{{ url_for('cloud.learn') }}",
+			data-toggle='dropdown-tab',
+			data-tab-target='learn')
+			i.mr-2.pi-graduation-cap
+			span Learn
 
-		li.nav-item
-			.nav-link(
-				data-toggle='dropdown-tab',
-				data-tab-target='libraries')
-				i.mr-2.pi-file-archive
-				span Libraries
+		+nav-secondary-link(
+			href="{{ url_for('cloud.libraries') }}",
+			data-toggle='dropdown-tab',
+			data-tab-target='libraries')
+			i.mr-2.pi-file-archive
+			span Libraries
 
 		+nav-secondary-link(
 			href="{{ url_for('cloud.services') }}",
@@ -76,7 +76,7 @@ ul.dropdown-menu.nav-main
 					href="{{ url_for('cloud.open_projects') }}",
 					class="nav-see-more border-bottom")
 					span.font-weight-bold
-						| All Open Projects
+						| Open Projects
 					i.pi-angle-right.pl-2
 
 				+nav-secondary-link(
@@ -95,13 +95,15 @@ ul.dropdown-menu.nav-main
 					href="{{ url_for('projects.view', project_url='agent-327') }}")
 					span Agent 327
 
-	.dropdown-menu-tab(data-tab='training')
+	.dropdown-menu-tab(data-tab='learn')
 		.dropdown-menu-column
 			+nav-secondary()(class="nav-secondary-vertical rounded-right border-left overflow-hidden")
-				li.nav-item
-					.nav-link.border-bottom.pointer-events-none
-						span.font-weight-bold
-							| Learn
+				+nav-secondary-link(
+					href="{{ url_for('cloud.learn') }}",
+					class="nav-see-more border-bottom")
+					span.font-weight-bold
+						| Learn
+					i.pi-angle-right.pl-2
 
 				+nav-secondary-link(
 					href="{{ url_for('cloud.courses') }}")
@@ -121,10 +123,12 @@ ul.dropdown-menu.nav-main
 	.dropdown-menu-tab(data-tab='libraries')
 		.dropdown-menu-column
 			+nav-secondary()(class="nav-secondary-vertical rounded-right border-left overflow-hidden")
-				li.nav-item
-					.nav-link.border-bottom.pointer-events-none
-						span.font-weight-bold
-							| Libraries
+				+nav-secondary-link(
+					href="{{ url_for('cloud.libraries') }}",
+					class="nav-see-more border-bottom")
+					span.font-weight-bold
+						| Libraries
+					i.pi-angle-right.pl-2
 
 				+nav-secondary-link(
 					href="{{ url_for('projects.view', project_url='textures') }}")

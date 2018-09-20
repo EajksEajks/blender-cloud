@@ -1,0 +1,73 @@
+| {% extends 'layout.html' %}
+| {% from '_macros/_navigation.html' import navigation_learn %}
+include ../../../pillar/src/templates/mixins/components
+
+| {% set title = 'learn' %}
+
+| {% block page_title %}Learn{% endblock %}
+
+| {% block navigation_tabs %}
+| {{ navigation_learn(title) }}
+| {% endblock navigation_tabs %}
+
+| {% block body %}
+.container.pb-5
+	.row
+		.col-12
+			.pt-4
+				h2.text-uppercase.font-weight-bold
+					| Learn
+				.lead
+					| Production quality training by Blender professionals.
+
+				hr.pb-2
+
+	.page-triplet-container.homepage.p-0
+		.row
+			.col-md-4
+				.triplet-card(data-url="{{ url_for('cloud.courses') }}")
+					.triplet-card-thumbnail
+						img(
+							alt="Courses",
+							src="{{ url_for('static', filename='assets/img/features/training_motion_graphics.jpg')}}")
+					.triplet-card-info
+						h3 Courses
+						p.
+							Character modeling, 3D printing, VFX, rigging and more.
+						a.triplet-cta(href="{{ url_for('cloud.courses') }}")
+							| LEARN MORE
+
+			.col-md-4
+				.triplet-card(data-url="{{ url_for('cloud.workshops') }}")
+					.triplet-card-thumbnail
+						img(
+							alt="Workshops",
+							src="{{ url_for('static', filename='assets/img/features/training_minecraft_animation.jpg')}}")
+					.triplet-card-info
+						h3 Workshops
+						p.
+							Enter the artist workshop and learn by example.
+						a.triplet-cta(href="{{ url_for('cloud.workshops') }}")
+							| LEARN MORE
+
+			.col-md-4
+				.triplet-card(data-url="{{ url_for('cloud.production') }}")
+					.triplet-card-thumbnail
+						img(
+							alt="Production Lessons",
+							src="{{ url_for('static', filename='assets/img/features/open_movies_02.jpg')}}")
+					.triplet-card-info
+						h3 Production Lessons
+						p.
+							Tips and tricks by the open projects crew.
+						a.triplet-cta(href="{{ url_for('cloud.production') }}")
+							| LEARN MORE
+
+| {% endblock body %}
+
+| {% block footer_scripts %}
+script.
+	$('.triplet-card').click(function(){
+		window.location.href = $(this).attr('data-url');
+	});
+| {% endblock footer_scripts %}

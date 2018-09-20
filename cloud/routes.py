@@ -169,6 +169,16 @@ def services():
     return render_template('services.html')
 
 
+@blueprint.route('/learn')
+def learn():
+    return render_template('learn.html')
+
+
+@blueprint.route('/libraries')
+def libraries():
+    return render_template('libraries.html')
+
+
 @blueprint.route('/stats')
 def stats():
     return render_template('stats.html')

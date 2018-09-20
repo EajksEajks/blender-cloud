@@ -29,14 +29,15 @@ include ../../../../pillar/src/templates/mixins/components
 		span Services
 | {% endmacro %}
 
-| {% macro navigation_collection(title) %}
+| {% macro navigation_learn(title) %}
 +nav-secondary
-	| {% if title in ['courses', 'workshops', 'production'] %}
-	li
-		.nav-link.pointer-events-none.px-0
-			span Learn
+	| {% if title in ['learn', 'courses', 'workshops', 'production'] %}
+	+nav-secondary-link(
+			class="px-0 text-black-50 {% if title == 'learn' %}active{% endif %}",
+			href="{{ url_for('cloud.learn') }}")
+		span Learn
 
-	li.px-1
+	li.pl-1
 		i.pi-angle-right
 
 	+nav-secondary-link(
@@ -57,10 +58,35 @@ include ../../../../pillar/src/templates/mixins/components
 	| {% elif title in ['open-projects'] %}
 	+nav-secondary-link(
 			class="{% if title == 'open-projects' %}active{% endif %}",
-			href="{{ url_for('projects.view', project_url='gallery') }}")
+			href="{{ url_for('cloud.open_projects') }}")
 		span Open Projects
 	| {% endif %}
 | {% endmacro %}
+
+
+| {% macro navigation_libraries(title) %}
++nav-secondary
+	+nav-secondary-link(
+			class="px-0 active",
+			href="{{ url_for('cloud.libraries') }}")
+		span Libraries
+
+	li.pl-1
+		i.pi-angle-right
+
+	+nav-secondary-link(
+			href="{{ url_for('projects.view', project_url='textures') }}")
+		span Textures
+
+	+nav-secondary-link(
+			href="{{ url_for('projects.view', project_url='hdri') }}")
+		span HDRI
+
+	+nav-secondary-link(
+		href="{{ url_for('projects.view', project_url='characters') }}")
+		span Characters
+| {% endmacro %}
+
 
 | {% macro navigation_home_project(title) %}
 +nav-secondary()
@@ -91,50 +117,60 @@ include ../../../../pillar/src/templates/mixins/components
 			span Blender Sync
 | {% endmacro %}
 
+
 | {% macro navigation_services(title) %}
 +nav-secondary()
-		li
-			a.nav-link.active.px-0(href="{{ url_for('cloud.services') }}")
-				span Services
+	+nav-secondary-link(
+			class="px-0 active",
+			href="{{ url_for('cloud.services') }}")
+		span Services
 
-		li.px-1
-			i.pi-angle-right
+	li.pl-1
+		i.pi-angle-right
 
-		+nav-secondary-link(
-			href="/attract")
-			i.pi-attract.pr-2
-			span Attract
+	+nav-secondary-link(
+		href="/attract")
+		i.pi-attract.pr-2
+		span Attract
 
-		+nav-secondary-link(
-			href="/flamenco")
-			i.pi-flamenco.pr-2
-			span Flamenco
+	+nav-secondary-link(
+		href="/flamenco")
+		i.pi-flamenco.pr-2
+		span Flamenco
 | {% endmacro %}
+
 
 | {% macro navigation_project(project, navigation_links, title) %}
 
 | {% if project.category == 'course' %}
 | {% set category_url = url_for('cloud.courses') %}
+| {% set category_title = 'Courses' %}
+
 | {% elif project.category == 'workshop' %}
 | {% set category_url = url_for('cloud.workshops') %}
+| {% set category_title = 'Workshops' %}
+
 | {% elif project.category == 'film' %}
 | {% set category_url = url_for('cloud.open_projects') %}
+| {% set category_title = 'Open Projects' %}
+
+| {% elif project.category == 'assets' %}
+| {% set category_url = url_for('cloud.libraries') %}
+| {% set category_title = 'Libraries' %}
+
 | {% else %}
 | {% set category_url = url_for('main.homepage') %}
+| {% set category_title = project.category %}
 | {% endif %}
 
 +nav-secondary()
 	| {% if project.url != 'blender-cloud' %}
 	| {% if not project.is_private %}
-	li.text-capitalize
-		a.nav-link.text-muted.px-0(href="{{ category_url }}")
-			| {% if project.category == 'film' %}
-			span Open Projects
-			| {% elif project.category == 'assets' %}
-			span Libraries
-			| {% else %}
-			span {{ project.category }}
-			| {% endif %}
+	+nav-secondary-link(
+			class="px-0 text-black-50 text-capitalize",
+			href="{{ category_url }}")
+		span {{ category_title }}
+
 	li.px-1
 		i.pi-angle-right
 	| {% endif %}
@@ -143,7 +179,6 @@ include ../../../../pillar/src/templates/mixins/components
 		class="px-1 font-weight-bold{% if title == 'landing' %} active{% endif %}",
 		href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
 		span {{ project.name }}
-
 	| {% endif %}
 
 	| {% for link in navigation_links %}

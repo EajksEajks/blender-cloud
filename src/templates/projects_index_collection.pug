@@ -1,5 +1,5 @@
 | {% extends 'layout.html' %}
-| {% from '_macros/_navigation.html' import navigation_collection, navigation_homepage %}
+| {% from '_macros/_navigation.html' import navigation_learn, navigation_homepage %}
 
 include ../../../pillar/src/templates/mixins/components
 
@@ -45,7 +45,7 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 | {% if title == 'open-projects' %}
 | {{ navigation_homepage(title) }}
 | {% else %}
-| {{ navigation_collection(title) }}
+| {{ navigation_learn(title) }}
 | {% endif %}
 | {% endblock navigation_tabs %}
 

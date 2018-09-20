@@ -87,7 +87,6 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 | {% endblock %}
 
 | {% block navigation_tabs %}
-| {% from '_macros/_navigation.html' import navigation_collection %}
 | {{ navigation_project(project, navigation_links, title) }}
 | {% endblock navigation_tabs %}
 

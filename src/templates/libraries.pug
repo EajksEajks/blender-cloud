@@ -1,0 +1,75 @@
+| {% extends 'layout.html' %}
+| {% from '_macros/_navigation.html' import navigation_libraries %}
+include ../../../pillar/src/templates/mixins/components
+
+| {% set title = 'libraries' %}
+
+| {% block page_title %}Libraries{% endblock %}
+
+| {% block navigation_tabs %}
+| {{ navigation_libraries(title) }}
+| {% endblock navigation_tabs %}
+
+| {% block body %}
+.container.pb-5
+	.row
+		.col-12
+			.pt-4
+				h2.text-uppercase.font-weight-bold
+					| Libraries
+				.lead
+					| Download 1000s of files and assets.
+
+				hr.pb-2
+
+	.page-triplet-container.homepage.p-0
+		.row
+			.col-md-4
+				.triplet-card(data-url="{{ url_for('projects.view', project_url='textures') }}")
+					.triplet-card-thumbnail
+						img(
+							alt="Textures",
+							src="{{ url_for('static', filename='assets/img/features/textures_01.jpg')}}")
+					.triplet-card-info
+						h3 Textures
+						p.
+								More than 1500 texture maps.
+								Browse online or from Blender with our add-on.
+
+						a.triplet-cta(href="{{ url_for('projects.view', project_url='textures') }}")
+							| LEARN MORE
+
+			.col-md-4
+				.triplet-card(data-url="{{ url_for('projects.view', project_url='hdri') }}")
+					.triplet-card-thumbnail
+						img(
+							alt="HDRI",
+							src="{{ url_for('static', filename='assets/img/features/hdri_01.jpg')}}")
+					.triplet-card-info
+						h3 HDRI
+						p.
+							Up to 16K and 24 EVs (extremely high) HDR images to light your renders.
+						a.triplet-cta(href="{{ url_for('projects.view', project_url='hdri') }}")
+							| LEARN MORE
+
+			.col-md-4
+				.triplet-card(data-url="{{ url_for('projects.view', project_url='characters') }}")
+					.triplet-card-thumbnail
+						img(
+							alt="Characters",
+							src="{{ url_for('static', filename='assets/img/features/characters_01.jpg')}}")
+					.triplet-card-info
+						h3 Characters
+						p.
+							Production quality, fully rigged and shaded characters ready to animate.
+						a.triplet-cta(href="{{ url_for('projects.view', project_url='characters') }}")
+							| LEARN MORE
+
+| {% endblock body %}
+
+| {% block footer_scripts %}
+script.
+	$('.triplet-card').click(function(){
+		window.location.href = $(this).attr('data-url');
+	});
+| {% endblock footer_scripts %}
