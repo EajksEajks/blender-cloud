@@ -7,7 +7,7 @@ include ../../../../../../pillar/src/templates/mixins/components
 	| {% if node.picture %}
 	+jumbotron(
 		"{{ node.name }}",
-		"{{ node._created | pretty_date }}{% if node.user.full_name %} · {{ node.user.full_name }}{% endif %}",
+		"{{ node._created | pretty_date }}{% if node.user.full_name %} · {{ node.user.full_name }}{% endif %}{% if node.status != 'published' %} · {{ node.status }}{% endif %}",
 		"{{ node.picture.thumbnail('h', api=api) }}",
 		"{{ node.url }}")(
 		class="jumbotron-overlay")
@@ -17,6 +17,10 @@ include ../../../../../../pillar/src/templates/mixins/components
 			a.text-muted(href="{{ node.url }}")
 				| {{ node.name }}
 		ul.d-flex.list-unstyled.justify-content-center
+			| {% if node.properties.status != 'published' %}
+			li.mr-3(title="Status {{ node.properties.status }}")
+				span.badge.badge-danger {{ node.properties.status | undertitle }}
+			| {% endif %}
 			| {% if node.project.name %}
 			li.pr-2 {{ node.project.name }}
 			| {% endif %}
