@@ -1,6 +1,6 @@
 | {% extends 'layout.html' %}
 | {% from '_macros/_add_new_menu.html' import add_new_menu %}
-| {% from 'projects/_macros.html' import render_secondary_navigation %}
+| {% from '_macros/_navigation.html' import navigation_project %}
 
 include ../../../../pillar/src/templates/mixins/components
 
@@ -87,7 +87,8 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 | {% endblock %}
 
 | {% block navigation_tabs %}
-| {{ render_secondary_navigation(project, navigation_links, title) }}
+| {% from '_macros/_navigation.html' import navigation_collection %}
+| {{ navigation_project(project, navigation_links, title) }}
 | {% endblock navigation_tabs %}
 
 | {% block body %}
