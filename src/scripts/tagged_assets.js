@@ -24,6 +24,8 @@
         if (!node.picture) {
             warnNoPicture();
         } else {
+            loadingBarShow();
+
             // TODO: show 'loading' thingy
             $.get('/api/files/' + node.picture)
                 .fail(function(error) {
@@ -31,6 +33,8 @@
                     console.log(msg);
                 })
                 .done(function(resp) {
+                    loadingBarHide();
+
                     // Render the picture if it has the proper size.
                     var show_variation = null;
                     if (typeof resp.variations != 'undefined') {
