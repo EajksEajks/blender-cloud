@@ -349,7 +349,7 @@ script.
 
 		// TODO: Maybe remove this, now it's also in loadNodeContent(), but double-check
 		// it's done like that in all users of updateUi().
-		$('.loader-bar').removeClass('active');
+		loadingBarHide();
 	}
 | {% endblock %}
 
@@ -377,7 +377,9 @@ script.
 
 
 	function loadNodeContent(url, nodeId) {
-		$('.loader-bar').addClass('active');
+
+		loadingBarShow();
+
 		$.get(url, function(dataHtml) {
 			// Update the DOM injecting the generate HTML into the page
 			$('#project_context').html(dataHtml);
@@ -390,14 +392,14 @@ script.
 			$('#server_error').attr('src', url);
 		})
 		.always(function(){
-			$('.loader-bar').removeClass('active');
+			loadingBarHide();
 			$('.button-edit-icon').addClass('pi-edit').removeClass('pi-spin spin');
 		});
 	}
 
 
 	function loadProjectContent(url) {
-		$('.loader-bar').addClass('active');
+		loadingBarShow();
 
 		$.get(url, function(dataHtml) {
 			// Update the DOM injecting the generated HTML into the page
@@ -413,7 +415,7 @@ script.
 			$('#server_error').attr('src', url);
 		})
 		.always(function(){
-			$('.loader-bar').removeClass('active');
+			loadingBarHide();
 			$('.button-edit-icon').addClass('pi-edit').removeClass('pi-spin spin');
 		});
 	}
