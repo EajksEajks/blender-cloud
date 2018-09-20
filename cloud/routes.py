@@ -50,7 +50,8 @@ def _homepage_context() -> dict:
             'picture': 1,
             'properties.url': 1,
             'properties.content': 1,
-            'properties.attachments': 1
+            'properties.attachments': 1,
+            'properties.status': 1,
         },
 
         'where': {'node_type': 'post', 'properties.status': 'published'},
