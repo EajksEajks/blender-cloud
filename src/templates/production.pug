@@ -4,10 +4,11 @@
 include ../../../pillar/src/templates/mixins/components
 
 mixin group(title, tag)
-	.row
-		section.py-3.my-3.border-bottom.col-12
+	.row(id=tag)
+		section.py-4.my-3.border-bottom.col-12
 
-			h4.title-underline.mb-4= title
+			h4.title-underline.mt-2.mb-4
+				a.text-muted(href="#" + tag)= title
 			+card-deck(data-asset-tag=tag, class="js-asset-list py-3")
 
 | {% block page_title %}Production Lessons{% endblock %}
