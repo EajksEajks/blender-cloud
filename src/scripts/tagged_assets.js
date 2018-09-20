@@ -3,8 +3,8 @@
  */
 (function($) {
     /* How many nodes to load initially, and when clicked on the 'Load Next' link. */
-    const LOAD_INITIAL_COUNT = 5;
-    const LOAD_NEXT_COUNT = 3;
+    const LOAD_INITIAL_COUNT = 8;
+    const LOAD_NEXT_COUNT = 8;
 
     /* Renders a node as an asset card, returns a jQuery object. */
     function renderAsset(node) {
