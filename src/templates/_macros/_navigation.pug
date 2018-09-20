@@ -261,6 +261,10 @@ include ../../../../pillar/src/templates/mixins/components
 	+nav-secondary-link(
 		href="{{ url_for('projects.view', project_url='characters') }}")
 		span Characters
+
+	+nav-secondary-link(
+		href="{{ url_for('projects.view', project_url='gallery') }}")
+		span Art Gallery
 | {% endmacro %}
 
 
