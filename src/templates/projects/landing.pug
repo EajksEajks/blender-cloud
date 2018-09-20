@@ -91,12 +91,11 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 .container-fluid.landing
 	.row
 		.col-md-8.mx-auto
-			h2.pt-5 {{ project.name }}
-
-			| {% if project.description %}
 			.node-details-description
+				h2.pt-5 {{ project.name }}
+				| {% if project.description %}
 				| {{ project | markdowned('description') }}
-			| {% endif %}
+				| {% endif %}
 
 	.row
 		.col-md-10.mx-auto
