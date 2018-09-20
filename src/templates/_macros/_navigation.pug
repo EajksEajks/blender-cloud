@@ -199,20 +199,12 @@ include ../../../../pillar/src/templates/mixins/components
 		span Open Projects
 
 	+nav-secondary-link(
-		href="{{ url_for('cloud.courses') }}")
-		span Courses
+		href="{{ url_for('cloud.learn') }}")
+		span Learn
 
 	+nav-secondary-link(
-		href="{{ url_for('cloud.workshops') }}")
-		span Workshops
-
-	+nav-secondary-link(
-		href="{{ url_for('projects.view', project_url='textures') }}")
-		span Textures
-
-	+nav-secondary-link(
-		href="{{ url_for('projects.view', project_url='hdri') }}")
-		span HDRI
+		href="{{ url_for('cloud.libraries') }}")
+		span Libraries
 
 	+nav-secondary-link(
 		class="{% if title == 'services' %}active{% endif %}",
