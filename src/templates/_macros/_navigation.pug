@@ -3,11 +3,6 @@ include ../../../../pillar/src/templates/mixins/components
 | {% macro navigation_homepage(title) %}
 +nav-secondary()
 	+nav-secondary-link(
-		href="{{ url_for('main.main_blog') }}",
-		class="{% if title == 'blog' %}active{% endif %}")
-		span Blog
-
-	+nav-secondary-link(
 		href="{{ url_for('cloud.open_projects') }}",
 		class="{% if title == 'open-projects' %}active{% endif %}")
 		span Open Projects
