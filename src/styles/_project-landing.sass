@@ -1,143 +1,6 @@
-$node-latest-thumbnail-size: 160px
-$node-latest-gallery-thumbnail-size: 200px
-
 .landing
 	.node-details-description
 		@extend .mx-auto
-
-		iframe
-			max-width: 100%
-
-	.node-extra
-		display: flex
-		flex-direction: column
-		width: 100%
-
-		.node-updates
-			flex: 1
-			font-size: 1.1em
-
-			ul
-				padding: 0
-				margin: 0 0 15px 0
-				display: flex
-				flex-direction: row
-				flex-wrap: wrap
-
-				li
-					display: flex
-					flex-direction: column
-					list-style: none
-					padding: 5px
-					cursor: pointer
-					width: 33.3333%
-
-					+media-xs
-						width: 100%
-
-					&.texture, &.group_texture
-						width: 25%
-
-					&:hover
-						img
-							opacity: .9
-						a.title
-							//color: $color-primary
-							text-decoration: underline
-
-					&.post
-						.info .title
-							//color: $node-type-post
-							font-size: 1.1em
-						a.image
-							border: none
-							//border-color: $node-type-post
-							background-color: hsl(hue($node-type-post), 20%, 55%)
-
-					&.asset.image a.image
-						border-color: $node-type-asset_image
-						background-color: hsl(hue($node-type-asset_image), 20%, 55%)
-					&.asset.file a.image
-						border-color: $node-type-asset_file
-						background-color: hsl(hue($node-type-asset_file), 20%, 55%)
-					&.asset.video a.image
-						border-color: $node-type-asset_video
-						background-color: hsl(hue($node-type-asset_video), 20%, 55%)
-
-					.image
-						width: 100%
-						height: $node-latest-thumbnail-size
-						min-height: $node-latest-thumbnail-size
-						max-height: $node-latest-thumbnail-size
-						background-color: $color-background
-						margin: 5px auto 10px auto
-						position: relative
-						overflow: hidden
-						border-radius: 0
-
-						img
-							max-height: $node-latest-thumbnail-size
-							+position-center-translate
-
-						i
-							color: rgba(white, .9)
-							font-size: 1.8em
-							position: absolute
-							bottom: 3px
-							left: 5px
-							text-shadow: 1px 1px 0 rgba(black, .2)
-
-							&.pi-file-archive
-								font-size: 1.5em
-								bottom: 5px
-							&.pi-newspaper
-								font-size: 1.6em
-								left: 7px
-
-					.info
-						width: 100%
-						height: 100%
-						display: flex
-						flex-direction: column
-						justify-content: space-between
-						word-break: break-word
-
-						.description
-							font-size: 1em
-							line-height: 1.8em
-							padding-top: 8px
-							color: $color-text-dark-primary
-
-						.title
-							display: block
-							font-size: 1.3em
-							color: $color-text-dark
-							font-weight: 600
-							+clearfix
-							+text-overflow-ellipsis
-
-						span.details
-							width: 100%
-							display: block
-							font-size: 1em
-							line-height: 1.2em
-							padding: 5px 0
-							color: $color-text-dark-secondary
-							+clearfix
-
-							.who
-								margin-left: 3px
-							.what
-								text-transform: capitalize
-
-
-	$bg-color: #444
-	$bg-color2: #666
-	$yellow: rgb(249,229,89)
-	$almost-white: rgb(255,255,255)
-	$btn-transparent-color: rgba(249,229,89,1)
-	$btn-transparent-bg: rgba(249,229,89,0)
-
 
 	.gallery
 		max-width: 1024px
@@ -149,9 +12,10 @@ $node-latest-gallery-thumbnail-size: 200px
 			padding-bottom: 23%
 			margin: 0.83%
 			overflow: hidden
+			transition: box-shadow 150ms ease-in-out
 
 			&:hover
-				box-shadow: 2px 2px 50px 0 rgba(0,0,0,0.3)
+				box-shadow: 2px 6px 50px 0 rgba(black, .2)
 
 		.img-container
 			position: absolute
@@ -162,44 +26,11 @@ $node-latest-gallery-thumbnail-size: 200px
 				width: 300%
 				transform: translate(-20%,-10%)
 
-			&:hover .img-caption
-				top: 0
-				left: 0
-				.btn-trans
-					background: rgba(255,255,255,0.4)
-
-		.img-caption
-			position: absolute
-			width: 100%
-			height: 100%
-			background: rgba(0, 0, 0, 0.3)
-			text-align: center
-
-		.table
-			display: table
-			.table-cell
-				display: table-cell
-				vertical-align: bottom
-				border: none
-
 		@media screen and (max-width: 992px)
 			.thumbnail
 				width: 22%
 				padding-bottom: 22%
 				margin: 1.5%
-
-			.img-container:hover .img-caption
-					top: 0
-					left: 0
-
-			.img-caption
-				position: absolute
-				width: 100%
-				height: 100%
-				background: rgba(0, 0, 0, .7)
-				text-align: center
-				a
-					color: $yellow
 
 		@media screen and (max-width: 720px)
 			.thumbnail
