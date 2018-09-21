@@ -68,14 +68,6 @@ html(lang="en")
 
 		nav.navbar.navbar-expand-md.fixed-top.bg-white
 			+nav-secondary()
-				button.navbar-toggler(
-					data-target=".sarasa",
-					data-toggle="collapse",
-					type="button")
-					span.sr-only Toggle Navigation
-					span.navbar-toggler-icon.d-flex.align-items-center
-						i.pi-menu
-
 				li.nav-item.dropdown.large
 					a.nav-link.dropdown-toggle.px-2(
 					href="{{ url_for('main.homepage') }}"
@@ -174,17 +166,6 @@ html(lang="en")
 			if (typeof $().tooltip != 'undefined'){
 				$('[data-toggle="tooltip"]').tooltip({'delay' : {'show': 0, 'hide': 0}});
 			}
-
-			// Main dropdown menu logic.
-			$('[data-toggle="dropdown-tab"]').hover(function(){
-				let tab = $(this).data('tab-target');
-
-				$('[data-toggle="dropdown-tab"]').removeClass('active');
-				$(this).addClass('active');
-
-				$('[data-tab]').removeClass('show');
-				$('[data-tab="' + tab + '"]').addClass('show');
-			});
 
 		| {% block footer_scripts_pre %}{% endblock %}
 		| {% block footer_scripts %}{% endblock %}

@@ -7,31 +7,31 @@ ul.dropdown-menu.nav-main
 		class="nav-secondary-vertical float-left bg-light border-left rounded-left")
 		| {{ navigation.dropdown_main_root(title) }}
 
-	.dropdown-menu-tab(data-tab='home')
+	.dropdown-menu-tab(data-dropdown-tab='home')
 		.dropdown-menu-column
 			+nav-secondary()(
 				class="nav-secondary-vertical rounded-right border-left overflow-hidden")
 				| {{ navigation.dropdown_main_home(title) }}
 
-	.dropdown-menu-tab(data-tab='open-projects')
+	.dropdown-menu-tab(data-dropdown-tab='open-projects')
 		.dropdown-menu-column
 			+nav-secondary()(
 				class="nav-secondary-vertical rounded-right border-left overflow-hidden")
 				| {{ navigation.dropdown_main_open_projects(title) }}
 
-	.dropdown-menu-tab(data-tab='learn')
+	.dropdown-menu-tab(data-dropdown-tab='learn')
 		.dropdown-menu-column
 			+nav-secondary()(
 				class="nav-secondary-vertical rounded-right border-left overflow-hidden")
 				| {{ navigation.dropdown_main_learn(title) }}
 
-	.dropdown-menu-tab(data-tab='libraries')
+	.dropdown-menu-tab(data-dropdown-tab='libraries')
 		.dropdown-menu-column
 			+nav-secondary()(
 				class="nav-secondary-vertical rounded-right border-left overflow-hidden")
 				| {{ navigation.dropdown_main_libraries(title) }}
 
-	.dropdown-menu-tab(data-tab='services')
+	.dropdown-menu-tab(data-dropdown-tab='services')
 		.dropdown-menu-column
 			+nav-secondary()(
 				class="nav-secondary-vertical rounded-right border-left overflow-hidden")

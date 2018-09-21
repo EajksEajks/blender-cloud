@@ -192,7 +192,7 @@ include ../../../../pillar/src/templates/mixins/components
 | #}
 
 | {% macro navigation_homepage(title) %}
-+nav-secondary()
++nav-secondary(class="d-none d-sm-flex")
 	+nav-secondary-link(
 		href="{{ url_for('cloud.open_projects') }}",
 		class="{% if title == 'open-projects' %}active{% endif %}")
@@ -214,7 +214,7 @@ include ../../../../pillar/src/templates/mixins/components
 
 
 | {% macro navigation_learn(title) %}
-+nav-secondary
++nav-secondary(class="d-none d-sm-flex")
 	+nav-secondary-link(
 			class="px-0 text-black-50 {% if title == 'learn' %}active{% endif %}",
 			href="{{ url_for('cloud.learn') }}")
@@ -241,7 +241,7 @@ include ../../../../pillar/src/templates/mixins/components
 
 
 | {% macro navigation_libraries(title) %}
-+nav-secondary
++nav-secondary(class="d-none d-sm-flex")
 	+nav-secondary-link(
 			class="px-0 active",
 			href="{{ url_for('cloud.libraries') }}")
@@ -269,7 +269,7 @@ include ../../../../pillar/src/templates/mixins/components
 
 
 | {% macro navigation_home_project(title) %}
-+nav-secondary()
++nav-secondary(class="d-none d-sm-flex")
 		+nav-secondary-link(
 			href="{{ url_for('projects.index') }}",
 			class="{% if title == 'dashboard' %}active{% endif %}")
@@ -299,7 +299,7 @@ include ../../../../pillar/src/templates/mixins/components
 
 
 | {% macro navigation_services(title) %}
-+nav-secondary()
++nav-secondary(class="d-none d-sm-flex")
 	+nav-secondary-link(
 			class="px-0 active",
 			href="{{ url_for('cloud.services') }}")
@@ -343,7 +343,7 @@ include ../../../../pillar/src/templates/mixins/components
 | {% set category_title = project.category %}
 | {% endif %}
 
-+nav-secondary()
++nav-secondary(class="d-none d-sm-flex")
 	| {% if project.url != 'blender-cloud' %}
 	| {% if not project.is_private %}
 	+nav-secondary-link(
