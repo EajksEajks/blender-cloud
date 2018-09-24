@@ -77,11 +77,11 @@
             let card_progress_bar = $('<div class="progress-bar">');
             card_progress_bar.css('width', node.view_progress.progress_in_percent);
             card_progress.append(card_progress_bar);
-            card_body.append(card_progress);
+            thumbnail_container.append(card_progress);
 
             if (node.view_progress.done){
                 let card_progress_done = $('<div class="card-label">WATCHED</div>');
-                card_body.append(card_progress_done);
+                thumbnail_container.append(card_progress_done);
             }
         }
 
