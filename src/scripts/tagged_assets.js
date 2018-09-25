@@ -75,7 +75,7 @@
         if (node.view_progress){
             let card_progress = $('<div class="progress rounded-0">');
             let card_progress_bar = $('<div class="progress-bar">');
-            card_progress_bar.css('width', node.view_progress.progress_in_percent);
+            card_progress_bar.css('width', node.view_progress.progress_in_percent + '%');
             card_progress.append(card_progress_bar);
             thumbnail_container.append(card_progress);
 
