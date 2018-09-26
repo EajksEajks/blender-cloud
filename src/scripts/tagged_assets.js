@@ -68,7 +68,13 @@
         card_body.append(card_title);
 
         let card_meta = $('<ul class="card-text list-unstyled d-flex text-black-50 mt-auto">');
-        card_meta.append('<li>' + node._created + '</li>');
+        let card_project = $('<a class="font-weight-bold pr-2">')
+            .attr('href', '/p/' + node.project.url)
+            .attr('title', node.project.name)
+            .text(node.project.name);
+
+        card_meta.append(card_project);
+        card_meta.append('<li>' + node.pretty_created + '</li>');
         card_body.append(card_meta);
 
         /* Video progress and 'watched' label. */
@@ -83,6 +89,11 @@
                 let card_progress_done = $('<div class="card-label">WATCHED</div>');
                 thumbnail_container.append(card_progress_done);
             }
+        }
+
+        if (node.video_duration){
+            let card_duration = $('<div class="card-label right">' + node.video_duration + '</div>');
+            thumbnail_container.append(card_duration);
         }
 
         /* 'Free' ribbon for public assets. */
