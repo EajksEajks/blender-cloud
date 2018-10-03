@@ -91,8 +91,8 @@
             }
         }
 
-        if (node.video_duration){
-            let card_duration = $('<div class="card-label right">' + node.video_duration + '</div>');
+        if (node.properties.duration){
+            let card_duration = $('<div class="card-label right">' + node.properties.duration + '</div>');
             thumbnail_container.append(card_duration);
         }
 

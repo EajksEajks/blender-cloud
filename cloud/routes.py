@@ -278,6 +278,12 @@ def get_random_featured_nodes() -> typing.List[dict]:
                      'foreignField': '_id',
                      'as': 'node'}},
         {'$unwind': {'path': '$node'}},
+        {'$lookup': {"from": "users",
+                     "localField": "node.user",
+                     "foreignField": "_id",
+                     "as": "node.user"}},
+        {'$unwind': {'path': "$node.user"}},
+        {'$match': {'node._deleted': {'$ne': True}}},
         {'$project': {'url': True,
                       'name': True,
                       'summary': True,
@@ -287,7 +293,10 @@ def get_random_featured_nodes() -> typing.List[dict]:
                       'node.permissions': True,
                       'node.picture': True,
                       'node.properties.content_type': True,
-                      'node.properties.url': True}},
+                      'node.properties.duration_seconds': True,
+                      'node.properties.url': True,
+                      'node._created': True,
+                      'node.user.full_name': True,}},
     ])
 
     featured_node_documents = []
@@ -296,6 +305,7 @@ def get_random_featured_nodes() -> typing.List[dict]:
         # Turn the project-with-node doc into a node-with-project doc.
         node_document = node_info.pop('node')
         node_document['project'] = node_info
+        node_document['_id'] = str(node_document['_id'])
 
         node = Node(node_document)
         node.picture = get_file(node.picture, api=api)
