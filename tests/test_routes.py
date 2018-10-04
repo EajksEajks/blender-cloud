@@ -25,6 +25,8 @@ class RandomFeaturedNodeTest(AbstractCloudTest):
         self.fake_now = utcnow()
 
     def test_random_feature_node_returns_3_nodes(self):
+        from pillar.web.nodes.routes import url_for_node
+
         base_node = {
             'name': 'Just a node name',
             'project': self.pid,
@@ -58,11 +60,12 @@ class RandomFeaturedNodeTest(AbstractCloudTest):
 
         with self.app.test_request_context():
             random_assets = get_random_featured_nodes()
-            actual_ids = [asset['_id'] for asset in random_assets]
 
             self.assertIs(len(random_assets), 3)
-            for aid in actual_ids:
-                self.assertIn(ObjectId(aid), all_asset_ids)
+            for asset in random_assets:
+                aid = asset['_id']
+                self.assertIn(ObjectId(asset['_id']), all_asset_ids)
+                self.assertEquals(f'/p/default-project/{aid}', url_for_node(node=asset))
 
     def test_random_feature_ignore(self):
         def assert_ignored():

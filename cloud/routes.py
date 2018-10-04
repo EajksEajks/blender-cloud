@@ -309,8 +309,6 @@ def get_random_featured_nodes() -> typing.List[dict]:
 
         node = Node(node_document)
         node.picture = get_file(node.picture, api=api)
-        node.url = url_for_node(node=node)
-        node.project.url = url_for('projects.view', project_url=node.project.url)
         node.project.picture_square = get_file(node.project.picture_square, api=api)
         featured_node_documents.append(node)
 
