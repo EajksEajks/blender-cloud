@@ -23,7 +23,8 @@ script(src="{{ url_for('static_cloud', filename='assets/js/tagged_assets.min.js'
 
 script.
 	$(function() {
-		$('.js-asset-list').loadTaggedAssets(8, 8);
+		let is_subscriber = {{ current_user.has_cap('subscriber')|string|lower }};
+		$('.js-asset-list').loadTaggedAssets(8, 8, is_subscriber);
 	});
 | {% endblock %}
 | {% block body %}

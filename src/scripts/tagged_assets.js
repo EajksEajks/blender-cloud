@@ -5,6 +5,7 @@
     /* How many nodes to load initially, and when clicked on the 'Load Next' link. */
     const LOAD_INITIAL_COUNT = 8;
     const LOAD_NEXT_COUNT = 8;
+    var mark_if_public = true;
 
     /* Renders a node as an asset card, returns a jQuery object. */
     function renderAsset(node) {
@@ -97,7 +98,7 @@
         }
 
         /* 'Free' ribbon for public assets. */
-        if (node.permissions && node.permissions.world){
+        if (mark_if_public && node.permissions && node.permissions.world){
             card.addClass('free');
         }
 
@@ -123,7 +124,8 @@
             load_next.remove();
     }
 
-    $.fn.loadTaggedAssets = function(LOAD_INITIAL_COUNT, LOAD_NEXT_COUNT) {
+    $.fn.loadTaggedAssets = function(LOAD_INITIAL_COUNT, LOAD_NEXT_COUNT, has_subscription) {
+    	mark_if_public = !has_subscription;
         this.each(function(index, card_deck_element) {
             // TODO(Sybren): show a 'loading' animation.
             $.get('/api/nodes/tagged/' + card_deck_element.dataset.assetTag)
