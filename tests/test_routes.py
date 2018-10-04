@@ -167,3 +167,4 @@ class RandomFeaturedNodeTest(AbstractCloudTest):
             self.assertEquals(self.fake_now, asset['_created'])
             self.assertEquals(str(node_id), asset['_id'])
             self.assertEquals(75, asset['properties']['duration_seconds'])
+            self.assertNotIn('user', asset)

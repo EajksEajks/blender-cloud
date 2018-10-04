@@ -278,11 +278,6 @@ def get_random_featured_nodes() -> typing.List[dict]:
                      'foreignField': '_id',
                      'as': 'node'}},
         {'$unwind': {'path': '$node'}},
-        {'$lookup': {"from": "users",
-                     "localField": "node.user",
-                     "foreignField": "_id",
-                     "as": "node.user"}},
-        {'$unwind': {'path': "$node.user"}},
         {'$match': {'node._deleted': {'$ne': True}}},
         {'$project': {'url': True,
                       'name': True,
@@ -296,7 +291,8 @@ def get_random_featured_nodes() -> typing.List[dict]:
                       'node.properties.duration_seconds': True,
                       'node.properties.url': True,
                       'node._created': True,
-                      'node.user.full_name': True,}},
+                      }
+         },
     ])
 
     featured_node_documents = []
