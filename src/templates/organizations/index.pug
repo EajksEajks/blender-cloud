@@ -53,7 +53,7 @@ meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/ba
 						ul.meta
 							li(title="Members")
 								| {{ organization.members|hide_none|count }} Member{{ organization.members|hide_none|count|pluralize }}
-								| {% if (organization.unknown_members|count) != 0 %}
+								| {% if (organization.unknown_members|hide_none|count) != 0 %}
 								| ({{ organization.unknown_members|hide_none|count }} pending)
 								| {% endif %}
 							li(title="Seats")
