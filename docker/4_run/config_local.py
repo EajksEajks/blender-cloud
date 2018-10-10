@@ -106,15 +106,6 @@ UTM_LINKS = {
     }
 }
 
-# Disabled until we have regenerated the majority of the links.
-CELERY_BEAT_SCHEDULE = {
-    'regenerate-expired-links': {
-        'task': 'pillar.celery.file_link_tasks.regenerate_all_expired_links',
-        'schedule': 600,  # every N seconds
-        'args': ('gcs', 500)
-    },
-}
-
 SVNMAN_REPO_URL = 'https://svn.blender.cloud/repo/'
 SVNMAN_API_URL = 'https://svn.blender.cloud/api/'
 
