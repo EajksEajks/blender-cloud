@@ -73,14 +73,14 @@ a.card.asset.card-image-fade.pr-0.mx-0.mb-4(
 //- ******************************************************* -//
 | {% macro render_blog_index(current_post, project, posts, can_create_blog_posts, api, more_posts_available, posts_meta, pages=None) %}
 
-| {% if can_create_blog_posts or current_post.has_method('PUT') %}
+| {% if can_create_blog_posts or (current_post and current_post.has_method('PUT')) %}
 +nav-secondary
 	| {% if can_create_blog_posts %}
 	+nav-secondary-link(href="{{url_for('nodes.posts_create', project_id=project._id)}}")
 		i.pi-plus.pr-2
 		span Create New Blog Post
 	| {% endif %}
-	| {% if current_post.has_method('PUT') %}
+	| {% if (current_post and current_post.has_method('PUT')) %}
 	+nav-secondary-link(href="{{url_for('nodes.edit', node_id=current_post._id)}}")
 		i.pi-edit.pr-2
 		span Edit Post
