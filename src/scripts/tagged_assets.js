@@ -25,7 +25,7 @@
         if (!node.picture) {
             warnNoPicture();
         } else {
-            loadingBarShow();
+            $(window).trigger('pillar:workStart');
 
             // TODO: show 'loading' thingy
             $.get('/api/files/' + node.picture)
@@ -34,7 +34,6 @@
                     console.log(msg);
                 })
                 .done(function(resp) {
-                    loadingBarHide();
 
                     // Render the picture if it has the proper size.
                     var show_variation = null;
@@ -57,6 +56,9 @@
                         .attr('width', variation.width)
                         .attr('height', variation.height);
                     thumbnail_container.append(img);
+                })
+                .always(function(){
+                    $(window).trigger('pillar:workStop');
                 });
         }
 
