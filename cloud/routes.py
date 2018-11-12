@@ -42,36 +42,6 @@ def _homepage_context() -> dict:
 
     # Get latest blog posts
     api = system_util.pillar_api()
-    latest_posts = Node.all({
-        'projection': {
-            'name': 1,
-            'project': 1,
-            'node_type': 1,
-            'picture': 1,
-            'properties.url': 1,
-            'properties.content': 1,
-            'properties.attachments': 1,
-            'properties.status': 1,
-        },
-
-        'where': {'node_type': 'post', 'properties.status': 'published'},
-        'embedded': {'project': 1},
-        'sort': '-_created',
-        'max_results': '3'
-    }, api=api)
-
-    # Append picture Files to last_posts
-    for post in latest_posts._items:
-        post.picture = get_file(post.picture, api=api)
-        post.url = url_for_node(node=post)
-
-    # Get latest assets added to any project
-    latest_assets = Node.latest('assets', api=api)
-
-    # Append picture Files to latest_assets
-    for asset in latest_assets._items:
-        asset.picture = get_file(asset.picture, api=api)
-        asset.url = url_for_node(node=asset)
 
     # Get latest comments to any node
     latest_comments = Node.latest('comments', api=api)
@@ -116,20 +86,9 @@ def _homepage_context() -> dict:
     main_project = Project.find(current_app.config['MAIN_PROJECT_ID'], api=api)
     main_project.picture_header = get_file(main_project.picture_header, api=api)
 
-    # Merge latest assets and comments into one activity stream.
-    def sort_key(item):
-        return item._created
-
-    activity_stream = sorted(latest_assets._items, key=sort_key, reverse=True)
-
-    for node in activity_stream:
-        node.url = url_for_node(node=node)
-
     return dict(
         main_project=main_project,
-        latest_posts=latest_posts._items,
         latest_comments=latest_comments._items,
-        activity_stream=activity_stream,
         random_featured=random_featured)
 
 
