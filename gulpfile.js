@@ -94,10 +94,24 @@ gulp.task('watch',function() {
         livereload.listen();
     }
 
-    gulp.watch('src/styles/**/*.sass',['styles']);
-    gulp.watch(source.pillar + 'src/styles/**/*.sass',['styles']);
-    gulp.watch('src/scripts/*.js',['scripts']);
-    gulp.watch('src/templates/**/*.pug',['templates']);
+    let watchStyles = [
+        'src/styles/**/*.sass',
+        source.pillar + 'src/styles/**/*.sass',
+    ];
+
+    let watchScripts = [
+        'src/scripts/**/*.js',
+        source.pillar + 'src/scripts/**/*.js',
+    ];
+
+    let watchTemplates = [
+        'src/templates/**/*.pug',
+        source.pillar + 'src/templates/**/*.pug',
+    ];
+
+    gulp.watch(watchStyles,['styles']);
+    gulp.watch(watchScripts,['scripts']);
+    gulp.watch(watchTemplates,['templates']);
 });
 
 
