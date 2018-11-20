@@ -29,7 +29,7 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 .container-fluid.dashboard-container.imgs-fluid
 	.row
 		.col-md-8.col-xl-9
-			section.timeline
+			+timeline()
 
 			.d-block.text-center
 				a.d-inline-block.p-3.text-muted(href="{{ url_for('main.main_blog') }}")
@@ -118,11 +118,6 @@ script.
 	$('.js-comment-content').each(function(){
 		$(this).text($(this).text().replace(/\*|\@|\<(.*?)\>/g, ''));
 	});
-
-	$('.timeline')
-		.timeline({
-			url: '/api/timeline'
-		});
 
 	hopToTop(); // Display jump to top button
 	});

@@ -142,7 +142,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 
 	#project_context-container
 		| {% if project.has_method('PUT') %}
-		#project_context-header.position-fixed
+		#project_context-header.position-absolute
 			ul.project-edit-tools.disabled.d-flex.list-unstyled.py-2.mb-0
 				li.dropdown(
 					title="Create...",
