@@ -85,17 +85,19 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 
 				hr.pb-2
 
-			+card-deck(3)
+			+card-deck()
 				| {% for project in projects %}
 
 				| {% if project.url not in projects_in_production %}
 				| {% if (project.status == 'published') or (project.status == 'pending' and current_user.is_authenticated) and project._id != config.MAIN_PROJECT_ID %}
 				+card(
-					class='js-project-go card-fade cursor-pointer mb-4 mx-0',
+					class='js-project-go card-fade cursor-pointer mb-4',
+					style="min-width: 30%",
 					data-url="{{ url_for('projects.view', project_url=project.url) }}",
 					tabindex='{{ loop.index }}')
+
 					| {% if project.picture_header %}
-					a(href="{{ url_for('projects.view', project_url=project.url) }}")
+					a.card-thumbnail(href="{{ url_for('projects.view', project_url=project.url) }}")
 						img.card-img-top(
 							src="{{ project.picture_header.thumbnail('l', api=api) }}", alt="{{ project.name }}")
 					| {% endif %}

@@ -9,7 +9,7 @@ mixin group(title, tag)
 
 			h4.title-underline.mt-2.mb-4
 				a.text-muted(href="#" + tag)= title
-			+card-deck(data-asset-tag=tag, class="js-asset-list py-3")
+			+card-deck(data-asset-tag=tag, class="js-asset-list p-3")
 
 | {% block page_title %}Production Lessons{% endblock %}
 | {% set page_header_text = "Tips and tricks by the Open Projects crew." %}

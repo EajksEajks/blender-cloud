@@ -35,6 +35,7 @@ html(lang="en")
 		script(src="{{ url_for('static_pillar', filename='assets/js/timeline.min.js') }}")
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.typeahead-0.11.1.min.js')}}")
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/js.cookie-2.0.3.min.js')}}")
+		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/hogan.common-3.0.0.js') }}")
 		| {% if current_user.is_authenticated %}
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/clipboard.min.js')}}")
 		| {% endif %}
@@ -80,9 +81,8 @@ html(lang="en")
 
 			| {% block navigation_tabs %}
 			| {% endblock navigation_tabs %}
-
-			| {% block navigation_search %}
-			| {% endblock navigation_search %}
+			+nav-secondary()(class="m-auto keep-when-overlay")
+				div.nav-item.quick-search.qs-input#qs-input
 
 			+nav-secondary()(class="ml-auto")
 				| {% if node and node.properties and node.properties.category %}
@@ -90,17 +90,9 @@ html(lang="en")
 				| {% else %}
 				| {% set category = title %}
 				| {% endif %}
+				li.nav-item.quick-search.cursor-pointer.px-3.pi-search#qs-toggle
 
 				| {% block navigation_sections %}
-
-				+nav-secondary-link(
-					href="{{ url_for('main.nodes_search_index') }}",
-					title="Search Blender Cloud",
-					data-toggle="tooltip",
-					data-placement="bottom",
-					class="py-2 px-2 text-muted")
-					i.pi-search
-
 				| {% endblock navigation_sections %}
 
 				| {% block navigation_user %}
@@ -118,7 +110,10 @@ html(lang="en")
 			.loading-bar
 
 		.page-content
-			#search-overlay
+			.quick-search.container-fluid.m-auto.p-5#search-overlay
+				ul.qs-loading.text-center
+					i.h1.pi-spin.spinner
+					h2 Loading
 			| {% block page_overlay %}
 			#page-overlay
 			| {% endblock page_overlay %}
@@ -167,6 +162,38 @@ html(lang="en")
 			if (typeof $().tooltip != 'undefined'){
 				$('[data-toggle="tooltip"]').tooltip({'delay' : {'show': 0, 'hide': 0}});
 			}
+
+			// Enable Quick Search
+			let searches = {
+				{% if project and not project.is_private %}
+				project: {
+					name: 'Project',
+					uiUrl: '{{ url_for("projects.search", project_url=project.url)}}',
+					apiUrl: '/api/newsearch/multisearch',
+					searchParams: [
+						{name: 'Assets', params: {project: '{{ project._id }}', node_type: 'asset'}},
+						{name: 'Blog', params: {project: '{{ project._id }}', node_type: 'post'}},
+						{name: 'Groups', params: {project: '{{ project._id }}', node_type: 'group'}},
+						]
+				},
+				{% endif %}
+				cloud: {
+					name: 'Cloud',
+					uiUrl: '/search',
+					apiUrl: '/api/newsearch/multisearch',
+					searchParams: [
+						{name: 'Assets', params: {node_type: 'asset'}},
+						{name: 'Blog', params: {node_type: 'post'}},
+						{name: 'Groups', params: {node_type: 'group'}},
+						]
+				},
+			}
+
+			$('#qs-toggle').quickSearch({
+				resultTarget: '#search-overlay',
+				inputTarget: '#qs-input',
+				searches: searches,
+			});
 
 		| {% block footer_scripts_pre %}{% endblock %}
 		| {% block footer_scripts %}{% endblock %}
