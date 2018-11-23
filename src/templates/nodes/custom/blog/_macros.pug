@@ -50,7 +50,7 @@ a.card.asset.card-image-fade(
 	href="{{ node.url }}")
 	.card-thumbnail
 		| {% if node.picture %}
-		img.card-img-top(src="background-image: url({{ node.picture.thumbnail('m', api=api) }})", alt="{{ node.name }}")
+		img.card-img-top(src="{{ node.picture.thumbnail('m', api=api) }}", alt="{{ node.name }}")
 		| {% else %}
 		.card-img-top
 			i.pi-document-text
