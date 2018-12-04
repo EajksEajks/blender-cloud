@@ -31,18 +31,6 @@ services:
         max-size:            "200k"
         max-file:            "20"
 
-  rabbit:
-    image:                   rabbitmq:3.6.10
-    container_name:          rabbit
-    restart:                 always
-    ports:
-      - "127.0.0.1:5672:5672"
-    logging:
-      driver:                "json-file"
-      options:
-        max-size:            "200k"
-        max-file:            "20"
-
   elastic:
     image:                   armadillica/elasticsearch:6.1.1
     container_name:          elastic
@@ -113,7 +101,6 @@ services:
     depends_on:
       - mongo
       - redis
-      - rabbit
 
   celery_worker:
     image:                   armadillica/blender_cloud:latest
@@ -130,7 +117,6 @@ services:
     depends_on:
       - mongo
       - redis
-      - rabbit
     logging:
       driver:                "json-file"
       options:
@@ -152,7 +138,6 @@ services:
     depends_on:
       - mongo
       - redis
-      - rabbit
       - celery_worker
     logging:
       driver:                "json-file"
