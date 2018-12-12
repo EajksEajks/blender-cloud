@@ -32,6 +32,8 @@ html(lang="en")
 		| {% endblock og %}
 
 		script(src="{{ url_for('static_pillar', filename='assets/js/tutti.min.js') }}")
+		script.
+			pillar.utils.initCurrentUser({{ current_user | json | safe }});
 		script(src="{{ url_for('static_pillar', filename='assets/js/timeline.min.js') }}")
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.typeahead-0.11.1.min.js')}}")
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/js.cookie-2.0.3.min.js')}}")
@@ -133,7 +135,6 @@ html(lang="en")
 				.nc-text
 					span.nc-date
 						a(href="")
-
 		| {% if current_user.is_authenticated %}
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.typewatch-3.0.0.min.js') }}")
 		script.

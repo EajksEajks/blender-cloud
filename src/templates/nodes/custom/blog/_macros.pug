@@ -41,7 +41,10 @@ include ../../../../../../pillar/src/templates/mixins/components
 
 	hr.my-4
 
-	#comments-embed.d-flex.justify-content-center.mx-auto
+	comments-tree#comments-embed.justify-content-center.mx-auto(
+		parent-id="{{ node._id }}"
+		read-only=false
+	)
 | {% endmacro %}
 
 //- ******************************************************* -//

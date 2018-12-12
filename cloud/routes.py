@@ -16,7 +16,6 @@ from pillar.web.utils import system_util, get_file, current_user_is_authenticate
 from pillar.web.utils import attach_project_pictures
 from pillar.web.settings import blueprint as blueprint_settings
 from pillar.web.nodes.routes import url_for_node
-from pillar.web.nodes.custom.comments import render_comments_for_node
 from pillar.web.projects.routes import render_project
 from pillar.web.projects.routes import find_project_or_404
 
@@ -60,6 +59,7 @@ def _homepage_context() -> dict:
                              'name': 1,
                              'node_type': 1,
                              'project': 1,
+                             'parent': 1,
                              'properties.url': 1,
                          }},
                          api=api)
@@ -395,26 +395,6 @@ def emails_welcome_txt():
                           subject='Welcome to Blender Cloud',
                           user=current_user)
     return flask.Response(txt, content_type='text/plain; charset=utf-8')
-
-
-@blueprint.route('/nodes/<string(length=24):node_id>/comments')
-def comments_for_node(node_id):
-    """Overrides the default render_comments_for_node.
-
-    This is done in order to extend can_post_comments by requiring the
-    subscriber capability.
-    """
-
-    api = system_util.pillar_api()
-
-    node = Node.find(node_id, api=api)
-    project = Project({'_id': node.project})
-    can_post_comments = project.node_type_has_method('comment', 'POST', api=api)
-    can_comment_override = flask.request.args.get('can_comment', 'True') == 'True'
-    can_post_comments = can_post_comments and can_comment_override and current_user.has_cap(
-        'subscriber')
-
-    return render_comments_for_node(node_id, can_post_comments=can_post_comments)
 
 
 @blueprint.route('/p/hero')
