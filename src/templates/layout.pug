@@ -73,6 +73,10 @@ html(lang="en")
 			
 
 			| {% block navigation_tabs %}
+			+nav-secondary()
+					+nav-secondary-link(
+						href="{{ url_for('main.homepage') }}")
+						i.pi-blender-cloud-logo
 			| {% endblock navigation_tabs %}
 			+nav-secondary()(class="m-auto keep-when-overlay")
 				div.nav-item.quick-search.qs-input#qs-input
