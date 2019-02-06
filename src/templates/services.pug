@@ -1,5 +1,5 @@
 | {% extends 'layout.html' %}
-| {% from '_macros/_navigation.html' import navigation_services %}
+| {% from '_macros/_navigation.html' import navigation_homepage %}
 
 | {% block page_title %}Services{% endblock %}
 | {% set title = 'services' %}
@@ -18,7 +18,7 @@ meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/ba
 | {% endblock %}
 
 | {% block navigation_tabs %}
-| {{ navigation_services(title) }}
+| {{ navigation_homepage(title) }}
 | {% endblock navigation_tabs %}
 
 | {% block page_overlay %}

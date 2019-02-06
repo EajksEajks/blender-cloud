@@ -5,7 +5,10 @@
 include ../../../../pillar/src/templates/mixins/components
 
 | {% block page_title %}{{ project.name }}{% endblock%}
+
+| {% if title is not defined %}
 | {% set title = 'project' %}
+| {% endif %}
 
 | {% block og %}
 meta(property="og:type", content="website")
@@ -87,32 +90,12 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 | {% endblock %}
 
 | {% block navigation_tabs %}
-| {{ navigation_project(project, navigation_links, title) }}
+| {{ navigation_project(project, navigation_links, extension_sidebar_links, title) }}
 | {% endblock navigation_tabs %}
 
 | {% block body %}
 #project-container
 	#project-side-container
-		#project_sidebar.bg-white
-			ul.project-tabs.p-0
-				li.tabs-browse.active(
-					title="Browse",
-					data-toggle="tooltip",
-					data-placement="right")
-					a(href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
-						i.pi-folder
-						
-				| {{ extension_sidebar_links }}
-
-				| {% if project.has_method('PUT') %}
-				li(
-					title="Edit Project",
-					data-toggle="tooltip",
-					data-placement="right")
-					a(href="{{ url_for('projects.edit', project_url=project.url) }}")
-						i.pi-cog
-				| {% endif %}
-
 
 		#project_nav(class="{{ title }}")
 			#project_nav-container
@@ -121,7 +104,6 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 				#project_tree.bg-light.px-1.py-2.border-right
 				| {% endblock project_tree %}
 				| {% endif %}
-
 
 	#project_context-container
 		| {% if project.has_method('PUT') %}

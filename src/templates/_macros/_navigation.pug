@@ -1,326 +1,92 @@
 include ../../../../pillar/src/templates/mixins/components
 
 | {#
-| Main dropdown macros. These are just links without a container.
-| So the container can be set per case (big dropdown, mobile, footer, etc)
-| and the links reused multiple times.
-| #}
-
-| {% macro dropdown_main_root(title) %}
-+nav-secondary-link(
-	href="{{ url_for('main.homepage') }}",
-	data-toggle='dropdown-tab',
-	data-tab-target='home')
-	i.mr-2.pi-home
-	span Homepage
-
-+nav-secondary-link(
-	href="{{ url_for('cloud.open_projects') }}",
-	data-toggle='dropdown-tab',
-	data-tab-target='open-projects')
-	i.mr-2.pi-film-thick
-	span Open Projects
-
-+nav-secondary-link(
-	href="{{ url_for('cloud.learn') }}",
-	data-toggle='dropdown-tab',
-	data-tab-target='learn')
-	i.mr-2.pi-graduation-cap
-	span Learn
-
-+nav-secondary-link(
-	href="{{ url_for('cloud.libraries') }}",
-	data-toggle='dropdown-tab',
-	data-tab-target='libraries')
-	i.mr-2.pi-file-archive
-	span Libraries
-
-+nav-secondary-link(
-	href="{{ url_for('cloud.services') }}",
-	data-toggle='dropdown-tab',
-	data-tab-target='services',
-	class="{% if title == 'services' %}active{% endif %}")
-	i.mr-2.pi-whoosh
-	span Services
-| {% endmacro %}
-
-
-| {% macro dropdown_main_home(title) %}
-+nav-secondary-link(
-	href="{{ url_for('main.main_blog') }}")
-	i.pi-newspaper
-	span Blog
-
-+nav-secondary-link(
-	href="{{ url_for('projects.index') }}")
-	i.pi-star
-	span My Projects
-
-| {% if current_user.has_organizations() %}
-+nav-secondary-link(
-	href="{{ url_for('pillar.web.organizations.index') }}")
-	i.pi-users
-	span My Organizations
-| {% endif %}
-
-+nav-secondary-link(
-	href="{{ url_for('projects.home_project_shared_images')}}")
-	i.pi-picture
-	span Image Sharing
-
-+nav-secondary-link(
-	href="{{ url_for('projects.home_project') }}")
-	i.pi-blender
-	span Blender Sync
-| {% endmacro %}
-
-
-| {% macro dropdown_main_open_projects(title) %}
-+nav-secondary-link(
-	href="{{ url_for('cloud.open_projects') }}",
-	class="nav-see-more border-bottom")
-	span.font-weight-bold
-		| Open Projects
-	i.pi-angle-right.pl-2
-
-+nav-secondary-link(
-	href="{{ url_for('projects.view', project_url='spring') }}")
-	span Spring
-
-+nav-secondary-link(
-	href="{{ url_for('projects.view', project_url='hero') }}")
-	span Hero
-
-+nav-secondary-link(
-	href="{{ url_for('projects.view', project_url='dailydweebs') }}")
-	span The Daily Dweebs
-
-+nav-secondary-link(
-	href="{{ url_for('projects.view', project_url='agent-327') }}")
-	span Agent 327
-| {% endmacro %}
-
-
-| {% macro dropdown_main_learn(title) %}
-+nav-secondary-link(
-	href="{{ url_for('cloud.learn') }}",
-	class="nav-see-more border-bottom")
-	span.font-weight-bold
-		| Learn
-	i.pi-angle-right.pl-2
-
-+nav-secondary-link(
-	href="{{ url_for('cloud.courses') }}")
-	i.pi-graduation-cap
-	span Courses
-
-+nav-secondary-link(
-	href="{{ url_for('cloud.workshops') }}")
-	i.pi-lightbulb
-	span Workshops
-
-+nav-secondary-link(
-	href="{{ url_for('cloud.production') }}")
-	i.pi-puzzle
-	span.new Production Lessons
-| {% endmacro %}
-
-
-| {% macro dropdown_main_libraries(title) %}
-+nav-secondary-link(
-	href="{{ url_for('cloud.libraries') }}",
-	class="nav-see-more border-bottom")
-	span.font-weight-bold
-		| Libraries
-	i.pi-angle-right.pl-2
-
-+nav-secondary-link(
-	href="{{ url_for('projects.view', project_url='textures') }}")
-	i.pi-folder-texture
-	span Textures
-
-+nav-secondary-link(
-	href="{{ url_for('projects.view', project_url='hdri') }}")
-	i.pi-globe
-	span HDRI
-
-+nav-secondary-link(
-	href="{{ url_for('projects.view', project_url='characters') }}")
-	i.pi-character
-	span Characters
-
-+nav-secondary-link(
-	href="{{ url_for('projects.view', project_url='gallery') }}")
-	i.pi-picture
-	span Art Gallery
-| {% endmacro %}
-
-
-| {% macro dropdown_main_services(title) %}
-+nav-secondary-link(
-	href="{{ url_for('cloud.services') }}",
-	class="nav-see-more border-bottom")
-	span.font-weight-bold
-		| Services
-	i.pi-angle-right.pl-2
-
-+nav-secondary-link(
-	href="/attract")
-	i.pi-attract
-	span Attract
-
-+nav-secondary-link(
-	href="/flamenco")
-	i.pi-attract
-	span Flamenco
-
-+nav-secondary-link(
-	href="{{ url_for('cloud.services') }}#blender-cloud-add-on")
-	i.pi-blender
-	span Blender Cloud add-on
-
-+nav-secondary-link(
-	href="{{ url_for('cloud.services') }}#texture-browser")
-	i.pi-texture
-	span Texture & HDRI Browser
-| {% endmacro %}
-
-
-| {#
 | Secondary Navigation Bars.
-| They include the nav-secondary() container unlike dropdown entries which are just links.
 | #}
 
 | {% macro navigation_homepage(title) %}
-+nav-secondary(class="d-none d-sm-flex")
+button.navbar-toggler(
+	type="button",
+	data-toggle="collapse",
+	data-target="#navigationLinks",
+	aria-controls="navigationLinks",
+	aria-expanded="false",
+	aria-label="Toggle navigation"
+	)
+	i.pi-blender-cloud
+	i.pi-angle-down
++nav-secondary(class="collapse navbar-collapse")#navigationLinks
+	+nav-secondary-link(
+		href="{{ url_for('main.homepage') }}")
+		i.pi-blender-cloud-logo
+
+	+nav-secondary-link(
+		href="{{ url_for('cloud.learn') }}",
+		class="{% if title in ('learn', 'courses', 'workshops') %}active{% endif %}")
+		span Training
+	
 	+nav-secondary-link(
 		href="{{ url_for('cloud.open_projects') }}",
 		class="{% if title == 'open-projects' %}active{% endif %}")
-		span Open Projects
+		span Films
 
 	+nav-secondary-link(
-		href="{{ url_for('cloud.learn') }}")
-		span Learn
-
-	+nav-secondary-link(
-		href="{{ url_for('cloud.libraries') }}")
+		href="{{ url_for('cloud.libraries') }}",
+		class="{% if title == 'libraries' %}active{% endif %}")
 		span Libraries
 
 	+nav-secondary-link(
-		class="{% if title == 'services' %}active{% endif %}",
-		href="{{ url_for('cloud.services') }}")
+		href="{{ url_for('cloud.services') }}",
+		class="{% if title == 'services' %}active{% endif %}")
 		span Services
-| {% endmacro %}
-
-
-| {% macro navigation_learn(title) %}
-+nav-secondary(class="d-none d-sm-flex")
-	+nav-secondary-link(
-			class="px-0 text-black-50 {% if title == 'learn' %}active{% endif %}",
-			href="{{ url_for('cloud.learn') }}")
-		span Learn
-
-	li.pl-1
-		i.pi-angle-right
-
-	+nav-secondary-link(
-			class="{% if title == 'courses' %}active{% endif %}",
-			href="{{ url_for('cloud.courses') }}")
-		span Courses
-
-	+nav-secondary-link(
-			class="{% if title == 'workshops' %}active{% endif %}",
-			href="{{ url_for('cloud.workshops') }}")
-		span Workshops
-
-	+nav-secondary-link(
-		class="{% if title == 'production' %}active{% endif %}",
-		href="{{ url_for('cloud.production') }}")
-		span.new Production Lessons
-| {% endmacro %}
-
-
-| {% macro navigation_libraries(title) %}
-+nav-secondary(class="d-none d-sm-flex")
-	+nav-secondary-link(
-			class="px-0 active",
-			href="{{ url_for('cloud.libraries') }}")
-		span Libraries
-
-	li.pl-1
-		i.pi-angle-right
-
-	+nav-secondary-link(
-			href="{{ url_for('projects.view', project_url='textures') }}")
-		span Textures
-
-	+nav-secondary-link(
-			href="{{ url_for('projects.view', project_url='hdri') }}")
-		span HDRI
-
-	+nav-secondary-link(
-		href="{{ url_for('projects.view', project_url='characters') }}")
-		span Characters
-
-	+nav-secondary-link(
-		href="{{ url_for('projects.view', project_url='gallery') }}")
-		span Art Gallery
 | {% endmacro %}
 
 
 | {% macro navigation_home_project(title) %}
-+nav-secondary(class="d-none d-sm-flex")
-		+nav-secondary-link(
-			href="{{ url_for('projects.index') }}",
-			class="{% if title == 'dashboard' %}active{% endif %}")
-			i.pi-star.pr-2
-			span My Projects
+button.navbar-toggler(
+	type="button",
+	data-toggle="collapse",
+	data-target="#navigationLinks",
+	aria-controls="navigationLinks",
+	aria-expanded="false",
+	aria-label="Toggle navigation"
+	)
+	i.pi-blender-cloud
+	i.pi-angle-down
++nav-secondary(class="collapse navbar-collapse")#navigationLinks
+	+nav-secondary-link(
+		href="{{ url_for('main.homepage') }}")
+		i.pi-blender-cloud
 
-		| {% if current_user.has_organizations() %}
-		+nav-secondary-link(
-			href="{{ url_for('pillar.web.organizations.index') }}",
-			class="{% if title == 'organizations' %}active{% endif %}")
-			i.pi-users.pr-2
-			span My Organizations
-		| {% endif %}
+	+nav-secondary-link(
+		href="{{ url_for('projects.index') }}",
+		class="{% if title == 'dashboard' %}active{% endif %}")
+		i.pi-star.pr-2
+		span My Projects
 
-		+nav-secondary-link(
-			href="{{ url_for('projects.home_project_shared_images')}}",
-			class="{% if title == 'images' %}active{% endif %}")
-			i.pi-picture.pr-2
-			span Image Sharing
+	| {% if current_user.has_organizations() %}
+	+nav-secondary-link(
+		href="{{ url_for('pillar.web.organizations.index') }}",
+		class="{% if title == 'organizations' %}active{% endif %}")
+		i.pi-users.pr-2
+		span My Organizations
+	| {% endif %}
 
-		+nav-secondary-link(
-			href="{{ url_for('projects.home_project') }}",
-			class="{% if title == 'blender-sync' %}active{% endif %}")
-			i.pi-blender.pr-2
-			span Blender Sync
+	+nav-secondary-link(
+		href="{{ url_for('projects.home_project_shared_images')}}",
+		class="{% if title == 'images' %}active{% endif %}")
+		i.pi-picture.pr-2
+		span Image Sharing
+
+	+nav-secondary-link(
+		href="{{ url_for('projects.home_project') }}",
+		class="{% if title == 'blender-sync' %}active{% endif %}")
+		i.pi-blender.pr-2
+		span Blender Sync
 | {% endmacro %}
 
 
-| {% macro navigation_services(title) %}
-+nav-secondary(class="d-none d-sm-flex")
-	+nav-secondary-link(
-			class="px-0 active",
-			href="{{ url_for('cloud.services') }}")
-		span Services
-
-	li.pl-1
-		i.pi-angle-right
-
-	+nav-secondary-link(
-		href="/attract")
-		i.pi-attract.pr-2
-		span Attract
-
-	+nav-secondary-link(
-		href="/flamenco")
-		i.pi-flamenco.pr-2
-		span Flamenco
-| {% endmacro %}
-
-
-| {% macro navigation_project(project, navigation_links, title) %}
+| {% macro navigation_project(project, navigation_links, extension_sidebar_links, title) %}
 
 | {% if project.category == 'course' %}
 | {% set category_url = url_for('cloud.courses') %}
@@ -343,20 +109,25 @@ include ../../../../pillar/src/templates/mixins/components
 | {% set category_title = project.category %}
 | {% endif %}
 
-+nav-secondary(class="d-none d-sm-flex")
+button.navbar-toggler(
+	type="button",
+	data-toggle="collapse",
+	data-target="#navigationLinks",
+	aria-controls="navigationLinks",
+	aria-expanded="false",
+	aria-label="Toggle navigation"
+	)
+	i.pi-blender-cloud
+	i.pi-angle-down
++nav-secondary(class="collapse navbar-collapse")#navigationLinks
+	+nav-secondary-link(
+		href="{{ url_for('main.homepage') }}")
+		i.pi-blender-cloud
+
 	| {% if project.url != 'blender-cloud' %}
-	| {% if not project.is_private %}
-	+nav-secondary-link(
-			class="px-0 text-black-50 text-capitalize",
-			href="{{ category_url }}")
-		span {{ category_title }}
-
-	li.px-1
-		i.pi-angle-right
-	| {% endif %}
 
 	+nav-secondary-link(
-		class="px-1 font-weight-bold{% if title == 'landing' %} active{% endif %}",
+		class="font-weight-bold{% if title == 'landing' %} active{% endif %}",
 		href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
 		span {{ project.name }}
 	| {% endif %}
@@ -379,7 +150,20 @@ include ../../../../pillar/src/templates/mixins/components
 			href="{{ url_for('projects.view_node', project_url=project.url, node_id=featured_node_id) }}",
 			title="Explore {{ project.name }}",
 			class="{% if title == 'project' %}active{% endif %}")
-			span Browse
+			span Explore
 	| {% endif %}
 
+	| {% if extension_sidebar_links %}
+	+nav-secondary()
+		li.nav-item.dropdown
+			a.nav-link.dropdown-toggle(
+			class="{% if title == 'production-tools' %}active{% endif %}"
+			href="#"
+			data-toggle="dropdown")
+				span Production Tools
+				i.pi-angle-down
+
+			ul.dropdown-menu
+				| {{ extension_sidebar_links }}
+	| {% endif %}
 | {% endmacro %}

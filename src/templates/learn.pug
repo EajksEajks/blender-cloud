@@ -1,5 +1,5 @@
 | {% extends 'layout.html' %}
-| {% from '_macros/_navigation.html' import navigation_learn %}
+| {% from '_macros/_navigation.html' import navigation_homepage %}
 include ../../../pillar/src/templates/mixins/components
 
 | {% set title = 'learn' %}
@@ -7,7 +7,7 @@ include ../../../pillar/src/templates/mixins/components
 | {% block page_title %}Learn{% endblock %}
 
 | {% block navigation_tabs %}
-| {{ navigation_learn(title) }}
+| {{ navigation_homepage(title) }}
 | {% endblock navigation_tabs %}
 
 | {% block body %}

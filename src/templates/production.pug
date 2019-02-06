@@ -1,5 +1,5 @@
 | {% extends 'layout.html' %}
-| {% from '_macros/_navigation.html' import navigation_learn %}
+| {% from '_macros/_navigation.html' import navigation_homepage %}
 
 include ../../../pillar/src/templates/mixins/components
 
@@ -15,7 +15,7 @@ mixin group(title, tag)
 | {% set page_header_text = "Tips and tricks by the Open Projects crew." %}
 
 | {% block navigation_tabs %}
-| {{ navigation_learn(title) }}
+| {{ navigation_homepage(title) }}
 | {% endblock navigation_tabs %}
 
 | {% block head %}

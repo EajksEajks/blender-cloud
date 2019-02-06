@@ -37,7 +37,6 @@ html(lang="en")
 		script(src="{{ url_for('static_pillar', filename='assets/js/timeline.min.js') }}")
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.typeahead-0.11.1.min.js')}}")
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/js.cookie-2.0.3.min.js')}}")
-		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/hogan.common-3.0.0.js') }}")
 		| {% if current_user.is_authenticated %}
 		script(src="{{ url_for('static_pillar', filename='assets/js/vendor/clipboard.min.js')}}")
 		| {% endif %}
@@ -57,7 +56,7 @@ html(lang="en")
 		| {% endblock css %}
 
 	| {% if not title %}{% set title="default" %}{% endif %}
-	body(class="{{ title }}")
+	body(class="{{ title }} {{'project' if project and project.url != 'blender-cloud'}}")
 		| {% with messages = get_flashed_messages(with_categories=True) %}
 		|	{% if messages %}
 		|	{% for (category, message) in messages %}
@@ -71,15 +70,7 @@ html(lang="en")
 		| {% endwith %}
 
 		nav.navbar.navbar-expand-md.fixed-top.bg-white
-			+nav-secondary()
-				li.nav-item.dropdown.large
-					a.nav-link.dropdown-toggle.px-2(
-					href="{{ url_for('main.homepage') }}"
-					data-toggle="dropdown")
-						i.pi-blender-cloud
-						i.pi-angle-down
-
-					| {% include 'menus/_dropdown_main.html' %}
+			
 
 			| {% block navigation_tabs %}
 			| {% endblock navigation_tabs %}
