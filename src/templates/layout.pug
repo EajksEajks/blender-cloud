@@ -56,7 +56,9 @@ html(lang="en")
 		| {% endblock css %}
 
 	| {% if not title %}{% set title="default" %}{% endif %}
-	body(class="{{ title }} {{'project' if project and project.url != 'blender-cloud'}}")
+	body(class="{{ title }} {{'project' if project and project.url != 'blender-cloud'}}"
+		"{% block bodyattrs %}{% endblock %}"
+	)
 		| {% with messages = get_flashed_messages(with_categories=True) %}
 		|	{% if messages %}
 		|	{% for (category, message) in messages %}
@@ -70,13 +72,13 @@ html(lang="en")
 		| {% endwith %}
 
 		nav.navbar.navbar-expand-md.fixed-top.bg-white
-			
+
 
 			| {% block navigation_tabs %}
-			+nav-secondary()
-					+nav-secondary-link(
-						href="{{ url_for('main.homepage') }}")
-						i.pi-blender-cloud-logo
+			+nav-secondary(class="collapse navbar-collapse")#navigationLinks
+				+nav-secondary-link(
+					href="{{ url_for('main.homepage') }}")
+					i.pi-blender-cloud-logo
 			| {% endblock navigation_tabs %}
 			+nav-secondary()(class="m-auto keep-when-overlay")
 				div.nav-item.quick-search.qs-input#qs-input
