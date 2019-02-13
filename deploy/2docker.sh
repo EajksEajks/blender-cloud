@@ -106,20 +106,17 @@ if [ ! -e $GULP -o gulpfile.js -nt $GULP ]; then
 fi
 
 # List of projects
-declare -a proj=("pillar" "attract" "flamenco" "pillar-svnman" "blender-cloud")
+PROJECTS="pillar attract flamenco pillar-svnman blender-cloud"
 
 # Run ./gulp for every project
-for i in "${proj[@]}"
-do
-    pushd $STAGINGDIR/$i; ./gulp --production; popd;
+for PROJECT in $PROJECTS; do
+    pushd $STAGINGDIR/$PROJECT; ./gulp --production; popd;
 done
 
 # Remove node_modules (only after all projects with interdependencies have been built)
-for i in "${proj[@]}"
-do
-    pushd $STAGINGDIR/$i; rm -r node_modules; popd;
+for PROJECT in $PROJECTS; do
+    pushd $STAGINGDIR/$PROJECT; rm -r node_modules; popd;
 done
-
 
 echo
 echo "==================================================================="
