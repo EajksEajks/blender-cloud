@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-DEPLOY_BRANCH=${DEPLOY_BRANCH:-production}
+STAGING_BRANCH=${STAGING_BRANCH:-production}
 
 # macOS does not support readlink -f, so we use greadlink instead
 if [[ `uname` == 'Darwin' ]]; then
@@ -11,34 +11,34 @@ else
 fi
 
 ROOT="$(dirname "$(dirname "$($readlink -f "$0")")")"
-DEPLOYDIR="$ROOT/docker/4_run/deploy"
+STAGINGDIR="$ROOT/docker/4_run/staging"
 PROJECT_NAME="$(basename $ROOT)"
 
-if [ -e $DEPLOYDIR ]; then
-    echo "$DEPLOYDIR already exists, press [ENTER] to DESTROY AND DEPLOY, Ctrl+C to abort."
+if [ -e $STAGINGDIR ]; then
+    echo "$STAGINGDIR already exists, press [ENTER] to destroy and re-install, Ctrl+C to abort."
     read dummy
-    rm -rf $DEPLOYDIR
+    rm -rf $STAGINGDIR
 else
-    echo -n "Deploying to $DEPLOYDIR… "
+    echo -n "Installing into $STAGINGDIR… "
     echo "press [ENTER] to continue, Ctrl+C to abort."
     read dummy
 fi
 
 cd ${ROOT}
-mkdir -p $DEPLOYDIR
-REMOTE_ROOT="$DEPLOYDIR/$PROJECT_NAME"
+mkdir -p $STAGINGDIR
+REMOTE_ROOT="$STAGINGDIR/$PROJECT_NAME"
 
 if [ -z "$SKIP_BRANCH_CHECK" ]; then
     # Check that we're on production branch.
-    if [ $(git rev-parse --abbrev-ref HEAD) != "$DEPLOY_BRANCH" ]; then
-        echo "You are NOT on the $DEPLOY_BRANCH branch, refusing to deploy." >&2
+    if [ $(git rev-parse --abbrev-ref HEAD) != "$STAGING_BRANCH" ]; then
+        echo "You are NOT on the $STAGING_BRANCH branch, refusing to stage." >&2
         exit 1
     fi
 
     # Check that production branch has been pushed.
-    if [ -n "$(git log origin/$DEPLOY_BRANCH..$DEPLOY_BRANCH --oneline)" ]; then
-        echo "WARNING: not all changes to the $DEPLOY_BRANCH branch have been pushed."
-        echo "Press [ENTER] to continue deploying current origin/$DEPLOY_BRANCH, CTRL+C to abort."
+    if [ -n "$(git log origin/$STAGING_BRANCH..$STAGING_BRANCH --oneline)" ]; then
+        echo "WARNING: not all changes to the $STAGING_BRANCH branch have been pushed."
+        echo "Press [ENTER] to continue staging current origin/$STAGING_BRANCH, CTRL+C to abort."
         read dummy
     fi
 fi
@@ -88,15 +88,15 @@ function git_clone() {
     echo "==================================================================="
     echo "CLONING REPO ON $PROJECT_NAME @$BRANCH"
     URL=$(git -C $LOCAL_ROOT remote get-url origin)
-    git -C $DEPLOYDIR clone --depth 1 --branch $BRANCH $URL $PROJECT_NAME
+    git -C $STAGINGDIR clone --depth 1 --branch $BRANCH $URL $PROJECT_NAME
 }
 
 git_clone pillar-python-sdk master $SDK_DIR
-git_clone pillar $DEPLOY_BRANCH $PILLAR_DIR
-git_clone attract $DEPLOY_BRANCH $ATTRACT_DIR
-git_clone flamenco $DEPLOY_BRANCH $FLAMENCO_DIR
-git_clone pillar-svnman $DEPLOY_BRANCH $SVNMAN_DIR
-git_clone blender-cloud $DEPLOY_BRANCH $ROOT
+git_clone pillar $STAGING_BRANCH $PILLAR_DIR
+git_clone attract $STAGING_BRANCH $ATTRACT_DIR
+git_clone flamenco $STAGING_BRANCH $FLAMENCO_DIR
+git_clone pillar-svnman $STAGING_BRANCH $SVNMAN_DIR
+git_clone blender-cloud $STAGING_BRANCH $ROOT
 
 # Gulp everywhere
 GULP=$ROOT/node_modules/.bin/gulp
@@ -105,25 +105,23 @@ if [ ! -e $GULP -o gulpfile.js -nt $GULP ]; then
     touch $GULP  # installer doesn't always touch this after a build, so we do.
 fi
 
-
-
 # List of projects
 declare -a proj=("pillar" "attract" "flamenco" "pillar-svnman" "blender-cloud")
 
 # Run ./gulp for every project
 for i in "${proj[@]}"
 do
-    pushd $DEPLOYDIR/$i; ./gulp --production; popd;
+    pushd $STAGINGDIR/$i; ./gulp --production; popd;
 done
 
 # Remove node_modules (only after all projects with interdependencies have been built)
 for i in "${proj[@]}"
 do
-    pushd $DEPLOYDIR/$i; rm -r node_modules; popd;
+    pushd $STAGINGDIR/$i; rm -r node_modules; popd;
 done
 
 
 echo
 echo "==================================================================="
-echo "Deploy of ${PROJECT_NAME} is ready for dockerisation."
+echo "Staging of ${PROJECT_NAME} is ready for dockerisation."
 echo "==================================================================="

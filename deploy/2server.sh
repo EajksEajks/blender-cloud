@@ -9,7 +9,6 @@ else
 fi
 ROOT="$(dirname "$(dirname "$($readlink -f "$0")")")"
 PROJECT_NAME="$(basename $ROOT)"
-DOCKER_DEPLOYDIR="$ROOT/docker/4_run/deploy"
 DOCKER_IMAGE="armadillica/blender_cloud:latest"
 REMOTE_SECRET_CONFIG_DIR="/data/config"
 REMOTE_DOCKER_COMPOSE_DIR="/root/docker"

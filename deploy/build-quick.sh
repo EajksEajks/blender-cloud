@@ -8,7 +8,6 @@ else
     readlink='readlink'
 fi
 ROOT="$(dirname "$(dirname "$($readlink -f "$0")")")"
-DOCKERDIR="$ROOT/docker/4_run"
 
 case "$(basename "$0")" in
     build-quick.sh)
@@ -31,4 +30,3 @@ read dummy
 docker push armadillica/blender_cloud:latest
 echo
 echo "Build is done, ready to update the server."
-

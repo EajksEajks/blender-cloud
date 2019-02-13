@@ -57,7 +57,7 @@ ENTRYPOINT /docker-entrypoint.sh
 
 # Add the most-changing files as last step for faster rebuilds.
 ADD config_local.py /data/git/blender-cloud/
-ADD deploy /data/git
+ADD staging /data/git
 RUN python3 -c "import re, secrets; \
 f = open('/data/git/blender-cloud/config_local.py', 'a'); \
 h = re.sub(r'[_.~-]', '', secrets.token_urlsafe())[:8]; \
