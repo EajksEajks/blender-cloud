@@ -22,7 +22,7 @@ fi
 echo "Wheelhouse is $WHEELHOUSE"
 mkdir -p "$WHEELHOUSE"
 
-docker build -t pillar_wheelbuilder .
+docker build -t armadillica/pillar_wheelbuilder:latest .
 
 GID=$(id -g)
 docker run --rm -i \
