@@ -11,59 +11,45 @@ include ../../../pillar/src/templates/mixins/components
 | {% endblock navigation_tabs %}
 
 | {% block body %}
-.container.pb-5
+.container.py-4
 	.row
 		.col-12
-			.pt-4
-				h2.text-uppercase.font-weight-bold
-					| Libraries
-				.lead
-					| Download 1000s of files and assets.
+			h2.text-uppercase.font-weight-bold
+				| Libraries
+			.lead
+				| Download 1000s of files and assets.
 
-				hr.pb-2
+			hr.pb-2
 
-	.page-triplet-container.homepage.p-0
-		.row
-			.col-md-4
-				.triplet-card(data-url="{{ url_for('projects.view', project_url='textures') }}")
-					.triplet-card-thumbnail
-						img(
-							alt="Textures",
-							src="{{ url_for('static', filename='assets/img/features/textures_01.jpg')}}")
-					.triplet-card-info
-						h3 Textures
-						p.
-								More than 1500 texture maps.
-								Browse online or from Blender with our add-on.
+	+category_list_item(
+		'TEXTURES',
+		'More than 1500 texture maps. Browse online or from Blender with our add-on.',
+		"{{ url_for('projects.view', project_url='textures') }}",
+		"{{ url_for('static', filename='assets/img/features/textures_01.jpg')}}")
 
-						a.triplet-cta(href="{{ url_for('projects.view', project_url='textures') }}")
-							| LEARN MORE
+	hr
 
-			.col-md-4
-				.triplet-card(data-url="{{ url_for('projects.view', project_url='hdri') }}")
-					.triplet-card-thumbnail
-						img(
-							alt="HDRI",
-							src="{{ url_for('static', filename='assets/img/features/hdri_01.jpg')}}")
-					.triplet-card-info
-						h3 HDRI
-						p.
-							Up to 16K and 24 EVs (extremely high) HDR images to light your renders.
-						a.triplet-cta(href="{{ url_for('projects.view', project_url='hdri') }}")
-							| LEARN MORE
+	+category_list_item(
+		'HDRI',
+		'Up to 16K and 24 EVs (extremely high) HDR images to light your renders.',
+		"{{ url_for('projects.view', project_url='hdri') }}",
+		"{{ url_for('static', filename='assets/img/features/hdri_01.jpg')}}")
 
-			.col-md-4
-				.triplet-card(data-url="{{ url_for('projects.view', project_url='characters') }}")
-					.triplet-card-thumbnail
-						img(
-							alt="Characters",
-							src="{{ url_for('static', filename='assets/img/features/characters_01.jpg')}}")
-					.triplet-card-info
-						h3 Characters
-						p.
-							Production quality, fully rigged and shaded characters ready to animate.
-						a.triplet-cta(href="{{ url_for('projects.view', project_url='characters') }}")
-							| LEARN MORE
+	hr
+
+	+category_list_item(
+		'CHARACTERS',
+		'Production quality, fully rigged and shaded characters ready to animate.',
+		"{{ url_for('projects.view', project_url='hdri') }}",
+		"{{ url_for('static', filename='assets/img/features/characters_01.jpg')}}")
+
+	hr
+
+	+category_list_item(
+		'ART GALLERY',
+		'Learn by example.',
+		"{{ url_for('projects.view', project_url='gallery') }}",
+		"{{ url_for('static', filename='assets/img/features/training_bob_forest.jpg')}}")
 
 | {% endblock body %}
 
