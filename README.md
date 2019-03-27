@@ -120,13 +120,4 @@ git push
 
 ## Deploying to production server
 
-```
-workon blender-cloud  # activate your virtualenv
-cd $projectdir/deploy
-./2docker.sh
-./build-all.sh  # or ./build-quick.sh
-./2server.sh servername
-```
-
-To deploy another branch than `production`, do `export DEPLOY_BRANCH=otherbranch` before starting
-the above commands.
+See [deploy/README.md](deploy/README.md).
