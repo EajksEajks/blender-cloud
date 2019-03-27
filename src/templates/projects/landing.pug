@@ -126,7 +126,9 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 								img(src="{{ n.picture.thumbnail('l', api=api) }}", alt="{{ n.name }}")
 					| {% endif %}
 					| {% endfor %}
-					div(class="clearfix")
+
+					.clearfix
+
 					| {% if project.nodes_featured %}
 					| {# In some cases featured_nodes might might be embedded #}
 					| {% if '_id' in project.nodes_featured[0] %}
@@ -139,7 +141,6 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 							href="{{ url_for('projects.view_node', project_url=project.url, node_id=featured_node_id) }}")
 							| See More Artwork
 					| {% endif %}
-
 
 	.row
 		.col-md-10.mx-auto
