@@ -24,7 +24,7 @@ button.navbar-toggler(
 		href="{{ url_for('cloud.learn') }}",
 		class="{% if title in ('learn', 'courses', 'workshops') %}active{% endif %}")
 		span Training
-	
+
 	+nav-secondary-link(
 		href="{{ url_for('cloud.open_projects') }}",
 		class="{% if title == 'open-projects' %}active{% endif %}")
@@ -119,12 +119,15 @@ button.navbar-toggler(
 	)
 	i.pi-blender-cloud
 	i.pi-angle-down
+
 +nav-secondary(class="collapse navbar-collapse")#navigationLinks
+
+	//- Blender Cloud logo.
 	+nav-secondary-link(
 		href="{{ url_for('main.homepage') }}")
 		i.pi-blender-cloud
 
-	| {% if project.url != 'blender-cloud' %}
+	//- Category (Films, Courses, etc).
 	+nav-secondary-link(
 		href="{{ category_url }}",
 		class="px-0")
@@ -132,12 +135,15 @@ button.navbar-toggler(
 	li(class="nav-item px-1")
 		i.pi-angle-right
 
+	//- Project Name.
+	| {% if project.url != 'blender-cloud' %}
 	+nav-secondary-link(
 		class="font-weight-bold{% if title == 'landing' %} active{% endif %}",
 		href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
 		span {{ project.name }}
 	| {% endif %}
 
+	//- Pages (Blog, Team, Awards, etc).
 	| {% for link in navigation_links %}
 	+nav-secondary-link(
 		href="{{ link['url'] }}",
@@ -145,6 +151,7 @@ button.navbar-toggler(
 		span {{ link['label'] }}
 	| {% endfor %}
 
+	//- 'Explore' links to first featured node it can find.
 	| {% if project.nodes_featured %}
 	| {# In some cases featured_nodes might might be embedded #}
 	| {% if '_id' in project.nodes_featured[0] %}
@@ -159,6 +166,7 @@ button.navbar-toggler(
 			span Explore
 	| {% endif %}
 
+	//- Link to Production Tools (Attract, Flamenco, SVN, etc).
 	| {% if extension_sidebar_links %}
 	+nav-secondary()
 		li.nav-item.dropdown
