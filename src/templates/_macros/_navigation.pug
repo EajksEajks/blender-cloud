@@ -125,6 +125,12 @@ button.navbar-toggler(
 		i.pi-blender-cloud
 
 	| {% if project.url != 'blender-cloud' %}
+	+nav-secondary-link(
+		href="{{ category_url }}",
+		class="px-0")
+		span {{ category_title }}
+	li(class="nav-item px-1")
+		i.pi-angle-right
 
 	+nav-secondary-link(
 		class="font-weight-bold{% if title == 'landing' %} active{% endif %}",
