@@ -150,12 +150,19 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 
 | {% block footer_scripts %}
 script.
-	// Click anywhere in the page to hide the overlay
-	function hideOverlay() {
-		$('#page-overlay.video').removeClass('active');
-		$('#page-overlay.video .video-embed').html('');
+	function showOverlay(html_content) {
+		$('#page-overlay')
+			.addClass('active')
+			.html(html_content);
 	}
 
+	function hideOverlay() {
+		$('#page-overlay')
+			.removeClass('active')
+			.html('');
+	}
+
+	//- Click anywhere in the page to hide the overlay.
 	$(document).click(function () {
 		hideOverlay();
 	});
@@ -170,9 +177,8 @@ script.
 		e.preventDefault();
 		e.stopPropagation();
 
-		$('#page-overlay').addClass('active');
 		var url = $(this).attr('href');
-		$('#page-overlay').html('<img src="' + url + '"/>')
+		showOverlay('<img src="' + url + '"/>');
 	});
 
 
