@@ -21,14 +21,14 @@ button.navbar-toggler(
 		i.pi-blender-cloud-logo
 
 	+nav-secondary-link(
-		href="{{ url_for('cloud.learn') }}",
-		class="{% if title in ('learn', 'courses', 'workshops') %}active{% endif %}")
-		span Training
-
-	+nav-secondary-link(
 		href="{{ url_for('cloud.open_projects') }}",
 		class="{% if title == 'open-projects' %}active{% endif %}")
 		span Films
+
+	+nav-secondary-link(
+		href="{{ url_for('cloud.learn') }}",
+		class="{% if title in ('learn', 'courses', 'workshops') %}active{% endif %}")
+		span Training
 
 	+nav-secondary-link(
 		href="{{ url_for('cloud.libraries') }}",
