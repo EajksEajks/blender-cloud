@@ -86,7 +86,15 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 | {% endblock navigation_tabs %}
 
 | {% block body %}
-+jumbotron(null, null, "{{ project.picture_header.thumbnail('h', api=api) }}")
+
+
+- var jumbotron_title = '{{ project.name }}';
+- var jumbotron_lead  = '{{ project.summary }}';
++jumbotron(
+	jumbotron_title,
+	jumbotron_lead,
+	"{{ project.picture_header.thumbnail('h', api=api) }}")(
+		class="jumbotron-overlay-gradient-fade-to-gray")
 
 .container-fluid.landing
 	.row
