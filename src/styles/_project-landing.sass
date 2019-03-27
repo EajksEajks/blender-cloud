@@ -1,6 +1,27 @@
+$color-background-landing: #111
+
 .landing
+	.page-content
+		@extend .text-white
+		background-color: $color-background-landing
+
+	.jumbotron
+		padding-bottom: 15em
+		padding-top: 12em
+
+	.card
+		@extend .bg-transparent
+		@extend .text-white
+
+		.card-text
+			@extend .text-secondary
+
 	.node-details-description
 		@extend .mx-auto
+		color: #ddd
+
+		a
+			color: $color-primary
 
 	.gallery
 		max-width: 1024px
