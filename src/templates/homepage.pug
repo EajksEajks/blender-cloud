@@ -27,8 +27,26 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 
 | {% block body %}
 .container-fluid.dashboard-container.imgs-fluid
-	.row
-		.col-md-8.col-xl-9
+	.row.mt-3
+		.col-md-9.mx-auto.col-xl-6
+			.row
+				.col-md-7
+					h6.title-underline
+						a.text-muted(href="{{ url_for('cloud.open_projects') }}")
+							| Films In Production
+
+					p.text-muted.pt-2.
+						A poetic short film about a mountain spirit and her wise little dog. #[a(href="/p/spring/") Check the project page].
+
+				.col-md-5
+					a(href="/p/spring/")
+						img.rounded(
+							alt="Spring Open Movie Project",
+							src="{{ url_for('static', filename='assets/img/projects/spring_sidebar_01.jpg')}}")
+
+
+	.row.mt-3
+		.col-md-9.mx-auto.col-xl-6
 			+timeline()
 
 			.d-block.text-center
@@ -43,27 +61,15 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 					i.pi-rss
 					| RSS Feed
 
-		.col-md-4.col-xl-3
-			section.pt-3
-				h6.title-underline
-					a.text-muted(href="{{ url_for('cloud.open_projects') }}")
-						| Films In Production
-
-				a(href="/p/spring/")
-					img.rounded(
-						alt="Spring Open Movie Project",
-						src="{{ url_for('static', filename='assets/img/projects/spring_sidebar_01.jpg')}}")
-
-				p.text-muted.pt-2.
-					A poetic short film about a mountain spirit and her wise little dog. #[a.text-muted(href="/p/spring/") Check it out].
-
+	.row
+		.col-md-9.mx-auto.col-xl-6
 			section.py-3.border-bottom.mb-3
 				h6.title-underline
 					a.text-muted(href="{{ url_for('main.nodes_search_index') }}")
 						| Random Awesome
 
 				| {% if random_featured %}
-				+card-deck()(class='card-deck-vertical pl-3')
+				+card-deck()(class='pl-3')
 					| {% for child in random_featured %}
 					| {% if child.node_type not in ['comment'] %}
 					| {{ asset_list_item(child, current_user) }}
@@ -76,6 +82,8 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 							| No random featured.
 				| {% endif %}
 
+	.row
+		.col-md-9.mx-auto.col-xl-6
 			section.py-3
 				h6.title-underline Latest Comments
 
@@ -106,6 +114,7 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 						| No comments... yet!
 
 					| {% endif %}
+
 
 | {% endblock %}
 
