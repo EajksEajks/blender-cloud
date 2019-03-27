@@ -16,7 +16,9 @@ case "$(basename "$0")" in
         pushd "$ROOT/docker/3_buildwheels"
         ./build.sh
         popd
-        ;&
+        pushd "$ROOT/docker/4_run"
+        ./build.sh
+        ;;
     build-quick.sh)
         pushd "$ROOT/docker/4_run"
         ./build.sh
