@@ -120,7 +120,9 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 					| {% if n.node_type not in ['comment', 'post'] and n.picture %}
 					.thumbnail.expand-image-links
 						.img-container
-							a.js-open-overlay(href="{{ n.picture.thumbnail('l', api=api) }}", data-node_id="{{ n._id }}")
+							a.js-open-overlay(
+								href="{{ n.picture.thumbnail('l', api=api) }}",
+								title="{{ n.name }}")
 								img(src="{{ n.picture.thumbnail('l', api=api) }}", alt="{{ n.name }}")
 					| {% endif %}
 					| {% endfor %}
