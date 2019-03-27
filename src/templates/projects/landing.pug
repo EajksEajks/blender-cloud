@@ -87,6 +87,14 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 
 | {% block body %}
 
+| {% if project.has_method('PUT') %}
++nav-secondary
+	+nav-secondary-link(
+		href="{{ url_for('projects.edit', project_url=project.url) }}",
+		class="text-white")
+		i.pi-edit.pr-2
+		span Edit Project
+| {% endif %}
 
 - var jumbotron_title = '{{ project.name }}';
 - var jumbotron_lead  = '{{ project.summary }}';
