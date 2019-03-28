@@ -96,12 +96,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 | {% block body %}
 #project-container
 	#project-side-container
-
 		#project_nav(class="{{ title }}")
-			node-breadcrumbs(node-id="{{ node._id }}")
-			script.
-				new Vue({el:'node-breadcrumbs'});
-
 			#project_nav-container
 				| {% if title != 'about' %}
 				| {% block project_tree %}
@@ -110,6 +105,11 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 				| {% endif %}
 
 	#project_context-container
+		.breadcrumbs-container
+			node-breadcrumbs(node-id="{{ node._id }}")
+			script.
+				new Vue({el:'node-breadcrumbs'});
+
 		| {% if project.has_method('PUT') %}
 		#project_context-header.position-absolute
 			ul.project-edit-tools.disabled.d-flex.list-unstyled.py-2.mb-0
