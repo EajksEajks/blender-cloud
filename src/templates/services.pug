@@ -27,8 +27,13 @@ meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/ba
 | {% endblock %}
 
 | {% block body %}
-- var header_text = "On Blender Cloud you can create and share personal projects, access our texture and HDRI library (or create your own), keep track of your production, manage your renders and much more!";
-+jumbotron("Services", header_text, "{{ url_for('static', filename='assets/img/backgrounds/services_projects.jpg')}}")(class="jumbotron-overlay")
+.container.py-4
+	.row.pb-3
+		.col-12
+			h2.text-uppercase.font-weight-bold
+				| Services
+			.lead
+				| On Blender Cloud you can create and share personal projects, access our texture and HDRI library (or create your own), keep track of your production, manage your renders and much more!
 
 - var addon_text = 'Available through the <a href="{{ url_for(\'cloud.services\') }}#blender-cloud-add-on">Blender Cloud add-on</a>';
 section#blender-cloud-add-on.page-card
@@ -46,15 +51,18 @@ section#blender-cloud-add-on.page-card
 			small Blender Cloud add-on requires Blender 2.78 or newer
 
 		a.btn.btn-primary(
-			href="/r/downloads/blender_cloud-latest-addon.zip")
+			href="/r/downloads/blender_cloud-latest-addon.zip",
+			title="Download Blender Cloud add-on")
 			i.pi-download
 			| Download add-on &nbsp;<small>v</small> {{ config.BLENDER_CLOUD_ADDON_VERSION }}
 
-	.page-card-side
+	a.page-card-side(
+		href="/r/downloads/blender_cloud-latest-addon.zip",
+		title="Download Blender Cloud add-on")
 		img(
 			src="{{ url_for('static', filename='assets/img/features/blender_cloud_addon_thumbnail.png')}}")
 
-section#blender-sync.page-card.right
+section#blender-sync.page-card
 	.page-card-side
 		h2.page-card-title Blender Sync
 		.page-card-summary
@@ -68,21 +76,25 @@ section#blender-sync.page-card.right
 			.tip !{addon_text}
 
 		a.btn.btn-outline-primary(
-			href="/r/downloads/blender_cloud-latest-addon.zip")
+			href="/r/downloads/blender_cloud-latest-addon.zip",
+			title="Download Blender Cloud add-on")
 			i.pi-download
 			| Download add-on &nbsp;<small>v</small> {{ config.BLENDER_CLOUD_ADDON_VERSION }}
 
 		a.btn.btn-link(
-			href="/blog/introducing-blender-sync")
+			href="/blog/introducing-blender-sync",
+			title="Learn more about Blender Sync")
 			| Learn More
 			i.pi-angle-right
 
-	.page-card-side
+	a.page-card-side(
+		href="/blog/introducing-blender-sync",
+		title="Learn more about Blender Sync")
 		img(
 			src="{{ url_for('static', filename='assets/img/features/sync_thumbnail.jpg')}}")
 
 
-section#texture-browser.page-card.right
+section#texture-browser.page-card
 	.page-card-side
 		h2.page-card-title Texture & HDRI Browser
 		.page-card-summary
@@ -95,16 +107,21 @@ section#texture-browser.page-card.right
 
 		a.btn.btn-outline-primary.js-watch-video(
 			href="https://www.youtube.com/watch?v=-srXYv2Osjw",
-			data-youtube-id="-srXYv2Osjw")
+			data-youtube-id="-srXYv2Osjw",
+			title="Watch video about Texture and HDRI Browser")
 			i.pi-play
 			| Watch Video
 
-	.page-card-side
+	a.page-card-side(
+		class="js-watch-video",
+		href="https://www.youtube.com/watch?v=-srXYv2Osjw",
+		data-youtube-id="-srXYv2Osjw",
+		title="Watch video about Texture and HDRI Browser")
 		img(
 			src="{{ url_for('static', filename='assets/img/features/tex_library_thumbnail.jpg')}}")
 
 
-section#image-sharing.page-card.right
+section#image-sharing.page-card
 	.page-card-side
 		h2.page-card-title Image Sharing
 		.page-card-summary
@@ -115,21 +132,27 @@ section#image-sharing.page-card.right
 
 		a.btn.btn-outline-primary.js-watch-video(
 			href="https://www.youtube.com/watch?v=yvtqeMBOAyk",
-			data-youtube-id="yvtqeMBOAyk")
+			data-youtube-id="yvtqeMBOAyk",
+			title="Watch video about Image Sharing")
 			i.pi-play
 			| Watch Video
 
 		a.btn.btn-link(
-			href="/blog/introducing-image-sharing")
+			href="/blog/introducing-image-sharing",
+			title="Learn more about Image Sharing")
 			| Learn More
 			i.pi-angle-right
 
-	.page-card-side
+	a.page-card-side(
+		class="js-watch-video",
+		href="https://www.youtube.com/watch?v=yvtqeMBOAyk",
+		data-youtube-id="yvtqeMBOAyk",
+		title="Watch video about Image Sharing")
 		img(
 			src="{{ url_for('static', filename='assets/img/features/image_sharing_thumbnail.jpg')}}")
 
 
-section#projects.page-card.right
+section#projects.page-card
 	.page-card-side
 		h2.page-card-title Private Projects
 		.page-card-summary.
@@ -137,16 +160,19 @@ section#projects.page-card.right
 			Upload assets and collaborate with other Blender Cloud members.
 
 		a.btn.btn-link(
-			href="/blog/introducing-private-projects")
+			href="/blog/introducing-private-projects",
+			title="Learn more about Private Projects")
 			| Learn More
 			i.pi-angle-right
 
-	.page-card-side
+	a.page-card-side(
+			href="/blog/introducing-private-projects",
+			title="Learn more about Private Projects")
 		img(
 			src="{{ url_for('static', filename='assets/img/features/projects_thumbnail.jpg')}}")
 
 
-section#attract.page-card.right
+section#attract.page-card
 	.page-card-side
 		h2.page-card-title
 			| Attract
@@ -165,12 +191,14 @@ section#attract.page-card.right
 			| Learn More
 			i.pi-angle-right
 
-	.page-card-side
+	a.page-card-side(
+			href="/blog/attract-and-flamenco-public-beta",
+			title="Learn more about Attract")
 		img(
 			src="{{ url_for('static', filename='assets/img/features/attract_thumbnail.jpg')}}")
 
 
-section#flamenco.page-card.right
+section#flamenco.page-card
 	.page-card-side
 		h2.page-card-title
 			| Flamenco
@@ -189,7 +217,9 @@ section#flamenco.page-card.right
 			| Learn More
 			i.pi-angle-right
 
-	.page-card-side
+	a.page-card-side(
+		href="https://flamenco.io",
+		title="Learn more about Flamenco")
 		img(
 			src="{{ url_for('static', filename='assets/img/features/flamenco_thumbnail.jpg')}}")
 
