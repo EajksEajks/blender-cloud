@@ -99,13 +99,22 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 		#project_nav(class="{{ title }}")
 			#project_nav-container
 				| {% if title != 'about' %}
+				button.project-sidebar-toggle.btn.btn-sm.btn-link.px-1.rounded-0.bg-light.text-muted.position-absolute(
+					type="button",
+					class="js-project-sidebar-toggle")
+					i.pi-angle-double-left
 				| {% block project_tree %}
 				#project_tree.bg-light.px-1.py-2.border-right
 				| {% endblock project_tree %}
 				| {% endif %}
 
 	#project_context-container
-		.breadcrumbs-container
+		.breadcrumbs-container.bg-dark.fixed-top
+			button.project-sidebar-toggle.btn.btn-sm.btn-link.px-1.bg-dark.rounded-0.text-muted(
+				type="button",
+				class="js-project-sidebar-toggle")
+				i.pi-menu
+
 			node-breadcrumbs(node-id="{{ node._id }}", @navigate="(nodeId)=>{displayNode(nodeId)}")
 			script.
 				new Vue({el:'node-breadcrumbs'});
@@ -261,6 +270,13 @@ script(type="text/javascript", src="{{ url_for('static_pillar', filename='assets
 | {% endif %}
 
 script.
+	loadProjectSidebar();
+
+	$('body').on('click', '.js-project-sidebar-toggle', function(e){
+		e.preventDefault();
+		toggleProjectSidebar();
+	});
+
 	function updateToggleProjHeaderMenuItem() {
 		var $toggle_projheader = $('#item_toggle_projheader');
 
