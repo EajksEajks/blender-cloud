@@ -106,7 +106,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 
 	#project_context-container
 		.breadcrumbs-container
-			node-breadcrumbs(node-id="{{ node._id }}")
+			node-breadcrumbs(node-id="{{ node._id }}", @navigate="(nodeId)=>{displayNode(nodeId)}")
 			script.
 				new Vue({el:'node-breadcrumbs'});
 
