@@ -98,6 +98,10 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 	#project-side-container
 
 		#project_nav(class="{{ title }}")
+			node-breadcrumbs(node-id="{{ node._id }}")
+			script.
+				new Vue({el:'node-breadcrumbs'});
+
 			#project_nav-container
 				| {% if title != 'about' %}
 				| {% block project_tree %}
@@ -351,6 +355,7 @@ script.
 			$projectContext.html(dataHtml);
 		})
 		.done(function(){
+			pillar.events.Nodes.triggerLoaded(nodeId);
 			updateUi(nodeId, 'view');
 		})
 		.fail(function(dataResponse) {
