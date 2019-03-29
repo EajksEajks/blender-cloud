@@ -56,7 +56,7 @@ html(lang="en")
 		| {% endblock css %}
 
 	| {% if not title %}{% set title="default" %}{% endif %}
-	body(class="{{ title }} {{'project' if project and project.url != 'blender-cloud'}}"
+	body(class="{{ title }} {{'project' if project and project.url != 'blender-cloud'}} {% block bodyclasses %}{% endblock %}"
 		"{% block bodyattrs %}{% endblock %}"
 	)
 		| {% with messages = get_flashed_messages(with_categories=True) %}
