@@ -138,7 +138,7 @@ button.navbar-toggler(
 	//- Project Name.
 	| {% if project.url != 'blender-cloud' %}
 	+nav-secondary-link(
-		class="font-weight-bold{% if title == 'landing' %} active{% endif %} px-0",
+		class="font-weight-bold{% if title == 'default' %} active{% endif %} px-0",
 		href="{{url_for('projects.view', project_url=project.url, _external=True)}}")
 		span {{ project.name }}
 	| {% endif %}
