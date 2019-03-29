@@ -28,7 +28,7 @@ GID=$(id -g)
 docker run --rm -i \
     -v "$WHEELHOUSE:/data/wheelhouse" \
     -v "$TOPDEVDIR:/data/topdev" \
-    pillar_wheelbuilder <<EOT
+    armadillica/pillar_wheelbuilder <<EOT
 set -e
 # Build wheels for all dependencies.
 cd /data/topdev/blender-cloud
