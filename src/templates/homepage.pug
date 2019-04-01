@@ -30,15 +30,20 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 	.row.mt-3
 		.col-md-9.mx-auto.col-xl-6
 			.row
-				.col-md-7
-					h6.title-underline
-						a.text-muted(href="{{ url_for('cloud.open_projects') }}")
-							| Films In Production
+				.col-md-6
+					a.text-muted(href="/p/spring", style="text-decoration: none")
+						h6.title-underline
+							| SPRING
 
-					p.text-muted.pt-2.
-						A poetic short film about a mountain spirit and her wise little dog. #[a(href="/p/spring/") Check the project page].
+						p.text-muted.pt-2
+							| The latest open movie by Blender Animation Studio.
+							| #[br] A poetic short film about a mountain spirit and her wise little dog.
 
-				.col-md-5
+						a.btn.btn-link.btn-sm.pl-0(href="/p/spring")
+							| Explore
+							i.pi-angle-right
+
+				.col-md-6
 					a(href="/p/spring/")
 						img.rounded(
 							alt="Spring Open Movie Project",
