@@ -77,7 +77,7 @@ a.card.asset.card-image-fade(
 | {% macro render_blog_index(current_post, project, posts, can_create_blog_posts, api, more_posts_available, posts_meta, pages=None) %}
 
 | {% if can_create_blog_posts or (current_post and current_post.has_method('PUT')) %}
-+nav-secondary
++nav-secondary(class="bg-light border-bottom")
 	| {% if can_create_blog_posts %}
 	+nav-secondary-link(href="{{url_for('nodes.posts_create', project_id=project._id)}}")
 		i.pi-plus.pr-2
