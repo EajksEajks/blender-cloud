@@ -1,0 +1,15 @@
+//- Opengraph/Twitter cards for social media.
+
+| {% macro opengraph(title, description, image, url) %}
+meta(property="og:type", content="website")
+meta(property="og:url", content="{{ url }}")
+
+meta(property="og:title", content="{{ title }} on Blender Cloud")
+meta(name="twitter:title", content="{{ title }} on Blender Cloud")
+
+meta(property="og:description", content="{{ description }}")
+meta(name="twitter:description", content="{{ description }}")
+
+meta(property="og:image", content="{{ image }}")
+meta(name="twitter:image", content="{{ image }}")
+| {% endmacro %}
