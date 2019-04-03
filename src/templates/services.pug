@@ -1,20 +1,19 @@
 | {% extends 'layout.html' %}
 | {% from '_macros/_navigation.html' import navigation_homepage %}
-
-| {% block page_title %}Services{% endblock %}
-| {% set title = 'services' %}
+| {% from '_macros/_opengraph.html' import opengraph %}
 include ../../../pillar/src/templates/mixins/components
+include mixins/components
+
+| {% set title = 'services' %}
+
+| {% set page_title = 'Services' %}
+| {% set page_description = 'On Blender Cloud you can create and share personal projects, access our texture and HDRI library (or create your own), keep track of your production, manage your renders and much more!' %}
+| {% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_services.jpg', _external=true) %}
+
+| {% block page_title %}{{ page_title }}{% endblock %}
 
 | {% block og %}
-meta(property="og:type", content="website")
-meta(property="og:url", content="{{ request.url }}")
-
-meta(property="og:title", content="Services - Blender Cloud")
-meta(name="twitter:title", content="Services - Blender Cloud")
-meta(property="og:description", content="Personal Projects · Blender Integration · Texture Browsing · Production Management")
-meta(name="twitter:description", content="Personal Projects · Blender Integration · Texture Browsing · Production Management")
-meta(property="og:image", content="{{ url_for('static', filename='assets/img/backgrounds/background_services.jpg')}}")
-meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/backgrounds/background_services.jpg')}}")
+| {{ opengraph(page_title, page_description, page_header_image, request.url) }}
 | {% endblock %}
 
 | {% block navigation_tabs %}
@@ -28,12 +27,7 @@ meta(name="twitter:image", content="{{ url_for('static', filename='assets/img/ba
 
 | {% block body %}
 .container.py-4
-	.row.pb-3
-		.col-12
-			h2.text-uppercase.font-weight-bold
-				| Services
-			.lead
-				| On Blender Cloud you can create and share personal projects, access our texture and HDRI library (or create your own), keep track of your production, manage your renders and much more!
+	+category_list_header('{{ page_title }}', '{{ page_description }}', '{{ request.url }}')
 
 - var addon_text = 'Available through the <a href="{{ url_for(\'cloud.services\') }}#blender-cloud-add-on">Blender Cloud add-on</a>';
 section#blender-cloud-add-on.page-card
