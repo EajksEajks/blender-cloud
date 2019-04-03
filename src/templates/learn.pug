@@ -1,10 +1,16 @@
 | {% extends 'layout.html' %}
 | {% from '_macros/_navigation.html' import navigation_homepage %}
+| {% from '_macros/_opengraph.html' import opengraph %}
 include ../../../pillar/src/templates/mixins/components
+include mixins/components
 
 | {% set title = 'learn' %}
 
-| {% block page_title %}Learn{% endblock %}
+| {% set page_title = 'Learn' %}
+| {% set page_description = 'Production quality training by Blender professionals.' %}
+| {% set page_header_image = url_for('static', filename='assets/img/features/training_minecraft_animation.jpg', _external=true) %}
+
+| {% block page_title %}{{ page_title }}{% endblock %}
 
 | {% block navigation_tabs %}
 | {{ navigation_homepage(title) }}
@@ -12,14 +18,7 @@ include ../../../pillar/src/templates/mixins/components
 
 | {% block body %}
 .container.py-4
-	.row
-		.col-12
-			h2.text-uppercase.font-weight-bold
-				| Learn
-			.lead
-				| Production quality training by Blender professionals.
-
-			hr.pb-2
+	+category_list_header('{{ page_title }}', '{{ page_description }}', '{{ request.url }}')
 
 	+category_list_item(
 		'COURSES',
