@@ -30,3 +30,13 @@ URLER_SERVICE_AUTH_TOKEN = '##DEFINE##'
 ZENCODER_API_KEY = '##DEFINE##'
 ZENCODER_NOTIFICATIONS_SECRET = '##DEFINE##'
 ZENCODER_NOTIFICATIONS_URL = 'http://zencoderfetcher/'
+
+# Special announcement on top of every page, for non-subscribers.
+# category: 'string', can be 'info', 'warning', 'danger', or 'success'.
+# message: 'string', any text, it gets markdowned.
+# icon: 'string', any icon in font-pillar. e.g. 'pi-heart-filled'
+UI_ANNOUNCEMENT_NON_SUBSCRIBERS = {
+    'category' : 'danger',
+    'message' : 'Spring will swing away the gray clouds, until then, [take cover under Blender Cloud](https://cloud.blender.org)!',
+    'icon' : 'pi-heart-filled',
+}
