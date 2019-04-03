@@ -471,7 +471,10 @@ def project_landing(project_url):
                 extension_props[f] = get_file(extension_props[f])
 
         pages = Node.all({
-            'where': {'project': project._id, 'node_type': 'page'},
+            'where': {
+                'project': project._id,
+                'node_type': 'page',
+                '_deleted': {'$ne': True}},
             'projection': {'name': 1}}, api=api)
 
         extra_context.update({'pages': pages._items})
