@@ -18,21 +18,33 @@ include mixins/components
 
 | {% block body %}
 .container.py-4
-	+category_list_header('{{ page_title }}', '{{ page_description }}', '{{ request.url }}')
+	+category_list_header('LIBRARIES', null)
+		.lead
+			| Browse Textures and HDRI directly from Blender with our #[a(href="/services#blender-cloud-add-on") Blender Cloud add-on]!
 
 	+category_list_item(
 		'TEXTURES',
-		'More than 1500 texture maps. Browse online or from Blender with our add-on.',
+		'More than 1500 texture maps. Public domain, do-whatever-you-like license.',
 		"{{ url_for('projects.view', project_url='textures') }}",
 		"{{ url_for('static', filename='assets/img/features/textures_01.jpg')}}")
 
 	hr
 
 	+category_list_item(
-		'HDRI',
-		'Up to 16K and 24 EVs (extremely high) HDR images to light your renders.',
+		'HDR IMAGES',
+		'Up to 16K and 24 EVs (extremely high) HDRI to light your renders.',
 		"{{ url_for('projects.view', project_url='hdri') }}",
 		"{{ url_for('static', filename='assets/img/features/hdri_01.jpg')}}")
+
+
+	.pt-5
+		+category_list_header('HANDS-ON', 'Learn by example with ready-to-use characters and amazing artwork .blend files.')
+
+	+category_list_item(
+		'ART GALLERY',
+		'Learn by example browsing the .blends files from the best community artwork.',
+		"{{ url_for('projects.view', project_url='gallery') }}",
+		"{{ url_for('static', filename='assets/img/features/training_bob_forest.jpg')}}")
 
 	hr
 
@@ -41,15 +53,6 @@ include mixins/components
 		'Production quality, fully rigged and shaded characters ready to animate.',
 		"{{ url_for('projects.view', project_url='hdri') }}",
 		"{{ url_for('static', filename='assets/img/features/characters_01.jpg')}}")
-
-	hr
-
-	+category_list_item(
-		'ART GALLERY',
-		'Learn by example.',
-		"{{ url_for('projects.view', project_url='gallery') }}",
-		"{{ url_for('static', filename='assets/img/features/training_bob_forest.jpg')}}")
-
 | {% endblock body %}
 
 | {% block footer_scripts %}
