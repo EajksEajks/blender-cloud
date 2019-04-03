@@ -7,7 +7,7 @@ import bson
 from flask_login import login_required
 import flask
 import werkzeug.exceptions as wz_exceptions
-from flask import Blueprint, render_template, redirect, session, url_for, abort, flash
+from flask import Blueprint, render_template, redirect, session, url_for, abort, flash, request
 from pillarsdk import Node, Project, User, exceptions as sdk_exceptions, Group
 from pillarsdk.exceptions import ResourceNotFound
 
@@ -426,12 +426,27 @@ def emails_welcome_txt():
     return flask.Response(txt, content_type='text/plain; charset=utf-8')
 
 
-@blueprint.route('/p/hero')
-def project_hero():
+@blueprint.route('/p/<project_url>')
+def project_landing(project_url):
+    """Override Pillar project_view endpoint completely.
+
+    The first part of the function is identical to the one in Pillar, but the
+    second part (starting with 'Load custom project properties') extends the
+    behaviour to support film project landing pages.
+    """
+
+    template_name = None
+    if request.args.get('format') == 'jstree':
+        log.warning('projects.view(%r) endpoint called with format=jstree, '
+                    'redirecting to proper endpoint. URL is %s; referrer is %s',
+                    project_url, request.url, request.referrer)
+        return redirect(url_for('projects.jstree', project_url=project_url))
+
     api = system_util.pillar_api()
-    project = find_project_or_404('hero',
+    project = find_project_or_404(project_url,
                                   embedded={'header_node': 1},
                                   api=api)
+
     # Load the header video file, if there is any.
     header_video_file = None
     header_video_node = None
@@ -441,7 +456,13 @@ def project_hero():
         header_video_file = get_file(project.header_node.properties.file)
         header_video_node.picture = get_file(header_video_node.picture)
 
-    # Load custom project properties
+    extra_context = {
+        'header_video_file': header_video_file,
+        'header_video_node': header_video_node}
+
+    # Load custom project properties. If the project has a 'cloud' extension prop,
+    # render it using the projects/landing.html template and try to attach a
+    # number of additional attributes (pages, images, etc.).
     if EXTENSION_NAME in project.extension_props:
         extension_props = project['extension_props'][EXTENSION_NAME]
         file_props = {'picture_16_9', 'logo'}
@@ -449,15 +470,16 @@ def project_hero():
             if f in extension_props:
                 extension_props[f] = get_file(extension_props[f])
 
-    pages = Node.all({
-        'where': {'project': project._id, 'node_type': 'page'},
-        'projection': {'name': 1}}, api=api)
+        pages = Node.all({
+            'where': {'project': project._id, 'node_type': 'page'},
+            'projection': {'name': 1}}, api=api)
+
+        extra_context.update({'pages': pages._items})
+        template_name = 'projects/landing.html'
 
     return render_project(project, api,
-                          extra_context={'header_video_file': header_video_file,
-                                         'header_video_node': header_video_node,
-                                         'pages': pages._items,},
-                          template_name='projects/landing.html')
+                          extra_context=extra_context,
+                          template_name=template_name)
 
 
 def project_settings(project: pillarsdk.Project, **template_args: dict):
