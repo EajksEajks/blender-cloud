@@ -191,8 +191,8 @@ def open_projects():
     def render_page():
         projects = get_projects('film')
         return render_template(
-            'projects_index_collection.html',
-            title='open-projects',
+            'films.html',
+            title='films',
             projects=projects._items,
             api=system_util.pillar_api())
 

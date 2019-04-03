@@ -1,0 +1,60 @@
+| {% extends 'layout.html' %}
+| {% from '_macros/_navigation.html' import navigation_homepage %}
+| {% from '_macros/_opengraph.html' import opengraph %}
+
+include ../../../pillar/src/templates/mixins/components
+include mixins/components
+
+| {% set page_title = 'Films' %}
+| {% set page_description = 'The iconic Blender Open Movies. Featuring all the production files, assets, artwork, and never-seen-before content.' %}
+| {% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_agent327_01.jpg', _external=true) %}
+
+| {% block og %}
+| {{ opengraph(page_title, page_description, page_header_image, request.url) }}
+| {% endblock %}
+
+| {% block page_title %}
+| {{ page_title }}
+| {% endblock %}
+
+| {% block navigation_tabs %}
+| {{ navigation_homepage(title) }}
+| {% endblock navigation_tabs %}
+
+| {% block body %}
+.container.py-4
+	+category_list_header('{{ page_title }}', '{{ page_description }}', '{{ request.url }}')
+
+	.row.films-list
+		| {% for project in projects %}
+		| {% if (project.status == 'published') or (project.status == 'pending' and current_user.is_authenticated) and project._id != config.MAIN_PROJECT_ID %}
+		.films-item.col-md-4.col-sm-6.col-lg-3.my-5
+			.d-flex.flex-column.h-100
+				| {% if project.picture_header %}
+				a.mx-auto(href="{{ url_for('projects.view', project_url=project.url) }}", tabindex='{{ loop.index }}')
+					img.rounded.w-100(
+						alt="{{ project.name }}",
+						src="{{ project.picture_header.thumbnail('l', api=api) }}")
+				| {% endif %}
+
+				h5.pt-5.pb-3.text-center
+					a.font-weight-bold.text-white(href="{{ url_for('projects.view', project_url=project.url) }}")
+						| {{ project.name }}
+
+				| {% if project.summary %}
+				.lead.text-secondary
+					small {{ project | markdowned('summary') }}
+
+				.d-flex.align-items-center.mt-auto
+					a.btn-link.mr-auto.my-3(href="{{ url_for('projects.view', project_url=project.url) }}")
+						| Explore #[i.pi-angle-right]
+				| {% endif %}
+
+				| {% if project.status == 'pending' and current_user.is_authenticated and current_user.has_role('admin') %}
+				p.text-danger
+					small Project Not Published
+				| {% endif %}
+		| {% endif %}
+		| {% endfor %}
+
+| {% endblock body %}
