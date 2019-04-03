@@ -7,12 +7,10 @@ include mixins/components
 | {% set page_description = 'The iconic Blender Open Movies. Featuring all the production files, assets, artwork, and never-seen-before content.' %}
 | {% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_agent327_01.jpg', _external=true) %}
 
+| {% block page_title %}{{ page_title }}{% endblock %}
+
 | {% block og %}
 | {{ opengraph(page_title, page_description, page_header_image, request.url) }}
-| {% endblock %}
-
-| {% block page_title %}
-| {{ page_title }}
 | {% endblock %}
 
 | {% block navigation_tabs %}
