@@ -1,0 +1,14 @@
+//- Category listing header (Learn, Libraries, etc).
+mixin category_list_header(title, text, url)
+	.row.pt-2
+		.col-md-9
+			a.d-block.py-2.text-secondary(href=url, title=title)
+				h1.text-uppercase.font-weight-bold
+					=title
+			.lead
+				=text
+
+			if block
+				block
+
+	hr.my-4
