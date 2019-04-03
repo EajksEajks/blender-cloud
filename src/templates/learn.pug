@@ -11,6 +11,10 @@ include mixins/components
 
 | {% block page_title %}{{ page_title }}{% endblock %}
 
+| {% block og %}
+| {{ opengraph(page_title, page_description, page_header_image, request.url) }}
+| {% endblock %}
+
 | {% block navigation_tabs %}
 | {{ navigation_homepage(title) }}
 | {% endblock navigation_tabs %}

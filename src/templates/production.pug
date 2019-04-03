@@ -1,5 +1,6 @@
 | {% extends 'layout.html' %}
 | {% from '_macros/_navigation.html' import navigation_homepage %}
+| {% from '_macros/_opengraph.html' import opengraph %}
 
 include ../../../pillar/src/templates/mixins/components
 
@@ -13,6 +14,10 @@ mixin group(title, tag)
 
 | {% block page_title %}Production Lessons{% endblock %}
 | {% set page_header_text = "Tips and tricks by the Open Projects crew." %}
+
+| {% block og %}
+| {{ opengraph(page_title, page_description, page_header_image, request.url) }}
+| {% endblock %}
 
 | {% block navigation_tabs %}
 | {{ navigation_homepage(title) }}
