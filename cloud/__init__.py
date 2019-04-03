@@ -95,6 +95,10 @@ class CloudExtension(PillarExtension):
         Requires the presence of the 'cloud' key in extension_props
         """
 
+        if project.extension_props is None:
+            # There are no extension_props on this project
+            return False
+
         try:
             pprops = project.extension_props[EXTENSION_NAME]
         except AttributeError:
