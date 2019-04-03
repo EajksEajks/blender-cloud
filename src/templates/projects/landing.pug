@@ -119,6 +119,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 				.d-flex
 					| {% if project.extension_props.cloud.video_url %}
 					a.btn.btn-primary.px-5(
+						class="js-open-overlay-video",
 						href="{{ project.extension_props.cloud.video_url }}",
 						target="_blank")
 						i.pi-play.pr-2
@@ -146,7 +147,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 					| {% if n.node_type not in ['comment', 'post'] and n.picture %}
 					.thumbnail.expand-image-links
 						.img-container
-							a.js-open-overlay(
+							a.js-open-overlay-image(
 								href="{{ n.picture.thumbnail('l', api=api) }}",
 								title="{{ n.name }}")
 								img(src="{{ n.picture.thumbnail('l', api=api) }}", alt="{{ n.name }}")
@@ -191,7 +192,40 @@ script.
 			.html('');
 	}
 
-	//- Click anywhere in the page to hide the overlay.
+	$("a.js-open-overlay-image").on( "click", function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		var url = $(this).attr('href');
+		showOverlay('<img src="' + url + '"/>');
+	});
+
+	{% if project.extension_props.cloud.video_url %}
+	//- By isherwood - http://jsfiddle.net/isherwood/cH6e8/
+	function getYoutubeId(url) {
+		var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+		var match = url.match(regExp);
+
+		if (match && match[2].length == 11) {
+				return match[2];
+		} else {
+				return 'error';
+		}
+	}
+
+	var videoId = getYoutubeId('{{ project.extension_props.cloud.video_url }}');
+	var iframeMarkup = '<iframe width="960" height="540" src="//www.youtube.com/embed/'
+			+ videoId + '" frameborder="0" allowfullscreen></iframe>';
+
+	$("a.js-open-overlay-video").on( "click", function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		showOverlay(iframeMarkup);
+	});
+	{% endif %}
+
+	//- Click anywhere on the page or hit Escape to hide the overlay.
 	$(document).click(function () {
 		hideOverlay();
 	});
@@ -200,13 +234,5 @@ script.
 		if (e.keyCode == 27) {
 			hideOverlay();
 		}
-	});
-
-	$("a.js-open-overlay").on( "click", function(e) {
-		e.preventDefault();
-		e.stopPropagation();
-
-		var url = $(this).attr('href');
-		showOverlay('<img src="' + url + '"/>');
 	});
 | {% endblock %}
