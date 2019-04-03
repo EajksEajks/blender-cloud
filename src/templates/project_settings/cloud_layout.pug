@@ -1,0 +1,21 @@
+| {% extends 'projects/edit_layout.html'  %}
+| {% set title = 'cloud' %}
+| {% block page_title %}Blender Cloud settings for {{ project.name }}{% endblock %}
+
+| {% block head %}
+script(src="{{ url_for('static_attract', filename='assets/js/generated/tutti.min.js') }}")
+| {% endblock %}
+
+| {% block project_context %}
+.container-fluid
+	.row
+		.col-md-12
+			h5.pt-3 {{ self.page_title() }}
+
+			hr
+
+#node-edit-container
+	| {% block cloud_container %}
+	| {% endblock cloud_container %}
+
+| {% endblock project_context %}

@@ -3,6 +3,8 @@ import logging
 import flask
 from werkzeug.local import LocalProxy
 
+import pillarsdk
+import pillar.auth
 from pillar.api.utils import authorization
 from pillar.extension import PillarExtension
 
@@ -86,6 +88,50 @@ class CloudExtension(PillarExtension):
         return {
             'current_user_is_subscriber': authorization.user_has_cap('subscriber')
         }
+
+    def is_cloud_project(self, project):
+        """Returns whether the project is set up for Blender Cloud.
+
+        Requires the presence of the 'cloud' key in extension_props
+        """
+
+        try:
+            pprops = project.extension_props[EXTENSION_NAME]
+        except AttributeError:
+            self._log.warning("is_cloud_project: Project url=%r doesn't have any "
+                              "extension properties.", project['url'])
+            if self._log.isEnabledFor(logging.DEBUG):
+                import pprint
+                self._log.debug('Project: %s', pprint.pformat(project.to_dict()))
+            return False
+        except KeyError:
+            # Not set up for Blender Cloud
+            return False
+
+        if pprops is None:
+            self._log.debug("is_cloud_project: Project url=%r doesn't have Blender Cloud"
+                            " extension properties.", project['url'])
+            return False
+        return True
+
+    @property
+    def has_project_settings(self) -> bool:
+        # Only available for admins
+        return pillar.auth.current_user.has_cap('admin')
+
+    def project_settings(self, project: pillarsdk.Project, **template_args: dict) -> flask.Response:
+        """Renders the project settings page for this extension.
+
+        Set YourExtension.has_project_settings = True and Pillar will call this function.
+
+        :param project: the project for which to render the settings.
+        :param template_args: additional template arguments.
+        :returns: a Flask HTTP response
+        """
+
+        from cloud.routes import project_settings
+
+        return project_settings(project, **template_args)
 
     def setup_app(self, app):
         from . import routes, webhooks, eve_hooks, email

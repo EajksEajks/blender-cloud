@@ -9,6 +9,8 @@ import requests
 
 from pillar.cli import manager
 from pillar.api import service
+from pillar.api.utils import authentication
+import cloud.setup
 
 log = logging.getLogger(__name__)
 
@@ -124,6 +126,14 @@ def reconcile_subscribers():
     log.info('Done reconciling %d subscribers', count_users)
     log.info('    processed: %d', count_processed)
     log.info('    skipped  : %d', count_skipped)
+
+
+@manager_cloud.command
+def setup_for_film(project_url):
+    """Adds Blender Cloud film custom properties to a project."""
+
+    authentication.force_cli_user()
+    cloud.setup.setup_for_film(project_url)
 
 
 manager.add_command("cloud", manager_cloud)

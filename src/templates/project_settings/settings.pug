@@ -1,0 +1,67 @@
+| {% extends 'project_settings/cloud_layout.html'  %}
+
+| {% block cloud_container %}
+#node-edit-form
+	form(onsubmit="save(this, '{{ url_for('cloud.save_film_settings', project_url=project['url']) }}'); return false;")
+		| {% for field in form %}
+
+		| {% if field.name == 'csrf_token' %}
+		| {{ field }}
+		| {% else %}
+		| {% if field.type == 'HiddenField' %}
+		| {{ field }}
+		| {% else %}
+
+		| {% if field.name not in hidden_fields %}
+
+		.form-group(class="{{field.name}}{% if field.errors %} error{% endif %}")
+			| {{ field.label }}
+			| {% if field.name == 'picture' %}
+			| {% if post.picture %}
+			img.node-preview-thumbnail(src="{{ post.picture.thumbnail('m', api=api) }}")
+			a(href="#", class="file_delete", data-field-name="picture", data-file_id="{{post.picture._id}}") Delete
+			| {% endif %}
+			| {% endif %}
+			| {{ field(class='form-control') }}
+
+			| {% if field.errors %}
+			ul.error
+				| {% for error in field.errors %}
+				li {{ error }}
+				| {% endfor %}
+			| {% endif %}
+
+		| {% else %}
+		| {{ field(class='d-none') }}
+		| {% endif %}
+
+		| {% endif %}
+		| {% endif %}
+
+		| {% endfor %}
+		button.btn.btn-outline-success.btn-block(type='submit')
+			i.pi-check
+			| Save
+
+
+| {% endblock cloud_container %}
+| {% block footer_scripts %}
+script(type='text/javascript', src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.ui.widget.min.js') }}")
+script(type='text/javascript', src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.iframe-transport.min.js') }}")
+script(type='text/javascript', src="{{ url_for('static_pillar', filename='assets/js/vendor/jquery.fileupload.min.js') }}")
+script(type='text/javascript', src="{{ url_for('static_pillar', filename='assets/js/file_upload.min.js') }}")
+
+script.
+	ProjectUtils.setProjectAttributes({projectId: "{{project._id}}", isProject: true, nodeId: ''});
+
+	function save(form, url) {
+		let serizalizedData = $(form).serializeArray()
+		$.post(url, serizalizedData)
+		.done(function(xhr) {
+			toastr.success('Properties saved');
+		})
+		.fail(function(err) {
+			toastr.error(xhrErrorResponseElement(err, 'Error saving properties: '));
+		});
+	}
+| {% endblock %}

@@ -1,0 +1,28 @@
+| {% extends 'project_settings/cloud_layout.html'  %}
+
+| {% block cloud_container %}
+#node-edit-form
+	p This project is not setup for Blender Cloud #[span.text-muted (yet!)]
+	p
+		button.btn.btn-outline-primary.px-3(onclick='setupForFilm()')
+			i.pr-2.pi-blender-cloud
+			| Setup Project for Film
+
+| {% endblock cloud_container %}
+
+| {% block footer_scripts %}
+script.
+	function setupForFilm() {
+		$.ajax({
+			url: '{{ url_for( "cloud.setup_for_film", project_url=project.url) }}',
+			method: 'POST',
+		})
+		.done(function() {
+			window.location.reload();
+		})
+		.fail(function(err) {
+			var err_elt = xhrErrorResponseElement(err, 'Error setting up your project: ');
+			toastr.error(err_elt);
+		});
+	}
+| {% endblock %}

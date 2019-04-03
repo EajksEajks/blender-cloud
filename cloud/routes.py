@@ -3,14 +3,19 @@ import json
 import logging
 import typing
 
-from flask_login import current_user, login_required
+import bson
+from flask_login import login_required
 import flask
+import werkzeug.exceptions as wz_exceptions
 from flask import Blueprint, render_template, redirect, session, url_for, abort, flash
 from pillarsdk import Node, Project, User, exceptions as sdk_exceptions, Group
 from pillarsdk.exceptions import ResourceNotFound
 
+import pillar
+import pillarsdk
 from pillar import current_app
-import pillar.api
+from pillar.api.utils import authorization
+from pillar.auth import current_user
 from pillar.web.users import forms
 from pillar.web.utils import system_util, get_file, current_user_is_authenticated
 from pillar.web.utils import attach_project_pictures
@@ -18,7 +23,11 @@ from pillar.web.settings import blueprint as blueprint_settings
 from pillar.web.nodes.routes import url_for_node
 from pillar.web.projects.routes import render_project
 from pillar.web.projects.routes import find_project_or_404
+from pillar.web.projects.routes import project_view
 
+from cloud import current_cloud
+from cloud.forms import FilmProjectForm
+from . import EXTENSION_NAME
 
 blueprint = Blueprint('cloud', __name__)
 log = logging.getLogger(__name__)
@@ -412,6 +421,14 @@ def project_hero():
         header_video_file = get_file(project.header_node.properties.file)
         header_video_node.picture = get_file(header_video_node.picture)
 
+    # Load custom project properties
+    if EXTENSION_NAME in project.extension_props:
+        extension_props = project['extension_props'][EXTENSION_NAME]
+        file_props = {'picture_16_9', 'logo'}
+        for f in file_props:
+            if f in extension_props:
+                extension_props[f] = get_file(extension_props[f])
+
     pages = Node.all({
         'where': {'project': project._id, 'node_type': 'page'},
         'projection': {'name': 1}}, api=api)
@@ -421,6 +438,90 @@ def project_hero():
                                          'header_video_node': header_video_node,
                                          'pages': pages._items,},
                           template_name='projects/landing.html')
+
+
+def project_settings(project: pillarsdk.Project, **template_args: dict):
+    """Renders the project settings page for Blender Cloud projects.
+
+    If the project has been setup for Blender Cloud, check for the cloud.project_type
+    property, to render the proper form.
+    """
+
+    # Based on the project state, we can render a different template.
+    if not current_cloud.is_cloud_project(project):
+        return render_template('project_settings/offer_setup.html',
+                               project=project, **template_args)
+
+    cloud_props = project['extension_props'][EXTENSION_NAME]
+
+    project_type = cloud_props['project_type']
+    if project_type != 'film':
+        log.error('No interface available to edit %s projects, yet' % project_type)
+
+    form = FilmProjectForm()
+
+    # Iterate over the form fields and set the data if exists in the project document
+    for field_name in form.data:
+        if field_name not in cloud_props:
+            continue
+        # Skip csrf_token field
+        if field_name == 'csrf_token':
+            continue
+        form_field = getattr(form, field_name)
+        form_field.data = cloud_props[field_name]
+
+    return render_template('project_settings/settings.html',
+                           project=project,
+                           form=form,
+                           **template_args)
+
+
+@blueprint.route('/<project_url>/settings/film', methods=['POST'])
+@authorization.require_login(require_cap='admin')
+@project_view()
+def save_film_settings(project: pillarsdk.Project):
+    # Ensure that the project is setup for Cloud (see @attract_project_view for example)
+    form = FilmProjectForm()
+    if not form.validate_on_submit():
+        log.debug('Form submission failed')
+        # Return list of validation errors
+
+    updated_extension_props = {}
+    for field_name in form.data:
+        # Skip csrf_token field
+        if field_name == 'csrf_token':
+            continue
+        form_field = getattr(form, field_name)
+        # TODO(fsiddi) if form_field type is FileSelectField, convert it to ObjectId
+        # Currently this raises TypeError: Object of type 'ObjectId' is not JSON serializable
+        updated_extension_props[field_name] = form_field.data
+
+    # Update extension props and save project
+    extension_props = project['extension_props'][EXTENSION_NAME]
+    # Project is a Resource, so we update properties iteratively
+    for k, v in updated_extension_props.items():
+        extension_props[k] = v
+    project.update(api=system_util.pillar_api())
+    return '', 204
+
+
+@blueprint.route('/<project_url>/setup-for-film', methods=['POST'])
+@login_required
+@project_view()
+def setup_for_film(project: pillarsdk.Project):
+    import cloud.setup
+
+    project_id = project._id
+
+    if not project.has_method('PUT'):
+        log.warning('User %s tries to set up project %s for Blender Cloud, but has no PUT rights.',
+                    current_user, project_id)
+        raise wz_exceptions.Forbidden()
+
+    log.info('User %s sets up project %s for Blender Cloud', current_user, project_id)
+    cloud.setup.setup_for_film(project.url)
+
+    return '', 204
 
 
 def setup_app(app):
