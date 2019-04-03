@@ -96,13 +96,40 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 		span Edit Project
 | {% endif %}
 
-- var jumbotron_title = '{{ project.name }}';
-- var jumbotron_lead  = '{{ project.summary }}';
-+jumbotron(
-	jumbotron_title,
-	jumbotron_lead,
-	"{{ project.picture_header.thumbnail('h', api=api) }}")(
-		class="jumbotron-overlay-gradient-fade-to-gray")
+| {% if project.picture_header %}
+| {% set project_header = project.picture_header.thumbnail('h', api=api) %}
+| {% endif %}
+
+.jumbotron.text-white.jumbotron-overlay-gradient-fade-to-gray(
+	style="background-image: url(\'{{ project_header }}\');")
+	.container
+		.row
+			.col-md-8
+				.display-4.text-uppercase.font-weight-bold
+					| {% if project.extension_props.cloud.logo %}
+					img.img-fluid(src="{{ project.extension_props.cloud.logo.thumbnail('m', api=api) }}")
+					| {% else %}
+					| {{ project.name }}
+					| {% endif %}
+
+				.lead
+					| {% if project.summary %}
+					| {{ project | markdowned('summary') }}
+					| {% endif %}
+
+				.d-flex
+					| {% if project.extension_props.cloud.video_url %}
+					a.btn.btn-primary.px-5(
+						href="{{ project.extension_props.cloud.video_url }}",
+						target="_blank")
+						i.pi-play.pr-2
+						| WATCH
+					| {% endif %}
+
+					a.btn.btn-link.px-5.text-white(href="{{ url_for('projects.view', project_url=project.url) }}")
+						| Explore
+						i.pi-angle-right.pl-2
+
 
 .container-fluid.landing
 	.row
@@ -183,6 +210,4 @@ script.
 		var url = $(this).attr('href');
 		showOverlay('<img src="' + url + '"/>');
 	});
-
-
 | {% endblock %}
