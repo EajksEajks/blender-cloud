@@ -1,10 +1,16 @@
 | {% extends 'layout.html' %}
 | {% from '_macros/_navigation.html' import navigation_homepage %}
+| {% from '_macros/_opengraph.html' import opengraph %}
 include ../../../pillar/src/templates/mixins/components
+include mixins/components
 
 | {% set title = 'libraries' %}
 
-| {% block page_title %}Libraries{% endblock %}
+| {% set page_title = 'Libraries' %}
+| {% set page_description = 'Download 1000s of files and assets.' %}
+| {% set page_header_image = url_for('static', filename='assets/img/features/characters_01.jpg', _external=true) %}
+
+| {% block page_title %}{{ page_title }}{% endblock %}
 
 | {% block navigation_tabs %}
 | {{ navigation_homepage(title) }}
@@ -12,14 +18,7 @@ include ../../../pillar/src/templates/mixins/components
 
 | {% block body %}
 .container.py-4
-	.row
-		.col-12
-			h2.text-uppercase.font-weight-bold
-				| Libraries
-			.lead
-				| Download 1000s of files and assets.
-
-			hr.pb-2
+	+category_list_header('{{ page_title }}', '{{ page_description }}', '{{ request.url }}')
 
 	+category_list_item(
 		'TEXTURES',
