@@ -1,7 +1,7 @@
 | {% extends 'layout.html' %}
 | {% from '_macros/_navigation.html' import navigation_homepage %}
 | {% from '_macros/_opengraph.html' import opengraph %}
-
+include mixins/components
 include ../../../pillar/src/templates/mixins/components
 
 mixin group(title, tag)
@@ -12,8 +12,13 @@ mixin group(title, tag)
 				a.text-muted(href="#" + tag)= title
 			+card-deck(data-asset-tag=tag, class="js-asset-list p-3")
 
-| {% block page_title %}Production Lessons{% endblock %}
-| {% set page_header_text = "Tips and tricks by the Open Projects crew." %}
+| {% set title = 'learn' %}
+
+| {% set page_title = 'Production Lessons' %}
+| {% set page_description = 'Tips and tricks by the Blender Open Movies crew.' %}
+| {% set page_header_image = url_for('static', filename='assets/img/features/open_movies_02.jpg', _external=true) %}
+
+| {% block page_title %}{{ page_title }}{% endblock %}
 
 | {% block og %}
 | {{ opengraph(page_title, page_description, page_header_image, request.url) }}
@@ -33,17 +38,10 @@ script.
 	});
 | {% endblock %}
 | {% block body %}
-.container.pb-5
+.container.py-4
+	+category_list_header('{{ page_title }}', '{{ page_description }}')
 	.row
 		.col-12
-			.pt-4
-				h2.text-uppercase.font-weight-bold
-					| {{ self.page_title() }}
-				.lead
-					| {{ page_header_text }}
-
-				hr.pb-2
-
 			+group('Walk-through', 'walk-through')
 			+group('Modeling', 'modeling')
 			+group('Sculpting', 'sculpting')
