@@ -29,14 +29,13 @@ include mixins/components
 
 		.films-item.col-md-4.col-sm-6.col-lg-3.my-5
 			.d-flex.flex-column.h-100
-
-				| {% if project.picture_header %}
+				| {% if project.has_poster %} {# Check convenience attribute set in open_projects() #}
 				a.mx-auto(
 					href="{{ project_url }}",
 					tabindex='{{ loop.index }}')
 					img.rounded.w-100(
 						alt="{{ project.name }}",
-						src="{{ project.picture_header.thumbnail('l', api=api) }}")
+						src="{{ project.extension_props.cloud.poster.thumbnail('l', api=api) }}")
 				| {% endif %}
 
 				h4.pt-5.pb-3.text-center

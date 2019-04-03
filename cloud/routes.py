@@ -198,7 +198,27 @@ def courses():
 def open_projects():
     @current_app.cache.cached(timeout=3600, unless=current_user_is_authenticated)
     def render_page():
-        projects = get_projects('film')
+        api = system_util.pillar_api()
+        projects = Project.all({
+            'where': {
+                'category': 'film',
+                'is_private': False
+            },
+            'sort': '-_created',
+        }, api=api)
+        for project in projects._items:
+            # Attach poster file (ensure the extension_props.cloud.poster attributes exists)
+            if 'extension_props' not in project:
+                continue
+            if EXTENSION_NAME not in project['extension_props']:
+                continue
+            if 'poster' not in project['extension_props'][EXTENSION_NAME]:
+                continue
+            project.extension_props.cloud.poster = get_file(
+                project.extension_props.cloud.poster, api=api)
+            # Add convenience attribute that specifies the presence of the poster file
+            project.has_poster = True
+
         return render_template(
             'films.html',
             title='films',
