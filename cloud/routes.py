@@ -463,7 +463,7 @@ def project_landing(project_url):
     # Load custom project properties. If the project has a 'cloud' extension prop,
     # render it using the projects/landing.html template and try to attach a
     # number of additional attributes (pages, images, etc.).
-    if EXTENSION_NAME in project.extension_props:
+    if 'extension_props' in project and EXTENSION_NAME in project['extension_props']:
         extension_props = project['extension_props'][EXTENSION_NAME]
         file_props = {'picture_16_9', 'logo'}
         for f in file_props:
