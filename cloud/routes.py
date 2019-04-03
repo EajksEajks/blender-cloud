@@ -485,6 +485,70 @@ def project_landing(project_url):
                           template_name=template_name)
 
 
+@blueprint.route('/p/<project_url>/browse')
+@project_view()
+def project_browse(project: pillarsdk.Project):
+    """Project view displaying all top-level nodes.
+
+    We render a regular project view, but we introduce an additional template
+    variable: browse. By doing that we prevent the regular project view
+    from loading and fetch via AJAX a "group" node-like view instead (see
+    project_browse_view_nodes).
+    """
+    return render_template(
+        'projects/view.html',
+        api=system_util.pillar_api(),
+        project=project,
+        node=None,
+        show_project=True,
+        browse=True,
+        og_picture=None,
+        navigation_links=[],
+        extension_sidebar_links=None,)
+
+
+@blueprint.route('/p/<project_url>/browse/nodes')
+@project_view()
+def project_browse_view_nodes(project: pillarsdk.Project):
+    """Display top-level nodes for a Project.
+
+    This view is always meant to be served embedded, as part of project_browse.
+    """
+    api = system_util.pillar_api()
+    # Get top level nodes
+    projection = {
+        'project': 1,
+        'name': 1,
+        'picture': 1,
+        'node_type': 1,
+        'properties.order': 1,
+        'properties.status': 1,
+        'user': 1,
+        'properties.content_type': 1,
+        'permissions.world': 1}
+    where = {
+        'project': project['_id'],
+        'parent': {'$exists': False},
+        'properties.status': 'published',
+        '_deleted': {'$ne': True}
+    }
+
+    try:
+        nodes = Node.all({
+            'projection': projection,
+            'where': where,
+            'sort': [('properties.order', 1), ('name', 1)]}, api=api)
+    except pillarsdk.exceptions.ForbiddenAccess:
+        return render_template('errors/403_embed.html')
+    nodes = nodes._items
+
+    for child in nodes:
+        child.picture = get_file(child.picture, api=api)
+    return render_template(
+        'projects/browse_embed.html',
+        nodes=nodes)
+
+
 def project_settings(project: pillarsdk.Project, **template_args: dict):
     """Renders the project settings page for Blender Cloud projects.
 

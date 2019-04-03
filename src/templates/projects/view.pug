@@ -240,7 +240,8 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 		| {% endif %}
 		#project_context
 			| {% block project_context %}
-			| {% if show_project %}
+			| {% if show_project and not browse %}
+			| {# Embed the project view only if we are not exploring it. #}
 			| {% include "projects/view_embed.html" %}
 			| {% endif %}
 			| {% endblock project_context %}
@@ -496,6 +497,11 @@ script.
 			}
 			$('.project-mode-view').displayAs('inline-block');
 			$('.project-mode-edit').hide();
+
+			{% if browse %}
+			let url = "{{url_for('cloud.project_browse_view_nodes', project_url=project.url)}}";
+			loadProjectContent(url);
+			{% endif %}
 		} else {
 			displayNode(nodeId, false);
 		}
