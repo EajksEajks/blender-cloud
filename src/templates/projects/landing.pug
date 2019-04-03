@@ -99,6 +99,8 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 | {% set project_header = project.picture_header.thumbnail('h', api=api) %}
 | {% endif %}
 
+| {% set project_explore_url = url_for('projects.view', project_url=project.url) %}
+
 .jumbotron.text-white.jumbotron-overlay-gradient-fade-to-gray(
 	style="background-image: url(\'{{ project_header }}\');")
 	.container
@@ -106,9 +108,11 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 			.col-md-6
 				.display-4.text-uppercase.font-weight-bold
 					| {% if project.extension_props.cloud.logo %}
-					img.img-fluid(src="{{ project.extension_props.cloud.logo.thumbnail('m', api=api) }}")
+					a(href="{{ project_explore_url }}")
+						img.img-fluid(src="{{ project.extension_props.cloud.logo.thumbnail('m', api=api) }}")
 					| {% else %}
-					| {{ project.name }}
+					a.text-white(href="{{ project_explore_url }}")
+						| {{ project.name }}
 					| {% endif %}
 
 				.lead.pt-3
@@ -126,7 +130,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 						| WATCH
 					| {% endif %}
 
-					a.btn.btn-link.px-5.text-white(href="{{ url_for('projects.view', project_url=project.url) }}")
+					a.btn.btn-link.px-5.text-white(href="{{ project_explore_url }}")
 						| Explore
 						i.pi-angle-right.pl-2
 
