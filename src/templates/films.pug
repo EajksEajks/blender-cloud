@@ -27,26 +27,32 @@ include mixins/components
 
 	.row.films-list
 		| {% for project in projects %}
+
 		| {% if (project.status == 'published') or (project.status == 'pending' and current_user.is_authenticated) and project._id != config.MAIN_PROJECT_ID %}
+		| {% set project_url = url_for('projects.view', project_url=project.url) %}
+
 		.films-item.col-md-4.col-sm-6.col-lg-3.my-5
 			.d-flex.flex-column.h-100
+
 				| {% if project.picture_header %}
-				a.mx-auto(href="{{ url_for('projects.view', project_url=project.url) }}", tabindex='{{ loop.index }}')
+				a.mx-auto(
+					href="{{ project_url }}",
+					tabindex='{{ loop.index }}')
 					img.rounded.w-100(
 						alt="{{ project.name }}",
 						src="{{ project.picture_header.thumbnail('l', api=api) }}")
 				| {% endif %}
 
-				h5.pt-5.pb-3.text-center
-					a.font-weight-bold.text-white(href="{{ url_for('projects.view', project_url=project.url) }}")
+				h4.pt-5.pb-3.text-center
+					a.text-white(href="{{ project_url }}")
 						| {{ project.name }}
 
 				| {% if project.summary %}
-				.lead.text-secondary
+				a.lead.text-secondary(href="{{ project_url }}")
 					small {{ project | markdowned('summary') }}
 
 				.d-flex.align-items-center.mt-auto
-					a.btn-link.mr-auto.my-3(href="{{ url_for('projects.view', project_url=project.url) }}")
+					a.btn-link.mr-auto.my-3(href="{{ project_url }}")
 						| Explore #[i.pi-angle-right]
 				| {% endif %}
 
