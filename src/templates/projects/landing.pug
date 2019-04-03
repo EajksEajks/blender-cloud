@@ -103,7 +103,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 	style="background-image: url(\'{{ project_header }}\');")
 	.container
 		.row
-			.col-md-8
+			.col-md-6
 				.display-4.text-uppercase.font-weight-bold
 					| {% if project.extension_props.cloud.logo %}
 					img.img-fluid(src="{{ project.extension_props.cloud.logo.thumbnail('m', api=api) }}")
@@ -111,12 +111,12 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 					| {{ project.name }}
 					| {% endif %}
 
-				.lead
+				.lead.pt-3
 					| {% if project.summary %}
 					| {{ project | markdowned('summary') }}
 					| {% endif %}
 
-				.d-flex
+				.d-flex.pt-4
 					| {% if project.extension_props.cloud.video_url %}
 					a.btn.btn-primary.px-5(
 						class="js-open-overlay-video",
