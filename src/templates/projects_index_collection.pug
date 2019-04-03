@@ -7,15 +7,13 @@ include mixins/components
 
 | {# Default collection is 'Courses' #}
 | {% set page_title = 'Courses' %}
-| {% set page_description = 'Production quality training by 3D professionals' %}
+| {% set page_description = 'In-depth training on character modeling, 3D printing, rigging, VFX and more.' %}
 | {% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg') %}
-| {% set page_header_text = 'Character modeling, 3D printing, VFX, rigging and more.' %}
 
 | {% if title == 'workshops' %}
 | 	{% set page_title = 'Workshops' %}
-| 	{% set page_description = 'Production quality training by 3D professionals' %}
+| 	{% set page_description = 'Enter the artist workshop and learn by example.' %}
 | 	{% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg') %}
-| 	{% set page_header_text = 'Enter the artist workshop and learn by example.' %}
 | {% endif %}
 
 | {% block og %}
