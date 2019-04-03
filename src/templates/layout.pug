@@ -59,9 +59,19 @@ html(lang="en")
 		"{% block bodyattrs %}{% endblock %}"
 	)
 		| {% with messages = get_flashed_messages(with_categories=True) %}
-		|	{% if messages %}
+		|	{% if messages or (config.UI_ANNOUNCEMENT_NON_SUBSCRIBERS and not current_user.has_cap('subscriber')) %}
+		| {% if config.UI_ANNOUNCEMENT_NON_SUBSCRIBERS %}
+		.alert.d-flex.justify-content-center(
+			role="alert",
+			class="alert-{{ config.UI_ANNOUNCEMENT_NON_SUBSCRIBERS['category'] }}")
+			i.pr-2(class="{{ config.UI_ANNOUNCEMENT_NON_SUBSCRIBERS['icon'] }}")
+			| {{ config.UI_ANNOUNCEMENT_NON_SUBSCRIBERS['message'] | markdown }}
+		| {% endif %}
+
 		|	{% for (category, message) in messages %}
-		.alert(role="alert", class="alert-{{ category }}")
+		.alert.d-flex.justify-content-center(
+			role="alert",
+			class="alert-{{ category }}")
 			i.alert-icon(class="{{ category }}")
 			span {{ message }}
 			button.close(type="button", data-dismiss="alert")
@@ -71,8 +81,6 @@ html(lang="en")
 		| {% endwith %}
 
 		nav.navbar.navbar-expand-md.fixed-top.bg-white
-
-
 			| {% block navigation_tabs %}
 			+nav-secondary(class="collapse navbar-collapse")#navigationLinks
 				+nav-secondary-link(
