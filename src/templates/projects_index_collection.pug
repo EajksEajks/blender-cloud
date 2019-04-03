@@ -1,21 +1,17 @@
 | {% extends 'layout.html' %}
 | {% from '_macros/_navigation.html' import navigation_homepage %}
+| {% from '_macros/_opengraph.html' import opengraph %}
 
 include ../../../pillar/src/templates/mixins/components
+include mixins/components
 
-| {# Default case is Open Projects #}
-| {% set page_title = 'Films' %}
-| {% set page_description = 'Full production data and tutorials from all open movies, for you to use freely' %}
-| {% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_agent327_01.jpg') %}
-| {% set page_header_text = 'The iconic Blender Open Movies. Featuring all the production files, assets, artwork, and never-seen-before content.' %}
+| {# Default collection is 'Courses' #}
+| {% set page_title = 'Courses' %}
+| {% set page_description = 'Production quality training by 3D professionals' %}
+| {% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg') %}
+| {% set page_header_text = 'Character modeling, 3D printing, VFX, rigging and more.' %}
 
-| {% if title == 'courses' %}
-| 	{% set page_title = 'Courses' %}
-| 	{% set page_description = 'Production quality training by 3D professionals' %}
-| 	{% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg') %}
-| 	{% set page_header_text = 'Character modeling, 3D printing, VFX, rigging and more.' %}
-
-| {% elif title == 'workshops' %}
+| {% if title == 'workshops' %}
 | 	{% set page_title = 'Workshops' %}
 | 	{% set page_description = 'Production quality training by 3D professionals' %}
 | 	{% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg') %}
@@ -23,17 +19,7 @@ include ../../../pillar/src/templates/mixins/components
 | {% endif %}
 
 | {% block og %}
-meta(property="og:type", content="website")
-meta(property="og:url", content="{{ request.url }}")
-
-meta(property="og:title", content="{{ page_title }} on Blender Cloud")
-meta(name="twitter:title", content="{{ page_title }} on Blender Cloud")
-
-meta(property="og:description", content="{{ page_description }}")
-meta(name="twitter:description", content="{{ page_description }}")
-
-meta(property="og:image", content="{{ page_header_image }}")
-meta(name="twitter:image", content="{{ page_header_image }}")
+| {{ opengraph(page_title, page_description, page_header_image, request.url) }}
 | {% endblock %}
 
 | {% block page_title %}
@@ -46,14 +32,7 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 
 | {% block body %}
 .container.py-4
-	.row
-		.col-9
-			h2.text-uppercase.font-weight-bold
-				| {{ page_title }}
-			.lead
-				| {{ page_header_text }}
-
-			hr.pb-2
+	+category_list_header('{{ page_title }}', '{{ page_description }}', '{{ request.url }}')
 
 	+card-deck()
 		| {% for project in projects %}
@@ -68,7 +47,8 @@ meta(name="twitter:image", content="{{ page_header_image }}")
 			| {% if project.picture_header %}
 			a.card-thumbnail(href="{{ url_for('projects.view', project_url=project.url) }}")
 				img.card-img-top(
-					src="{{ project.picture_header.thumbnail('l', api=api) }}", alt="{{ project.name }}")
+					alt="{{ project.name }}",
+					src="{{ project.picture_header.thumbnail('l', api=api) }}")
 			| {% endif %}
 
 			.card-body
