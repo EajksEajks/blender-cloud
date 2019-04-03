@@ -11,11 +11,11 @@ body.films
 
 
 .films-item
-	animation: fade-in-down .2s ease-out
+	animation: fade-in-down .33s ease-out
 	animation-fill-mode: both
 
 	img
-		box-shadow: 0 10px 25px $black
+		box-shadow: 0 10px 25px rgba($black, .5)
 		transition: box-shadow 800ms ease-in-out, transform 200ms ease-in-out
 
 		&:hover
@@ -25,7 +25,7 @@ body.films
 
 @for $i from 1 through 20
 	.films-item:nth-child(#{$i}n)
-		animation-delay: #{$i * 0.1}s
+		animation-delay: #{$i * 0.125}s
 
 @keyframes fade-in-down
 	0%
