@@ -109,7 +109,9 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 				.display-4.text-uppercase.font-weight-bold
 					| {% if project.extension_props.cloud.logo %}
 					a(href="{{ project_explore_url }}")
-						img.img-fluid(src="{{ project.extension_props.cloud.logo.thumbnail('m', api=api) }}")
+						img.img-fluid(
+							alt="{{ project.name }}",
+							src="{{ project.extension_props.cloud.logo.thumbnail('m', api=api) }}")
 					| {% else %}
 					a.text-white(href="{{ project_explore_url }}")
 						| {{ project.name }}
@@ -152,9 +154,11 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 					.thumbnail.expand-image-links
 						.img-container
 							a.js-open-overlay-image(
-								href="{{ n.picture.thumbnail('l', api=api) }}",
-								title="{{ n.name }}")
-								img(src="{{ n.picture.thumbnail('l', api=api) }}", alt="{{ n.name }}")
+								title="{{ n.name }}",
+								href="{{ n.picture.thumbnail('l', api=api) }}")
+								img(
+									alt="{{ n.name }}",
+									src="{{ n.picture.thumbnail('l', api=api) }}")
 					| {% endif %}
 					| {% endfor %}
 
