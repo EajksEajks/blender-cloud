@@ -207,17 +207,22 @@ def open_projects():
             'sort': '-_created',
         }, api=api)
         for project in projects._items:
-            # Attach poster file (ensure the extension_props.cloud.poster attributes exists)
-            if 'extension_props' not in project:
+            # Attach poster file (ensure the extension_props.cloud.poster
+            # attributes exists)
+            try:
+                # If the attribute exists, but is None, continue
+                if not project['extension_props'][EXTENSION_NAME]['poster']:
+                    continue
+                # Fetch the file and embed it in the document
+                project.extension_props.cloud.poster = get_file(
+                    project.extension_props.cloud.poster, api=api)
+                # Add convenience attribute that specifies the presence of the
+                # poster file
+                project.has_poster = True
+            # If there was a key error because one of the nested attributes is
+            # missing,
+            except KeyError:
                 continue
-            if EXTENSION_NAME not in project['extension_props']:
-                continue
-            if 'poster' not in project['extension_props'][EXTENSION_NAME]:
-                continue
-            project.extension_props.cloud.poster = get_file(
-                project.extension_props.cloud.poster, api=api)
-            # Add convenience attribute that specifies the presence of the poster file
-            project.has_poster = True
 
         return render_template(
             'films.html',
