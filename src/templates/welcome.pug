@@ -39,42 +39,105 @@ li.pr-1
 | {% block body %}
 #page-container.join
 	#page-header(
-		style="background-image: url({{ url_for('static', filename='assets/img/backgrounds/background_dweebs_01.jpg')}})")
+		style="background-image: url({{ url_for('static', filename='assets/img/backgrounds/background_spring_02.jpg')}})")
 		.container.wide-on-sm
 			.row
 				.col-sm-8.col-md-6.col-lg-6
 					.page-title
-						| Open content #[br] creation platform
+						| Blender Cloud
 
 					.page-title-summary.
-						Support a world-class team of artists and developers,
-						access training, assets and use the same animation
-						production pipeline used to make shorts like Agent 327 or Cosmos Laundromat
-						for your own projects.
+						Join the production platform as used daily by a world-class
+						team of artists and developers.
 
 	#page-content
-		section.page-card.intro
-
-			.page-card-side
-				h2.page-card-title A Different Kind of Cloud
-				.page-card-summary
-					p.
-						Blender Cloud is a fresh take on computer animation. We are an international group
-						of artists and developers #[strong creating short films with Blender].
-						We share what we make - assets, trainings and the finished films - as Open Content.
-					p.
-						With every project, we push Blender beyond its limits and contribute to
-						improve it for everyone's benefit.
-
-			.page-card-side
-				a.page-card-image(href="/p/caminandes-3/56bdacccc379cf00797160b0", target="_blank")
-					video(autoplay, loop)
-						source(src="{{ url_for('static', filename='assets/img/features/animation_review_01.mp4')}}")
-
-
 		section.page-card-header
-			a(href="{{ subscribe_url }}")
-				h2 Subscribe to Get
+			a(href="{{ url_for('cloud.courses') }}")
+				h2 Featured Content
+
+		.page-triplet-container.homepage
+			.row
+				.col-md-4
+					.triplet-card(data-url="/p/spring/")
+						.triplet-card-thumbnail
+							img(
+								alt="Spring Open Movie",
+								src="{{ url_for('static', filename='assets/img/features/open_movies_spring_02.jpg')}}")
+						.triplet-card-info
+							h3 Spring Open Movie
+							p.
+								Explore the production assets of the latest Blender Animation Studio short film.
+							a.triplet-cta(href="/p/spring/")
+								| LEARN MORE
+
+				.col-md-4
+					.triplet-card(data-url="/p/speed-sculpting/")
+						.triplet-card-thumbnail
+							img(
+								alt="Speed Sculpting Workshop",
+								src="{{ url_for('static', filename='assets/img/features/training_speed_sculpting.jpg')}}")
+						.triplet-card-info
+							h3 Speed Sculpting
+							p.
+								Learn speed sculpting in Blender 2.8 with Julien Kaspar.
+							a.triplet-cta(href="/p/speed-sculpting/")
+								| LEARN MORE
+
+				.col-md-4
+					.triplet-card(data-url="/p/grease-pencil-fundamentals/")
+						.triplet-card-thumbnail
+							img(
+								alt="Grease Pencil Fundamentals",
+								src="{{ url_for('static', filename='assets/img/features/training_grease_pencil.jpg')}}")
+						.triplet-card-info
+							h3 Grease Pencil
+							p.
+								Become proficient with the latest Blender 2.8 Grease Pencil.
+							a.triplet-cta(href="/p/grease-pencil-fundamentals/")
+								| LEARN MORE
+
+			.row.training-other
+				.col-md-10.col-md-offset-1
+					p.
+						Other training:
+						#[a(href="/p/toon-character-workflow/") Toon Character Workflow],
+						#[a(href="/p/3d-printing/") Blender for 3D Printing],
+						#[a(href="/p/game-asset-creation/") Game Asset Creation],
+						#[a(href="/p/blenderella/") Character Modeling],
+						#[a(href="/p/character-animation/") Character Animation],
+						#[a(href="/p/humane-rigging/") Introduction] and
+						#[a(href="/p/blenrig/") Advanced Rigging],
+						#[a(href="/p/track-match-2/") VFX Workflow],
+						#[a(href="/p/creature-factory-2/") Creature] and
+						#[a(href="/p/venoms-lab-2/") Cartoon Character creation],
+						#[a(href="/p/chaos-evolution/") Advanced]
+						#[a(href="/p/blend-and-paint/") Digital Painting] and
+						#[a(href="{{ url_for('cloud.courses') }}") much more]!
+
+
+
+		//section.page-card.intro
+		//
+		//	.page-card-side
+		//		h2.page-card-title A Different Kind of Cloud
+		//		.page-card-summary
+		//			p.
+		//				Blender Cloud is a fresh take on computer animation. We are an international group
+		//				of artists and developers #[strong creating short films with Blender].
+		//				We share what we make - assets, trainings and the finished films - as Open Content.
+		//			p.
+		//				With every project, we push Blender beyond its limits and contribute to
+		//				improve it for everyone's benefit.
+		//
+		//	.page-card-side
+		//		a.page-card-image(href="/p/caminandes-3/56bdacccc379cf00797160b0", target="_blank")
+		//			video(autoplay, loop)
+		//				source(src="{{ url_for('static', filename='assets/img/features/animation_review_01.mp4')}}")
+		//
+		//
+		//section.page-card-header
+		//	a(href="{{ subscribe_url }}")
+		//		h2 Subscribe to Get
 
 
 		section.page-card.training.right.light(
@@ -110,69 +173,6 @@ li.pr-1
 						alt="Sybren teaches Python Scripting with Blender",
 						src="{{ url_for('static', filename='assets/img/backgrounds/background_sybren_01.jpg')}}")
 
-
-		section.page-card-header
-			a(href="{{ url_for('cloud.courses') }}")
-				h2 Featured Content
-
-		.page-triplet-container.homepage
-			.row
-				.col-md-4
-					.triplet-card(data-url="/p/minecraft-animation-workshop/")
-						.triplet-card-thumbnail
-							img(
-								alt="Textures",
-								src="{{ url_for('static', filename='assets/img/features/training_minecraft_animation.jpg')}}")
-						.triplet-card-info
-							h3 Minecraft Animation
-							p.
-								Learn how to make animations with this workshop by Dillon Gu.
-							a.triplet-cta(href="/p/minecraft-animation-workshop/")
-								| LEARN MORE
-
-				.col-md-4
-					.triplet-card(data-url="/p/motion-graphics/")
-						.triplet-card-thumbnail
-							img(
-								alt="HDRI",
-								src="{{ url_for('static', filename='assets/img/features/training_motion_graphics.jpg')}}")
-						.triplet-card-info
-							h3 Motion Graphics
-							p.
-								A comprehensive guide to motion graphics techniques using Blender.
-							a.triplet-cta(href="/p/motion-graphics/")
-								| LEARN MORE
-
-				.col-md-4
-					.triplet-card(data-url="/p/gallery")
-						.triplet-card-thumbnail
-							img(
-								alt="Characters",
-								src="{{ url_for('static', filename='assets/img/features/training_bob_forest.jpg')}}")
-						.triplet-card-info
-							h3 Art Walk-throughs
-							p.
-								Follow the creative process and techniques behind stunning artwork.
-							a.triplet-cta(href="/p/gallery")
-								| LEARN MORE
-
-			.row.training-other
-				.col-md-10.col-md-offset-1
-					p.
-						Other training:
-						#[a(href="/p/toon-character-workflow/") Toon Character Workflow],
-						#[a(href="/p/3d-printing/") Blender for 3D Printing],
-						#[a(href="/p/game-asset-creation/") Game Asset Creation],
-						#[a(href="/p/blenderella/") Character Modeling],
-						#[a(href="/p/character-animation/") Character Animation],
-						#[a(href="/p/humane-rigging/") Introduction] and
-						#[a(href="/p/blenrig/") Advanced Rigging],
-						#[a(href="/p/track-match-2/") VFX Workflow],
-						#[a(href="/p/creature-factory-2/") Creature] and
-						#[a(href="/p/venoms-lab-2/") Cartoon Character creation],
-						#[a(href="/p/chaos-evolution/") Advanced]
-						#[a(href="/p/blend-and-paint/") Digital Painting] and
-						#[a(href="{{ url_for('cloud.courses') }}") much more]!
 
 
 		section.page-card.open-movies.light(
