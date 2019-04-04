@@ -608,6 +608,9 @@ def save_film_settings(project: pillarsdk.Project):
         form_field = getattr(form, field_name)
         # TODO(fsiddi) if form_field type is FileSelectField, convert it to ObjectId
         # Currently this raises TypeError: Object of type 'ObjectId' is not JSON serializable
+
+        if form_field.data == '':
+            form_field.data = None
         updated_extension_props[field_name] = form_field.data
 
     # Update extension props and save project
