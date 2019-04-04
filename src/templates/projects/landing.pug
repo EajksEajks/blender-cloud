@@ -12,7 +12,10 @@ include ../../../../pillar/src/templates/mixins/components
 | {% block og %}
 meta(property="og:type", content="website")
 
-| {% if og_picture %}
+| {% if project.extension_props.cloud.picture_16_9 %}
+meta(property="og:image", content="{{ project.extension_props.cloud.picture_16_9.thumbnail('h', api=api) }}")
+meta(name="twitter:image", content="{{ project.extension_props.cloud.picture_16_9.thumbnail('h', api=api) }}")
+| {% elif og_picture %}
 meta(property="og:image", content="{{ og_picture.thumbnail('l', api=api) }}")
 meta(name="twitter:image", content="{{ og_picture.thumbnail('l', api=api) }}")
 | {% elif node and node.picture %}
