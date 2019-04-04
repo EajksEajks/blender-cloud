@@ -535,7 +535,8 @@ def project_browse_view_nodes(project: pillarsdk.Project):
         'project': project['_id'],
         'parent': {'$exists': False},
         'properties.status': 'published',
-        '_deleted': {'$ne': True}
+        '_deleted': {'$ne': True},
+        'node_type': {'$in': ['group', 'asset']},
     }
 
     try:
