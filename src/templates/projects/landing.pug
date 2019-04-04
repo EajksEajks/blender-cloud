@@ -168,9 +168,9 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 				| See More Artwork
 
 
-	.row
+	.row.mt-5
 		.col-md-10.mx-auto
-			h2.pb-3 Timeline
+			h2.pb-3 Project Timeline
 			.timeline-dark
 				+timeline("{{ project._id }}")
 
