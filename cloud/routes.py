@@ -24,6 +24,7 @@ from pillar.web.nodes.routes import url_for_node
 from pillar.web.projects.routes import render_project
 from pillar.web.projects.routes import find_project_or_404
 from pillar.web.projects.routes import project_view
+from pillar.web.projects.routes import project_navigation_links
 
 from cloud import current_cloud
 from cloud.forms import FilmProjectForm
@@ -508,8 +509,8 @@ def project_browse(project: pillarsdk.Project):
         show_project=True,
         browse=True,
         og_picture=None,
-        navigation_links=[],
-        extension_sidebar_links=None,)
+        navigation_links=project_navigation_links(project, system_util.pillar_api()),
+        extension_sidebar_links= current_app.extension_sidebar_links(project))
 
 
 @blueprint.route('/p/<project_url>/browse/nodes')
