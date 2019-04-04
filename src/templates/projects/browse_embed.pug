@@ -1,16 +1,13 @@
 | {% from '_macros/_asset_list_item.html' import asset_list_item %}
 include ../../../../pillar/src/templates/mixins/components
+
 | {% block body %}
 #node-container
 	section.d-flex
 		h4.p-4 Browse
 
-	section.node-details-description.px-4.
-		Browse project
-
 	section.container-fluid
 		| {% if nodes %}
-
 		+card-deck(id="asset_list_explore", class="pl-4")
 			| {% for node in nodes %}
 			| {{ asset_list_item(node, current_user) }}
@@ -23,5 +20,4 @@ include ../../../../pillar/src/templates/mixins/components
 	script.
 		// Generate GA pageview
 		ga('send', 'pageview', location.pathname);
-
 | {% endblock %}
