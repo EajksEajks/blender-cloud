@@ -48,7 +48,7 @@ include mixins/components
 
 				.d-flex.align-items-center.mt-auto
 					a.btn-link.mr-auto.my-3(href="{{ project_url }}")
-						| Explore #[i.pi-angle-right]
+						| Browse #[i.pi-angle-right]
 				| {% endif %}
 
 				| {% if project.status == 'pending' and current_user.is_authenticated and current_user.has_role('admin') %}

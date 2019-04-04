@@ -99,7 +99,7 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 | {% set project_header = project.picture_header.thumbnail('h', api=api) %}
 | {% endif %}
 
-| {% set project_explore_url = url_for('projects.view', project_url=project.url) %}
+| {% set project_browse_url = url_for('cloud.project_browse', project_url=project.url) %}
 
 .jumbotron.text-white.jumbotron-overlay-gradient-fade-to-gray(
 	style="background-image: url(\'{{ project_header }}\');")
@@ -108,12 +108,12 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 			.col-md-6
 				.display-4.text-uppercase.font-weight-bold
 					| {% if project.extension_props.cloud.logo %}
-					a(href="{{ project_explore_url }}")
+					a(href="{{ project_browse_url }}")
 						img.img-fluid(
 							alt="{{ project.name }}",
 							src="{{ project.extension_props.cloud.logo.thumbnail('m', api=api) }}")
 					| {% else %}
-					a.text-white(href="{{ project_explore_url }}")
+					a.text-white(href="{{ project_browse_url }}")
 						| {{ project.name }}
 					| {% endif %}
 
@@ -132,8 +132,8 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 						| WATCH
 					| {% endif %}
 
-					a.btn.btn-link.px-5.text-white(href="{{ project_explore_url }}")
-						| Explore
+					a.btn.btn-link.px-5.text-white(href="{{ project_browse_url }}")
+						| Browse
 						i.pi-angle-right.pl-2
 
 
@@ -162,20 +162,11 @@ link(href="{{ url_for('static_cloud', filename='assets/css/project-main.css') }}
 					| {% endif %}
 					| {% endfor %}
 
-					.clearfix
+		.text-center.mx-auto.py-3
+			a.btn.btn-outline-primary.px-5(
+				href="{{ project_browse_url }}")
+				| See More Artwork
 
-					| {% if project.nodes_featured %}
-					| {# In some cases featured_nodes might might be embedded #}
-					| {% if '_id' in project.nodes_featured[0] %}
-					| {% set featured_node_id=project.nodes_featured[0]._id %}
-					| {% else %}
-					| {% set featured_node_id=project.nodes_featured[0] %}
-					| {% endif %}
-					.text-center.p-5
-						a.btn.btn-outline-primary.px-5(
-							href="{{ url_for('projects.view_node', project_url=project.url, node_id=featured_node_id) }}")
-							| See More Artwork
-					| {% endif %}
 
 	.row
 		.col-md-10.mx-auto

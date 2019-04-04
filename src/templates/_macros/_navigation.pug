@@ -151,20 +151,11 @@ button.navbar-toggler(
 		span {{ link['label'] }}
 	| {% endfor %}
 
-	//- 'Explore' links to first featured node it can find.
-	| {% if project.nodes_featured %}
-	| {# In some cases featured_nodes might might be embedded #}
-	| {% if '_id' in project.nodes_featured[0] %}
-	| {% set featured_node_id=project.nodes_featured[0]._id %}
-	| {% else %}
-	| {% set featured_node_id=project.nodes_featured[0] %}
-	| {% endif %}
 	+nav-secondary-link(
-			href="{{ url_for('projects.view_node', project_url=project.url, node_id=featured_node_id) }}",
-			title="Explore {{ project.name }}",
+			href="{{ url_for('cloud.project_browse', project_url=project.url) }}",
+			title="Browse {{ project.name }}",
 			class="{% if title == 'project' %}active{% endif %}")
-			span Explore
-	| {% endif %}
+			span Browse
 
 	//- Link to Production Tools (Attract, Flamenco, SVN, etc).
 	| {% if extension_sidebar_links %}

@@ -29,10 +29,10 @@ meta(property="og:image", content="{{ url_for('static', filename='assets/img/bac
 li.pr-1
 	| {% if current_user.is_anonymous %}
 	a.btn.btn-sm.btn-outline-primary.px-3(href="{{ url_for('users.login', next='/') }}")
-		| Log in &amp; Explore
+		| Log in &amp; Browse
 	| {% else %}
 	a.btn.btn-sm.btn-outline-primary.px-3(href="{{ url_for('main.homepage') }}")
-		| Explore
+		| Browse
 	| {% endif %}
 | {% endblock navigation_user %}
 
