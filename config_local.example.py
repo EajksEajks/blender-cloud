@@ -36,7 +36,8 @@ ZENCODER_NOTIFICATIONS_URL = 'http://zencoderfetcher/'
 # message: 'string', any text, it gets markdowned.
 # icon: 'string', any icon in font-pillar. e.g. 'pi-heart-filled'
 UI_ANNOUNCEMENT_NON_SUBSCRIBERS = {
-    'category' : 'danger',
-    'message' : 'Spring will swing away the gray clouds, until then, [take cover under Blender Cloud](https://cloud.blender.org)!',
-    'icon' : 'pi-heart-filled',
+    'category': 'danger',
+    'message': 'Spring will swing away the gray clouds, until then, '
+               '[take cover under Blender Cloud](https://cloud.blender.org)!',
+    'icon': 'pi-heart-filled',
 }
