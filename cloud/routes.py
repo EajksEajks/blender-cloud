@@ -510,7 +510,7 @@ def project_browse(project: pillarsdk.Project):
         browse=True,
         og_picture=None,
         navigation_links=project_navigation_links(project, system_util.pillar_api()),
-        extension_sidebar_links= current_app.extension_sidebar_links(project))
+        extension_sidebar_links=current_app.extension_sidebar_links(project))
 
 
 @blueprint.route('/p/<project_url>/browse/nodes')
