@@ -28,30 +28,7 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 | {% block body %}
 .container-fluid.dashboard-container.imgs-fluid
 	.row.mt-3
-		.col-md-9.mx-auto.col-xl-6
-			.row
-				.col-md-6
-					a.text-muted(href="/p/spring", style="text-decoration: none")
-						h6.title-underline
-							| SPRING
-
-						p.text-muted.pt-2
-							| The latest open movie by Blender Animation Studio.
-							| #[br] A poetic short film about a mountain spirit and her little dog.
-
-						a.btn.btn-link.btn-sm.pl-0(href="/p/spring")
-							| See more
-							i.pi-angle-right
-
-				.col-md-6
-					a(href="/p/spring/")
-						img.rounded(
-							alt="Spring Open Movie Project",
-							src="{{ url_for('static', filename='assets/img/projects/spring_sidebar_02.jpg')}}")
-
-
-	.row.mt-3
-		.col-md-9.mx-auto.col-xl-6
+		.col-md-9.col-xl-6.mx-auto
 			+timeline()
 
 			.d-block.text-center
@@ -66,15 +43,51 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 					i.pi-rss
 					| RSS Feed
 
-	.row
-		.col-md-9.mx-auto.col-xl-6
+		.col-md-9.col-xl-4.mx-auto
+			section.py-3.border-bottom.mb-3
+				h6.title-underline
+					| Featured Projects
+				.row.pt-3
+					.col-md-6
+						a.text-muted(href="/p/spring", style="text-decoration: none")
+							h6.font-weight-bold.mt-2 SPRING
+							p.text-muted.pt-2
+								| A poetic short film about a mountain spirit and her little dog.
+
+							a.btn.btn-link.btn-sm.pl-0(href="/p/spring")
+								| See more
+								i.pi-angle-right
+
+					.col-md-6
+						a(href="/p/spring/")
+							img.rounded(
+								alt="Spring Open Movie Project",
+								src="{{ url_for('static', filename='assets/img/projects/spring_sidebar_02.jpg')}}")
+
+				.row.pt-3.mt-3.border-top
+					.col-md-6
+						a.text-muted(href="/p/speed-sculpting/", style="text-decoration: none")
+							h6.font-weight-bold.mt-2 SPEED SCULPTING
+							p.text-muted.pt-2
+								| Learn how to speed up your workflow sculpting in Blender 2.8 with Julien Kaspar.
+
+							a.btn.btn-link.btn-sm.pl-0(href="/p/speed-sculpting/")
+								| Watch Training
+								i.pi-angle-right
+
+					.col-md-6
+						a(href="/p/speed-sculpting/")
+							img.rounded(
+								alt="Speed Sculpting Workshop",
+								src="{{ url_for('static', filename='assets/img/features/training_speed_sculpting.jpg')}}")
+
 			section.py-3.border-bottom.mb-3
 				h6.title-underline
 					a.text-muted(href="{{ url_for('main.nodes_search_index') }}")
 						| Random Awesome
 
 				| {% if random_featured %}
-				+card-deck()(class='pl-3')
+				+card-deck()(class='pl-3 random-featured')
 					| {% for child in random_featured %}
 					| {% if child.node_type not in ['comment'] %}
 					| {{ asset_list_item(child, current_user) }}
@@ -87,8 +100,6 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 							| No random featured.
 				| {% endif %}
 
-	.row
-		.col-md-9.mx-auto.col-xl-6
 			section.py-3
 				h6.title-underline Latest Comments
 
