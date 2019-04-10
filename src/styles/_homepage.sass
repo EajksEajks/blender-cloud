@@ -1,0 +1,41 @@
+.random-featured
+	// Hide irrelevant info from cards.
+	li
+		&.item-type,
+		&.item-date
+			@extend .d-none
+
+	// Fit 3 cards per row.
+	&.card-deck.card-deck-responsive
+		.card
+			+media-md
+				flex: 1 0 30%
+				max-width: 30%
+			flex: 1 0 31%
+			max-width: 31%
+
+.homepage
+	.timeline
+		.card-text,
+		.card-title
+			margin-bottom: 0 !important
+			padding: 0 !important
+
+			// Hide project name, it's already in the timeline.
+			a
+				display: none
+
+		// On blog posts, center text and title.
+		.h1.text-uppercase
+			+media-md
+				text-align: center
+			+media-xl
+				text-align: left
+
+		.node-details-description
+			+media-md
+				margin-left: auto
+				margin-right: auto
+			+media-xl
+				margin-left: 0
+				margin-right: auto
