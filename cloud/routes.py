@@ -266,7 +266,7 @@ def get_random_featured_nodes() -> typing.List[dict]:
                       'summary': True,
                       'picture_square': True}},
         {'$unwind': {'path': '$nodes_featured'}},
-        {'$sample': {'size': 3}},
+        {'$sample': {'size': 6}},
         {'$lookup': {'from': 'nodes',
                      'localField': 'nodes_featured',
                      'foreignField': '_id',
