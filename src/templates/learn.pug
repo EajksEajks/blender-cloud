@@ -29,6 +29,22 @@ include mixins/components
 		"{{ url_for('cloud.courses') }}",
 		"{{ url_for('static', filename='assets/img/features/training_motion_graphics.jpg')}}")
 
+		ul.list-unstyled.mt-3.mb-0.column-count-2.list-first-new
+			-
+				var projects = {
+					'Grease Pencil':'/p/grease-pencil-fundamentals',
+					'Scripting for Artists':'/p/scripting-for-artists',
+					'Motion Graphics':'/p/motion-graphics'
+				};
+
+			each url, title in projects
+				li
+					a.d-block.py-1.text-primary(href=url)
+						span=title
+			li
+				a.d-block.py-1.text-primary(href="{{ url_for('cloud.courses') }}")
+					| See all Courses
+					i.pi-angle-right
 	hr
 
 	+category_list_item(
@@ -37,6 +53,22 @@ include mixins/components
 		"{{ url_for('cloud.workshops') }}",
 		"{{ url_for('static', filename='assets/img/features/training_minecraft_animation.jpg')}}")
 
+		ul.list-unstyled.mt-3.mb-0.column-count-2.list-first-new
+			-
+				var projects = {
+					'Speed Sculpting':'/p/speed-sculpting',
+					'Minecraft Animation':'/p/minecraft-animation-workshop',
+					'Low Poly Character Creation':'/p/low-poly-character-creation',
+				};
+
+			each url, title in projects
+				li
+					a.d-block.py-1.text-primary(href=url)
+						span=title
+			li
+				a.d-block.py-1.text-primary(href="{{ url_for('cloud.workshops') }}")
+					| See all Workshops
+					i.pi-angle-right
 	hr
 
 	+category_list_item(
@@ -44,5 +76,21 @@ include mixins/components
 		'Tips and tricks by the Blender Open Movies crew.',
 		"{{ url_for('cloud.production') }}",
 		"{{ url_for('static', filename='assets/img/features/open_movies_02.jpg')}}")
+		ul.list-unstyled.mt-3.mb-0.column-count-2
+			-
+				var projects = {
+					'Walk-throughs':'/production#walk-through',
+					'Animation Tips':'/production#animation',
+					'Character Pipeline':'/production#character-pipeline'
+				};
+
+			each url, title in projects
+				li
+					a.d-block.py-1.text-primary(href=url)
+						span=title
+			li
+				a.d-block.py-1.text-primary(href="{{ url_for('cloud.production') }}")
+					| See all Production Lessons
+					i.pi-angle-right
 
 | {% endblock body %}
