@@ -30,6 +30,22 @@ include mixins/components
 		'More than 1500 texture maps. Public domain, do-whatever-you-like license.',
 		"{{ url_for('projects.view', project_url='textures') }}",
 		"{{ url_for('static', filename='assets/img/features/textures_01.jpg')}}")
+		ul.list-unstyled.mt-3.mb-0.column-count-2
+			-
+				var projects = {
+					'Myanmar' : '/p/hdri/58d824e588ac8f2107b314e1',
+					'Indoor'  : '/p/hdri/57976801c379cf39de54cc5d',
+					'Skies'   : '/p/hdri/585ab5521f47427f2f7b3604'
+				};
+
+			each url, title in projects
+				li
+					a.d-block.py-1.text-primary(href=url)
+						span=title
+			li
+				a.d-block.py-1.text-primary(href="{{ url_for('projects.view', project_url='textures') }}")
+					| See all Textures
+					i.pi-angle-right
 
 	hr
 
@@ -39,7 +55,22 @@ include mixins/components
 		"{{ url_for('projects.view', project_url='hdri') }}",
 		"{{ url_for('static', filename='assets/img/features/hdri_01.jpg')}}")
 
+		ul.list-unstyled.mt-3.mb-0.column-count-2
+			-
+				var projects = {
+					'Metal' : '/p/textures/5677e2f4c379cf0007b31fe1',
+					'Wood'  : '/p/textures/567800d4c379cf211051a439',
+					'Bricks': '/p/textures/5672df9fc379cf0007b3198b'
+				};
 
+			each url, title in projects
+				li
+					a.d-block.py-1.text-primary(href=url)
+						span=title
+			li
+				a.d-block.py-1.text-primary(href="{{ url_for('projects.view', project_url='textures') }}")
+					| See all Textures
+					i.pi-angle-right
 	.pt-5
 		+category_list_header('HANDS-ON', 'Learn by example with ready-to-use characters and amazing artwork .blend files.')
 
@@ -49,6 +80,22 @@ include mixins/components
 		"{{ url_for('projects.view', project_url='gallery') }}",
 		"{{ url_for('static', filename='assets/img/features/training_bob_forest.jpg')}}")
 
+		ul.list-unstyled.mt-3.mb-0.column-count-2
+			-
+				var projects = {
+					'Grease Pencil Files'       : '/p/gallery/5b642e25bf419c1042056fc6',
+					'Gleb Alexandrov'           : '/p/gallery/57907fb8c379cf33d47a098d',
+					'Midge "Mantissa" Sinnaeve' : '/p/gallery/5800d64ee5e20f084523a059'
+				};
+
+			each url, title in projects
+				li
+					a.d-block.py-1.text-primary(href=url)
+						span=title
+			li
+				a.d-block.py-1.text-primary(href="{{ url_for('projects.view', project_url='gallery') }}")
+					| Visit the Gallery
+					i.pi-angle-right
 	hr
 
 	+category_list_item(
@@ -58,3 +105,21 @@ include mixins/components
 		"{{ url_for('static', filename='assets/img/features/characters_01.jpg')}}")
 | {% endblock body %}
 
+		ul.list-unstyled.mt-3.mb-0.column-count-2
+			-
+				var projects = {
+					'Vincent'          : '/p/characters/5718a967c379cf04929a4247',
+					'Big Buck Bunny'   : '/p/characters/56cb2785c379cf0079716c19',
+					'Min (Glass Half)' : '/p/characters/5672d39bc379cf0007b31911'
+				};
+
+			each url, title in projects
+				li
+					a.d-block.py-1.text-primary(href=url)
+						span=title
+			li
+				a.d-block.py-1.text-primary(href="{{ url_for('projects.view', project_url='gallery') }}")
+					| Visit the Gallery
+					i.pi-angle-right
+
+| {% endblock body %}
