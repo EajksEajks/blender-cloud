@@ -58,9 +58,3 @@ include mixins/components
 		"{{ url_for('static', filename='assets/img/features/characters_01.jpg')}}")
 | {% endblock body %}
 
-| {% block footer_scripts %}
-script.
-	$('.triplet-card').click(function(){
-		window.location.href = $(this).attr('data-url');
-	});
-| {% endblock footer_scripts %}
