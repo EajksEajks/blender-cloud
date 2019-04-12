@@ -23,7 +23,7 @@ include mixins/components
 .container.py-4
 	+category_list_header('LIBRARIES', null)
 		.lead
-			| Browse Textures and HDRI directly from Blender with our #[a(href="/services#blender-cloud-add-on") Blender Cloud add-on]!
+			| Browse Textures and HDRI within Blender with our #[a(href="/services#blender-cloud-add-on") Blender Cloud add-on!]
 
 	+category_list_item(
 		'HDR IMAGES',
@@ -78,7 +78,7 @@ include mixins/components
 
 	+category_list_item(
 		'ART GALLERY',
-		'Learn by example browsing the .blends files from the best community artwork.',
+		'Dive into the most interesting .blend files from the community.',
 		"{{ url_for('projects.view', project_url='gallery') }}",
 		"{{ url_for('static', filename='assets/img/features/training_bob_forest.jpg')}}")
 
@@ -102,7 +102,7 @@ include mixins/components
 
 	+category_list_item(
 		'CHARACTERS',
-		'Production quality, fully rigged and shaded characters ready to animate.',
+		'Production quality characters ready to animate and render.',
 		"{{ url_for('projects.view', project_url='characters') }}",
 		"{{ url_for('static', filename='assets/img/features/characters_01.jpg')}}")
 | {% endblock body %}
