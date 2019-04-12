@@ -26,10 +26,12 @@ include mixins/components
 			| Browse Textures and HDRI directly from Blender with our #[a(href="/services#blender-cloud-add-on") Blender Cloud add-on]!
 
 	+category_list_item(
-		'TEXTURES',
-		'More than 1500 texture maps. Public domain, do-whatever-you-like license.',
-		"{{ url_for('projects.view', project_url='textures') }}",
-		"{{ url_for('static', filename='assets/img/features/textures_01.jpg')}}")
+		'HDR IMAGES',
+		'Up to 16K and 24 EVs HDRI to enhance your renders.',
+		"{{ url_for('projects.view', project_url='hdri') }}",
+		"{{ url_for('static', filename='assets/img/features/hdri_02.jpg')}}")
+
+
 		ul.list-unstyled.mt-3.mb-0.column-count-2
 			-
 				var projects = {
@@ -50,10 +52,10 @@ include mixins/components
 	hr
 
 	+category_list_item(
-		'HDR IMAGES',
-		'Up to 16K and 24 EVs (extremely high) HDRI to light your renders.',
-		"{{ url_for('projects.view', project_url='hdri') }}",
-		"{{ url_for('static', filename='assets/img/features/hdri_01.jpg')}}")
+		'TEXTURES',
+		'More than 1500 public-domain textures.',
+		"{{ url_for('projects.view', project_url='textures') }}",
+		"{{ url_for('static', filename='assets/img/features/textures_02.jpg')}}")
 
 		ul.list-unstyled.mt-3.mb-0.column-count-2
 			-
