@@ -25,10 +25,52 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 | {{ navigation_homepage(title) }}
 | {% endblock navigation_tabs %}
 
+mixin featured_project_card(title, description, url, image)
+	a.featured-project-card.card.asset.my-2(href=url)
+		img.card-thumbnail(alt=title, src=image)
+		.card-body.py-2()
+			.card-title.mb-1.font-weight-bold
+				=title
+			.card-text
+				=description
+
+				.btn-link
+					| See more
+					i.pi-angle-right
+
+mixin featured_projects()
+	section.py-2.mb-3
+		h6.title-underline
+			| Featured Projects
+
+		.px-3
+			+card-deck(3)&attributes(attributes)
+				+featured_project_card(
+					"SPRING",
+					"The latest Open Movie project.",
+					"/p/spring",
+					"{{ url_for('static', filename='assets/img/features/open_movies_spring_03.jpg')}}")
+
+				+featured_project_card(
+					"SPEED SCULPTING",
+					"Learn how to speed up your sculpts in Blender 2.8",
+					"/p/speed-sculpting",
+					"{{ url_for('static', filename='assets/img/features/training_speed_sculpting_03.jpg')}}")
+
+				+featured_project_card(
+					"GREASE PENCIL",
+					"Master the new 2D animation worflow.",
+					"/p/grease-pencil-fundamentals",
+					"{{ url_for('static', filename='assets/img/features/training_grease_pencil_02.jpg')}}")
+
+
 | {% block body %}
 .container-fluid.dashboard-container.imgs-fluid
 	.row.mt-3
-		.col-md-9.col-xl-6.mx-auto
+		.col-md-10.col-lg-9.col-xl-8.mx-auto
+			.d-xl-none
+				+featured_projects()
+
 			+timeline()
 
 			.d-block.text-center
@@ -43,45 +85,11 @@ meta(name="twitter:image", content="{% if main_project.picture_header %}{{ main_
 					i.pi-rss
 					| RSS Feed
 
-		.col-md-9.col-xl-4.mx-auto
-			section.py-3.border-bottom.mb-3
-				h6.title-underline
-					| Featured Projects
-				.row.pt-3
-					.col-md-6
-						a.text-muted(href="/p/spring", style="text-decoration: none")
-							h6.font-weight-bold.mt-2 SPRING
-							p.text-muted.pt-2
-								| A poetic short film about a mountain spirit and her little dog.
+		.col-md-10.col-lg-9.col-xl-4.mx-auto
+			.d-lg-none.d-xl-block
+				+featured_projects()(class="card-deck-vertical border-bottom pb-3")
 
-							a.btn.btn-link.btn-sm.pl-0(href="/p/spring")
-								| See more
-								i.pi-angle-right
-
-					.col-md-6
-						a(href="/p/spring/")
-							img.rounded(
-								alt="Spring Open Movie Project",
-								src="{{ url_for('static', filename='assets/img/projects/spring_sidebar_02.jpg')}}")
-
-				.row.pt-3.mt-3.border-top
-					.col-md-6
-						a.text-muted(href="/p/speed-sculpting/", style="text-decoration: none")
-							h6.font-weight-bold.mt-2 SPEED SCULPTING
-							p.text-muted.pt-2
-								| Learn how to speed up your workflow sculpting in Blender 2.8 with Julien Kaspar.
-
-							a.btn.btn-link.btn-sm.pl-0(href="/p/speed-sculpting/")
-								| Watch Training
-								i.pi-angle-right
-
-					.col-md-6
-						a(href="/p/speed-sculpting/")
-							img.rounded(
-								alt="Speed Sculpting Workshop",
-								src="{{ url_for('static', filename='assets/img/features/training_speed_sculpting.jpg')}}")
-
-			section.py-3.border-bottom.mb-3
+			section.py-2.border-bottom.mb-3
 				h6.title-underline
 					a.text-muted(href="{{ url_for('main.nodes_search_index') }}")
 						| Random Awesome
