@@ -28,7 +28,7 @@
 				.col-md-2.col-xs-6
 					h7.font-weight-bold
 						a.d-block.pb-2(href="{{ url_for('cloud.learn') }}")
-							| LEARN
+							| TRAINING
 
 					ul.list-unstyled
 						li
@@ -91,8 +91,10 @@
 								| Image Sharing
 
 				.col-md-2.col-xs-6
-					h7.font-weight-bold.d-block.pb-2
-						| RESOURCES
+					h7.font-weight-bold
+						a.d-block.pb-2(href="{{ url_for('main.homepage') }}")
+							| CLOUD
+
 					ul.list-unstyled
 						li
 							a(href="{{ url_for('main.main_blog') }}",
