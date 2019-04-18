@@ -30,7 +30,7 @@
 						a.d-block.pb-2(href="{{ url_for('cloud.learn') }}")
 							| TRAINING
 
-					ul.list-unstyled
+					ul.list-unstyled.mb-3
 						li
 							a(href="{{ url_for('cloud.courses') }}")
 								| Courses
@@ -40,6 +40,10 @@
 						li
 							a(href="{{ url_for('cloud.production') }}")
 								span.new Production Lessons
+
+					h7.font-weight-bold
+						a.d-block.pb-2(href="{{ url_for('cloud.open_projects') }}")
+							| FILMS
 
 				.col-md-2.col-xs-6
 					h7.font-weight-bold
