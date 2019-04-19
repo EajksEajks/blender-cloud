@@ -55,8 +55,8 @@ script.
 	ProjectUtils.setProjectAttributes({projectId: "{{project._id}}", isProject: true, nodeId: ''});
 
 	function save(form, url) {
-		let serizalizedData = $(form).serializeArray()
-		$.post(url, serizalizedData)
+		let serializedData = $(form).serializeArray()
+		$.post(url, serializedData)
 		.done(function(xhr) {
 			toastr.success('Properties saved');
 		})
