@@ -8,7 +8,6 @@ from pillar.web.utils.forms import FileSelectField
 
 class FilmProjectForm(FlaskForm):
     video_url = URLField(validators=[URL()])
-    picture_16_9 = FileSelectField('Picture 16x9', file_format='image')
     poster = FileSelectField('Poster Image', file_format='image')
     logo = FileSelectField('Logo', file_format='image')
     is_in_production = BooleanField('In Production')

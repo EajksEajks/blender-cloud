@@ -471,10 +471,7 @@ def project_landing(project_url):
     # number of additional attributes (pages, images, etc.).
     if 'extension_props' in project and EXTENSION_NAME in project['extension_props']:
         extension_props = project['extension_props'][EXTENSION_NAME]
-        file_props = {'picture_16_9', 'logo'}
-        for f in file_props:
-            if f in extension_props:
-                extension_props[f] = get_file(extension_props[f])
+        extension_props['logo'] = get_file(extension_props['logo'])
 
         pages = Node.all({
             'where': {

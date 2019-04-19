@@ -39,7 +39,6 @@ def setup_for_film(project_url):
         'logo': None,  # File ObjectId
         # TODO(fsiddi) when we introduce other setup_for_* in Blender Cloud, make available
         # at a higher scope
-        'picture_16_9': None,
         'is_featured': False,
     }
 
