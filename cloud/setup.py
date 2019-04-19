@@ -29,7 +29,7 @@ def setup_for_film(project_url):
     # are already there.
     all_extension_props = project.setdefault('extension_props', {})
     cloud_extension_props = {
-        'project_type': 'film',
+        'category': 'film',
         'theme_css': '',
         # The accent color (can be 'blue' or '#FFBBAA' or 'rgba(1, 1, 1, 1)
         'theme_color': '',

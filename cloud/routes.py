@@ -559,7 +559,7 @@ def project_browse_view_nodes(project: pillarsdk.Project):
 def project_settings(project: pillarsdk.Project, **template_args: dict):
     """Renders the project settings page for Blender Cloud projects.
 
-    If the project has been setup for Blender Cloud, check for the cloud.project_type
+    If the project has been setup for Blender Cloud, check for the cloud.category
     property, to render the proper form.
     """
 
@@ -570,9 +570,9 @@ def project_settings(project: pillarsdk.Project, **template_args: dict):
 
     cloud_props = project['extension_props'][EXTENSION_NAME]
 
-    project_type = cloud_props['project_type']
-    if project_type != 'film':
-        log.error('No interface available to edit %s projects, yet' % project_type)
+    category = cloud_props['category']
+    if category != 'film':
+        log.error('No interface available to edit %s projects, yet' % category)
 
     form = FilmProjectForm()
 
