@@ -8,12 +8,12 @@ include mixins/components
 | {# Default collection is 'Courses' #}
 | {% set page_title = 'Courses' %}
 | {% set page_description = 'In-depth training on character modeling, 3D printing, rigging, VFX and more.' %}
-| {% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg') %}
+| {% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg', _external=True) %}
 
 | {% if title == 'workshops' %}
 | 	{% set page_title = 'Workshops' %}
 | 	{% set page_description = 'Enter the artist workshop and learn by example.' %}
-| 	{% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg') %}
+| 	{% set page_header_image = url_for('static', filename='assets/img/backgrounds/background_agent327_04.jpg', _external=True) %}
 | {% endif %}
 
 | {% block og %}
