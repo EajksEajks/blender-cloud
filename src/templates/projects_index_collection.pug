@@ -42,11 +42,11 @@ include mixins/components
 			data-url="{{ url_for('projects.view', project_url=project.url) }}",
 			tabindex='{{ loop.index }}')
 
-			| {% if project.picture_header %}
+			| {% if project.picture_16_9 %}
 			a.card-thumbnail(href="{{ url_for('projects.view', project_url=project.url) }}")
 				img.card-img-top(
 					alt="{{ project.name }}",
-					src="{{ project.picture_header.thumbnail('l', api=api) }}")
+					src="{{ project.picture_16_9.thumbnail('l', api=api) }}")
 			| {% endif %}
 
 			.card-body
