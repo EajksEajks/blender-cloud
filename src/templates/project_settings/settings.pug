@@ -12,8 +12,6 @@
 		| {{ field }}
 		| {% else %}
 
-		| {% if field.name not in hidden_fields %}
-
 		.form-group(class="{{field.name}}{% if field.errors %} error{% endif %}")
 			| {{ field.label }}
 			| {% if field.name == 'picture' %}
@@ -30,10 +28,6 @@
 				li {{ error }}
 				| {% endfor %}
 			| {% endif %}
-
-		| {% else %}
-		| {{ field(class='d-none') }}
-		| {% endif %}
 
 		| {% endif %}
 		| {% endif %}
