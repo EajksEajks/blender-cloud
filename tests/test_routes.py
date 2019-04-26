@@ -24,7 +24,7 @@ class RandomFeaturedNodeTest(AbstractCloudTest):
         from pillar.api.utils import utcnow
         self.fake_now = utcnow()
 
-    def test_random_feature_node_returns_3_nodes(self):
+    def test_random_feature_node_returns_6_nodes(self):
         from pillar.web.nodes.routes import url_for_node
 
         base_node = {
@@ -61,7 +61,7 @@ class RandomFeaturedNodeTest(AbstractCloudTest):
         with self.app.test_request_context():
             random_assets = get_random_featured_nodes()
 
-            self.assertIs(len(random_assets), 3)
+            self.assertIs(len(random_assets), 6)
             for asset in random_assets:
                 aid = asset['_id']
                 self.assertIn(ObjectId(asset['_id']), all_asset_ids)
