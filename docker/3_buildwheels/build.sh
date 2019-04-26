@@ -30,15 +30,23 @@ docker run --rm -i \
     -v "$TOPDEVDIR:/data/topdev" \
     armadillica/pillar_wheelbuilder <<EOT
 set -e
+pip3 install wheel poetry
+
 # Build wheels for all dependencies.
 cd /data/topdev/blender-cloud
-pip3 install wheel
-pip3 wheel --wheel-dir=/data/wheelhouse -r requirements.txt
+
+poetry install --no-dev
+
+# Apparently pip doesn't like projects without setup.py, so it think we have 'pillar-svnman' as
+# requirement (because that's the name of the directory). We have to grep that out.
+poetry run pip3 freeze | grep -v '\(pillar\)\|\(^-[ef] \)' > /data/wheelhouse/requirements.txt
+
+pip3 wheel --wheel-dir=/data/wheelhouse -r /data/wheelhouse/requirements.txt
 chown -R $UID:$GID /data/wheelhouse
 
 # Install the dependencies so that we can get a full freeze.
-pip3 install --no-index --find-links=/data/wheelhouse -r requirements.txt
-pip3 freeze | grep -v '^-[ef] ' > /data/wheelhouse/requirements.txt
+# pip3 install --no-index --find-links=/data/wheelhouse -r /data/wheelhouse/requirements.txt
+# pip3 freeze | grep -v  '^-[ef] ' > /data/wheelhouse/requirements.txt
 EOT
 
 # Remove our own projects, they shouldn't be installed as wheel (for now).
