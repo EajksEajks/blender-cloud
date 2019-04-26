@@ -2,7 +2,7 @@ from datetime import timedelta
 
 from bson import ObjectId
 
-from abstract_cloud_test import AbstractCloudTest
+from tests.abstract_cloud_test import AbstractCloudTest
 from cloud.routes import get_random_featured_nodes
 
 

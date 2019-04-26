@@ -1,7 +1,7 @@
 import requests.exceptions
 import responses
 
-from abstract_cloud_test import AbstractCloudTest
+from tests.abstract_cloud_test import AbstractCloudTest
 
 
 class SubscriptionInfoTest(AbstractCloudTest):

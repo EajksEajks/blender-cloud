@@ -1,7 +1,7 @@
 import hashlib
 import hmac
 import json
-from abstract_cloud_test import AbstractCloudTest
+from tests.abstract_cloud_test import AbstractCloudTest
 
 
 class AbstractWebhookTest(AbstractCloudTest):

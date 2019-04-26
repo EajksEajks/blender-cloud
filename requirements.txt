@@ -1,4 +1,0 @@
--r ../pillar/requirements.txt
--r ../attract/requirements.txt
--r ../flamenco/requirements.txt
--r ../pillar-svnman/requirements.txt

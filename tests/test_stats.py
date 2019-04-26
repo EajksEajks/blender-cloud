@@ -3,7 +3,7 @@ import copy
 from bson import ObjectId
 from pillar.tests import common_test_data as ctd
 
-from abstract_cloud_test import AbstractCloudTest
+from tests.abstract_cloud_test import AbstractCloudTest
 
 
 class StatsTest(AbstractCloudTest):
