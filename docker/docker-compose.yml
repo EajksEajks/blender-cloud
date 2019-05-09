@@ -32,6 +32,7 @@ services:
         max-file:            "20"
 
   elastic:
+    # This image is defined in blender-cloud/docker/elastic
     image:                   armadillica/elasticsearch:6.1.1
     container_name:          elastic
     restart:                 always
@@ -62,6 +63,7 @@ services:
         max-file:            "20"
 
   kibana:
+    # This image is defined in blender-cloud/docker/elastic
     image:                   armadillica/kibana:6.1.1
     container_name:          kibana
     restart:                 always
@@ -158,7 +160,8 @@ services:
       - /data/letsencrypt:/data/letsencrypt
 
   haproxy:
-    image:                   dockercloud/haproxy:1.5.3
+    # This image is defined in blender-cloud/docker/haproxy
+    image:                   armadillica/haproxy:1.6.7
     container_name:          haproxy
     restart:                 always
     ports:
