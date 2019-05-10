@@ -27,12 +27,13 @@ git clone git://git.blender.org/blender-cloud.git
 
 ### Initial setup and configuration
 
-Create a virtualenv for the project and install the requirements:
+Create a virtualenv for the project and install the requirements. Dependencies are managed via
+[Poetry](https://poetry.eustace.io/). Install it using `pip install -U --user poetry`.
 
 ```
 cd blender-cloud
-mkvirtualenv blender-cloud -p python3.6
-pip install -r requirements-dev.txt
+pip install --user -U poetry
+poetry install
 ```
 
 Build assets and templates for all Blender Cloud dependencies using Gulp.
@@ -51,7 +52,7 @@ cp config_local.example.py config_local.py
 Setup the database with the initial collections and the admin user.
 
 ```
-./manage.py setup setup_db your_email
+poetry run ./manage.py setup setup_db your_email
 ```
 
 The command will return the following message:
@@ -65,7 +66,7 @@ Copy the value of `<project_id>` and assign it as value for `MAIN_PROJECT_ID`.
 Run the application:
 
 ```
-./manage.py runserver
+poetry run ./manage.py runserver
 ```
 
 
@@ -102,7 +103,7 @@ git stash  # if you still have local stuff.
 
 # pull from master, run unittests, push your changes to master.
 git pull
-py.test
+poetry run py.test
 git push
 
 # Switch to production branch, and investigate the situation.
@@ -112,7 +113,7 @@ git prod
 git ff master
 
 # Run tests again
-py.test
+poetry run py.test
 
 # Push the production branch.
 git push
