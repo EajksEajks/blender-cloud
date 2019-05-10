@@ -91,7 +91,13 @@ function git_clone() {
     git -C $STAGINGDIR clone --depth 1 --branch $BRANCH $URL $PROJECT_NAME
 }
 
-git_clone pillar-python-sdk master $SDK_DIR
+if [ "$STAGING_BRANCH" == "production" ]; then
+    SDK_STAGING_BRANCH=master  # SDK doesn't have a production branch
+else
+    SDK_STAGING_BRANCH=$STAGING_BRANCH
+fi
+
+git_clone pillar-python-sdk $SDK_STAGING_BRANCH $SDK_DIR
 git_clone pillar $STAGING_BRANCH $PILLAR_DIR
 git_clone attract $STAGING_BRANCH $ATTRACT_DIR
 git_clone flamenco $STAGING_BRANCH $FLAMENCO_DIR
