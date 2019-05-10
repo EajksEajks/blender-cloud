@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+DOCKER_IMAGE_NAME=armadillica/pillar_wheelbuilder
+
 set -e
 
 # macOS does not support readlink -f, so we use greadlink instead
@@ -21,14 +23,15 @@ fi
 
 echo "Wheelhouse is $WHEELHOUSE"
 mkdir -p "$WHEELHOUSE"
+rm -f "$WHEELHOUSE"/*
 
-docker build -t armadillica/pillar_wheelbuilder:latest .
+docker build -t $DOCKER_IMAGE_NAME:latest .
 
 GID=$(id -g)
 docker run --rm -i \
     -v "$WHEELHOUSE:/data/wheelhouse" \
     -v "$TOPDEVDIR:/data/topdev" \
-    armadillica/pillar_wheelbuilder <<EOT
+    $DOCKER_IMAGE_NAME <<EOT
 set -e
 pip3 install wheel poetry
 
@@ -39,15 +42,13 @@ poetry install --no-dev
 
 # Apparently pip doesn't like projects without setup.py, so it think we have 'pillar-svnman' as
 # requirement (because that's the name of the directory). We have to grep that out.
-poetry run pip3 freeze | grep -v '\(pillar\)\|\(^-[ef] \)' > /data/wheelhouse/requirements.txt
+poetry run pip3 freeze | grep -v '\(pillar\)\|\(^-[ef] \)' > \$WHEELHOUSE/requirements.txt
 
-pip3 wheel --wheel-dir=/data/wheelhouse -r /data/wheelhouse/requirements.txt
-chown -R $UID:$GID /data/wheelhouse
-
-# Install the dependencies so that we can get a full freeze.
-# pip3 install --no-index --find-links=/data/wheelhouse -r /data/wheelhouse/requirements.txt
-# pip3 freeze | grep -v  '^-[ef] ' > /data/wheelhouse/requirements.txt
+pip3 wheel --wheel-dir=\$WHEELHOUSE -r \$WHEELHOUSE/requirements.txt
+chown -R $UID:$GID \$WHEELHOUSE
 EOT
 
 # Remove our own projects, they shouldn't be installed as wheel (for now).
 rm -f $WHEELHOUSE/{attract,flamenco,pillar,pillarsdk}*.whl
+
+echo "Build of $DOCKER_IMAGE_NAME:latest is done."
