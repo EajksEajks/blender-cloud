@@ -36,6 +36,10 @@ pip install --user -U poetry
 poetry install
 ```
 
+NOTE: After a dependency changed its own dependencies (say a new library was added as dependency of
+Pillar), you need to run `poetry update`. This will take the new dependencies into account and write
+them to the `poetry.lock` file.
+
 Build assets and templates for all Blender Cloud dependencies using Gulp.
 
 ```
