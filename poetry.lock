@@ -389,7 +389,7 @@ description = "Common protobufs used in Google APIs"
 name = "googleapis-common-protos"
 optional = false
 python-versions = "*"
-version = "1.5.10"
+version = "1.6.0"
 
 [package.dependencies]
 protobuf = ">=3.6.0"
@@ -977,7 +977,7 @@ flask-wtf = ["5d14d55cfd35f613d99ee7cba0fc3fbbe63ba02f544d349158c14ca15561cc36",
 future = ["67045236dcfd6816dc439556d009594abf643e5eb48992e36beac09c2ca659b8"]
 gcloud = ["751f6312c4c30cc9f2d37b30e56c9c8e65c52a1fb6a88f312428b967dae3d03d", "b3524e3f113217cfaa953bbd144a1b79b11eee97f764e7038d71f84d837c1a27"]
 google-apitools = ["011b2614341d31c9113b9891a442774d0cc2107af27e376f5297f07fdc46a55a", "2755af460a66170b130710f307875a6b602109ed2fbe5d184407e65e76ab1419", "6ae5849942a229c4d544f46859a948617f1d9bb621d57f9827552bbf4dffb3bf"]
-googleapis-common-protos = ["d564872083af40bbcc7091340f17db778a316525c7c76497d58d11b98ca2aa74"]
+googleapis-common-protos = ["e61b8ed5e36b976b487c6e7b15f31bb10c7a0ca7bd5c0e837f4afab64b53a0c6"]
 html5lib = ["20b159aa3badc9d5ee8f5c647e5efd02ed2a66ab8d354930bd9ff139fc1dc0a3", "66cb0dcfdbbc4f9c3ba1a63fdb511ffdbd4f513b2b6d81b80cd26ce6b3fb3736"]
 httplib2 = ["c3aba1c9539711551f4d83e857b316b5134a1c4ddce98a875b7027be7dd6d988", "fe187f315336c3daa6616d09f327a6e6560b082fce59723f77336329fdcbfc36"]
 idna = ["c357b3f628cf53ae2c4c05627ecc484553142ca23264e593d327bcde5e9c3407", "ea8b7f6188e6fa117537c3df7da9fc686d485087abf6ac197f9c46432f7e4a3c"]
