@@ -164,6 +164,7 @@ def user_modified():
      'old_email': 'old@example.com',
      'full_name': 'Harry',
      'email': 'new@example'com,
+     'avatar_changed': True,
      'roles': ['role1', 'role2', …]}
     """
     my_log = log.getChild('user_modified')
@@ -198,6 +199,11 @@ def user_modified():
             # Fall back to the username when the full name was erased.
             updates['full_name'] = db_user['username']
         db_user['full_name'] = updates['full_name']
+
+    if payload.get('avatar_changed'):
+        import pillar.celery.avatar
+        my_log.info('User %s changed avatar, scheduling download', db_user['_id'])
+        pillar.celery.avatar.sync_avatar_for_user.delay(str(db_user['_id']))
 
     if updates:
         users_coll = current_app.db('users')
