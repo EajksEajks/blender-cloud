@@ -65,7 +65,7 @@ class RandomFeaturedNodeTest(AbstractCloudTest):
             for asset in random_assets:
                 aid = asset['_id']
                 self.assertIn(ObjectId(asset['_id']), all_asset_ids)
-                self.assertEquals(f'/p/default-project/{aid}', url_for_node(node=asset))
+                self.assertEqual(f'/p/default-project/{aid}', url_for_node(node=asset))
 
     def test_random_feature_ignore(self):
         def assert_ignored():
@@ -160,11 +160,11 @@ class RandomFeaturedNodeTest(AbstractCloudTest):
             self.assertIs(len(random_assets), 1)
 
             asset = random_assets[0]
-            self.assertEquals('Just a node name', asset['name'])
-            self.assertEquals('Unittest project', asset['project']['name'])
-            self.assertEquals('video', asset['properties']['content_type'])
+            self.assertEqual('Just a node name', asset['name'])
+            self.assertEqual('Unittest project', asset['project']['name'])
+            self.assertEqual('video', asset['properties']['content_type'])
             self.assertTrue(asset.properties.content_type == 'video')
-            self.assertEquals(self.fake_now, asset['_created'])
-            self.assertEquals(str(node_id), asset['_id'])
-            self.assertEquals(75, asset['properties']['duration_seconds'])
+            self.assertEqual(self.fake_now, asset['_created'])
+            self.assertEqual(str(node_id), asset['_id'])
+            self.assertEqual(75, asset['properties']['duration_seconds'])
             self.assertNotIn('user', asset)
