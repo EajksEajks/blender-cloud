@@ -101,8 +101,8 @@ def insert_or_fetch_user(wh_payload: dict) -> typing.Optional[dict]:
         {'auth.provider': 'blender-id', 'auth.user_id': bid_str},
         {'email': {'$in': [wh_payload['old_email'], email]}},
     ]}
-    db_users = users_coll.find(query)
-    user_count = db_users.count()
+    db_users = list(users_coll.find(query))
+    user_count = len(db_users)
     if user_count > 1:
         # Now we have to pay the price for finding users in one query; we
         # have to prioritise them and return the one we think is most reliable.

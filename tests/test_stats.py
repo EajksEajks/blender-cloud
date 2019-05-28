@@ -21,7 +21,7 @@ class StatsTest(AbstractCloudTest):
         private2 = self.create_project_with_admin(
             24 * 'd', project_overrides={'_id': ObjectId(), 'is_private': None})
 
-        self.assertEqual(4, self.app.db('projects').count())
+        self.assertEqual(4, self.app.db('projects').count_documents({}))
 
         # Create asset node
         self.assertEqual('asset', ctd.EXAMPLE_NODE['node_type'])

@@ -52,7 +52,7 @@ class RandomFeaturedNodeTest(AbstractCloudTest):
 
         with self.app.app_context():
             proj_col = self.app.db('projects')
-            proj_col.update(
+            proj_col.update_one(
                 {'_id': self.pid},
                 {'$set': {
                     'nodes_featured': all_asset_ids,
@@ -99,7 +99,7 @@ class RandomFeaturedNodeTest(AbstractCloudTest):
         # Featured but project is private, should be ignored
         with self.app.app_context():
             proj_col = self.app.db('projects')
-            proj_col.update(
+            proj_col.update_one(
                 {'_id': self.pid},
                 {'$set': {
                     'nodes_featured': [node_id],
@@ -110,7 +110,7 @@ class RandomFeaturedNodeTest(AbstractCloudTest):
         # Featured but node is deleted, should be ignored
         with self.app.app_context():
             proj_col = self.app.db('projects')
-            proj_col.update(
+            proj_col.update_one(
                 {'_id': self.pid},
                 {'$set': {
                     'nodes_featured': [node_id],
@@ -118,7 +118,7 @@ class RandomFeaturedNodeTest(AbstractCloudTest):
                 }})
 
             node_col = self.app.db('nodes')
-            node_col.update(
+            node_col.update_one(
                 {'_id': node_id},
                 {'$set': {
                     '_deleted': True,
@@ -149,7 +149,7 @@ class RandomFeaturedNodeTest(AbstractCloudTest):
 
         with self.app.app_context():
             proj_col = self.app.db('projects')
-            proj_col.update(
+            proj_col.update_one(
                 {'_id': self.pid},
                 {'$set': {
                     'nodes_featured': [node_id],
