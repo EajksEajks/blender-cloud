@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, StringField
+from wtforms.fields.html5 import URLField
 from wtforms.validators import URL
-from flask_wtf.html5 import URLField
 
 from pillar.web.utils.forms import FileSelectField
 
