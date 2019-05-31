@@ -10,10 +10,7 @@
 
 | {% block menu_avatar %}
 a.navbar-item.dropdown-toggle(href="{{ url_for('settings.profile') }}", data-toggle="dropdown")
-	img.gravatar.rounded-circle(
-	src="{{ current_user.gravatar }}",
-	class="{{ subscription }}",
-	alt="Avatar")
+	current-user-avatar
 	.special(class="{{ subscription }}")
 		| {% if subscription == 'subscriber' %}
 		i.pi-check
@@ -22,6 +19,8 @@ a.navbar-item.dropdown-toggle(href="{{ url_for('settings.profile') }}", data-tog
 		| {% else %}
 		i.pi-attention
 		| {% endif %}
+	script.
+		new Vue({el: 'current-user-avatar'})
 | {% endblock menu_avatar %}
 
 
