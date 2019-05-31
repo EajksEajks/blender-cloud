@@ -7,14 +7,13 @@
 		"url": "git://git.blender.org/blender-cloud.git"
 	},
 	"devDependencies": {
-		"gulp": "~3.9.1",
+		"gulp": "~4.0",
 		"gulp-autoprefixer": "~6.0.0",
 		"gulp-cached": "~1.1.1",
 		"gulp-chmod": "~2.0.0",
 		"gulp-concat": "~2.6.1",
 		"gulp-if": "^2.0.2",
 		"gulp-git": "~2.8.0",
-		"gulp-livereload": "~4.0.0",
 		"gulp-plumber": "~1.2.0",
 		"gulp-pug": "~4.0.1",
 		"gulp-rename": "~1.4.0",
@@ -29,11 +28,5 @@
 		"natives": "^1.1.6",
 		"popper.js": "^1.14.4",
 		"video.js": "^7.2.2"
-	},
-	"__COMMENTS__": [
-		"natives@1.1.6 for Gulp 3.x on Node 10.x: https://github.com/gulpjs/gulp/issues/2162#issuecomment-385197164"
-	],
-	"resolutions": {
-		"natives": "1.1.6"
 	}
 }
